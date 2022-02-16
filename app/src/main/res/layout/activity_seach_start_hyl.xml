@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.barter.hyl.app.view.SearchView
+        android:id="@+id/searchView"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp">
+
+    </com.barter.hyl.app.view.SearchView>
+
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#f8f8f8" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="搜索历史"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:layout_marginTop="27dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_marginTop="27dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_clear_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+
+        <com.barter.hyl.app.view.TagFlowLayout
+            android:id="@+id/fl_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            app:is_limit="true"
+            app:limit_line_count="2"
+            app:max_select="1">
+
+        </com.barter.hyl.app.view.TagFlowLayout>
+
+    <TextView
+        android:id="@+id/tv_arrow"
+        android:text="查看更多"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableRight="@mipmap/icon_arrow_down"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="产品推荐"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="27dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

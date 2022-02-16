@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.barter.hyl.app.view.EasySwipeMenuLayout
+        android:id="@+id/es_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentView="@+id/rl_left"
+        app:rightMenuView="@+id/ll_right">
+
+        <!--左边-->
+        <RelativeLayout
+            android:id="@+id/rl_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.barter.hyl.app.view.RoundImageView
+                android:id="@+id/iv_pic"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:layout_toRightOf="@+id/iv_pic"
+                android:id="@+id/tv_name"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/size_12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="鸡中翅"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
+
+            <TextView
+                android:layout_toRightOf="@+id/iv_pic"
+                android:id="@+id/tv_spec"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="鸡中翅"
+                android:textColor="#000000"
+                android:textSize="15dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_spec"
+                android:layout_below="@+id/tv_spec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/iv_pic"/>
+
+        </RelativeLayout>
+
+        <!--右边-->
+        <LinearLayout
+            android:id="@+id/ll_right"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/size_12dp"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="数量"
+                    android:textColor="#939393"
+                    android:textSize="12dp" />
+
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="单位"
+                    android:textColor="#939393"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="金额"
+                    android:textColor="#939393"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_num"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+            />
+
+        </LinearLayout>
+
+
+    </com.barter.hyl.app.view.EasySwipeMenuLayout>
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/common_title_hyl"/>
+
+    <TextView
+        android:text="营业执照"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:layout_marginLeft="@dimen/size_25dp"
+        android:layout_marginTop="@dimen/size_12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/iv_business"
+        android:layout_marginTop="@dimen/size_13dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="326dp"
+        android:layout_height="161dp" />
+
+    <TextView
+        android:text="食品经营许可证"
+        android:textSize="14sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:layout_marginLeft="@dimen/size_25dp"
+        android:layout_marginTop="@dimen/size_12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/iv_licensePic"
+        android:layout_marginTop="@dimen/size_13dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="326dp"
+        android:layout_height="161dp" />
+
+</LinearLayout>

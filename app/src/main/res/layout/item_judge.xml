@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_15dp"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:text="商品评价"
+        android:textColor="#333333"
+        android:textSize="@dimen/size_14dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:src="@mipmap/icon_baidu"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/size_15dp"
+            android:layout_width="@dimen/size_54dp"
+            android:layout_height="@dimen/size_54dp" />
+
+        <RelativeLayout
+            android:layout_toRightOf="@+id/iv_pic"
+            android:layout_marginLeft="@dimen/size_25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.barter.hyl.app.view.StarBarView
+                android:id="@+id/star_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_25dp"
+                android:layout_marginTop="@dimen/size_15dp"
+                app:space_width="10dp"
+                app:star_height="18dp"
+                app:star_hollow="@mipmap/ic_wu_star"
+                app:star_isIndicator="false"
+                app:star_max="5"
+                app:star_orientation="horizontal"
+                app:star_rating="5"
+                app:star_solid="@mipmap/ic_star"
+                app:star_width="18dp" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/star_bar"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:text="香肠"
+                android:layout_marginLeft="@dimen/size_25dp"
+                android:textColor="#ff000000"
+                android:textSize="@dimen/size_12dp" />
+
+            <TextView
+                android:id="@+id/tv_evaluate_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/size_15dp"
+                android:layout_marginRight="@dimen/size_15dp"
+                android:textColor="#999999"
+                android:text="满意"
+                android:textSize="@dimen/size_12dp" />
+
+            <View
+                android:id="@+id/v1"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:layout_width="match_parent"
+                android:background="#F2F3F6"
+                android:layout_height="@dimen/public_space_value_0.5"/>
+
+            <TextView
+                android:layout_below="@+id/v1"
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@null"
+                android:gravity="start"
+                android:paddingLeft="@dimen/size_15dp"
+                android:paddingTop="@dimen/size_10dp"
+                android:textColor="#ff000000"
+                android:textSize="12dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="@dimen/size_18dp"
+        android:layout_marginTop="5dp"
+        android:overScrollMode="never" />
+
+</LinearLayout>

@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:boy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:background="#FF2925"
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+                <RelativeLayout
+                    android:id="@+id/rl_address"
+                    android:layout_marginTop="@dimen/size_35dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/size_36dp">
+
+                    <ImageView
+                        android:id="@+id/iv_location"
+                        android:layout_marginLeft="15dp"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/icon_address2"
+                        android:layout_width="19dp"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_toRightOf="@+id/iv_location"
+                        android:id="@+id/tv_company"
+                        android:layout_marginLeft="@dimen/size_5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="杭州.余杭区"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
+
+                    <RelativeLayout
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/rl_message"
+                        android:layout_width="@dimen/size_60dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/homeMessage"
+                            android:layout_centerInParent="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic_mine_email"  />
+
+                        <TextView
+                            android:text="4"
+                            android:id="@+id/tv_num"
+                            android:layout_width="wrap_content"
+                            android:layout_marginLeft="-10dp"
+                            android:textColor="#FF0000"
+                            android:textSize="9dp"
+                            android:gravity="center"
+                            android:background="@drawable/bg_msg_count"
+                            android:layout_toRightOf="@+id/homeMessage"
+                            android:layout_height="wrap_content" />
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_below="@+id/rl_address"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_search"
+                    android:layout_marginRight="@dimen/size_12dp"
+                    android:layout_marginLeft="@dimen/size_12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_33dp"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/shape_goods_progress_fill"
+                    android:drawableLeft="@mipmap/ic_market_search"
+                    android:drawablePadding="@dimen/size_10dp"
+                    android:paddingLeft="12dp"
+                    android:text="@string/inputCommodityName"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/size_14dp" />
+
+            </RelativeLayout>
+
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/coordinator"
+                android:fitsSystemWindows="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.AppBarLayout
+                    android:id="@+id/app"
+                    android:fitsSystemWindows="false"
+                    boy:elevation="0dp"
+                    app:layout_behavior="com.yuruiyin.appbarlayoutbehavior.AppBarLayoutBehavior"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#f9f9f9">
+
+                    <RelativeLayout
+                        boy:layout_scrollFlags="scroll|exitUntilCollapsed"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:background="#FF2925"
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp">
+
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_marginTop="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <com.barter.hyl.app.banner.Banner
+                                    android:id="@+id/banner"
+                                    app:image_scale_type="fit_xy"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="142dp"
+                                    android:layout_marginLeft="@dimen/dp_10"
+                                    android:layout_marginRight="@dimen/dp_10"
+                                    />
+
+                                <RelativeLayout
+                                    android:visibility="gone"
+                                    android:background="@color/white"
+                                    android:gravity="center_vertical"
+                                    android:paddingLeft="@dimen/size_20dp"
+                                    android:paddingRight="@dimen/size_20dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/size_40dp">
+
+                                    <TextView
+                                        android:id="@+id/tv_notice_desc"
+                                        android:textColor="#FF0000"
+                                        android:text="系统维护停服升级公告"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+                                    <TextView
+                                        android:layout_alignParentRight="true"
+                                        android:textColor="#FF0000"
+                                        android:text="07.25"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content" />
+
+
+                                </RelativeLayout>
+
+                                <ViewFlipper
+                                    android:visibility="gone"
+                                    android:id="@+id/flipper"
+                                    android:background="#999999"
+                                    android:inAnimation="@anim/notice_in"
+                                    android:outAnimation="@anim/notice_out"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/size_30dp"
+                                    android:flipInterval="1500">
+
+                                    <LinearLayout
+                                        android:orientation="horizontal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:id="@+id/tv1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="0.01" />
+
+                                        <TextView
+                                            android:layout_marginLeft="@dimen/size_30dp"
+                                            android:id="@+id/tv2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="0.01" />
+                                    </LinearLayout>
+
+                                </ViewFlipper>
+
+                                <LinearLayout
+                                    android:id="@+id/ll_icon"
+                                    android:orientation="vertical"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:background="@drawable/shape_white1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rv_icon"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                    </android.support.v7.widget.RecyclerView>
+
+                                    <com.barter.hyl.app.view.HIndicators
+                                        android:id="@+id/indicator"
+                                        android:layout_marginBottom="@dimen/size_5dp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_width="@dimen/size_22dp"
+                                        android:layout_height="@dimen/size_3dp" />
+
+                                </LinearLayout>
+
+                                <!--秒杀-->
+                                <LinearLayout
+                                    android:id="@+id/ll_skill"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:orientation="horizontal"
+                                    android:background="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="135dp">
+
+                                    <LinearLayout
+                                        android:padding="@dimen/size_12dp"
+                                        android:layout_width="104dp"
+                                        android:orientation="vertical"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:text="限时秒杀"
+                                            android:id="@+id/tv_skill_title"
+                                            android:layout_gravity="center_horizontal"
+                                            android:textColor="#333333"
+                                            android:textSize="@dimen/size_16dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content" />
+
+                                        <TextView
+                                            android:id="@+id/tv_time_desc"
+                                            tools:text="距开始"
+                                            android:layout_marginTop="@dimen/size_17dp"
+                                            android:layout_gravity="center_horizontal"
+                                            android:textColor="#999999"
+                                            android:textSize="@dimen/size_12dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content" />
+
+                                        <com.barter.hyl.app.view.Snap
+                                            android:id="@+id/snap"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content">
+
+                                        </com.barter.hyl.app.view.Snap>
+
+                                    </LinearLayout>
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rv_skill"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                    </android.support.v7.widget.RecyclerView>
+                                </LinearLayout>
+
+                                <!--组合-->
+                                <LinearLayout
+                                    android:id="@+id/ll_team"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:orientation="horizontal"
+                                    android:background="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="135dp">
+
+                                    <LinearLayout
+                                        android:layout_width="104dp"
+                                        android:layout_height="match_parent">
+
+                                        <LinearLayout
+                                            android:padding="@dimen/size_12dp"
+                                            android:layout_width="104dp"
+                                            android:orientation="vertical"
+                                            android:layout_height="match_parent">
+
+                                            <TextView
+                                                android:text="组合"
+                                                android:id="@+id/tv_team"
+                                                android:layout_gravity="center_horizontal"
+                                                android:textColor="#333333"
+                                                android:textSize="@dimen/size_16dp"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content" />
+
+                                            <TextView
+                                                tools:text="距开始"
+                                                android:id="@+id/tv_team_small"
+                                                android:layout_marginTop="@dimen/size_5dp"
+                                                android:layout_gravity="center_horizontal"
+                                                android:textColor="#999999"
+                                                android:textSize="@dimen/size_12dp"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content" />
+
+                                            <ImageView
+                                                android:id="@+id/iv_team"
+                                                android:layout_marginTop="@dimen/size_5dp"
+                                                android:layout_gravity="center_horizontal"
+                                                android:textColor="#FF2925"
+                                                android:textSize="@dimen/size_16dp"
+                                                android:layout_width="@dimen/size_43dp"
+                                                android:layout_height="@dimen/size_43dp" />
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rv_team"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                    </android.support.v7.widget.RecyclerView>
+                                </LinearLayout>
+                                <!--满赠-->
+                                <LinearLayout
+                                    android:id="@+id/ll_full"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:orientation="horizontal"
+                                    android:background="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="135dp">
+
+                                    <LinearLayout
+                                        android:layout_width="104dp"
+                                        android:layout_height="match_parent">
+
+                                        <LinearLayout
+                                            android:padding="@dimen/size_12dp"
+                                            android:layout_width="104dp"
+                                            android:orientation="vertical"
+                                            android:layout_height="match_parent">
+
+                                            <TextView
+                                                android:text="满赠"
+                                                android:id="@+id/tv_full"
+                                                android:layout_gravity="center_horizontal"
+                                                android:textColor="#333333"
+                                                android:textSize="@dimen/size_16dp"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content" />
+
+                                            <TextView
+                                                tools:text="距开始"
+                                                android:id="@+id/tv_full_small"
+                                                android:layout_marginTop="@dimen/size_5dp"
+                                                android:layout_gravity="center_horizontal"
+                                                android:textColor="#999999"
+                                                android:textSize="@dimen/size_12dp"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content" />
+
+                                            <ImageView
+                                                android:id="@+id/iv_full"
+                                                android:layout_marginTop="@dimen/size_5dp"
+                                                android:layout_gravity="center_horizontal"
+                                                android:textColor="#FF2925"
+                                                android:textSize="@dimen/size_16dp"
+                                                android:layout_width="@dimen/size_43dp"
+                                                android:layout_height="@dimen/size_43dp" />
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rv_full"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                    </android.support.v7.widget.RecyclerView>
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                </android.support.design.widget.AppBarLayout>
+
+                <LinearLayout
+                    android:id="@+id/fl_container"
+                    android:orientation="vertical"
+                    boy:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    boy:layout_scrollFlags="scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.flyco.tablayout.SlidingTabLayout
+                        android:background="@color/white"
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        tl:tl_indicator_color="#FF680A"
+                        tl:tl_indicator_margin_bottom="10dp"
+                        tl:tl_indicator_width="18dp"
+                        tl:tl_textAllCaps="true"
+                        app:tl_tab_space_equal="true"
+                        tl:tl_textBold="BOTH"
+                        tl:tl_textSelectColor="#FF680A"
+                        tl:tl_textUnselectColor="#666666"
+                        tl:tl_textsize="@dimen/size_16dp" />
+
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </android.support.design.widget.CoordinatorLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:alpha="0"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+</FrameLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/search_rl_top"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorPrimaryDark">-->
+
+        <!--<RelativeLayout-->
+            <!--android:background="@color/red_ed2d32"-->
+            <!--android:id="@+id/search_layout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="44dp">-->
+
+
+        <!--</RelativeLayout>-->
+
+        <!--&lt;!&ndash;下方替换-->
+        <!--京东：    android:layout_alignParentLeft="true"-->
+        <!--安居客   android:layout_centerHorizontal="true"&ndash;&gt;-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/search_ll_search"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="35dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_marginTop="49dp"-->
+            <!--android:layout_marginRight="15dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:background="@drawable/shape_white1"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:visibility="visible">-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/search_tv_search"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:cursorVisible="false"-->
+                <!--android:gravity="center_vertical|center_horizontal"-->
+                <!--android:hint="这是搜索框"-->
+                <!--android:textSize="15dp" />-->
+        <!--</LinearLayout>-->
+    <!--</RelativeLayout>-->
+
+    <!--<com.barter.hyl.app.view.AnimationNestedScrollView-->
+        <!--android:id="@+id/search_sv_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/search_rl_top">-->
+
+        <!--<LinearLayout-->
+            <!--android:background="#333333"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:descendantFocusability="blocksDescendants"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1000dp" />-->
+
+        <!--</LinearLayout>-->
+    <!--</com.barter.hyl.app.view.AnimationNestedScrollView>-->
+<!--</RelativeLayout>-->
+
+
+
+

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">货易链</string>
+
+
+    <string name="textCoupons">优惠券</string>
+
+
+    <string name="textDetailed">我的账单</string>
+    <string name="noData">暂无数据</string>
+    <string name="allDetailed">全部明细</string>
+    <string name="textScreen">筛选</string>
+    <string name="commodityAmount">商品金额</string>
+    <string name="distributionFee">配送费</string>
+    <string name="vipSubtractionActivity">满减活动</string>
+    <string name="balance">余额</string>
+    <string name="input_commodity">请输入搜索的商品名</string>
+    <string name="inputPhone">请输入手机号</string>
+    <string name="inputPsd">请输入密码</string>
+    <string name="inputPhoneCode">请输入验证码</string>
+    <string name="registerRead">我已阅读并同意《货易链用户注册协议》</string>
+    <string name="inputPsdWord">请输入密码</string>
+    <string name="againInputPsd">请确认密码</string>
+    <string name="inputCode">请输入授权码</string>
+    <string name="inputCommodityName">请输入商品名称</string>
+    <string name="newOrderTime">下单时间</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <!--<item name="position" type="id">false</item>-->
+
+
+</resources>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/common_title_hyl"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_16dp"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:layout_marginRight="@dimen/size_16dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_25dp">
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawablePadding="@dimen/size_15dp"
+                android:hint="@string/inputPsdWord"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:textColor="#232131"
+                android:textColorHint="#cccccc"
+                android:textSize="@dimen/size_18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/et_password"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:background="#EFEFEF"
+                android:orientation="vertical" />
+
+            <ImageView
+                android:id="@+id/iv_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/size_5dp"
+                android:src="@mipmap/ic_login_hide" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_25dp">
+
+            <EditText
+                android:id="@+id/et_password_sure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+
+                android:drawablePadding="@dimen/size_15dp"
+                android:hint="@string/againInputPsd"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:textColor="#232131"
+                android:textColorHint="#cccccc"
+                android:textSize="@dimen/size_18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/et_password_sure"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:background="#EFEFEF"
+                android:orientation="vertical" />
+
+            <ImageView
+                android:id="@+id/iv_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/size_5dp"
+                android:src="@mipmap/ic_login_hide" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_25dp">
+
+            <EditText
+                android:id="@+id/et_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawablePadding="@dimen/size_15dp"
+                android:hint="请输入授权码"
+                android:maxLength="6"
+                android:textColor="#232131"
+                android:textColorHint="#cccccc"
+                android:textSize="@dimen/size_18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/et_author"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:background="#EFEFEF"
+                android:orientation="vertical" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_25dp">
+
+            <TextView
+                android:id="@+id/tv_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:drawablePadding="@dimen/size_15dp"
+                android:hint="公司名称"
+                android:inputType="number"
+                android:maxLength="16"
+                android:textColor="#232131"
+                android:textColorHint="#cccccc"
+                android:textSize="@dimen/size_18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_company"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:background="#EFEFEF"
+                android:orientation="vertical" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_choose"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_30dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_register"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/app_checkbox_style"
+                android:button="@null" />
+
+            <!--《翘歌用户注册协议》-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="我已阅读并同意"
+                android:textColor="#cccccc"
+                android:textSize="@dimen/size_11dp" />
+
+
+            <TextView
+                android:id="@+id/tv_secret"
+                android:text="《货易链隐私政策》"
+                android:textColor="#cccccc"
+                android:textSize="@dimen/size_11dp"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textColor="#cccccc"
+                android:textSize="@dimen/size_11dp"
+                android:text="与"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:id="@+id/tv_agreement"
+                android:textColor="#cccccc"
+                android:textSize="@dimen/size_11dp"
+                android:gravity="center_vertical"
+                android:text="《货易链用户协议》"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_below="@+id/ll"
+            android:background="@drawable/shape_cart_button"
+            android:id="@+id/tv_register"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_45dp"
+            android:layout_marginTop="@dimen/size_40dp"
+            android:text="注册"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
