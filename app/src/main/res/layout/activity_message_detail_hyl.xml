@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_hyl"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:background="#f9f9f9"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="12dp"
+                android:textColor="#232131"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="#A7A7A7"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="15dp"
+                android:textColor="#232131"
+                android:layout_marginRight="20dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

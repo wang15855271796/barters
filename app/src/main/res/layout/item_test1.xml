@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="@dimen/size_60dp"
+        android:layout_height="80dp"
+        android:background="#FF5534"
+        android:gravity="center"
+        android:tag="Bottom3"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="Delete Item?"
+            android:textColor="#fff"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="#f2f2f2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/public_space_value_80">
+
+        <TextView
+            android:text="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</com.daimajia.swipe.SwipeLayout>

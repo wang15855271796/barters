@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/rl_should_pay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_45dp"
+        >
+
+
+        <TextView
+            android:id="@+id/tv_return_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_15dp"
+            android:text="退货成功"
+            android:layout_centerVertical="true"
+            android:textColor="#333333"
+            android:textSize="@dimen/size_12dp" />
+
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_amount"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:drawablePadding="@dimen/dp_10"
+            tools:text="200"
+            android:drawableRight="@mipmap/rightarrow"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
+
+</LinearLayout>

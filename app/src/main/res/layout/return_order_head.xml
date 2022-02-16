@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/size_15dp"
+        android:background="@mipmap/ic_new_order_head_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_return_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size_15dp"
+            tools:text="成功"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_24dp" />
+
+
+        <TextView
+            android:id="@+id/tv_return_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            tools:text="请重新开始"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_12dp"
+           />
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_cancel_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:src="@mipmap/ic_cancel_return"
+         />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/ic_view_icon" />
+</LinearLayout>
