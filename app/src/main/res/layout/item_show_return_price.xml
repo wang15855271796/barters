@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_show_price"
+        android:textSize="@dimen/sp_14"
+        android:text="3/包"
+        android:textColor="#999999"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:textSize="@dimen/sp_14"
+        android:text="3/包"
+        android:textColor="#FF2925"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:background="@drawable/return_order_detail_bg"
+        android:id="@+id/tv_return"
+        android:textSize="@dimen/sp_14"
+        android:text="退"
+        android:layout_marginRight="@dimen/size_11dp"
+        android:gravity="center_horizontal"
+        android:textColor="#FF2925"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>

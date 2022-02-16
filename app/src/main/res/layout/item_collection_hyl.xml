@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_10"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_10"
+        android:id="@+id/ll_root"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="119dp"
+        android:orientation="horizontal"
+        >
+
+        <RelativeLayout
+            android:layout_gravity="center_vertical"
+            android:layout_width="145dp"
+            android:layout_height="145dp"
+            android:background="@color/white">
+
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/fl_container"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:id="@+id/cb_choose"
+                    android:layout_gravity="center"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/app_equipment_all_select"
+                    android:button="@null"
+                    android:clickable="false"
+                    android:enabled="false" />
+            </FrameLayout>
+
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_toRightOf="@+id/fl_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <com.barter.hyl.app.view.RoundImageView
+                    android:id="@+id/iv_pic"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/icon_baidu"
+                    android:layout_width="104dp"
+                    android:layout_height="104dp"
+                    android:scaleType="fitXY"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_sold"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/icon_saled"
+                    />
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/size_15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_19dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/size_15dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="逊谈起降价时逊谈起"
+                android:textColor="@color/app_black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_spec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10dp"
+                tools:text="规格"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textColor="@color/color_C1C1C1"
+                android:textSize="12dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="100"
+                        android:textColor="#FFFF2925"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp" />
+
+
+                    <ImageView
+                        android:src="@mipmap/icon_add"
+                        android:id="@+id/iv_add"
+                        android:layout_width="@dimen/size_30dp"
+                        android:layout_height="@dimen/size_30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:padding="3dp"
+                        android:textColor="@color/white"
+                        android:textSize="11dp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_show"
+        android:background="#14000000"
+        android:visibility="gone"
+        android:layout_marginRight="@dimen/size_8dp"
+        android:layout_marginLeft="@dimen/size_8dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+</LinearLayout>

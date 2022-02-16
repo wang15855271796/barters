@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/common_title_hyl"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="@dimen/size_12dp"
+        android:background="@mipmap/bg_jifen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="我的积分"
+            android:drawablePadding="@dimen/dp_10"
+            android:drawableLeft="@mipmap/icon_money"
+            android:textSize="@dimen/size_16dp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:layout_marginLeft="@dimen/size_25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="@dimen/size_28dp"
+            tools:text="1000"
+            android:id="@+id/tv_Jifen"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="@dimen/size_48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:text="积分兑换"
+        android:textSize="14sp"
+        android:layout_marginLeft="@dimen/size_12dp"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:textColor="#333333"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

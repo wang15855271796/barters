@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_title_hyl"/>
+
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progress_h5"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/progress_background"
+        android:backgroundTint="@color/progress_background"
+        android:max="100"
+        android:progressDrawable="@drawable/app_h5_progressbar" />
+
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.barter.hyl.app.MyWebView
+            android:id="@+id/frm_h5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.barter.hyl.app.MyWebView>
+
+    </FrameLayout>
+    <!--</android.support.v4.widget.NestedScrollView>-->
+</LinearLayout>
