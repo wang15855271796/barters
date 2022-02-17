@@ -16,7 +16,31 @@ public class AppInterfaceAddress {
     //http://192.168.101.41:8088/
 //    queryReturnProdIsContainFullGift
 
+    /**
+     * 提交申请
+     */
+    public static final String Submit_Apply = "common/applyHylAccount";
+    /**
+     * 企业选择-新
+     */
+    public static final String Company_Choose = "hyl/home/getUserAttachFranchise";
+    /**
+     * 获取公司简称
+     */
+    public static final String Company_Name = "auth/hyl/getHylShortName";
+    /**
+     * 添加企业-新接口
+     */
+    public static final String Add_Company = "hyl/home/bindUserToFranchise";
+    /**
+     * 申请试用-验证码校验
+     */
+    public static final String Check_Message = "common/hylGwCheckSmsCode";
 
+    /**
+     * 申请试用-发送短信
+     */
+    public static final String Send_Message = "common/hylGwSendMsg";
     /**
      * 注销
      */

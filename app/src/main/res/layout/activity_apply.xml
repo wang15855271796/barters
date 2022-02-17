@@ -101,7 +101,7 @@
                         android:layout_height="wrap_content"/>
 
                     <EditText
-                        android:id="@+id/et_password"
+                        android:id="@+id/et_company_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -148,13 +148,13 @@
                     <!--公司简称-->
 
                     <TextView
-                        android:text="地址"
+                        android:text="公司简称"
                         android:layout_marginTop="@dimen/size_22dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <EditText
-                        android:id="@+id/et_company_name"
+                        android:id="@+id/et_short_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -180,7 +180,7 @@
                         android:layout_height="wrap_content"/>
 
                     <EditText
-                        android:id="@+id/et_contact"
+                        android:id="@+id/et_contact_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
@@ -260,9 +260,137 @@
 注意：手持个人证件照片，自行进行拍照。需保证所持证件和人脸清晰、完整、无遮挡。"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="1.营业执照"
+                        android:textColor="#606060"
+                        android:textSize="@dimen/sp_12"
+                        android:layout_marginTop="@dimen/size_28dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="请输入营业执照号"
+                        android:textColor="#909AAB"
+                        android:layout_marginTop="5dp"
+                        android:textSize="@dimen/sp_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:background="#E8EEF8"
+                        android:layout_marginTop="@dimen/size_5dp"
+                        android:layout_height="@dimen/public_space_value_0.5"/>
+
+                    <ImageView
+                        android:id="@+id/iv_business"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:src="@mipmap/icon_update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="2、食品经营许可证"
+                        android:textColor="#606060"
+                        android:textSize="@dimen/sp_12"
+                        android:layout_marginTop="@dimen/size_20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <ImageView
+                        android:id="@+id/iv_allow"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:src="@mipmap/icon_update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="3、法人身份证"
+                        android:textColor="#606060"
+                        android:textSize="@dimen/sp_12"
+                        android:layout_marginTop="@dimen/size_20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:layout_marginTop="@dimen/size_5dp"
+                        android:id="@+id/et_user_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawablePadding="@dimen/size_15dp"
+                        android:singleLine="true"
+                        android:hint="请输入身份证号"
+                        android:textColor="#232131"
+                        android:textColorHint="#cccccc" />
+
+                    <TextView
+                        android:text="4、身份证人像面"
+                        android:textColor="#606060"
+                        android:textSize="@dimen/sp_12"
+                        android:layout_marginTop="@dimen/size_20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <ImageView
+                        android:id="@+id/iv_card1"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:src="@mipmap/icon_update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="5、身份证国徽面"
+                        android:textColor="#606060"
+                        android:textSize="@dimen/sp_12"
+                        android:layout_marginTop="@dimen/size_20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                    <ImageView
+                        android:id="@+id/iv_card2"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:src="@mipmap/icon_update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/size_20dp"
+                        android:text="6、手持个人证件照"
+                        android:textColor="#606060"
+                        android:textSize="@dimen/sp_12" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_card3"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:src="@mipmap/icon_update"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_submit"
+                        android:text="提交"
+                        android:background="@drawable/shape_red_orders"
+                        android:layout_width="201dp"
+                        android:gravity="center"
+                        android:textColor="#ffffff"
+                        android:layout_marginBottom="@dimen/size_42dp"
+                        android:layout_marginTop="@dimen/size_60dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_height="@dimen/size_42dp"/>
                 </LinearLayout>
 
+
+
             </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

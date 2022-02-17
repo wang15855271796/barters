@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#F6F6F6"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/common_title_hyl"/>
+
+    <LinearLayout
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="请输入授权码"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et_sms"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:background="@drawable/shape_grey4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_46dp"/>
+
+
+        <TextView
+            android:text="公司名称"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et_company"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:background="@drawable/shape_grey4"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/size_20dp"
+            android:layout_height="@dimen/size_46dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_sure"
+        android:text="确定"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/size_42dp"
+        android:layout_marginRight="@dimen/size_37dp"
+        android:layout_marginLeft="@dimen/size_37dp"
+        android:background="@drawable/shape_red_orders"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_46dp"/>
+
+</LinearLayout>

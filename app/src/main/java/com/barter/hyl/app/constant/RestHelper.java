@@ -117,6 +117,7 @@ public class RestHelper {
                                 +UserInfoHelper.getAreaName(context)
                                 +UserInfoHelper.getStreet(context)
                         )
+                        .addQueryParameter(AppConstant.CompanyId, UserInfoHelper.getCompanyId(context))
                         .build();
                 Request commonRequest = originalRequest.newBuilder().url(commonUrl).build();
                 Log.d("----->", commonRequest + AppConstant.TOKEN);

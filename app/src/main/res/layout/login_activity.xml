@@ -168,7 +168,19 @@
                         android:textSize="@dimen/size_14dp" />
                 </RelativeLayout>
 
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_apply"
+                android:text="我是商家，申请试用"
+                android:textColor="#FF5C00"
+                android:layout_marginTop="115dp"
+                android:drawablePadding="@dimen/size_5dp"
+                android:drawableLeft="@mipmap/ico_apply"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

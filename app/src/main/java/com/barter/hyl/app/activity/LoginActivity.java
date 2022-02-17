@@ -2,9 +2,14 @@ package com.barter.hyl.app.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -66,6 +71,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     TextView tv_agreement;
     @BindView(R.id.tv_secret)
     TextView tv_secret;
+    @BindView(R.id.tv_apply)
+    TextView tv_apply;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -83,6 +90,24 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             et_account.setText(userPhone);
         }
         iv_back.setVisibility(View.GONE);
+
+        SpannableString smp = new SpannableString(tv_secret.getText().toString());
+        smp.setSpan(new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setColor(Color.parseColor("#3483FF"));       //设置文件颜色
+                   //设置下划线
+                ds.setUnderlineText(false);
+            }
+
+            @Override
+            public void onClick(View widget) {
+            }
+        }, 0, tv_secret.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        tv_secret.setText(smp);
+
         getPolicy();
     }
 
@@ -96,6 +121,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         cb_check.setOnClickListener(this);
         tv_agreement.setOnClickListener(this);
         tv_secret.setOnClickListener(this);
+        tv_apply.setOnClickListener(this);
     }
 
     String etAccount;
@@ -104,6 +130,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_apply:
+                Intent intent = new Intent(mContext,ApplyTryActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.tv_secret:
                 startActivity(HylCommonH5Activity.getIntent(mContext, HylCommonH5Activity.class, privacy));
                 break;

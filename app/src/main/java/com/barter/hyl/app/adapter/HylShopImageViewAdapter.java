@@ -13,7 +13,7 @@ import com.barter.hyl.app.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.luck.picture.lib.tools.DebugUtil;
+//import com.luck.picture.lib.tools.DebugUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +128,7 @@ public class HylShopImageViewAdapter extends RecyclerView.Adapter<HylShopImageVi
                         list.remove(index);
                         notifyItemRemoved(index);
                         notifyItemRangeChanged(index, list.size());
-                        DebugUtil.i("delete position:", index + "--->remove after:" + list.size());
+//                        DebugUtil.i("delete position:", index + "--->remove after:" + list.size());
                     }
                 }
             });

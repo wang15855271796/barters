@@ -33,7 +33,7 @@ public class UserInfoHelper {
     private static final String AreaName = "areaName";
     private static final String Street = "street";
     private static final String USERMINUTE = "user_minute";//记录弹窗
-
+    private static final String CompanyId = "companyId";
     private static final String FORGETPASSWORD = "forget_password";//退货规格
 
     private static final String ORDERAMOUNT = "order_amount";//订单金额
@@ -448,6 +448,28 @@ private static final String ISREGISTER ="is_register";
         }
     }
 
+    //设置companyId
+    public static void saveCompanyId(Context context, String areaName) {
+        try {
+            PreferenceHelper.saveData(context, USER_INFO, CompanyId, EncryptHelper.encrypt(AppConstant.APP_SHA_256, areaName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static String getCompanyId(Context context) {
+        if ((StringUtil.isBlank(PreferenceHelper.getData(context, USER_INFO, CompanyId)))) {
+            return "";
+        } else {
+            try {
+                return EncryptHelper.decrypt(AppConstant.APP_SHA_256, PreferenceHelper.getData(context, USER_INFO, CompanyId));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
+    }
 
     public static void saveChangeFlag(Context context, String changeFlag) {
         try {

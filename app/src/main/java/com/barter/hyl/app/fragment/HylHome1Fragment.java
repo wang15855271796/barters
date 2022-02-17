@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.ChooseCompanyActivity;
 import com.barter.hyl.app.activity.HylActiveDetailActivity;
 import com.barter.hyl.app.activity.HylActiveListActivity;
 import com.barter.hyl.app.activity.HylCommonGoodsActivity;
@@ -185,7 +186,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 getBaseData();
-                getMessageNum();
+//                getMessageNum();
                 smart.finishRefresh();
             }
         });
@@ -576,6 +577,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
         tv_notice_desc.setOnClickListener(this);
         tv_search.setOnClickListener(this);
         rl_message.setOnClickListener(this);
+        tv_company.setOnClickListener(this);
     }
 
     /**
@@ -620,6 +622,11 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tv_company:
+                Intent intent = new Intent(mActivity, ChooseCompanyActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.rl_message:
                 Intent messageIntent = new Intent(mActivity,HylMessageCenterActivity.class);
 //                messageIntent.putExtra("test1",1);
@@ -637,17 +644,10 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                 break;
 
             case R.id.tv_search:
-                Intent intent = new Intent(mActivity,HylSearchStartActivity.class);
-                intent.putExtra("test1",2);
-                startActivity(intent);
+                Intent intents = new Intent(mActivity,HylSearchStartActivity.class);
+                intents.putExtra("test1",2);
+                startActivity(intents);
                 break;
-        }
-    }
-
-    protected void setStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getActivity().getWindow().setStatusBarColor(Color.parseColor("#FF2925"));//设置状态栏颜色
-//            getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//实现状态栏图标和文字颜色为暗色
         }
     }
 
@@ -655,7 +655,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     public void onResume() {
         super.onResume();
         banner.start();
-//        setStatusBar();
         getMessageNum();
         marqueeView.startScroll();
     }
@@ -668,7 +667,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     }
 
     /**
-     * 账号切换时信息更新
+     * 账号切换时信息更新/切换公司信息时更新
      * @param changeAccountHylEvent
      */
     @Subscribe(threadMode = ThreadMode.MAIN)

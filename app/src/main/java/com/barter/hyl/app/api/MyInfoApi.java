@@ -2,11 +2,13 @@ package com.barter.hyl.app.api;
 
 import android.content.Context;
 
+import com.barter.app.model.CompanyListModel;
 import com.barter.hyl.app.constant.AppInterfaceAddress;
 import com.barter.hyl.app.constant.RestHelper;
 import com.barter.hyl.app.model.BaseModel;
 import com.barter.hyl.app.model.HylMyCollectionModel;
 import com.barter.hyl.app.model.HylMyCouponModel;
+import com.barter.hyl.app.model.HylOneRegisterModel;
 import com.barter.hyl.app.model.MyJifenModel;
 import com.barter.hyl.app.model.HylMyModel;
 
@@ -75,6 +77,64 @@ public class MyInfoApi {
 
     public static Observable<HylMyCouponModel> getMyCouponList(Context context, int pageNum, int pageSize, String state) {
         Observable<HylMyCouponModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(MyCouponService.class).setParams(pageNum,pageSize,state);
+        return myModelObservable;
+    }
+
+    //添加企业-新接口
+    public interface AddCompanyService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Add_Company)
+        Observable<BaseModel> setParams(@Field("authCode") String authCode);
+    }
+
+    public static Observable<BaseModel>addCompany(Context context,String authCode) {
+        Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(AddCompanyService.class).setParams(authCode);
+        return myModelObservable;
+    }
+
+    //获取公司简称
+    public interface CompanyNameService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Company_Name)
+        Observable<HylOneRegisterModel> setParams(@Field("authCode") String authCode);
+    }
+
+    public static Observable<HylOneRegisterModel>getCompanyName(Context context, String authCode) {
+        Observable<HylOneRegisterModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(CompanyNameService.class).setParams(authCode);
+        return myModelObservable;
+    }
+
+    //企业选择-新
+    public interface CompanyChooseService {
+        @POST(AppInterfaceAddress.Company_Choose)
+        Observable<CompanyListModel> setParams();
+    }
+
+    public static Observable<CompanyListModel>companyChoose(Context context) {
+        Observable<CompanyListModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(CompanyChooseService.class).setParams();
+        return myModelObservable;
+    }
+
+    //提交申请
+    public interface SubmitApplyService {
+        @POST(AppInterfaceAddress.Submit_Apply)
+        Observable<BaseModel> setParams(@Field("companyName") String companyName,
+                                        @Field("shortName") String shortName,
+                                        @Field("contactName") String contactName,
+                                        @Field("contactPhone") String contactPhone,
+                                        @Field("licenseNoPic") String licenseNoPic,
+                                        @Field("qualification") String qualification,
+                                        @Field("legalIdCard") String legalIdCard,
+                                        @Field("idCardFrontPic") String idCardFrontPic,
+                                        @Field("idCardBackPic") String idCardBackPic,
+                                        @Field("idCardPic") String idCardPic,
+                                        @Field("businessLicense") String businessLicense
+                                        );
+    }
+    public static Observable<BaseModel>submitApply(Context context,String companyName,String shortName,String contactName,String contactPhone,String licenseNoPic,
+                                                   String qualification,String legalIdCard,String idCardFrontPic,String idCardBackPic,String idCardPic,String businessLicense) {
+        Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(SubmitApplyService.class).setParams(companyName,shortName,contactName,contactPhone,
+                licenseNoPic,qualification,legalIdCard,idCardFrontPic,idCardBackPic,idCardPic,businessLicense);
         return myModelObservable;
     }
 

@@ -87,6 +87,7 @@ public class AppConstant {
 
     public static final String PHONEMODEL="phoneModel";
     public static final String SYSETEMMODEL="systemModel";
+    public static final String CompanyId="companyId";
     public static final String ANDROIDMODEL="androidModel";
 
 

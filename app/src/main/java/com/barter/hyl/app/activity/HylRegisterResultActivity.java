@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
@@ -70,7 +73,6 @@ public class HylRegisterResultActivity extends BaseActivity implements View.OnCl
     ImageView iv_two;
     String phone;
     String et_yzm;
-    String token;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         if(getIntent().getStringExtra("phone")!=null) {
@@ -91,6 +93,19 @@ public class HylRegisterResultActivity extends BaseActivity implements View.OnCl
     @Override
     public void setViewData() {
         tv_title.setText("注册");
+        SpannableString smp = new SpannableString(tv_secret.getText().toString());
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setUnderlineText(true);
+            }
+        };
+        tv_secret.setText(smp);
         getPolicy();
     }
 

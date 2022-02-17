@@ -65,4 +65,29 @@ public class SettingApi {
         Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(CancelService.class).setParams(phone,verifyCode,pwd,cancelReason);
         return myModelObservable;
     }
+
+    //申请试用-发送短信
+    public interface SendMessageService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Send_Message)
+        Observable<BaseModel> setParams(@Field("phone") String phone);
+    }
+
+    public static Observable<BaseModel> sendMessage(Context context,String phone) {
+        Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(SendMessageService.class).setParams(phone);
+        return myModelObservable;
+    }
+
+    //申请试用-验证码校验
+    public interface CheckMessageService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Check_Message)
+        Observable<BaseModel> setParams(@Field("phone") String phone,@Field("smsCode") String smsCode);
+    }
+
+    public static Observable<BaseModel> checkMessage(Context context,String phone,String smsCode) {
+        Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(CheckMessageService.class).setParams(phone,smsCode);
+        return myModelObservable;
+    }
+
 }
