@@ -5,7 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -64,7 +64,7 @@ public class Privacy2Dialog extends Dialog {
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setColor(Color.parseColor("#3483FF"));       //设置文件颜色
-                ds.setUnderlineText(false);      //设置下划线
+                ds.setUnderlineText(true);      //设置下划线
             }
 
             @Override
@@ -78,7 +78,7 @@ public class Privacy2Dialog extends Dialog {
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setColor(Color.parseColor("#3483FF"));       //设置文件颜色
-                ds.setUnderlineText(false);      //设置下划线
+                ds.setUnderlineText(true);      //设置下划线
             }
 
             @Override

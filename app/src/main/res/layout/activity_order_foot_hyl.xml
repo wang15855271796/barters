@@ -257,6 +257,66 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/rl_payed"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_45dp"
+                    >
+
+                    <TextView
+                        android:drawablePadding="@dimen/size_3dp"
+                        android:drawableLeft="@mipmap/icon_moneys"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_23dp"
+                        android:text="线下已支付金额"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/app_black"
+                        android:textSize="@dimen/size_12dp" />
+
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tv_payed"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#F6561A"
+                        tools:text="ssassssss"
+                        android:textSize="@dimen/sp_12" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_remain_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_45dp"
+                    >
+
+                    <TextView
+                        android:drawablePadding="@dimen/size_3dp"
+                        android:drawableLeft="@mipmap/icon_moneys"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/size_23dp"
+                        android:text="剩余应付金额"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/app_black"
+                        android:textSize="@dimen/size_12dp" />
+
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tv_remain_pay"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#F6561A"
+                        tools:text="ssassssss"
+                        android:textSize="@dimen/sp_12" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/ll_check_time"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_45dp"
@@ -545,13 +605,13 @@
                         android:textColor="@color/app_black"
                         android:textSize="@dimen/size_12dp" />
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_return"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
 
-                    </android.support.v7.widget.RecyclerView>
+                    </androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
 
             </LinearLayout>

@@ -40,7 +40,7 @@
                     android:textSize="@dimen/size_14dp" />
             </RelativeLayout>
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:scrollbars="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -50,12 +50,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_cate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                    </android.support.v7.widget.RecyclerView>
+                    </androidx.recyclerview.widget.RecyclerView>
 
                     <LinearLayout
                         android:id="@+id/ll_all"
@@ -83,7 +83,7 @@
                 </RelativeLayout>
 
 
-            </android.support.v4.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -110,18 +110,18 @@
                                 android:layout_marginTop="1dp"
                                 android:orientation="horizontal">
 
-                                <android.support.v4.widget.NestedScrollView
+                                <androidx.core.widget.NestedScrollView
                                     android:layout_width="wrap_content"
                                     android:background="#f3f3f3"
                                     android:layout_height="match_parent">
 
-                                    <android.support.v7.widget.RecyclerView
+                                    <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_second"
                                         android:layout_width="100dp"
                                         android:background="#f3f3f3"
                                         android:layout_height="match_parent"
                                         />
-                                </android.support.v4.widget.NestedScrollView>
+                                </androidx.core.widget.NestedScrollView>
 
                                 <!--筛选布局-->
                                 <LinearLayout

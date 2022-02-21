@@ -1,30 +1,20 @@
 package com.barter.hyl.app.adapter;
 
 import android.app.Activity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
-import com.barter.hyl.app.fragment.HylHome1Fragment;
 import com.barter.hyl.app.model.HylMyBillModel;
-import com.barter.hyl.app.utils.DateUtils;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
-import com.example.xrecyclerview.XRecyclerView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.text.ParseException;
 import java.util.List;
 
 

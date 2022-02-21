@@ -16,7 +16,7 @@
 
         <include layout="@layout/common_title_hyl"/>
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FBFBFB">
@@ -102,7 +102,7 @@
                             android:textSize="14dp" />
                     </LinearLayout>
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_marginTop="@dimen/size_13dp"
                         android:id="@+id/rv_goods"
                         android:layout_width="match_parent"
@@ -308,7 +308,7 @@
                                      android:layout_height="110dp"
                                      android:scaleType="fitXY" />
                              </FrameLayout>-->
-                            <android.support.v7.widget.RecyclerView
+                            <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -364,7 +364,7 @@
                     android:textColor="@color/white"
                     android:textSize="18dp" />
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
 

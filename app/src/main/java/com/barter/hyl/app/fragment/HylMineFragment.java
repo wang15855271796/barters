@@ -1,12 +1,9 @@
 package com.barter.hyl.app.fragment;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -25,13 +22,11 @@ import com.barter.hyl.app.activity.HylSettingActivity;
 import com.barter.hyl.app.api.HomeApi;
 import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.base.BaseFragment;
-import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.MessageNumHylEvent;
 import com.barter.hyl.app.model.HylMessageNumModel;
 import com.barter.hyl.app.model.HylMyModel;
 import com.barter.hyl.app.utils.APKVersionCodeUtils;
-import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.view.CustomDialog;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.bumptech.glide.Glide;

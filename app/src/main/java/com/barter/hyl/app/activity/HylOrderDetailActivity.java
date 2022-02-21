@@ -7,8 +7,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -229,6 +229,14 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
     LinearLayout ll_pay_time;
     @BindView(R.id.tv_pay_time)
     TextView tv_pay_time;
+    @BindView(R.id.tv_payed)
+    TextView tv_payed;
+    @BindView(R.id.tv_remain_pay)
+    TextView tv_remain_pay;
+    @BindView(R.id.rl_remain_pay)
+    RelativeLayout rl_remain_pay;
+    @BindView(R.id.rl_payed)
+    RelativeLayout rl_payed;
     String returnMainId = "";
     int status = 0;
     HylReturnAdapter hylReturnAdapter;
@@ -477,12 +485,15 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
             ll_payWay.setVisibility(View.VISIBLE);
         }
 
-//        //倒计时设置
-//        orderTimerView.SnapType(mContext, 1);
-//        orderTimerView.setBackTheme(true);
-//        orderTimerView.setTime(false, false,data.getNowTime(), data.getEndTime(), 0);
-//        orderTimerView.changeTypeColor(Color.WHITE);
-//        orderTimerView.start();
+        if(data.getOfflinePay()) {
+            tv_payed.setText(data.getOfflinePayAmt());
+            tv_remain_pay.setText(data.getOfflineRemainAmt());
+            rl_payed.setVisibility(View.VISIBLE);
+            rl_remain_pay.setVisibility(View.VISIBLE);
+        }else {
+            rl_payed.setVisibility(View.GONE);
+            rl_remain_pay.setVisibility(View.GONE);
+        }
 
         tv_pay.setOnClickListener(new View.OnClickListener() {
             @Override

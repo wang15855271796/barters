@@ -72,6 +72,24 @@ public class HylPayListModel {
         private String payChannelName;
         private int payChannel;
         private String desc;
+        private int limitType;
+        private AmtVoBean amtVo;
+
+        public AmtVoBean getAmtVo() {
+            return amtVo;
+        }
+
+        public void setAmtVo(AmtVoBean amtVo) {
+            this.amtVo = amtVo;
+        }
+
+        public int getLimitType() {
+            return limitType;
+        }
+
+        public void setLimitType(int limitType) {
+            this.limitType = limitType;
+        }
 
         public String getPayChannelName() {
             return payChannelName;
@@ -95,6 +113,36 @@ public class HylPayListModel {
 
         public void setDesc(String desc) {
             this.desc = desc;
+        }
+
+        public static class AmtVoBean {
+            private String totalAmt;
+            private String useAmt;
+            private String remainAmt;
+
+            public String getTotalAmt() {
+                return totalAmt;
+            }
+
+            public void setTotalAmt(String totalAmt) {
+                this.totalAmt = totalAmt;
+            }
+
+            public String getUseAmt() {
+                return useAmt;
+            }
+
+            public void setUseAmt(String useAmt) {
+                this.useAmt = useAmt;
+            }
+
+            public String getRemainAmt() {
+                return remainAmt;
+            }
+
+            public void setRemainAmt(String remainAmt) {
+                this.remainAmt = remainAmt;
+            }
         }
     }
 }

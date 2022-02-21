@@ -13,6 +13,7 @@
         android:layout_height="0dp">
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rl_keep_order"
             android:background="#FFF3C1"
             android:layout_width="match_parent"
@@ -89,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:background="#F4F4F4">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

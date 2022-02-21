@@ -1,9 +1,9 @@
 package com.barter.hyl.app.fragment;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 
 import com.barter.hyl.app.R;
@@ -96,6 +96,7 @@ public class HylHotFragment extends BaseFragment {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 pageNum = 1;
                 list.clear();
+                hylHotAdapter.notifyDataSetChanged();
                 getHot();
                 smart.finishRefresh();
             }

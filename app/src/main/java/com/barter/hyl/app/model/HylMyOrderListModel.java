@@ -171,6 +171,15 @@ public class HylMyOrderListModel {
             boolean selected;
             private String id;
             private boolean payFlag;
+            private boolean offlinePay;
+
+            public boolean isOfflinePay() {
+                return offlinePay;
+            }
+
+            public void setOfflinePay(boolean offlinePay) {
+                this.offlinePay = offlinePay;
+            }
 
             public boolean isPayFlag() {
                 return payFlag;

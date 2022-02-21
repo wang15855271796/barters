@@ -13,16 +13,32 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.barter.app.model.SendImageModel;
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.api.MyInfoApi;
+import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.model.BaseModel;
+import com.barter.hyl.app.model.HylSendImageModel;
+import com.barter.hyl.app.utils.ToastUtil;
+import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class ApplyActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tv_title)
@@ -53,6 +69,8 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
     EditText et_contact_user;
     @BindView(R.id.et_user_card)
     EditText et_user_card;
+    @BindView(R.id.et_business_num)
+    EditText et_business_num;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -79,6 +97,13 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
         tv_submit.setOnClickListener(this);
     }
 
+    String companyName;
+    String address;
+    String contactPhone;
+    String contactUser;
+    String shortName;
+    String userCard;
+    String businessNum;
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -112,13 +137,14 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
                 break;
 
             case R.id.tv_submit:
-                String companyName = et_company_name.getText().toString();
-                String address = et_address.getText().toString();
-                String contactPhone = et_contact_phone.getText().toString();
-                String contactUser = et_contact_user.getText().toString();
-                String shortName = et_short_name.getText().toString();
-                String userCard = et_user_card.getText().toString();
-//                submitApply(companyName,address,contactPhone,contactUser,shortName,userCard,);
+                companyName = et_company_name.getText().toString();
+                address = et_address.getText().toString();
+                contactPhone = et_contact_phone.getText().toString();
+                contactUser = et_contact_user.getText().toString();
+                shortName = et_short_name.getText().toString();
+                userCard = et_user_card.getText().toString();
+                businessNum = et_business_num.getText().toString();
+                submitApply();
                 break;
         }
     }
@@ -197,51 +223,157 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    List<String> picList = new ArrayList<>();
+    List<LocalMedia> images = new ArrayList<>();
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("sfwef.......",requestCode+"a");
-        List<LocalMedia> images;
-        if(requestCode==0) {
-            images = PictureSelector.obtainMultipleResult(data);
-            String compressPath = images.get(0).getCompressPath();
-            Log.d("sfwef.......",compressPath+"aaa");
+        picList.clear();
+        images.clear();
+
+        switch (requestCode) {
+            case 0:
+                images = PictureSelector.obtainMultipleResult(data);
+                String compressPath = images.get(0).getCompressPath();
+                picList.add(compressPath);
+                Glide.with(mActivity).load(compressPath).into(iv_business);
+                List<MultipartBody.Part> parts = filesToMultipartBodyParts(picList);
+                upImage(parts,requestCode);
+                break;
+
+            case 1:
+                images = PictureSelector.obtainMultipleResult(data);
+                String compressPath1 = images.get(0).getCompressPath();
+                picList.add(compressPath1);
+                Glide.with(mActivity).load(compressPath1).into(iv_allow);
+                List<MultipartBody.Part> parts1 = filesToMultipartBodyParts(picList);
+                upImage(parts1,requestCode);
+                break;
+
+
+            case 2:
+                images = PictureSelector.obtainMultipleResult(data);
+                String compressPath2 = images.get(0).getCompressPath();
+                picList.add(compressPath2);
+                Glide.with(mActivity).load(compressPath2).into(iv_card1);
+                List<MultipartBody.Part> parts2 = filesToMultipartBodyParts(picList);
+                upImage(parts2,requestCode);
+                break;
+
+            case 3:
+                images = PictureSelector.obtainMultipleResult(data);
+                String compressPath3 = images.get(0).getCompressPath();
+                picList.add(compressPath3);
+                Glide.with(mActivity).load(compressPath3).into(iv_card2);
+                List<MultipartBody.Part> parts3 = filesToMultipartBodyParts(picList);
+                upImage(parts3,requestCode);
+                break;
+
+            case 4:
+                images = PictureSelector.obtainMultipleResult(data);
+                String compressPath4 = images.get(0).getCompressPath();
+                picList.add(compressPath4);
+                Glide.with(mActivity).load(compressPath4).into(iv_card3);
+                List<MultipartBody.Part> parts4 = filesToMultipartBodyParts(picList);
+                upImage(parts4,requestCode);
+                break;
+
+
         }
-//        if (resultCode == RESULT_OK) {
-//            switch (requestCode) {
-//                case PictureConfig.CHOOSE_REQUEST:
-//
-//                    break;
-//            }
-//        }
     }
 
-//    private void submitApply() {
-//        MyInfoApi.submitApply(mActivity)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<BaseModel>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(BaseModel baseModel) {
-//                        if(baseModel.code==1) {
-//
-//
-//                        }else {
-//                            ToastUtil.showSuccessMsg(mContext,baseModel.message);
-//                        }
-//                    }
-//                });
-//    }
+    public List<MultipartBody.Part> filesToMultipartBodyParts(List<String> localUrls) {
+        List<MultipartBody.Part> parts = new ArrayList<>(localUrls.size());
+        for (String url : localUrls) {
+            File file = new File(url);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("detailFiles", file.getName(), requestBody);
+            parts.add(part);
+        }
+        return parts;
+    }
+
+    String businessPath;
+    String allowPath;
+    String card1Path;
+    String card2Path;
+    String card3Path;
+    public void upImage(List<MultipartBody.Part> parts,int requestCode) {
+        OrderApi.updateImage(mContext, parts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<SendImageModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(SendImageModel sendImageModel) {
+                        if (sendImageModel.code==1) {
+                            if(sendImageModel.data!=null) {
+                                switch (requestCode) {
+                                    case 0:
+                                        businessPath = sendImageModel.data;
+                                        break;
+
+                                    case 1:
+                                        allowPath = sendImageModel.data;
+                                        break;
+
+                                    case 2:
+                                        card1Path = sendImageModel.data;
+                                        break;
+
+                                    case 3:
+                                        card2Path = sendImageModel.data;
+                                        break;
+
+                                    case 4:
+                                        card3Path = sendImageModel.data;
+                                        break;
+                                }
+                            }
+
+                        } else {
+                            AppHelper.showMsg(mContext, sendImageModel.message);
+                        }
+                    }
+                });
+    }
+
+
+    private void submitApply() {
+        MyInfoApi.submitApply(mActivity,companyName,shortName,address,contactUser,contactPhone,businessPath,allowPath,
+                userCard,card1Path,card2Path,card3Path,businessNum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if(baseModel.code==1) {
+                            Intent intent = new Intent(mActivity,ApplyResultActivity.class);
+                            startActivity(intent);
+                        }else {
+                            ToastUtil.showSuccessMsg(mContext,baseModel.message);
+                        }
+                    }
+                });
+    }
 
 
 }

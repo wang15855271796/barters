@@ -5,14 +5,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,14 +24,7 @@ import com.barter.hyl.app.activity.MainActivity;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.utils.SharedPreferencesUtil;
-import com.barter.hyl.app.view.StringSpecialHelper;
-import com.chuanglan.shanyan_sdk.OneKeyLoginManager;
-import com.chuanglan.shanyan_sdk.listener.GetPhoneInfoListener;
-import com.chuanglan.shanyan_sdk.listener.InitListener;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by ${王涛} on 2021/9/14
@@ -100,7 +91,7 @@ public class PrivacysDialog extends Dialog {
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setColor(Color.parseColor("#3483FF"));       //设置文件颜色
-                ds.setUnderlineText(false);      //设置下划线
+                ds.setUnderlineText(true);      //设置下划线
             }
 
             @Override
@@ -114,7 +105,7 @@ public class PrivacysDialog extends Dialog {
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setColor(Color.parseColor("#3483FF"));       //设置文件颜色
-                ds.setUnderlineText(false);      //设置下划线
+                ds.setUnderlineText(true);      //设置下划线
             }
 
             @Override
@@ -130,7 +121,7 @@ public class PrivacysDialog extends Dialog {
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setColor(Color.parseColor("#3483FF"));       //设置文件颜色
-                ds.setUnderlineText(false);      //设置下划线
+                ds.setUnderlineText(true);      //设置下划线
             }
 
             @Override
@@ -144,7 +135,7 @@ public class PrivacysDialog extends Dialog {
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
                 ds.setColor(Color.parseColor("#3483FF"));       //设置文件颜色
-                ds.setUnderlineText(false);      //设置下划线
+                ds.setUnderlineText(true);      //设置下划线
             }
 
             @Override

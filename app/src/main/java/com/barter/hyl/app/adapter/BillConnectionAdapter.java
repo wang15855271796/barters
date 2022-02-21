@@ -1,10 +1,9 @@
 package com.barter.hyl.app.adapter;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.HylOrderDetailActivity;
@@ -13,8 +12,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Created by ${王涛} on 2021/10/25

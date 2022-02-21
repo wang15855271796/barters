@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -81,11 +81,12 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
     String id;
     LinearLayout ll_special_desc;
     List<String> ids = new ArrayList<>();
+    String total;
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        String total = bundle.getString("total");
+        total = bundle.getString("total");
         memo = bundle.getString("memo");
         id = bundle.getString("id");
         giftNo = bundle.getString("giftNo");
@@ -366,7 +367,7 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
                                 list.clear();
                                 list.addAll(hylPayListModel.getData());
                                 tv_balance.setText(hylPayListModel.getData().get(0).getPayChannelName());
-                                hylPayListAdapter = new HylPayListAdapter(R.layout.item_pay_list_hyl,list);
+                                hylPayListAdapter = new HylPayListAdapter(R.layout.item_pay_list_hyl,list,total);
                                 recyclerView.setAdapter(hylPayListAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 payChannel = hylPayListModel.getData().get(0).getPayChannel();

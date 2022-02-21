@@ -59,9 +59,9 @@
             android:screenOrientation="portrait"
             >
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />　　　　　　
-                <category android:name="android.intent.category.DEFAULT" />　　　
-                <category android:name="android.intent.category.BROWSABLE" />　　
+                <action android:name="android.intent.action.VIEW"/>　　　　　　
+                <category android:name="android.intent.category.DEFAULT"/>　　　
+                <category android:name="android.intent.category.BROWSABLE"/>　　
                 <data
                     android:host="android"
                     android:scheme="wushang" />
@@ -126,6 +126,9 @@
             android:screenOrientation="portrait"
             />
 
+        <activity android:name=".activity.ApplyResultActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".activity.ChooseCompanyActivity"
             android:screenOrientation="portrait"
             />

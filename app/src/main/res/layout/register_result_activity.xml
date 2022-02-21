@@ -174,7 +174,7 @@
             <TextView
                 android:id="@+id/tv_secret"
                 android:text="《货易链隐私政策》"
-                android:textColor="#cccccc"
+                android:textColor="#3483ff"
                 android:textSize="@dimen/size_11dp"
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
@@ -189,7 +189,7 @@
 
             <TextView
                 android:id="@+id/tv_agreement"
-                android:textColor="#cccccc"
+                android:textColor="#3483ff"
                 android:textSize="@dimen/size_11dp"
                 android:gravity="center_vertical"
                 android:text="《货易链用户协议》"

@@ -1,7 +1,7 @@
 package com.barter.hyl.app.view;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.GestureDetector;
 import android.view.ScaleGestureDetector;
 import android.view.View;

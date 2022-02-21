@@ -1,7 +1,9 @@
 package com.barter.hyl.app.adapter;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -21,6 +23,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +65,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
     @Override
     protected void convert(final BaseViewHolder helper, final HylMyOrderListModel.DataBean.ListBean item) {
         helper.setIsRecyclable(false);
+        TextView tv_keep = helper.getView(R.id.tv_keep);
         RelativeLayout rl_canceled =  helper.getView(R.id.rl_canceled);
         TextView tv_delete_order =  helper.getView(R.id.tv_delete_order);
         TextView tv_buy_again =  helper.getView(R.id.tv_buy_again);
@@ -96,7 +101,11 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         tv_time.setText(item.getDateTime());
 
         if(isShow) {
-            ll_choose.setVisibility(View.VISIBLE);
+            if(item.isOfflinePay()) {
+                ll_choose.setVisibility(View.GONE);
+            }else {
+                ll_choose.setVisibility(View.VISIBLE);
+            }
         }else {
             ll_choose.setVisibility(View.GONE);
         }
@@ -233,19 +242,30 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         } else {
             if(item.getOrderStatusStr()!=null) {
                 tv_status.setText(item.getOrderStatusStr());
-
                 if(item.getOrderType()==1) {
-                    //信用订单
                     if(item.isPayFlag()) {
+                        if(item.isOfflinePay()) {
+                            //线下履约
+                            tv_keep.setVisibility(View.VISIBLE);
+                        }else {
+                            tv_keep.setVisibility(View.GONE);
+                        }
                         tv_now_pay1.setVisibility(View.GONE);
                         tv_now_pay.setVisibility(View.GONE);
                         tv_now_pay2.setVisibility(View.GONE);
                         tv_now_pay3.setVisibility(View.GONE);
                     }else {
+                        if(item.isOfflinePay()) {
+                            //线下履约
+                            tv_keep.setVisibility(View.VISIBLE);
+                        }else {
+                            tv_keep.setVisibility(View.GONE);
+                        }
                         tv_now_pay1.setVisibility(View.VISIBLE);
                         tv_now_pay.setVisibility(View.VISIBLE);
                         tv_now_pay2.setVisibility(View.VISIBLE);
                         tv_now_pay3.setVisibility(View.VISIBLE);
+
                     }
 
                     if (item.getOrderStatusStr().equals("待发货-待接收")||item.getOrderStatusStr().equals("待发货-已接收")||item.getOrderStatusStr().equals("已评价")
@@ -286,8 +306,6 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         rl_wait_pay.setVisibility(View.GONE);
                         rl_canceled.setVisibility(View.VISIBLE);
                     }
-
-
                 }else {
                     if (item.getOrderStatusStr().equals("待发货-待接收")||item.getOrderStatusStr().equals("待发货-已接收")||item.getOrderStatusStr().equals("已评价")
                             ||item.getOrderStatusStr().equals("已退货")) { // 待收货显示 确认收货 和再次购买
@@ -329,11 +347,10 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         rl_wait_dispatch.setVisibility(View.GONE);
                         rl_wait_pay.setVisibility(View.VISIBLE);
                     }
-
                 }
-
             }
         }
+
 
         /**显示4张图*/
         if (item.getPics().size() >= 1) {
@@ -444,27 +461,22 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
 //        });
     }
 
-    List<HylMyOrderListModel.DataBean.ListBean> data3 = new ArrayList<>();
-    Double totalAmounts = 0.0;
     String totalAmount;
     private String getAllPrice() {
-        data3.clear();
-        totalAmounts = 0.0;
-        for (int i = 0; i < data.size(); i++) {
-            boolean selected = data.get(i).isSelected();
+        BigDecimal amount00 = new BigDecimal("0.00");
+        BigDecimal amount000 = new BigDecimal("0.00");
+        for (int i = 0; i < datas.size(); i++) {
+            boolean selected = datas.get(i).isSelected();
             if(selected) {
-                data3.add(data.get(i));
-                for (int j = 0; j < data3.size(); j++) {
-                    totalAmount= data3.get(j).getTotalAmount();
-                }
+                totalAmount= datas.get(i).getTotalAmount();
                 String substring = totalAmount.substring(1, totalAmount.length());
-                totalAmounts+= Double.valueOf(substring);
+                BigDecimal amount0 = new BigDecimal(substring);
+                amount00 = amount00.add(amount0);
+                amount000 = amount00.setScale(2, RoundingMode.FLOOR);
             }
         }
 
-
-
-        return totalAmounts.toString();
+        return amount000.doubleValue()+"";
     }
 
     boolean isShow;
@@ -474,14 +486,21 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
     }
 
     //全选
-
+    List<HylMyOrderListModel.DataBean.ListBean> datas = new ArrayList<>();
     public void setSelectAll(boolean b) {
         ids.clear();
-        for(int i=0;i<data.size();i++){
-            data.get(i).setSelected(b);
+        datas.clear();
+        for (int i = 0; i < data.size(); i++) {
+            if(!data.get(i).isOfflinePay()) {
+                datas.add(data.get(i));
+            }
+        }
 
-            if(data.get(i).isSelected()) {
-                ids.add(data.get(i).getId());
+        for(int i=0;i<datas.size();i++){
+            datas.get(i).setSelected(b);
+
+            if(datas.get(i).isSelected()) {
+                ids.add(datas.get(i).getId());
             }
         }
         EventBus.getDefault().post(new TotalAmountHylEvent(getAllPrice(),ids));

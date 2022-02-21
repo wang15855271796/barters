@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -82,11 +82,12 @@ public class HylPaymentDialogFragment extends DialogFragment {
     TextView tv_desc;
     LinearLayout ll_special_desc;
     AVLoadingIndicatorView av_loading;
+    String total;
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        String total = bundle.getString("total");
+        total = bundle.getString("total");
         memo = bundle.getString("memo");
         giftNo = bundle.getString("giftNo");
         orderId = bundle.getString("orderId");
@@ -383,7 +384,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
                                 }
 
                                 tv_balance.setText(hylPayListModel.getData().get(0).getPayChannelName());
-                                hylPayListAdapter = new HylPayListAdapter(R.layout.item_pay_list_hyl,list);
+                                hylPayListAdapter = new HylPayListAdapter(R.layout.item_pay_list_hyl,list,total);
                                 recyclerView.setAdapter(hylPayListAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 payChannel = hylPayListModel.getData().get(0).getPayChannel();
@@ -437,7 +438,6 @@ public class HylPaymentDialogFragment extends DialogFragment {
 //                                     ToastUtil.showSuccessMsg(getActivity(),"暂未开通请使用支付宝");
                                     SharedPreferencesUtil.saveString(getContext(),"payKey","3");
                                     weChatPay(hylPayInfoModel.getData().getPayToken());
-                                    Log.d("gsdrfgsdfsedff.....",hylPayInfoModel.getData().getPayToken());
 
                                 }else if(hylPayInfoModel.getData().getPayType()==14&&payChannel == 2) {
                                     //银联
@@ -468,7 +468,6 @@ public class HylPaymentDialogFragment extends DialogFragment {
         startActivity(intent);
         getActivity().finish();
 
-        Log.d("esdrfdsfdsf....",orderId+"ss");
     }
 
 

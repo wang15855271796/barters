@@ -129,6 +129,10 @@ public class HylOrderDetailModel {
         private long nowTime;
         private int orderType;
         private int id;
+        private boolean offlinePay;
+        private String offlinePayAmt;
+        private String offlineRemainAmt;
+
         @Override
         public String toString() {
             return "DataBean{" +
@@ -167,6 +171,30 @@ public class HylOrderDetailModel {
                     ", startTime=" + startTime +
                     ", nowTime=" + nowTime +
                     '}';
+        }
+
+        public boolean getOfflinePay() {
+            return offlinePay;
+        }
+
+        public void setOfflinePay(boolean offlinePay) {
+            this.offlinePay = offlinePay;
+        }
+
+        public String getOfflinePayAmt() {
+            return offlinePayAmt;
+        }
+
+        public void setOfflinePayAmt(String offlinePayAmt) {
+            this.offlinePayAmt = offlinePayAmt;
+        }
+
+        public String getOfflineRemainAmt() {
+            return offlineRemainAmt;
+        }
+
+        public void setOfflineRemainAmt(String offlineRemainAmt) {
+            this.offlineRemainAmt = offlineRemainAmt;
         }
 
         public int getId() {

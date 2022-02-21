@@ -131,14 +131,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <android.support.design.widget.CoordinatorLayout
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:id="@+id/coordinator"
                     android:fitsSystemWindows="false"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
 
-                    <android.support.design.widget.AppBarLayout
+                    <com.google.android.material.appbar.AppBarLayout
                         boy:elevation="0dp"
                         android:id="@+id/appbar"
                         app:layout_behavior="com.yuruiyin.appbarlayoutbehavior.AppBarLayoutBehavior"
@@ -218,12 +218,12 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
 
-                                    <android.support.v7.widget.RecyclerView
+                                    <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_icon"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
 
-                                    </android.support.v7.widget.RecyclerView>
+                                    </androidx.recyclerview.widget.RecyclerView>
 
                                     <com.barter.hyl.app.view.HIndicators
                                         android:id="@+id/indicator"
@@ -277,12 +277,12 @@
 
                                     </LinearLayout>
 
-                                    <android.support.v7.widget.RecyclerView
+                                    <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_skill"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent">
 
-                                    </android.support.v7.widget.RecyclerView>
+                                    </androidx.recyclerview.widget.RecyclerView>
                                 </LinearLayout>
 
                                 <!--组合-->
@@ -336,12 +336,12 @@
 
                                     </LinearLayout>
 
-                                    <android.support.v7.widget.RecyclerView
+                                    <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_team"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent">
 
-                                    </android.support.v7.widget.RecyclerView>
+                                    </androidx.recyclerview.widget.RecyclerView>
                                 </LinearLayout>
                                 <!--满赠-->
                                 <LinearLayout
@@ -394,12 +394,12 @@
 
                                     </LinearLayout>
 
-                                    <android.support.v7.widget.RecyclerView
+                                    <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_full"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent">
 
-                                    </android.support.v7.widget.RecyclerView>
+                                    </androidx.recyclerview.widget.RecyclerView>
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -413,7 +413,7 @@
 
 
 
-                    </android.support.design.widget.AppBarLayout>
+                    </com.google.android.material.appbar.AppBarLayout>
 
                     <LinearLayout
                         android:id="@+id/fl_container"
@@ -444,7 +444,7 @@
                                 tl:tl_textUnselectColor="#666666"
                                 tl:tl_textsize="@dimen/size_16dp" />
 
-                            <android.support.v4.view.ViewPager
+                            <androidx.viewpager.widget.ViewPager
                                 android:id="@+id/viewPager"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content" />
@@ -453,7 +453,7 @@
 
                     </LinearLayout>
 
-                </android.support.design.widget.CoordinatorLayout>
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
             </LinearLayout>
         </LinearLayout>

@@ -269,11 +269,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <TextView
+                    <EditText
+                        android:id="@+id/et_business_num"
                         android:text="请输入营业执照号"
                         android:textColor="#909AAB"
                         android:layout_marginTop="5dp"
                         android:textSize="@dimen/sp_12"
+                        android:background="@null"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

@@ -2,13 +2,13 @@ package com.barter.hyl.app.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import com.google.android.material.appbar.AppBarLayout;
+import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +39,6 @@ import com.barter.hyl.app.banner.BannerConfig;
 import com.barter.hyl.app.banner.GlideImageLoader;
 import com.barter.hyl.app.banner.Transformer;
 import com.barter.hyl.app.banner.listener.OnBannerListener;
-import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.AppConstant;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.dialog.CouponListDialog;
@@ -72,7 +71,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -186,7 +184,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 getBaseData();
-//                getMessageNum();
                 smart.finishRefresh();
             }
         });
@@ -316,14 +313,12 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
 
                             //滚动广告
                             if(data.getNoticeList()!=null&&data.getNoticeList().size()>0) {
-                                Log.d("dfgdsfs....",data.getNoticeList().size()+"s");
                                 MarqueeAdapter marqueeAdapter = new MarqueeAdapter();
                                 marqueeAdapter.setData(data.getNoticeList(),1,getActivity());
                                 marqueeView.setAdapter(marqueeAdapter);
                                 marqueeView.setVisibility(View.VISIBLE);
                                 marqueeView.startScroll();
                             }else {
-
                                 marqueeView.setVisibility(View.GONE);
                             }
                             //分类模块

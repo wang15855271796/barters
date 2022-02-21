@@ -1,18 +1,10 @@
 package com.barter.hyl.app.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.barter.hyl.app.R;
-import com.barter.hyl.app.base.BaseActivity;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * Created by ${王涛} on 2021/9/10

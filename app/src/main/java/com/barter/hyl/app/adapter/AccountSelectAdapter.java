@@ -1,8 +1,8 @@
 package com.barter.hyl.app.adapter;
 
 import android.graphics.Color;
-import android.support.annotation.Nullable;
-import android.view.View;
+import androidx.annotation.Nullable;
+
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;

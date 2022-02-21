@@ -14,29 +14,51 @@
 
         <ImageView
             android:id="@+id/iv_pic"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/checkbox_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_marginLeft="@dimen/size_15dp"
-            android:layout_toRightOf="@+id/iv_pic"
+        <RelativeLayout
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/tv_title"
-            android:text="@string/balance"
-            android:textColor="@color/app_black"
-            android:textSize="@dimen/size_16dp" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:src="@mipmap/icon_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_toRightOf="@+id/iv_icon"
+                android:layout_marginLeft="@dimen/size_5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_title"
+                android:text="@string/balance"
+                android:textColor="@color/app_black"
+                android:textSize="@dimen/size_16dp" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:visibility="gone"
+                android:layout_toRightOf="@+id/iv_icon"
+                android:textSize="@dimen/size_11dp"
+                android:layout_below="@+id/tv_title"
+                android:layout_marginLeft="@dimen/size_5dp"
+                android:text="总额度：5000元，剩余2800元，待还款金额"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
 
         <TextView
             android:textColor="@color/color_AAA8AB"
             android:textSize="@dimen/size_15dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/size_15dp"
-            android:layout_toRightOf="@+id/tv_title"
             android:id="@+id/textViewAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

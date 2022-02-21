@@ -1,9 +1,8 @@
 package com.barter.hyl.app.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.base.BaseActivity;

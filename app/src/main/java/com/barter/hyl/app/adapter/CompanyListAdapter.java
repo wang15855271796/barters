@@ -1,12 +1,11 @@
 package com.barter.hyl.app.adapter;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.barter.app.model.CompanyListModel;
 import com.barter.hyl.app.R;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

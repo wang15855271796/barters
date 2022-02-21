@@ -1,7 +1,5 @@
 package com.barter.hyl.app.constant;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -10,12 +8,9 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.support.v4.view.ViewPager;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
+import androidx.viewpager.widget.ViewPager;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,16 +26,7 @@ import com.barter.hyl.app.view.FingerFrameLayout;
 import com.barter.hyl.app.view.PhotoViewAdapter;
 import com.barter.hyl.app.view.PhotoViewPager;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.UnknownHostException;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 //import com.airbnb.lottie.LottieAnimationView;
 

@@ -1,6 +1,6 @@
 package com.barter.hyl.app.banner;
 
-import android.support.v4.view.ViewPager.PageTransformer;
+import androidx.viewpager.widget.ViewPager.PageTransformer;
 
 import com.barter.hyl.app.banner.transformer.AccordionTransformer;
 import com.barter.hyl.app.banner.transformer.BackgroundToForegroundTransformer;

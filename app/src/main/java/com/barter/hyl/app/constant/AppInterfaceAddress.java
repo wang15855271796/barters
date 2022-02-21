@@ -94,6 +94,11 @@ public class AppInterfaceAddress {
      * 上传图片凭证
      */
     public static final String Upload_Img = "common/uploadMessageImg";
+
+    /**
+     * 上传图片凭证
+     */
+    public static final String Upload_Imgs = "common/imgUpload";
     /**
      * 撤销申请
      */

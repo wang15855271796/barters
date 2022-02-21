@@ -19,7 +19,7 @@
 
             <include layout="@layout/common_title_hyl"/>
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:scrollbars="none"
@@ -210,7 +210,7 @@
                             </LinearLayout>
                         </LinearLayout>
 
-                        <android.support.v7.widget.RecyclerView
+                        <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
                             android:layout_marginLeft="20dp"
@@ -218,7 +218,7 @@
                             android:visibility="gone"
                             android:layout_marginRight="20dp">
 
-                        </android.support.v7.widget.RecyclerView>
+                        </androidx.recyclerview.widget.RecyclerView>
 
                         <View
                             android:layout_width="match_parent"
@@ -255,7 +255,7 @@
 
                     </LinearLayout>
                 </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
 
         </LinearLayout>
 

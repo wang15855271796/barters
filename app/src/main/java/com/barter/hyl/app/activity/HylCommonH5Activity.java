@@ -6,14 +6,13 @@ import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -23,12 +22,8 @@ import android.widget.TextView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.base.BaseSwipeActivity;
-import com.barter.hyl.app.constant.AppConstant;
 import com.barter.hyl.app.constant.AppHelper;
-import com.barter.hyl.app.constant.AppSafeHelper;
-import com.barter.hyl.app.constant.DeviceHelper;
 import com.barter.hyl.app.constant.NetWorkHelper;
-import com.barter.hyl.app.constant.UserInfoHelper;
 
 
 /**

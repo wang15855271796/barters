@@ -120,6 +120,7 @@ public class MyInfoApi {
         @POST(AppInterfaceAddress.Submit_Apply)
         Observable<BaseModel> setParams(@Field("companyName") String companyName,
                                         @Field("shortName") String shortName,
+                                        @Field("companyAddress") String companyAddress,
                                         @Field("contactName") String contactName,
                                         @Field("contactPhone") String contactPhone,
                                         @Field("licenseNoPic") String licenseNoPic,
@@ -131,9 +132,9 @@ public class MyInfoApi {
                                         @Field("businessLicense") String businessLicense
                                         );
     }
-    public static Observable<BaseModel>submitApply(Context context,String companyName,String shortName,String contactName,String contactPhone,String licenseNoPic,
+    public static Observable<BaseModel>submitApply(Context context,String companyName,String shortName,String companyAddress,String contactName,String contactPhone,String licenseNoPic,
                                                    String qualification,String legalIdCard,String idCardFrontPic,String idCardBackPic,String idCardPic,String businessLicense) {
-        Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(SubmitApplyService.class).setParams(companyName,shortName,contactName,contactPhone,
+        Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(SubmitApplyService.class).setParams(companyName,shortName,companyAddress,contactName,contactPhone,
                 licenseNoPic,qualification,legalIdCard,idCardFrontPic,idCardBackPic,idCardPic,businessLicense);
         return myModelObservable;
     }

@@ -2,6 +2,7 @@ package com.barter.hyl.app.api;
 
 import android.content.Context;
 
+import com.barter.app.model.SendImageModel;
 import com.barter.hyl.app.constant.AppInterfaceAddress;
 import com.barter.hyl.app.constant.RestHelper;
 import com.barter.hyl.app.model.BillDetailModel;
@@ -243,6 +244,18 @@ public class OrderApi {
 
     public static Observable<HylSendImageModel> requestImgDetail(Context context, List<MultipartBody.Part> parts) {
         Observable<HylSendImageModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(updateImageService.class)
+                .setParams(parts);
+        return loginModelObservable;
+    }
+
+    public interface updateImagesService {
+        @Multipart
+        @POST(AppInterfaceAddress.Upload_Imgs)
+        Observable<SendImageModel> setParams(@Part List<MultipartBody.Part> parts);
+    }
+
+    public static Observable<SendImageModel> updateImage(Context context, List<MultipartBody.Part> parts) {
+        Observable<SendImageModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(updateImagesService.class)
                 .setParams(parts);
         return loginModelObservable;
     }
