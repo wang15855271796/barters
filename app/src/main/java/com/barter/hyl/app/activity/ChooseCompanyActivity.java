@@ -17,6 +17,8 @@ import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
+import com.barter.hyl.app.model.BaseModel;
+import com.barter.hyl.app.model.TipsModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -31,6 +33,8 @@ import butterknife.BindView;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static rx.android.schedulers.AndroidSchedulers.mainThread;
 
 public class ChooseCompanyActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.iv_back)
@@ -50,7 +54,6 @@ public class ChooseCompanyActivity extends BaseActivity implements View.OnClickL
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
     }
-//UserInfoHelper.getCompanyId(context)
     @Override
     public void setContentView() {
         setContentView(R.layout.choose_company_activity);
@@ -99,9 +102,7 @@ public class ChooseCompanyActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_sure:
-                UserInfoHelper.saveCompanyId(mActivity,companyId+"");
-                EventBus.getDefault().post(new ChangeAccountHylEvent());
-                finish();
+                getFullTips(companyId);
                 break;
         }
     }
@@ -112,9 +113,41 @@ public class ChooseCompanyActivity extends BaseActivity implements View.OnClickL
     }
 
     /**
+     * 更改企业
+     * @param companyId
+     */
+    private void getFullTips(String companyId) {
+        MyInfoApi.changeCompany(mContext,companyId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if(baseModel.code==1) {
+                            ToastUtil.showSuccessMsg(mContext,baseModel.message);
+                            EventBus.getDefault().post(new ChangeAccountHylEvent());
+                            finish();
+                        }else {
+                            ToastUtil.showSuccessMsg(mContext,baseModel.message);
+                        }
+                    }
+                });
+    }
+
+    /**
      * 获取公司列表
      */
-    int companyId;
+    String companyId;
     List<CompanyListModel.DataBean> list = new ArrayList<>();
     private void getCompanyList() {
         MyInfoApi.companyChoose(mActivity)

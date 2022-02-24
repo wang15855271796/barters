@@ -15,6 +15,7 @@ import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.HylChooseSpecAdapter;
 import com.barter.hyl.app.adapter.HylImageDetailAdapter;
 import com.barter.hyl.app.api.DetailApi;
+import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.banner.Banner;
 import com.barter.hyl.app.banner.BannerConfig;
 import com.barter.hyl.app.banner.GlideImageLoader;
@@ -22,12 +23,14 @@ import com.barter.hyl.app.banner.Transformer;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.dialog.CommonDetailDialog;
 import com.barter.hyl.app.dialog.FullDetailDialog;
+import com.barter.hyl.app.dialog.FullDetailsDialog;
 import com.barter.hyl.app.dialog.ProductDescDialog;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.model.HylCartNumModel;
 import com.barter.hyl.app.model.HylCollectionModel;
 import com.barter.hyl.app.model.HylCommonDetailModel;
+import com.barter.hyl.app.model.TipsModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.DetailFlowLayout;
 import com.bumptech.glide.Glide;
@@ -46,6 +49,8 @@ import butterknife.BindView;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static rx.android.schedulers.AndroidSchedulers.mainThread;
 
 /**
  * Created by ${王涛} on 2021/8/10
@@ -105,6 +110,10 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     LinearLayout ll_no_eval;
     @BindView(R.id.ll_eval)
     LinearLayout ll_eval;
+    @BindView(R.id.ll_full)
+    LinearLayout ll_full;
+    @BindView(R.id.tv_full)
+    TextView tv_full;
     int mainId;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
@@ -135,6 +144,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
         tv_add_car.setOnClickListener(this);
         ll_car.setOnClickListener(this);
         tv_detail.setOnClickListener(this);
+        ll_full.setOnClickListener(this);
     }
 
 
@@ -212,8 +222,11 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
 
                             if(data.getFullActiveFlag()==0) {
                                 rl_coupon.setVisibility(View.GONE);
+                                ll_full.setVisibility(View.GONE);
                             }else {
                                 rl_coupon.setVisibility(View.VISIBLE);
+                                ll_full.setVisibility(View.VISIBLE);
+                                tv_full.setText(data.getFullName());
                             }
 
                             if(data.getFullRoles()!=null&&data.getFullRoles().size()>0) {
@@ -365,9 +378,13 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case R.id.ll_full:
+                Intent intentss = new Intent(mActivity,FullActiveActivity.class);
+                intentss.putExtra("fullId",data.getFullId());
+                startActivity(intentss);
+                break;
             case R.id.tv_detail:
-                FullDetailDialog fullDetailDialog = new FullDetailDialog(mActivity, data) {
+                FullDetailsDialog fullDetailDialog = new FullDetailsDialog(mActivity, data) {
                     @Override
                     public void Confirm() {
                         dismiss();

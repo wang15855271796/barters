@@ -6,11 +6,15 @@ import com.barter.app.model.CompanyListModel;
 import com.barter.hyl.app.constant.AppInterfaceAddress;
 import com.barter.hyl.app.constant.RestHelper;
 import com.barter.hyl.app.model.BaseModel;
+import com.barter.hyl.app.model.CouponListsModel;
+import com.barter.hyl.app.model.FullActiveCouponListModel;
+import com.barter.hyl.app.model.FullActiveDetailModel;
 import com.barter.hyl.app.model.HylMyCollectionModel;
 import com.barter.hyl.app.model.HylMyCouponModel;
 import com.barter.hyl.app.model.HylOneRegisterModel;
 import com.barter.hyl.app.model.MyJifenModel;
 import com.barter.hyl.app.model.HylMyModel;
+import com.barter.hyl.app.model.TipsModel;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -117,6 +121,7 @@ public class MyInfoApi {
 
     //提交申请
     public interface SubmitApplyService {
+        @FormUrlEncoded
         @POST(AppInterfaceAddress.Submit_Apply)
         Observable<BaseModel> setParams(@Field("companyName") String companyName,
                                         @Field("shortName") String shortName,
@@ -136,6 +141,66 @@ public class MyInfoApi {
                                                    String qualification,String legalIdCard,String idCardFrontPic,String idCardBackPic,String idCardPic,String businessLicense) {
         Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(SubmitApplyService.class).setParams(companyName,shortName,companyAddress,contactName,contactPhone,
                 licenseNoPic,qualification,legalIdCard,idCardFrontPic,idCardBackPic,idCardPic,businessLicense);
+        return myModelObservable;
+    }
+
+    //满赠活动详情
+    public interface FullActiveDetailService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Full_Active_Detail)
+        Observable<FullActiveDetailModel> setParams(@Field("fullId") String fullId);
+    }
+
+    public static Observable<FullActiveDetailModel>fullActiveDetail(Context context, String fullId) {
+        Observable<FullActiveDetailModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(FullActiveDetailService.class).setParams(fullId);
+        return myModelObservable;
+    }
+
+    //满赠活动查看优惠券
+    public interface FullActiveCouponListService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Full_Active_CouponList)
+        Observable<FullActiveCouponListModel> setParams(@Field("poolNo") String poolNo);
+    }
+
+    public static Observable<FullActiveCouponListModel>fullActiveCouponList(Context context, String poolNo) {
+        Observable<FullActiveCouponListModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(FullActiveCouponListService.class).setParams(poolNo);
+        return myModelObservable;
+    }
+
+    public interface CouponGoodsListService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Coupon_GoodsList)
+        Observable<CouponListsModel> setParams(@Field("poolNo") String poolNo,
+                                                        @Field("pageNum") int pageNum,
+                                                        @Field("pageSize") int pageSize);
+    }
+
+    public static Observable<CouponListsModel>couponGoodList(Context context, String poolNo, int pageNum, int pageSize) {
+        Observable<CouponListsModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(CouponGoodsListService.class).setParams(poolNo,pageNum,pageSize);
+        return myModelObservable;
+    }
+
+    //获取满赠提示
+    public interface GetTipService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Get_Tips)
+        Observable<TipsModel> setParams(@Field("fullId") String fullId);
+    }
+
+    public static Observable<TipsModel>getTips(Context context, String fullId) {
+        Observable<TipsModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(GetTipService.class).setParams(fullId);
+        return myModelObservable;
+    }
+    //更改登录企业
+    public interface ChangeCompanyService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Change_Company)
+        Observable<BaseModel> setParams(@Field("companyId") String companyId);
+    }
+
+    public static Observable<BaseModel>changeCompany(Context context, String companyId) {
+        Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(ChangeCompanyService.class).setParams(companyId);
         return myModelObservable;
     }
 

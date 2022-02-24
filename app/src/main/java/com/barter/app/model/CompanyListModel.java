@@ -66,16 +66,16 @@ public class CompanyListModel {
          * flag : 0
          */
 
-        private int companyId;
+        private String companyId;
         private String companyName;
         private String shortName;
         private int flag;
 
-        public int getCompanyId() {
+        public String getCompanyId() {
             return companyId;
         }
 
-        public void setCompanyId(int companyId) {
+        public void setCompanyId(String companyId) {
             this.companyId = companyId;
         }
 

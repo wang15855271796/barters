@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -111,21 +113,20 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         hylCartAdapter = new HylCartAdapter(R.layout.item_cart_hyl,validList,HylCartFragment.this);
         recyclerView.setAdapter(hylCartAdapter);
-        hylCartAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(validList.get(position).getBusinessType()==1) {
-                    Intent intent = new Intent(mActivity,HylCommonGoodsActivity.class);
-                    intent.putExtra("mainId",validList.get(position).getProductMainId());
-                    startActivity(intent);
-                }else {
-                    Intent intent = new Intent(mActivity,HylActiveDetailActivity.class);
-                    intent.putExtra("activeId",validList.get(position).getProductMainId());
-                    startActivity(intent);
-                }
-
-            }
-        });
+//        hylCartAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                if(validList.get(position).getBusinessType()==1) {
+//                    Intent intent = new Intent(mActivity,HylCommonGoodsActivity.class);
+//                    intent.putExtra("mainId",validList.get(position).getProductMainId());
+//                    startActivity(intent);
+//                }else {
+//                    Intent intent = new Intent(mActivity,HylActiveDetailActivity.class);
+//                    intent.putExtra("activeId",validList.get(position).getProductMainId());
+//                    startActivity(intent);
+//                }
+//            }
+//        });
 
         smart.autoRefresh();
 
@@ -158,7 +159,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
     /**
      * 清除失效商品
      */
-    List<Integer> unCartIdList = new ArrayList<>();
+    List<String> unCartIdList = new ArrayList<>();
     private void showClearDialog() {
         //确认要删除选中的商品吗
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.DialogStyle).create();
@@ -182,12 +183,8 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
             @Override
             public void onClick(View v) {
                 for (int i = 0; i <inValidList.size() ; i++) {
-                    List<HylCartListModel.DataBean.InValidListBean.SpecProductListBeanX> specProductList = inValidList.get(i).getSpecProductList();
-
-                    for (int j = 0; j <specProductList.size() ; j++) {
-                        int cartId = specProductList.get(j).getCartId();
-                        unCartIdList.add(cartId);
-                    }
+                    String cartId = inValidList.get(i).getCartId();
+                    unCartIdList.add(cartId);
                 }
 
                 requestDeleteCart(unCartIdList.toString());
@@ -269,8 +266,8 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
      * 获取角标数据
      * @param
      */
-    List<HylCartListModel.DataBean.ValidListBean> validList = new ArrayList<>();
-    List<HylCartListModel.DataBean.InValidListBean> inValidList = new ArrayList<>();
+    List<HylCartListModel.DataBean.ProdsBeanX> validList = new ArrayList<>();
+    List<HylCartListModel.DataBean.InValidProdBean.ProdsBean> inValidList = new ArrayList<>();
     RoundImageView iv_head;
     TextView tv_title;
     Double sendAmount;
@@ -295,27 +292,32 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
                             HylCartListModel.DataBean data = hylCartListModel.getData();
 
                             validList.clear();
-                            validList.addAll(data.getValidList());
+                            validList.addAll(data.getProds());
+                            hylCartAdapter.notifyDataSetChanged();
+
                             if(validList.size()>0) {
                                 ll_settle.setVisibility(View.VISIBLE);
                             }else {
                                 ll_settle.setVisibility(View.GONE);
                             }
-                            cartIdList.clear();
 
-                            sendAmount = Double.parseDouble(hylCartListModel.getData().getSendAmount());
+                            cartIdList.clear();
+                            sendAmount = hylCartListModel.getData().getSendAmount();
+
                             for (int i = 0; i <validList.size() ; i++) {
-                                List<HylCartListModel.DataBean.ValidListBean.SpecProductListBean> specProductList = validList.get(i).getSpecProductList();
-                                for (int j = 0; j <specProductList.size() ; j++) {
-                                    if(specProductList.get(j).isSelected()) {
-                                        int cartId = specProductList.get(j).getCartId();
+                                List<HylCartListModel.DataBean.ProdsBeanX.ProdsBean> prods = validList.get(i).getProds();
+                                for (int j = 0; j <prods.size() ; j++) {
+                                    if(prods.get(j).isSelected()) {
+                                        int cartId = prods.get(j).getCartId();
                                         cartIdList.add(cartId+"");
                                     }
                                 }
                             }
 
                             inValidList.clear();
-                            inValidList.addAll(data.getInValidList());
+                            if(data.getInValidProdBean()!=null&&data.getInValidProdBean().getProds()!=null) {
+                                inValidList.addAll(data.getInValidProdBean().getProds());
+                            }
 
                             if(validList.size()==0&&inValidList.size()==0) {
                                 ll_NoData.setVisibility(View.VISIBLE);
@@ -353,15 +355,15 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
                                 }
                             });
 
-                            final TagAdapter unAbleAdapter = new TagAdapter<HylCartListModel.DataBean.InValidListBean>(inValidList){
+                            final TagAdapter unAbleAdapter = new TagAdapter<HylCartListModel.DataBean.InValidProdBean.ProdsBean>(inValidList){
 
                                 @Override
-                                public View getView(FlowLayout parent, int position, HylCartListModel.DataBean.InValidListBean inValidListBean) {
+                                public View getView(FlowLayout parent, int position, HylCartListModel.DataBean.InValidProdBean.ProdsBean inValidListBean) {
                                     View view = LayoutInflater.from(mActivity).inflate(R.layout.item_uncart_hyl,rv_unable, false);
                                     iv_head = view.findViewById(R.id.iv_head);
                                     tv_title = view.findViewById(R.id.tv_title);
                                     tv_title.setText(inValidListBean.getProductName());
-                                    Glide.with(mActivity).load(inValidListBean.getDefaultPic()).into(iv_head);
+//                                    Glide.with(mActivity).load(inValidListBean.getDefaultPic()).into(iv_head);
                                     return view;
                                 }
                             };
@@ -419,15 +421,14 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
     }
 
     private BigDecimal allprice;
-    private void getAllPrice(List<HylCartListModel.DataBean.ValidListBean> validList) {
+    private void getAllPrice(List<HylCartListModel.DataBean.ProdsBeanX> validList) {
         allprice = new BigDecimal("0");
         if(validList!=null){
             for (int i=0;i<validList.size();i++){
-                List<HylCartListModel.DataBean.ValidListBean.SpecProductListBean> specProductList = validList.get(i).getSpecProductList();
-                for (int y=0;y<specProductList.size();y++){
-                    if(specProductList.get(y).isSelected()){
-
-                        List<HylCartListModel.DataBean.ValidListBean.SpecProductListBean.ProductDescVOListBean> productDescVOList = specProductList.get(y).getProductDescVOList();
+                List<HylCartListModel.DataBean.ProdsBeanX.ProdsBean> prods = validList.get(i).getProds();
+                for (int y=0;y<prods.size();y++){
+                    if(prods.get(y).isSelected()){
+                        List<HylCartListModel.DataBean.ProdsBeanX.ProdsBean.ProductDescVOListBean> productDescVOList = prods.get(y).getProductDescVOList();
                         for (int j = 0; j <productDescVOList.size() ; j++) {
                             BigDecimal interestRate = new BigDecimal(productDescVOList.get(j).getProductNum()); //数量
                             double interest = Arith.mul(Double.parseDouble(productDescVOList.get(j).getPrice()), interestRate);
@@ -471,7 +472,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
                 cartIdList.clear();
                 if(choosedData==null) {
                     for (int i = 0; i <validList.size() ; i++) {
-                        List<HylCartListModel.DataBean.ValidListBean.SpecProductListBean> specProductList = validList.get(i).getSpecProductList();
+                        List<HylCartListModel.DataBean.ProdsBeanX.ProdsBean> specProductList = validList.get(i).getProds();
                         for (int j = 0; j <specProductList.size() ; j++) {
                             if(specProductList.get(j).isSelected()) {
                                 int cartId = specProductList.get(j).getCartId();
@@ -487,7 +488,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
 
                 }else {
                     for (int i = 0; i < choosedData.size(); i++) {
-                        List<HylCartListModel.DataBean.ValidListBean.SpecProductListBean> specProductList = choosedData.get(i).getSpecProductList();
+                        List<HylCartListModel.DataBean.ProdsBeanX.ProdsBean> specProductList = choosedData.get(i).getProds();
                         for (int j = 0; j < specProductList.size(); j++) {
                             if (specProductList.get(j).isSelected()) {
                                 int cartId = specProductList.get(j).getCartId();
@@ -509,10 +510,12 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
             case R.id.cb_select_all:
                 if (mSelect) {
                     cb_select_all.setChecked(false);
-                    hylCartAdapter.setAllselect(false);
+                    hylCartAdapter.setSelectAll(false);
+                    Log.d("sdfsdf.....","aa");
                 } else {
                     cb_select_all.setChecked(true);
-                    hylCartAdapter.setAllselect(true);
+                    hylCartAdapter.setSelectAll(true);
+                    Log.d("sdfsdf.....","bb");
                 }
                 break;
 
@@ -524,7 +527,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
                 cartIdList.clear();
                 if(choosedData==null) {
                     for (int i = 0; i <validList.size() ; i++) {
-                        List<HylCartListModel.DataBean.ValidListBean.SpecProductListBean> specProductList = validList.get(i).getSpecProductList();
+                        List<HylCartListModel.DataBean.ProdsBeanX.ProdsBean> specProductList = validList.get(i).getProds();
                         for (int j = 0; j <specProductList.size() ; j++) {
                             if(specProductList.get(j).isSelected()) {
                                 int cartId = specProductList.get(j).getCartId();
@@ -540,7 +543,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
 
                 }else {
                     for (int i = 0; i <choosedData.size() ; i++) {
-                        List<HylCartListModel.DataBean.ValidListBean.SpecProductListBean> specProductList = choosedData.get(i).getSpecProductList();
+                        List<HylCartListModel.DataBean.ProdsBeanX.ProdsBean> specProductList = choosedData.get(i).getProds();
                         for (int j = 0; j <specProductList.size() ; j++) {
                             if(specProductList.get(j).isSelected()) {
                                 int cartId = specProductList.get(j).getCartId();
@@ -593,14 +596,14 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
         });
     }
 
-    List<HylCartListModel.DataBean.ValidListBean> choosedData;
+    List<HylCartListModel.DataBean.ProdsBeanX> choosedData;
     boolean isSelect;
     @Override
-    public void update(List<HylCartListModel.DataBean.ValidListBean> data) {
+    public void update(List<HylCartListModel.DataBean.ProdsBeanX> data) {
         this.choosedData = data;
         btn_sure.setText("结算");
         for (int i = 0; i < data.size(); i++) {
-            if(!data.get(i).isSelected()){
+            if(!data.get(i).isSelect()){
                 isSelect = false;
                 break;
             }else{

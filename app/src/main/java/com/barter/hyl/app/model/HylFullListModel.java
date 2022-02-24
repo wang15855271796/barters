@@ -7,18 +7,19 @@ import java.util.List;
  */
 public class HylFullListModel {
 
+
     /**
      * code : 1
      * message : 成功
-     * data : [{"mainId":8664,"productName":"老干妈大豆酱","spec":"450ml","defaultPic":"https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/product//18c341dc77e34d9e80e9985d94c9e1fa.png","minMaxPrice":"￥1.5-4040","inventFlag":0}]
-     * error : false
+     * data : [{"fullId":441,"name":"多满赠","pics":["https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/common-img/5103acef0de94f9b967e6220cbe754bf2.png"],"currentTime":0,"startTime":null,"endTime":null},{"fullId":442,"name":"多满赠","pics":["https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/common-img/5103acef0de94f9b967e6220cbe754bf2.png"],"currentTime":0,"startTime":null,"endTime":null},{"fullId":460,"name":"b","pics":["https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/product//e5c5132c6ab2409490e3c669258a2d64.png"],"currentTime":0,"startTime":null,"endTime":null},{"fullId":485,"name":"a","pics":["https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/common-img/5103acef0de94f9b967e6220cbe754bf2.png"],"currentTime":0,"startTime":null,"endTime":null}]
      * success : true
+     * error : false
      */
 
     private int code;
     private String message;
-    private boolean error;
     private boolean success;
+    private boolean error;
     private List<DataBean> data;
 
     public int getCode() {
@@ -37,20 +38,20 @@ public class HylFullListModel {
         this.message = message;
     }
 
-    public boolean isError() {
-        return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
-    }
-
     public boolean isSuccess() {
         return success;
     }
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
     }
 
     public List<DataBean> getData() {
@@ -63,67 +64,67 @@ public class HylFullListModel {
 
     public static class DataBean {
         /**
-         * mainId : 8664
-         * productName : 老干妈大豆酱
-         * spec : 450ml
-         * defaultPic : https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/product//18c341dc77e34d9e80e9985d94c9e1fa.png
-         * minMaxPrice : ￥1.5-4040
-         * inventFlag : 0
+         * fullId : 441
+         * name : 多满赠
+         * pics : ["https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/common-img/5103acef0de94f9b967e6220cbe754bf2.png"]
+         * currentTime : 0
+         * startTime : null
+         * endTime : null
          */
 
-        private int mainId;
-        private String productName;
-        private String spec;
-        private String defaultPic;
-        private String minMaxPrice;
-        private int inventFlag;
+        private String fullId;
+        private String name;
+        private int currentTime;
+        private Object startTime;
+        private Object endTime;
+        private List<String> pics;
 
-        public int getMainId() {
-            return mainId;
+        public String getFullId() {
+            return fullId;
         }
 
-        public void setMainId(int mainId) {
-            this.mainId = mainId;
+        public void setFullId(String fullId) {
+            this.fullId = fullId;
         }
 
-        public String getProductName() {
-            return productName;
+        public String getName() {
+            return name;
         }
 
-        public void setProductName(String productName) {
-            this.productName = productName;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public String getSpec() {
-            return spec;
+        public int getCurrentTime() {
+            return currentTime;
         }
 
-        public void setSpec(String spec) {
-            this.spec = spec;
+        public void setCurrentTime(int currentTime) {
+            this.currentTime = currentTime;
         }
 
-        public String getDefaultPic() {
-            return defaultPic;
+        public Object getStartTime() {
+            return startTime;
         }
 
-        public void setDefaultPic(String defaultPic) {
-            this.defaultPic = defaultPic;
+        public void setStartTime(Object startTime) {
+            this.startTime = startTime;
         }
 
-        public String getMinMaxPrice() {
-            return minMaxPrice;
+        public Object getEndTime() {
+            return endTime;
         }
 
-        public void setMinMaxPrice(String minMaxPrice) {
-            this.minMaxPrice = minMaxPrice;
+        public void setEndTime(Object endTime) {
+            this.endTime = endTime;
         }
 
-        public int getInventFlag() {
-            return inventFlag;
+        public List<String> getPics() {
+            return pics;
         }
 
-        public void setInventFlag(int inventFlag) {
-            this.inventFlag = inventFlag;
+        public void setPics(List<String> pics) {
+            this.pics = pics;
         }
     }
 }

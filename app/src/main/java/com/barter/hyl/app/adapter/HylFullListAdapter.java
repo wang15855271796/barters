@@ -1,9 +1,16 @@
 package com.barter.hyl.app.adapter;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.FullActiveActivity;
 import com.barter.hyl.app.model.HylFullListModel;
 import com.barter.hyl.app.view.RoundImageView;
 import com.bumptech.glide.Glide;
@@ -23,14 +30,20 @@ public class HylFullListAdapter extends BaseQuickAdapter<HylFullListModel.DataBe
 
     @Override
     protected void convert(BaseViewHolder helper, HylFullListModel.DataBean item) {
-        RoundImageView iv_pic = helper.getView(R.id.iv_pic);
         TextView tv_title = helper.getView(R.id.tv_title);
-        TextView tv_spec = helper.getView(R.id.tv_spec);
-        TextView tv_price = helper.getView(R.id.tv_price);
+        tv_title.setText(item.getName());
+        RecyclerView recyclerView = helper.getView(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(mContext,4));
+        FullImageViewAdapter fullImageViewAdapter = new FullImageViewAdapter(R.layout.item_full_img,item.getPics());
+        recyclerView.setAdapter(fullImageViewAdapter);
 
-        Glide.with(mContext).load(item.getDefaultPic()).into(iv_pic);
-        tv_price.setText(item.getMinMaxPrice());
-        tv_spec.setText(item.getSpec());
-        tv_title.setText(item.getProductName());
+        fullImageViewAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mContext, FullActiveActivity.class);
+                intent.putExtra("fullId",item.getFullId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -137,6 +138,15 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
                 break;
 
             case R.id.tv_submit:
+                if(TextUtils.isEmpty(et_company_name.getText().toString()) ||
+                   TextUtils.isEmpty(et_address.getText().toString()) ||
+                   TextUtils.isEmpty(et_contact_phone.getText().toString()) ||
+                   TextUtils.isEmpty(et_contact_user.getText().toString()) ||
+                   TextUtils.isEmpty(et_short_name.getText().toString())) {
+                    ToastUtil.showSuccessMsg(mContext,"请填写对应信息");
+                    return;
+                }
+
                 companyName = et_company_name.getText().toString();
                 address = et_address.getText().toString();
                 contactPhone = et_contact_phone.getText().toString();
@@ -230,7 +240,6 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
         super.onActivityResult(requestCode, resultCode, data);
         picList.clear();
         images.clear();
-
         switch (requestCode) {
             case 0:
                 images = PictureSelector.obtainMultipleResult(data);
@@ -287,7 +296,7 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
         for (String url : localUrls) {
             File file = new File(url);
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part part = MultipartBody.Part.createFormData("detailFiles", file.getName(), requestBody);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
             parts.add(part);
         }
         return parts;

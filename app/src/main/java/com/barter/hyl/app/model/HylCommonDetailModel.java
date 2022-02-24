@@ -92,6 +92,24 @@ public class HylCommonDetailModel {
         private List<SpecsBean> specs;
         private List<String> detailPics;
         private List<FullRolesBean> fullRoles;
+        private String fullId;
+        private String fullName;
+
+        public String getFullId() {
+            return fullId;
+        }
+
+        public void setFullId(String fullId) {
+            this.fullId = fullId;
+        }
+
+        public String getFullName() {
+            return fullName;
+        }
+
+        public void setFullName(String fullName) {
+            this.fullName = fullName;
+        }
 
         public int getMainId() {
             return mainId;

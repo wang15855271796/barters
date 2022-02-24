@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
     <include layout="@layout/common_title_hyl"/>
@@ -187,6 +188,8 @@
                         android:drawablePadding="@dimen/size_15dp"
                         android:singleLine="true"
                         android:textColor="#232131"
+                        android:inputType="number"
+                        android:maxLength="11"
                         android:textColorHint="#cccccc"
                         android:textSize="@dimen/size_18dp" />
 
@@ -271,7 +274,7 @@
 
                     <EditText
                         android:id="@+id/et_business_num"
-                        android:text="请输入营业执照号"
+                        android:hint="请输入营业执照号"
                         android:textColor="#909AAB"
                         android:layout_marginTop="5dp"
                         android:textSize="@dimen/sp_12"
@@ -286,11 +289,12 @@
                         android:layout_height="@dimen/public_space_value_0.5"/>
 
                     <ImageView
+                        android:scaleType="fitXY"
                         android:id="@+id/iv_business"
                         android:layout_marginTop="@dimen/dp_10"
                         android:src="@mipmap/icon_update"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="@dimen/size_100dp"
+                        android:layout_height="@dimen/size_100dp"/>
 
                     <TextView
                         android:text="2、食品经营许可证"
@@ -302,11 +306,12 @@
 
 
                     <ImageView
+                        android:scaleType="fitXY"
                         android:id="@+id/iv_allow"
                         android:layout_marginTop="@dimen/dp_10"
                         android:src="@mipmap/icon_update"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="@dimen/size_100dp"
+                        android:layout_height="@dimen/size_100dp"/>
 
                     <TextView
                         android:text="3、法人身份证"
@@ -338,11 +343,12 @@
 
 
                     <ImageView
+                        android:scaleType="fitXY"
                         android:id="@+id/iv_card1"
                         android:layout_marginTop="@dimen/dp_10"
                         android:src="@mipmap/icon_update"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="@dimen/size_100dp"
+                        android:layout_height="@dimen/size_100dp"/>
 
                     <TextView
                         android:text="5、身份证国徽面"
@@ -354,11 +360,12 @@
 
 
                     <ImageView
+                        android:scaleType="fitXY"
                         android:id="@+id/iv_card2"
                         android:layout_marginTop="@dimen/dp_10"
                         android:src="@mipmap/icon_update"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="@dimen/size_100dp"
+                        android:layout_height="@dimen/size_100dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -370,11 +377,12 @@
 
 
                     <ImageView
+                        android:scaleType="fitXY"
                         android:id="@+id/iv_card3"
                         android:layout_marginTop="@dimen/dp_10"
                         android:src="@mipmap/icon_update"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="@dimen/size_100dp"
+                        android:layout_height="@dimen/size_100dp"/>
 
                     <TextView
                         android:id="@+id/tv_submit"

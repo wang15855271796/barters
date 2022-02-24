@@ -15,7 +15,27 @@ public class AppInterfaceAddress {
 
     //http://192.168.101.41:8088/
 //    queryReturnProdIsContainFullGift
+    /**
+     * 更改登录企业
+     */
+    public static final String Change_Company = "hyl/home/updateHylUserCompanyId";
+    /**
+     * 获取满赠提示
+     */
+    public static final String Get_Tips = "hyl/home/getHylAppFullActiveTipsV3";
 
+    /**
+     *优惠券查看可用商品列表
+     */
+    public static final String Coupon_GoodsList = "hyl/home/getFullGiftUseProdPage";
+    /**
+     *满赠活动查看优惠券
+     */
+    public static final String Full_Active_CouponList = "hyl/home/getHylAppFullActiveGiftDetailV3";
+    /**
+     *满赠活动详情
+     */
+    public static final String Full_Active_Detail = "hyl/home/getHylAppFullActiveDetailV3";
     /**
      * 提交申请
      */
@@ -227,7 +247,7 @@ public class AppInterfaceAddress {
     /**
      * 购物车列表
      */
-    public static final String Cart_List = "hyl/cart/getMyCart";
+    public static final String Cart_List = "hyl/cart/getHylAppUserCartListV3";
     /**
      *添加到购物车-累计
      */
@@ -317,7 +337,7 @@ public class AppInterfaceAddress {
     /**
      *满赠活动列表
      */
-    public static final String Full_List = "hyl/home/getHomeFullActive";
+    public static final String Full_List = "hyl/home/getHylAppFullActivesV3";
     /**
      *组合列表数据
      */

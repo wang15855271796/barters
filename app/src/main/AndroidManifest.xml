@@ -105,10 +105,22 @@
 
 
 
+
         <activity android:name=".activity.HylTestActivity"
             android:screenOrientation="portrait"
             />
 
+        <activity android:name=".activity.CouponUseActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".activity.FullActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".activity.FullActiveActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"

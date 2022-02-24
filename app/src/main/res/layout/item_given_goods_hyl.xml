@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:id="@+id/ll_root"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -99,6 +100,7 @@
                 android:textSize="10dp" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_stock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
