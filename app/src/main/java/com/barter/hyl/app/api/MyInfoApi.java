@@ -134,13 +134,14 @@ public class MyInfoApi {
                                         @Field("idCardFrontPic") String idCardFrontPic,
                                         @Field("idCardBackPic") String idCardBackPic,
                                         @Field("idCardPic") String idCardPic,
-                                        @Field("businessLicense") String businessLicense
+                                        @Field("businessLicense") String businessLicense,
+                                        @Field("phone") String phone
                                         );
     }
     public static Observable<BaseModel>submitApply(Context context,String companyName,String shortName,String companyAddress,String contactName,String contactPhone,String licenseNoPic,
-                                                   String qualification,String legalIdCard,String idCardFrontPic,String idCardBackPic,String idCardPic,String businessLicense) {
+                                                   String qualification,String legalIdCard,String idCardFrontPic,String idCardBackPic,String idCardPic,String businessLicense,String phone) {
         Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(SubmitApplyService.class).setParams(companyName,shortName,companyAddress,contactName,contactPhone,
-                licenseNoPic,qualification,legalIdCard,idCardFrontPic,idCardBackPic,idCardPic,businessLicense);
+                licenseNoPic,qualification,legalIdCard,idCardFrontPic,idCardBackPic,idCardPic,businessLicense,phone);
         return myModelObservable;
     }
 

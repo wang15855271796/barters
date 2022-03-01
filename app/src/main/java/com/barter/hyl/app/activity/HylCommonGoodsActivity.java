@@ -100,8 +100,6 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     TextView tv_number;
     @BindView(R.id.ll_car)
     LinearLayout ll_car;
-    @BindView(R.id.rl_coupon)
-    RelativeLayout rl_coupon;
     @BindView(R.id.tv_full_desc)
     TextView tv_full_desc;
     @BindView(R.id.tv_detail)
@@ -114,10 +112,10 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     LinearLayout ll_full;
     @BindView(R.id.tv_full)
     TextView tv_full;
-    int mainId;
+    String mainId;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
-        mainId = getIntent().getIntExtra("mainId",0);
+        mainId = getIntent().getStringExtra("mainId");
         return false;
     }
 
@@ -151,7 +149,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     /**
      * 收藏
      */
-    private void getCollectionStatus(int mainId) {
+    private void getCollectionStatus(String mainId) {
         DetailApi.getCollection(mContext,mainId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -169,7 +167,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                     @Override
                     public void onNext(HylCollectionModel hylCollectionModel) {
                         if (hylCollectionModel.code==1) {
-                            if(hylCollectionModel.getData()==1) {
+                            if(hylCollectionModel.getData().equals("1")) {
                                 iv_collection.setImageResource(R.mipmap.ic_unlove);
                             }else {
                                 iv_collection.setImageResource(R.mipmap.ic_love);
@@ -188,7 +186,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     HylCommonDetailModel.DataBean data;
     List<HylCommonDetailModel.DataBean.SpecsBean> specs = new ArrayList<>();
     List<String> detailPics = new ArrayList<>();
-    private void getDetail(int mainId) {
+    private void getDetail(String mainId) {
         DetailApi.getDetail(mContext,mainId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -221,10 +219,8 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                             }
 
                             if(data.getFullActiveFlag()==0) {
-                                rl_coupon.setVisibility(View.GONE);
                                 ll_full.setVisibility(View.GONE);
                             }else {
-                                rl_coupon.setVisibility(View.VISIBLE);
                                 ll_full.setVisibility(View.VISIBLE);
                                 tv_full.setText(data.getFullName());
                             }

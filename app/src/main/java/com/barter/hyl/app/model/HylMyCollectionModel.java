@@ -73,7 +73,7 @@ public class HylMyCollectionModel {
          * collectId : 24549
          */
 
-        private int mainId;
+        private String mainId;
         private String productName;
         private String defaultPic;
         private String spec;
@@ -82,11 +82,11 @@ public class HylMyCollectionModel {
         private int inventFlag;
         private int collectId;
 
-        public int getMainId() {
+        public String getMainId() {
             return mainId;
         }
 
-        public void setMainId(int mainId) {
+        public void setMainId(String mainId) {
             this.mainId = mainId;
         }
 

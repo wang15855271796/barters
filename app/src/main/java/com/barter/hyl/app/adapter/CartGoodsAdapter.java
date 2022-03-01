@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.HylActiveDetailActivity;
 import com.barter.hyl.app.activity.HylCommonGoodsActivity;
+import com.barter.hyl.app.event.DeleteGoodsEvent;
 import com.barter.hyl.app.event.TotalAmountHylEvent;
 import com.barter.hyl.app.model.HylCartListModel;
 import com.barter.hyl.app.view.RoundImageView;
@@ -39,6 +40,7 @@ public class CartGoodsAdapter extends BaseQuickAdapter<HylCartListModel.DataBean
 
     @Override
     protected void convert(BaseViewHolder helper, HylCartListModel.DataBean.ProdsBeanX.ProdsBean item) {
+        TextView tv_delete = helper.getView(R.id.tv_delete);
         ImageView iv_send = helper.getView(R.id.iv_send);
 //        ImageView iv_icon = helper.getView(R.id.iv_icon);
         LinearLayout ll_root = helper.getView(R.id.ll_root);
@@ -58,6 +60,14 @@ public class CartGoodsAdapter extends BaseQuickAdapter<HylCartListModel.DataBean
                 iv_send.setVisibility(View.GONE);
             }
         }
+
+        tv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //删除某个商品
+                EventBus.getDefault().post(new DeleteGoodsEvent(helper.getAdapterPosition(),item));
+            }
+        });
 //        if(item.getFlagUrl()!=null&&item.getFlagUrl()!="") {
 //            Glide.with(mContext).load(item.getFlagUrl()).into(iv_icon);
 //        }
@@ -65,7 +75,6 @@ public class CartGoodsAdapter extends BaseQuickAdapter<HylCartListModel.DataBean
 //        if(item.getSelfProd()!=null&&!item.getSelfProd().equals("")) {
 //            Glide.with(mContext).load(item.getSelfProd()).into(iv_operate);
 //        }
-
         tv_title.setText(item.getProductName());
         Glide.with(mContext).load(item.getDefaultPic()).into(iv_head);
 

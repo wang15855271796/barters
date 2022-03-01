@@ -307,7 +307,7 @@ public class FullActiveDetailModel {
 
             private String type;
             private Object activeId;
-            private int productMainId;
+            private String productMainId;
             private String buyFlag;
             private int productId;
             private String productName;
@@ -355,11 +355,11 @@ public class FullActiveDetailModel {
                 this.activeId = activeId;
             }
 
-            public int getProductMainId() {
+            public String getProductMainId() {
                 return productMainId;
             }
 
-            public void setProductMainId(int productMainId) {
+            public void setProductMainId(String productMainId) {
                 this.productMainId = productMainId;
             }
 

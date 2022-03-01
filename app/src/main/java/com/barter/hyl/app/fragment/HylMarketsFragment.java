@@ -146,7 +146,7 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
         //商品adapter
         hylGoodsAdapter = new HylGoodsAdapter(R.layout.item_market_goods, cate_list, new HylGoodsAdapter.OnAddClickListener() {
             @Override
-            public void onAddClick(int mainId) {
+            public void onAddClick(String mainId) {
                 MarketDialog marketDialog = new MarketDialog(mActivity,mainId);
                 marketDialog.show();
             }

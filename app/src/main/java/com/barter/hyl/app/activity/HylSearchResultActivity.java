@@ -76,7 +76,7 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
         emptyView = View.inflate(mActivity, R.layout.no_view, null);
         hylSearchResultAdapter = new HylSearchResultAdapter(R.layout.item_search_hyl, list, new HylSearchResultAdapter.OnAddClickListener() {
             @Override
-            public void onAddClick(int mainId,int position) {
+            public void onAddClick(String mainId,int position) {
                 SearchDialog searchDialog = new SearchDialog(mActivity,list.get(position));
                 searchDialog.show();
             }

@@ -53,7 +53,7 @@ public class HylSearchResultAdapter extends BaseQuickAdapter<HylSearchResultMode
     }
 
     public interface OnAddClickListener {
-        void onAddClick(int mainId,int position);
+        void onAddClick(String mainId,int position);
     }
 
 }

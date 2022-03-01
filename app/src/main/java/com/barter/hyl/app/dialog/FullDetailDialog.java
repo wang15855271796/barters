@@ -81,8 +81,8 @@ public class FullDetailDialog extends Dialog implements View.OnClickListener {
     TextView tv_free_desc;
     @BindView(R.id.iv_cart)
     ImageView iv_cart;
-    int mainId;
-    public FullDetailDialog(Activity context, int mainId) {
+    String mainId;
+    public FullDetailDialog(Activity context, String mainId) {
         super(context, R.style.dialog);
         this.context = context;
         this.mainId = mainId;
@@ -138,7 +138,7 @@ public class FullDetailDialog extends Dialog implements View.OnClickListener {
     List<HylAddCartModel.DataBean.SpecsBean> specs = new ArrayList<>();
     List<HylChangeSpecModel.DataBean.PricesBean> prices = new ArrayList<>();
     int productId;
-    private void getData(int mainId) {
+    private void getData(String mainId) {
         DetailApi.getCart(context,mainId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

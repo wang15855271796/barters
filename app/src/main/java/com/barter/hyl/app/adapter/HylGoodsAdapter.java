@@ -64,7 +64,7 @@ public class HylGoodsAdapter extends BaseQuickAdapter<HylGoodListModel.DataBean.
     }
 
     public interface OnAddClickListener {
-        void onAddClick(int mainId);
+        void onAddClick(String mainId);
     }
 
 }

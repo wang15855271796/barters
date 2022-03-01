@@ -141,7 +141,7 @@ public class CommonDetailDialog extends Dialog implements View.OnClickListener {
     List<HylAddCartModel.DataBean.SpecsBean> specs = new ArrayList<>();
     List<HylChangeSpecModel.DataBean.PricesBean> prices = new ArrayList<>();
     int productId;
-    private void getData(int mainId) {
+    private void getData(String mainId) {
         DetailApi.getCart(context,mainId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

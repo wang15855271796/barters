@@ -79,7 +79,7 @@ public class HylCommonDetailModel {
          * fullRoles : [{"buyLogo":"","buySpec":"买 450ml 2瓶","sendLogo":"","sendProd":"赠 优惠券：货易链优惠券 1张","role":"仅可参与一次"}]
          */
 
-        private int mainId;
+        private String mainId;
         private int collectFlag;
         private String minMaxPrice;
         private String productName;
@@ -111,11 +111,11 @@ public class HylCommonDetailModel {
             this.fullName = fullName;
         }
 
-        public int getMainId() {
+        public String getMainId() {
             return mainId;
         }
 
-        public void setMainId(int mainId) {
+        public void setMainId(String mainId) {
             this.mainId = mainId;
         }
 

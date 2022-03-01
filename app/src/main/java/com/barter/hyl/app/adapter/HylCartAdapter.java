@@ -112,7 +112,7 @@ public class HylCartAdapter extends BaseQuickAdapter<HylCartListModel.DataBean.P
 
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        cartGoodsAdapter = new CartGoodsAdapter(R.layout.item_goods,this,data,item.getProds());
+        cartGoodsAdapter = new CartGoodsAdapter(R.layout.item_goods, this, data, item.getProds());
         recyclerView.setAdapter(cartGoodsAdapter);
         cartGoodsAdapter.notifyDataSetChanged();
 

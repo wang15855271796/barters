@@ -86,6 +86,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         Bundle bundle = getArguments();
         total = bundle.getString("total");
         memo = bundle.getString("memo");
@@ -135,6 +136,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
                 EventBus.getDefault().post(new CartListHylEvent());
             }
         });
+
         return dialog;
     }
 
@@ -220,7 +222,6 @@ public class HylPaymentDialogFragment extends DialogFragment {
     /**
      * 微信支付
      */
-
     private void weChatPay(String json) {
         try {
             IWXAPI api = WXAPIFactory.createWXAPI(getContext(), "wxf62d1bee757cd65a");
@@ -388,9 +389,9 @@ public class HylPaymentDialogFragment extends DialogFragment {
                                 recyclerView.setAdapter(hylPayListAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 payChannel = hylPayListModel.getData().get(0).getPayChannel();
-                                hylPayListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                hylPayListAdapter.setOnItemClickListener(new HylPayListAdapter.OnEventClickListener() {
                                     @Override
-                                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    public void onEventClick(int position) {
                                         hylPayListAdapter.selectionPosition(position);
                                         tv_balance.setText(hylPayListModel.getData().get(position).getPayChannelName());
                                         payChannel = hylPayListModel.getData().get(position).getPayChannel();

@@ -130,6 +130,7 @@ public class ApplyTryActivity extends BaseActivity implements View.OnClickListen
                     public void onNext(BaseModel baseModel) {
                         if (baseModel.code==1) {
                             Intent verifyIntent = new Intent(mActivity,ApplyActivity.class);
+                            verifyIntent.putExtra("phone",et_phone.getText().toString());
                             startActivity(verifyIntent);
                         } else {
                             ToastUtil.showSuccessMsg(mContext, baseModel.message);

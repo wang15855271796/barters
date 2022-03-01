@@ -166,7 +166,7 @@ public class HylActiviteModel {
              * inventFlag : 0
              */
 
-            private int maidId;
+            private String maidId;
             private String defaultPic;
             private String productName;
             private String minMaxPrice;
@@ -181,11 +181,11 @@ public class HylActiviteModel {
                 this.cartNum = cartNum;
             }
 
-            public int getMaidId() {
+            public String getMaidId() {
                 return maidId;
             }
 
-            public void setMaidId(int maidId) {
+            public void setMaidId(String maidId) {
                 this.maidId = maidId;
             }
 

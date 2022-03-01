@@ -158,7 +158,7 @@ public class HylGoodListModel {
              * inventFlag : 0
              */
 
-            private int mainId;
+            private String mainId;
             private String productName;
             private String defaultPic;
             private String spec;
@@ -166,11 +166,11 @@ public class HylGoodListModel {
             private String minMaxPrice;
             private int inventFlag;
 
-            public int getMainId() {
+            public String getMainId() {
                 return mainId;
             }
 
-            public void setMainId(int mainId) {
+            public void setMainId(String mainId) {
                 this.mainId = mainId;
             }
 

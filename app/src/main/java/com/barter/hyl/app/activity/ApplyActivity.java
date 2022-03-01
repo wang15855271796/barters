@@ -72,8 +72,10 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
     EditText et_user_card;
     @BindView(R.id.et_business_num)
     EditText et_business_num;
+    String phone;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
+        phone = getIntent().getStringExtra("phone");
         return false;
     }
 
@@ -358,7 +360,7 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
 
     private void submitApply() {
         MyInfoApi.submitApply(mActivity,companyName,shortName,address,contactUser,contactPhone,businessPath,allowPath,
-                userCard,card1Path,card2Path,card3Path,businessNum)
+                userCard,card1Path,card2Path,card3Path,businessNum,phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseModel>() {

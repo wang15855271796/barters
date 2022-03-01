@@ -386,9 +386,9 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
                                     }
                                 }
 
-                                hylPayListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                                hylPayListAdapter.setOnItemClickListener(new HylPayListAdapter.OnEventClickListener() {
                                     @Override
-                                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                    public void onEventClick(int position) {
                                         hylPayListAdapter.selectionPosition(position);
                                         tv_balance.setText(hylPayListModel.getData().get(position).getPayChannelName());
                                         payChannel = hylPayListModel.getData().get(position).getPayChannel();
@@ -397,7 +397,6 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
                                         rePayDetail.setVisibility(View.VISIBLE);
                                         LinPayWay.startAnimation(slide_left_to_right);
                                         LinPayWay.setVisibility(View.GONE);
-
                                     }
                                 });
                             }

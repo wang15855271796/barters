@@ -2,6 +2,7 @@ package com.barter.hyl.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,6 +24,9 @@ import com.barter.hyl.app.model.FullActiveDetailModel;
 import com.barter.hyl.app.model.TipsModel;
 import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
+import com.barter.hyl.app.view.FlowLayout;
+import com.barter.hyl.app.view.TagAdapter;
+import com.barter.hyl.app.view.TagFlowLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,7 +53,7 @@ public class FullActiveActivity extends BaseActivity implements View.OnClickList
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.rv_full_given)
-    RecyclerView rv_full_given;
+    TagFlowLayout rv_full_given;
     @BindView(R.id.tv_roll)
     TextView tv_roll;
     @BindView(R.id.tv_tip)
@@ -86,26 +90,26 @@ public class FullActiveActivity extends BaseActivity implements View.OnClickList
         fullActiveAdapter = new FullActiveAdapter(R.layout.item_active_full_list,list,mActivity);
         recyclerView.setAdapter(fullActiveAdapter);
 
-        fullGivenAdapter = new FullGivenAdapter(R.layout.item_full_desc,sendGifts);
-        rv_full_given.setLayoutManager(new LinearLayoutManager(mContext));
-        rv_full_given.setAdapter(fullGivenAdapter);
+//        fullGivenAdapter = new FullGivenAdapter(R.layout.item_full_desc,sendGifts);
+//        rv_full_given.setLayoutManager(new LinearLayoutManager(mContext));
+//        rv_full_given.setAdapter(fullGivenAdapter);
         getActiveDetail();
 
-        fullGivenAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(sendGifts.get(position).getType()==0) {
-                    Intent intent = new Intent(mContext,HylCommonGoodsActivity.class);
-                    intent.putExtra("mainId",sendGifts.get(position).getProductMainId());
-                    startActivity(intent);
-                }else {
-                    CouponFullListDialog couponFullListDialog = new CouponFullListDialog(mContext,
-                            sendGifts.get(position).getPoolNo(),sendGifts.get(position).getGiftProdUseType(),
-                            sendGifts.get(position).getName());
-                    couponFullListDialog.show();
-                }
-            }
-        });
+//        fullGivenAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                if(sendGifts.get(position).getType()==0) {
+//                    Intent intent = new Intent(mContext,HylCommonGoodsActivity.class);
+//                    intent.putExtra("mainId",sendGifts.get(position).getProductMainId());
+//                    startActivity(intent);
+//                }else {
+//                    CouponFullListDialog couponFullListDialog = new CouponFullListDialog(mContext,
+//                            sendGifts.get(position).getPoolNo(),sendGifts.get(position).getGiftProdUseType(),
+//                            sendGifts.get(position).getName());
+//                    couponFullListDialog.show();
+//                }
+//            }
+//        });
 
         fullActiveAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -128,6 +132,9 @@ public class FullActiveActivity extends BaseActivity implements View.OnClickList
     /**
      *  满赠活动详情
      */
+    TagAdapter unAbleAdapter;
+    TextView tv_given;
+    ImageView iv_pic;
     List<FullActiveDetailModel.DataBean.ProdsBean> list = new ArrayList<>();
     List<FullActiveDetailModel.DataBean.SendGiftsBean> sendGifts = new ArrayList<>();
     private void getActiveDetail() {
@@ -170,9 +177,50 @@ public class FullActiveActivity extends BaseActivity implements View.OnClickList
                                 }
 
                                 sendGifts.addAll(data.getSendGifts());
+                                unAbleAdapter = new TagAdapter<FullActiveDetailModel.DataBean.SendGiftsBean>(sendGifts){
+
+                                    @Override
+                                    public View getView(FlowLayout parent, int position, FullActiveDetailModel.DataBean.SendGiftsBean sendGiftsBean) {
+                                        FullActiveDetailModel.DataBean.SendGiftsBean sendGiftsBean1 = sendGifts.get(position);
+                                        View view = LayoutInflater.from(mActivity).inflate(R.layout.item_full_desc,rv_full_given, false);
+                                        tv_given = view.findViewById(R.id.tv_given);
+                                        iv_pic = view.findViewById(R.id.iv_pic);
+                                        tv_given.setText(sendGiftsBean1.getGiftName()+sendGiftsBean1.getSendNum());
+                                        tv_given.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                if(sendGiftsBean1.getType()==0) {
+                                                    //赠品
+                                                    iv_pic.setImageResource(R.mipmap.icon_zeng);
+                                                    Intent intent = new Intent(mContext,HylCommonGoodsActivity.class);
+                                                    intent.putExtra("mainId",sendGifts.get(position).getProductMainId());
+                                                    startActivity(intent);
+                                                }else {
+                                                    //优惠券
+                                                    iv_pic.setImageResource(R.mipmap.icon_quan);
+                                                    CouponFullListDialog couponFullListDialog = new CouponFullListDialog(mContext,
+                                                            sendGifts.get(position).getPoolNo(),sendGifts.get(position).getGiftProdUseType(),
+                                                            sendGifts.get(position).getName());
+                                                    couponFullListDialog.show();
+                                                }
+                                            }
+                                        });
+
+                                        if(sendGiftsBean1.getType()==0) {
+                                            //赠品
+                                            iv_pic.setImageResource(R.mipmap.icon_zeng);
+                                        }else {
+                                            //优惠券
+                                            iv_pic.setImageResource(R.mipmap.icon_quan);
+                                        }
+                                        return view;
+                                    }
+                                };
+                                rv_full_given.setAdapter(unAbleAdapter);
+                                unAbleAdapter.notifyDataChanged();
+
                                 list.addAll(data.getProds());
-//                                int total = sendGifts.size()+list.size();
-                                if(sendGifts.size()>4) {
+                                if(sendGifts.size()>4||sendGifts.size()==4) {
                                     tv_more.setVisibility(View.VISIBLE);
                                 }else {
                                     tv_more.setVisibility(View.GONE);

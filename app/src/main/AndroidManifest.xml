@@ -124,7 +124,6 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleInstance"
             />
 
         <activity android:name=".activity.ApplyTryActivity"

@@ -149,7 +149,7 @@ public class CartPriceAdapter extends BaseQuickAdapter<HylCartListModel.DataBean
                                 EventBus.getDefault().post(new CartListHylEvent());
                                 ToastUtil.showSuccessMsg(mContext, hylAddToCartModel.getData().getMessage());
                             }
-
+                            alertDialog.dismiss();
                         } else {
                             ToastUtil.showSuccessMsg(mContext, hylAddToCartModel.getMessage());
                         }

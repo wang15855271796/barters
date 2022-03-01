@@ -30,6 +30,7 @@ import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.ChangeNumHylEvent;
+import com.barter.hyl.app.event.DeleteGoodsEvent;
 import com.barter.hyl.app.event.JumpMarketEvent;
 import com.barter.hyl.app.event.TotalAmountHylEvent;
 import com.barter.hyl.app.model.BaseModel;
@@ -113,20 +114,6 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         hylCartAdapter = new HylCartAdapter(R.layout.item_cart_hyl,validList,HylCartFragment.this);
         recyclerView.setAdapter(hylCartAdapter);
-//        hylCartAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                if(validList.get(position).getBusinessType()==1) {
-//                    Intent intent = new Intent(mActivity,HylCommonGoodsActivity.class);
-//                    intent.putExtra("mainId",validList.get(position).getProductMainId());
-//                    startActivity(intent);
-//                }else {
-//                    Intent intent = new Intent(mActivity,HylActiveDetailActivity.class);
-//                    intent.putExtra("activeId",validList.get(position).getProductMainId());
-//                    startActivity(intent);
-//                }
-//            }
-//        });
 
         smart.autoRefresh();
 
@@ -363,7 +350,6 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
                                     iv_head = view.findViewById(R.id.iv_head);
                                     tv_title = view.findViewById(R.id.tv_title);
                                     tv_title.setText(inValidListBean.getProductName());
-//                                    Glide.with(mActivity).load(inValidListBean.getDefaultPic()).into(iv_head);
                                     return view;
                                 }
                             };
@@ -624,6 +610,19 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
         getCartList();
     }
 
+    /**
+     * 删除商品
+     * @param deleteGoodsEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getCartList(DeleteGoodsEvent deleteGoodsEvent) {
+        int position = deleteGoodsEvent.getAdapterPosition();
+        int cartId = deleteGoodsEvent.getItem().getCartId();
+        cartIdList.clear();
+        cartIdList.add(cartId+"");
+        deleteValidList();
+
+    }
 
     public static Date getNowDate() {
         Date currentTimes = new Date();

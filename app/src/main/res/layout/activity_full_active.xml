@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#f6f6f6"
     android:fitsSystemWindows="true"
@@ -48,12 +49,16 @@
 
             </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.barter.hyl.app.view.TagFlowLayout
                 android:id="@+id/rv_full_given"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/public_space_value_120">
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                app:is_limit="true"
+                app:limit_line_count="4"
+                app:max_select="1">
 
-            </androidx.recyclerview.widget.RecyclerView>
+            </com.barter.hyl.app.view.TagFlowLayout>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

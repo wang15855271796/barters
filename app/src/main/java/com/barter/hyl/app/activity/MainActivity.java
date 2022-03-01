@@ -142,8 +142,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
 
-        mLocationClient.start();
-
+//        mLocationClient.start();
+        switchTab(TAB_HOME);
         getCartNum();
     }
 
@@ -313,9 +313,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             UserInfoHelper.saveCity(mContext,location.getCity());
             UserInfoHelper.saveAreaName(mContext,location.getDistrict());
             UserInfoHelper.saveStreet(mContext,location.getStreet());
-            switchTab(TAB_HOME);
+//            switchTab(TAB_HOME);
         }
     }
+
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

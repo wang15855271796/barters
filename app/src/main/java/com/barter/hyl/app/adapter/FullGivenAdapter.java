@@ -1,11 +1,13 @@
 package com.barter.hyl.app.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.dialog.CouponFullListDialog;
 import com.barter.hyl.app.model.FullActiveDetailModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

@@ -157,7 +157,7 @@ public class HylSearchResultModel {
              * inventFlag : 0
              */
 
-            private int mainId;
+            private String mainId;
             private String productName;
             private String defaultPic;
             private String spec;
@@ -165,11 +165,11 @@ public class HylSearchResultModel {
             private String minMaxPrice;
             private int inventFlag;
 
-            public int getMainId() {
+            public String getMainId() {
                 return mainId;
             }
 
-            public void setMainId(int mainId) {
+            public void setMainId(String mainId) {
                 this.mainId = mainId;
             }
 

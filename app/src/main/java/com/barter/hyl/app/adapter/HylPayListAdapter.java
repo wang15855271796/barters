@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
@@ -25,6 +26,7 @@ public class HylPayListAdapter extends BaseQuickAdapter<HylPayListModel.DataBean
     TextView tv_title;
     ImageView iv_pic;
     String total;
+    TextView tv_price;
     public HylPayListAdapter(int layoutResId, @Nullable List<HylPayListModel.DataBean> data,String total) {
         super(layoutResId, data);
         this.total = total;
@@ -34,12 +36,13 @@ public class HylPayListAdapter extends BaseQuickAdapter<HylPayListModel.DataBean
     protected void convert(BaseViewHolder helper, HylPayListModel.DataBean item) {
         iv_pic = helper.getView(R.id.iv_pic);
         iv_gou = helper.getView(R.id.iv_gou);
+        LinearLayout ll_price = helper.getView(R.id.ll_price);
         tv_title = helper.getView(R.id.tv_title);
+        tv_price = helper.getView(R.id.tv_price);
         ImageView iv_icon = helper.getView(R.id.iv_icon);
         TextView tv_desc = helper.getView(R.id.tv_desc);
         tv_title.setText(item.getPayChannelName());
-        String substring = total.substring(1);
-        BigDecimal totals = new BigDecimal(substring);
+        BigDecimal totals = new BigDecimal(total);
 
         if(item.getPayChannel()==3) {
             iv_icon.setImageResource(R.mipmap.icon_chat);
@@ -54,8 +57,9 @@ public class HylPayListAdapter extends BaseQuickAdapter<HylPayListModel.DataBean
             if(item.getPayChannel()==17) {
                 if(item.getLimitType()==1) {
                     tv_desc.setText("总额度："+item.getAmtVo().getTotalAmt()+"元,剩余"
-                            +item.getAmtVo().getRemainAmt()+"元,待还款金额"+item.getAmtVo().getRemainAmt()+"元");
-                    tv_desc.setVisibility(View.VISIBLE);
+                            +item.getAmtVo().getRemainAmt()+"元,待还款金额");
+                    tv_price.setText(item.getAmtVo().getUseAmt());
+                    ll_price.setVisibility(View.VISIBLE);
                     if(totals.compareTo(remain)==1) {
                         //总金额大于剩余金额
                         iv_pic.setVisibility(View.GONE);
@@ -65,12 +69,19 @@ public class HylPayListAdapter extends BaseQuickAdapter<HylPayListModel.DataBean
                         tv_title.setTextColor(Color.parseColor("#333333"));
                     }
                 }else {
-                    tv_desc.setVisibility(View.GONE);
+                    ll_price.setVisibility(View.GONE);
                 }
             }
         }
 
-
+        iv_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnEventClickListener!=null) {
+                    mOnEventClickListener.onEventClick(helper.getAdapterPosition());
+                }
+            }
+        });
 //        if(helper.getAdapterPosition()==0) {
 //            helper.getView(R.id.iv_recomend).setVisibility(View.VISIBLE);
 //        }else {
@@ -88,5 +99,16 @@ public class HylPayListAdapter extends BaseQuickAdapter<HylPayListModel.DataBean
         this.selectionPosition  = position;
         notifyDataSetChanged();
     }
+
+    public interface OnEventClickListener {
+        void onEventClick(int position);
+
+    }
+
+    OnEventClickListener mOnEventClickListener;
+    public void setOnItemClickListener(OnEventClickListener onEventClickListener) {
+        mOnEventClickListener = onEventClickListener;
+    }
+
 
 }

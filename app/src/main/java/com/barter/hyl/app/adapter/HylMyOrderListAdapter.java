@@ -258,14 +258,17 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         if(item.isOfflinePay()) {
                             //线下履约
                             tv_keep.setVisibility(View.VISIBLE);
+                            tv_now_pay1.setVisibility(View.GONE);
+                            tv_now_pay.setVisibility(View.GONE);
+                            tv_now_pay2.setVisibility(View.GONE);
+                            tv_now_pay3.setVisibility(View.GONE);
                         }else {
                             tv_keep.setVisibility(View.GONE);
+                            tv_now_pay1.setVisibility(View.VISIBLE);
+                            tv_now_pay.setVisibility(View.VISIBLE);
+                            tv_now_pay2.setVisibility(View.VISIBLE);
+                            tv_now_pay3.setVisibility(View.VISIBLE);
                         }
-                        tv_now_pay1.setVisibility(View.VISIBLE);
-                        tv_now_pay.setVisibility(View.VISIBLE);
-                        tv_now_pay2.setVisibility(View.VISIBLE);
-                        tv_now_pay3.setVisibility(View.VISIBLE);
-
                     }
 
                     if (item.getOrderStatusStr().equals("待发货-待接收")||item.getOrderStatusStr().equals("待发货-已接收")||item.getOrderStatusStr().equals("已评价")

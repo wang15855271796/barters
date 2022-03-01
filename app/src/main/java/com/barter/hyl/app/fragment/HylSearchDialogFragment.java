@@ -61,7 +61,7 @@ public class HylSearchDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        int mainId = bundle.getInt("mainId");
+        String mainId = bundle.getString("mainId");
         EventBus.getDefault().register(this);
         // 使用不带Theme的构造器, 获得的dialog边框距离屏幕仍有几毫米的缝隙。
         Dialog dialog = new Dialog(getActivity(), R.style.BottomDialog);
@@ -164,7 +164,7 @@ public class HylSearchDialogFragment extends DialogFragment {
     List<HylAddCartModel.DataBean.SpecsBean> specs = new ArrayList<>();
     List<HylChangeSpecModel.DataBean.PricesBean> prices = new ArrayList<>();
     int productId;
-    private void getData(int mainId) {
+    private void getData(String mainId) {
         DetailApi.getCart(getActivity(),mainId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -32,10 +32,10 @@ public class DetailApi {
     public interface DetailService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Common_Data)
-        Observable<HylCommonDetailModel> setParams(@Field("mainId") int mainId);
+        Observable<HylCommonDetailModel> setParams(@Field("mainId") String mainId);
     }
 
-    public static Observable<HylCommonDetailModel> getDetail(Context context, int mainId) {
+    public static Observable<HylCommonDetailModel> getDetail(Context context, String mainId) {
         Observable<HylCommonDetailModel> detailModelObservable = RestHelper.getBaseRetrofit(context).create(DetailService.class).setParams(mainId);
         return detailModelObservable;
     }
@@ -56,10 +56,10 @@ public class DetailApi {
     public interface CollectionService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Collection)
-        Observable<HylCollectionModel> setParams(@Field("mainId") int mainId);
+        Observable<HylCollectionModel> setParams(@Field("mainId") String mainId);
     }
 
-    public static Observable<HylCollectionModel> getCollection(Context context, int mainId) {
+    public static Observable<HylCollectionModel> getCollection(Context context, String mainId) {
         Observable<HylCollectionModel> baseModelObservable = RestHelper.getBaseRetrofit(context).create(CollectionService.class).setParams(mainId);
         return baseModelObservable;
     }
@@ -68,10 +68,10 @@ public class DetailApi {
     public interface AddCartService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Dialog_Data)
-        Observable<HylAddCartModel> setParams(@Field("mainId") int mainId);
+        Observable<HylAddCartModel> setParams(@Field("mainId") String mainId);
     }
 
-    public static Observable<HylAddCartModel> getCart(Context context, int mainId) {
+    public static Observable<HylAddCartModel> getCart(Context context, String mainId) {
         Observable<HylAddCartModel> baseModelObservable = RestHelper.getBaseRetrofit(context).create(AddCartService.class).setParams(mainId);
         return baseModelObservable;
     }
