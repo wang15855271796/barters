@@ -73,7 +73,7 @@
 
         <ImageView
             android:id="@+id/iv_add"
-            android:src="@mipmap/app_add"
+            android:src="@mipmap/icon_add"
             android:layout_marginRight="@dimen/size_15dp"
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="@dimen/size_3dp"

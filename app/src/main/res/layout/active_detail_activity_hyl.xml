@@ -330,7 +330,7 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:padding="5dp"
-                                    android:src="@mipmap/app_add" />
+                                    android:src="@mipmap/icon_add" />
                             </LinearLayout>
 
                         </RelativeLayout>

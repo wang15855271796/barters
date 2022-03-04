@@ -81,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:src="@mipmap/app_add" />
+                android:src="@mipmap/icon_add" />
         </LinearLayout>
 
     </RelativeLayout>

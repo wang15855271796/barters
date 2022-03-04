@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:background="#F6F6F6"
@@ -24,6 +24,7 @@
 
         <EditText
             android:id="@+id/et_sms"
+            android:hint="请输入授权码"
             android:layout_marginTop="@dimen/size_6dp"
             android:layout_marginRight="@dimen/size_20dp"
             android:layout_marginLeft="@dimen/size_20dp"
@@ -39,8 +40,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <EditText
-            android:id="@+id/et_company"
+        <TextView
+            tools:text="ss"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_company"
             android:layout_marginTop="@dimen/size_6dp"
             android:layout_marginRight="@dimen/size_20dp"
             android:layout_marginLeft="@dimen/size_20dp"

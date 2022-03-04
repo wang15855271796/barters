@@ -27,6 +27,7 @@ public class HylPayListAdapter extends BaseQuickAdapter<HylPayListModel.DataBean
     ImageView iv_pic;
     String total;
     TextView tv_price;
+    BigDecimal totals;
     public HylPayListAdapter(int layoutResId, @Nullable List<HylPayListModel.DataBean> data,String total) {
         super(layoutResId, data);
         this.total = total;
@@ -42,7 +43,12 @@ public class HylPayListAdapter extends BaseQuickAdapter<HylPayListModel.DataBean
         ImageView iv_icon = helper.getView(R.id.iv_icon);
         TextView tv_desc = helper.getView(R.id.tv_desc);
         tv_title.setText(item.getPayChannelName());
-        BigDecimal totals = new BigDecimal(total);
+        if(total.contains("￥")) {
+            totals = new BigDecimal(total.substring(1));
+        }else {
+            totals = new BigDecimal(total);
+        }
+
 
         if(item.getPayChannel()==3) {
             iv_icon.setImageResource(R.mipmap.icon_chat);

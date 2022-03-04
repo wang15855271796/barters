@@ -213,7 +213,7 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
     }
 
 
-    boolean isLoaded;
+    boolean isLoaded = false;
     private boolean isDefaultNow;
     @Override
     public void onClick(View v) {
@@ -228,7 +228,6 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
                     isDefaultNow = true;
 
                 }
-//                getDefaultAddress(0);
                 break;
             case R.id.bt_add:
 

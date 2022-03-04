@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -98,6 +100,7 @@ public class KeepOrderFragment extends BaseFragment implements View.OnClickListe
     public void onResume() {
         super.onResume();
         ids.clear();
+        selectedNum = 0;
         cb_all_select.setChecked(false);
         tv_total_amount.setText("0.0");
 
@@ -248,6 +251,15 @@ public class KeepOrderFragment extends BaseFragment implements View.OnClickListe
             public void onLoadMoreRequested() {
                 pageNum++;
                 getMyOrderList();
+                isAllSelected = false;
+                cb_all_select.setChecked(false);
+                selectedNum = 0;
+//                tv_total_amount.setText("0.0");
+//                ids.clear();
+                hylMyOrderListAdapter.setSelectAll(false);
+                for (int i = 0; i < list.size(); i++) {
+                    isCheck.put(i,false);
+                }
             }
         });
     }
@@ -508,31 +520,30 @@ public class KeepOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     //是否批量
-    int selectedNum;
+    int selectedNum = 0;
     private Map<Integer, Boolean> isCheck = new HashMap<>();//存储选择状态
+    List<HylMyOrderListModel.DataBean.ListBean> lists = new ArrayList<>();
     private void isAll(int position,String totalAmount) {
         Double totalAmounts = Double.valueOf(totalAmount);
         double result = Double.parseDouble(String.format("%.2f", totalAmounts));
         tv_total_amount.setText(result+"");
+
+
         if (isCheck.get(position)) {
             //如果取消，则设置map集合中为false
             isCheck.put(position, false);
+            selectedNum--;
         } else {
+            selectedNum++;
             //如果选中，则设置map集合中为true
             isCheck.put(position, true);
         }
-
-        selectedNum = 0;
-        for (int i = 0; i < isCheck.size(); i++) {
-            if (isCheck.get(i)) {
-                selectedNum++;
-            }
-        }
-
-        if (selectedNum == list.size()) {
+        if (selectedNum == lists.size()) {
             //如果用户一个一个单选,选到全部商品,上面的全选自动选中
             cb_all_select.setChecked(true);
+            isAllSelected = true;
         } else {
+            isAllSelected = false;
             cb_all_select.setChecked(false);
         }
 
@@ -570,14 +581,18 @@ public class KeepOrderFragment extends BaseFragment implements View.OnClickListe
                             if(hylMyOrderListModel.getData()!=null) {
                                 mPtr.refreshComplete();
                                 hylMyOrderListModels = hylMyOrderListModel;
-
-//                                list.addAll(hylMyOrderListModel.getData().getList());
-//                                hylMyOrderListAdapter.notifyDataSetChanged();
                                 updateOrderList();
                                 if(hylMyOrderListModel.getData().getList().size()>0) {
                                     rl_keep_order.setVisibility(View.VISIBLE);
                                 }else {
                                     rl_keep_order.setVisibility(View.GONE);
+                                }
+
+                                lists.clear();
+                                for (int i = 0; i < list.size(); i++) {
+                                    if(!list.get(i).isOfflinePay()) {
+                                        lists.add(list.get(i));
+                                    }
                                 }
 
                                 isCheck.clear();
@@ -648,20 +663,24 @@ public class KeepOrderFragment extends BaseFragment implements View.OnClickListe
                 break;
 
             case R.id.ll_all_select:
+                isCheck.clear();
                 if (isAllSelected) {
+                    selectedNum = 0;
                     //正在被全选
                     hylMyOrderListAdapter.setSelectAll(false);
                     cb_all_select.setChecked(false);
-                    for (int i = 0; i < isCheck.size(); i++) {
+                    for (int i = 0; i < list.size(); i++) {
                         isCheck.put(i, false);
                     }
+
                     hylMyOrderListAdapter.notifyDataSetChanged();
                     isAllSelected = false;
                 } else {
                     //没有全选中
+                    selectedNum = lists.size();
                     hylMyOrderListAdapter.setSelectAll(true);
                     cb_all_select.setChecked(true);
-                    for (int i = 0; i < isCheck.size(); i++) {
+                    for (int i = 0; i < list.size(); i++) {
                         isCheck.put(i, true);
                     }
                     hylMyOrderListAdapter.notifyDataSetChanged();

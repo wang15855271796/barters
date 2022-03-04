@@ -245,7 +245,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
                 });
     }
 
-    boolean isLoaded;
+    boolean isLoaded = false;
     private boolean isDefaultNow;
     @Override
     public void onClick(View v) {
@@ -287,7 +287,10 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
                 break;
 
             case R.id.tv_area:
-                showPickerView();
+                if(isLoaded) {
+                    showPickerView();
+                }
+
                 break;
         }
     }

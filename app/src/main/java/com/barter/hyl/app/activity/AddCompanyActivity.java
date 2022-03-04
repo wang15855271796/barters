@@ -33,8 +33,8 @@ public class AddCompanyActivity extends BaseActivity implements View.OnClickList
     TextView tv_sure;
     @BindView(R.id.et_sms)
     EditText et_sms;
-    @BindView(R.id.et_company)
-    EditText et_company;
+    @BindView(R.id.tv_company)
+    TextView tv_company;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -142,7 +142,7 @@ public class AddCompanyActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onNext(HylOneRegisterModel hylOneRegisterModel) {
                         if(hylOneRegisterModel.code==1) {
-                            et_company.setText(hylOneRegisterModel.data);
+                            tv_company.setText(hylOneRegisterModel.data);
                             ToastUtil.showSuccessMsg(mContext,hylOneRegisterModel.message);
                         }else {
                             ToastUtil.showSuccessMsg(mContext,hylOneRegisterModel.message);

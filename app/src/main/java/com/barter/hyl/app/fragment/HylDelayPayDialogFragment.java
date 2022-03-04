@@ -413,6 +413,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                                 if (payChannel == 2&& hylPayInfoModel.getData().getPayType()==2) {
                                     //支付宝支付 已经改好了
                                     SharedPreferencesUtil.saveString(getContext(),"payKey","2");
+                                    Log.d("cdesfsdfe.....",hylPayInfoModel.getData().getPayToken()+"s");
                                     aliPay(hylPayInfoModel.getData().getPayToken());
                                 } else if (payChannel == 3) {
                                     //微信支付

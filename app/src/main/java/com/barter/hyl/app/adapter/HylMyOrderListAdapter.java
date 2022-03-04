@@ -109,7 +109,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         }else {
             ll_choose.setVisibility(View.GONE);
         }
-        if(isCheck.size()>0) {
+        if(isCheck!=null&&isCheck.size()>0) {
             helper.setChecked(R.id.cb_choose, isCheck.get(helper.getAdapterPosition()));
         }
         helper.setText(R.id.tv_item_my_order_all_price, "合计"+item.getTotalAmount());//总价
@@ -422,56 +422,16 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                 }
             }
         });
-
-//        evaluateNow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onClick.evaluateNowOnclick(helper.getLayoutPosition(),item.getOrderId());
-//            }
-//        });
-//        againBay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onClick.againBayOnclick(helper.getLayoutPosition());
-//            }
-//        });
-//
-//        cancelOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClick.cancelOnclick(item.getOrderId());
-//
-//            }
-//        });
-//        deleteOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClick.deleteOnclick(item.getOrderId());
-//            }
-//        });
-//        imageGo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClick.imageGo(item.getOrderId(), item.getTotalAmount());
-//            }
-//        });
-//
-//        confirmOrder.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onClick.requestConfirmGetGoods(item.getOrderId());
-//            }
-//        });
     }
 
     String totalAmount;
     private String getAllPrice() {
         BigDecimal amount00 = new BigDecimal("0.00");
         BigDecimal amount000 = new BigDecimal("0.00");
-        for (int i = 0; i < datas.size(); i++) {
-            boolean selected = datas.get(i).isSelected();
+        for (int i = 0; i < data.size(); i++) {
+            boolean selected = data.get(i).isSelected();
             if(selected) {
-                totalAmount= datas.get(i).getTotalAmount();
+                totalAmount= data.get(i).getTotalAmount();
                 String substring = totalAmount.substring(1, totalAmount.length());
                 BigDecimal amount0 = new BigDecimal(substring);
                 amount00 = amount00.add(amount0);

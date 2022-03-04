@@ -240,7 +240,6 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
      **/
     @Subscribe
     public void onEventMainThread(WeChatPayEvent event) {
-        Log.d("dsgdsfewfsd.....",payChannel+"---"+outTradeNo+"---"+orderId);
         Intent intent = new Intent(getActivity(), DeliverPayResult.class);
         intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
         intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
@@ -255,7 +254,6 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
      **/
     @Subscribe
     public void onEventMainThread(WeChatUnPayEvent event) {
-        Log.d("egdfsdada.......","11");
         Intent intent = new Intent(getContext(), DeliverPayResult.class);
         intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
         intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);

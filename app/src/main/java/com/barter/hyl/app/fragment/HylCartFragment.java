@@ -497,11 +497,9 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
                 if (mSelect) {
                     cb_select_all.setChecked(false);
                     hylCartAdapter.setSelectAll(false);
-                    Log.d("sdfsdf.....","aa");
                 } else {
                     cb_select_all.setChecked(true);
                     hylCartAdapter.setSelectAll(true);
-                    Log.d("sdfsdf.....","bb");
                 }
                 break;
 
