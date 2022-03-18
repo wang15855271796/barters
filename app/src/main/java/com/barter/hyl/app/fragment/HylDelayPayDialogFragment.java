@@ -2,12 +2,12 @@ package com.barter.hyl.app.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -172,7 +172,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        if(outTradeNo!=null&&SharedPreferencesUtil.getString(getContext(),"payKey").equals("4")) {
+        if(outTradeNo!=null&&SharedPreferencesUtil.getString(getActivity(),"payKey").equals("4")) {
 //            getPayResult(outTradeNo);
         }
     }
@@ -195,7 +195,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
         UnifyPayRequest msg = new UnifyPayRequest();
         msg.payChannel = UnifyPayRequest.CHANNEL_ALIPAY;
         msg.payData = parms;
-        UnifyPayPlugin.getInstance(getContext()).sendPayRequest(msg);
+        UnifyPayPlugin.getInstance(getActivity()).sendPayRequest(msg);
     }
 
     /**
@@ -203,9 +203,9 @@ public class HylDelayPayDialogFragment extends DialogFragment {
      */
 
     private void weChatPay(String json) {
-        SharedPreferencesUtil.saveString(getContext(),"pays","0");
+        SharedPreferencesUtil.saveString(getActivity(),"pays","0");
         try {
-            IWXAPI api = WXAPIFactory.createWXAPI(getContext(), "wxf62d1bee757cd65a");
+            IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), "wxf62d1bee757cd65a");
             JSONObject obj = new JSONObject(json);
             PayReq request = new PayReq();
             request.appId = obj.optString("appId");
@@ -226,7 +226,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
      **/
     @Subscribe
     public void onEventMainThread(WeChatPayEvent event) {
-        Intent intent = new Intent(getContext(), DeliverPayResult.class);
+        Intent intent = new Intent(getActivity(), DeliverPayResult.class);
         intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
         intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
         intent.putExtra(AppConstant.ORDERID, orderId);
@@ -240,7 +240,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
      **/
     @Subscribe
     public void onEventMainThread(WeChatUnPayEvent event) {
-        Intent intent = new Intent(getContext(), DeliverPayResult.class);
+        Intent intent = new Intent(getActivity(), DeliverPayResult.class);
         intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
         intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
         intent.putExtra(AppConstant.ORDERID, orderId);
@@ -287,7 +287,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                     if ("9000".equals(result.get("resultStatus"))) {
                         //okpay
                         //支付成功
-                        Intent intent = new Intent(getContext(), DeliverPayResult.class);
+                        Intent intent = new Intent(getActivity(), DeliverPayResult.class);
                         intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
                         intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
                         intent.putExtra(AppConstant.ORDERDELIVERYTYPE, orderDeliveryType + "");
@@ -296,14 +296,14 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                         getActivity().finish();
                     } else if ("6001".equals(result.get("resultStatus"))) {
                         //用户取消支付
-                        AppHelper.showMsg(getContext(), "您已取消支付");
+                        AppHelper.showMsg(getActivity(), "您已取消支付");
                     } else if ("6002".equals(result.get("resultStatus"))) {
                         //网络连接错误
-                        AppHelper.showMsg(getContext(), "网络连接错误");
+                        AppHelper.showMsg(getActivity(), "网络连接错误");
                     } else {
                         //okpay
                         //支付失败
-                        Intent intent = new Intent(getContext(), DeliverPayResult.class);
+                        Intent intent = new Intent(getActivity(), DeliverPayResult.class);
                         intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
                         intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
                         intent.putExtra(AppConstant.ORDERID, orderId);
@@ -330,7 +330,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
     //支付方式
     int payChannel;
     private void getPayList() {
-        OrderApi.getPayWay(getContext(),1)
+        OrderApi.getPayWay(getActivity(),1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylPayListModel>() {
@@ -392,7 +392,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
      *获取支付信息
      */
     private void getPayInfo() {
-        OrderApi.getDelayPay(getContext(),ids.toString(),payChannel)
+        OrderApi.getDelayPay(getActivity(),ids.toString(),payChannel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylPayInfoModel>() {
@@ -412,22 +412,22 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                                 outTradeNo = hylPayInfoModel.getData().getOutTradeNo();
                                 if (payChannel == 2&& hylPayInfoModel.getData().getPayType()==2) {
                                     //支付宝支付 已经改好了
-                                    SharedPreferencesUtil.saveString(getContext(),"payKey","2");
+                                    SharedPreferencesUtil.saveString(getActivity(),"payKey","2");
                                     Log.d("cdesfsdfe.....",hylPayInfoModel.getData().getPayToken()+"s");
                                     aliPay(hylPayInfoModel.getData().getPayToken());
                                 } else if (payChannel == 3) {
                                     //微信支付
 //                                    ToastUtil.showSuccessMsg(getActivity(),"暂未开通请使用支付宝");
-                                    SharedPreferencesUtil.saveString(getContext(),"payKey","3");
+                                    SharedPreferencesUtil.saveString(getActivity(),"payKey","3");
                                     weChatPay(hylPayInfoModel.getData().getPayToken());
 
                                 }else if(hylPayInfoModel.getData().getPayType()==14&&payChannel == 2) {
                                     //银联
-                                    SharedPreferencesUtil.saveString(getContext(),"payKey","4");
+                                    SharedPreferencesUtil.saveString(getActivity(),"payKey","4");
                                     payAliPay(hylPayInfoModel.getData().getPayToken());
                                 }else {
                                     //货到付款
-                                    SharedPreferencesUtil.saveString(getContext(),"payKey","17");
+                                    SharedPreferencesUtil.saveString(getActivity(),"payKey","17");
                                     payDeliverPay();
                                 }
                             }
@@ -442,7 +442,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
      * @param
      */
     private void payDeliverPay() {
-        Intent intent = new Intent(getContext(), DelayPayResultActivity.class);
+        Intent intent = new Intent(getActivity(), DelayPayResultActivity.class);
         intent.putExtra(AppConstant.ORDERID, orderId);
         startActivity(intent);
         dismiss();

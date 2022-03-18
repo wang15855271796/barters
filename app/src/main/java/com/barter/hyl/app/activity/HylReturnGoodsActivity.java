@@ -30,6 +30,7 @@ import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylReturnGoodModel;
 import com.barter.hyl.app.model.HylSendImageModel;
 import com.barter.hyl.app.view.FullyGridLayoutManager;
+import com.barter.hyl.app.view.GlideEngine;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -342,13 +343,13 @@ public class HylReturnGoodsActivity extends BaseActivity implements View.OnClick
             public void onItemClick(int position, View v) {
                 if (selectList.size() > 0) {
                     LocalMedia media = selectList.get(position);
-                    String pictureType = media.getPictureType();
-                    int mediaType = PictureMimeType.pictureToVideo(pictureType);
-                    switch (mediaType) {
+                    String pictureType = media.getMimeType();
+                    int mimeType = PictureMimeType.getMimeType(pictureType);
+                    switch (mimeType) {
                         case 1:
                             // 预览图片 可自定长按保存路径
                             //PictureSelector.create(MainActivity.this).externalPicturePreview(position, "/custom_file", selectList);
-                            PictureSelector.create(HylReturnGoodsActivity.this).externalPicturePreview(position, selectList);
+                            PictureSelector.create(HylReturnGoodsActivity.this).externalPicturePreview(position, selectList,position);
                             break;
                         case 2:
                             // 预览视频
@@ -483,6 +484,7 @@ public class HylReturnGoodsActivity extends BaseActivity implements View.OnClick
                                 .openGallery(PictureMimeType.ofImage())
                                 .maxSelectNum(maxSelectNum - selectList.size())
                                 .minSelectNum(1)
+                                .loadImageEngine(GlideEngine.createGlideEngine())
                                 .imageSpanCount(4)
                                 .compress(true)
                                 .isCamera(false)

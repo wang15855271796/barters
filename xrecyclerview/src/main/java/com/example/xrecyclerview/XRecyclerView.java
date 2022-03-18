@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 
+
 /**
  * Created by jingbin on 2016/1/28.
  */

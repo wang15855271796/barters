@@ -346,7 +346,7 @@ public class OverDueOrderFragment extends BaseFragment implements View.OnClickLi
         bundle.putSerializable("ids", (Serializable) ids);
         bundle.putString("total",totalAmount);
         paymentOrderFragment.setArguments(bundle);
-        paymentOrderFragment.show(getFragmentManager(),"paymentFragment");
+        paymentOrderFragment.show(getActivity().getFragmentManager(),"paymentFragment");
         paymentOrderFragment.setCancelable(false);
     }
 

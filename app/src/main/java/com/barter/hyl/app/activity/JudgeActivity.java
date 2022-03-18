@@ -22,6 +22,7 @@ import com.barter.hyl.app.model.HylEvalGoodsModel;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylSendImageModel;
 import com.barter.hyl.app.utils.ToastUtil;
+import com.barter.hyl.app.view.GlideEngine;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -176,6 +177,7 @@ private int selectPosition;
                         PictureSelector.create(JudgeActivity.this)
                                 .openGallery(PictureMimeType.ofImage())
                                 .maxSelectNum(1)
+                                .loadImageEngine(GlideEngine.createGlideEngine())
                                 .minSelectNum(1)
                                 .imageSpanCount(4)
                                 .compress(true)

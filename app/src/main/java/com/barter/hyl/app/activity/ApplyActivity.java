@@ -23,6 +23,7 @@ import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.model.BaseModel;
 import com.barter.hyl.app.model.HylSendImageModel;
 import com.barter.hyl.app.utils.ToastUtil;
+import com.barter.hyl.app.view.GlideEngine;
 import com.bumptech.glide.Glide;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -201,6 +202,7 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
                                 .minSelectNum(1)
                                 .imageSpanCount(4)
                                 .compress(true)
+                                .loadImageEngine(GlideEngine.createGlideEngine())
                                 .isCamera(false)
                                 .selectionMode(PictureConfig.MULTIPLE)
                                 .forResult(requestCode);

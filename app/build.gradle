@@ -15,8 +15,8 @@ android {
         applicationId "com.barter.hyl.app"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
         multiDexEnabled true
         packagingOptions {
             exclude 'META-INF/rxjava.properties'
@@ -26,6 +26,10 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -88,7 +92,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     // compile 'com.github.bumptech.glide:glide:3.7.0'
-
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     //adapterrecyclerview
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
@@ -133,7 +138,7 @@ dependencies {
     //    implementation 'com.contrarywind:Android-PickerView:3.2.5'
 
     //退货图片上传espresso
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.0'
+    implementation'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
     implementation files('libs/BaiduLBS_Android.jar')
 
     //分类下滑
