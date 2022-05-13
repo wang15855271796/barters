@@ -39,6 +39,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -112,6 +113,8 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     LinearLayout ll_full;
     @BindView(R.id.tv_full)
     TextView tv_full;
+    @BindView(R.id.rl_check)
+    RelativeLayout rl_check;
     String mainId;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
@@ -143,6 +146,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
         ll_car.setOnClickListener(this);
         tv_detail.setOnClickListener(this);
         ll_full.setOnClickListener(this);
+        rl_check.setOnClickListener(this);
     }
 
 
@@ -418,6 +422,11 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                 Intent intent = new Intent(mActivity,HylCommentActivity.class);
                 intent.putExtra("mainId",mainId);
                 startActivity(intent);
+                break;
+
+            case R.id.rl_check:
+                Intent intent1 = new Intent(mActivity,QuarActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

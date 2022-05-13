@@ -1,4 +1,4 @@
-package com.puyue.www.qiaoge.view;
+package com.barter.hyl.app.view;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.puyue.www.qiaoge.R;
+import com.barter.hyl.app.R;
 
 public class SearchViewss extends LinearLayout implements View.OnClickListener {
     /**

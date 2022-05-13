@@ -1,7 +1,4 @@
-package com.puyue.www.qiaoge.utils;
-
-import android.content.Context;
-import android.util.DisplayMetrics;
+package com.barter.hyl.app.utils;
 
 /**
  * Created by ${王涛} on 2021/5/21

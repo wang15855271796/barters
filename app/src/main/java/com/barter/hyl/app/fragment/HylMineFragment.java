@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.CompanyInfoActivity;
 import com.barter.hyl.app.activity.HylActivityCollection;
 import com.barter.hyl.app.activity.HylAddressListsActivity;
 import com.barter.hyl.app.activity.HylBillActivity;
@@ -95,6 +96,8 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
     TextView tv_version;
     @BindView(R.id.iv_update)
     ImageView iv_update;
+    @BindView(R.id.iv_info)
+    ImageView iv_info;
     @Override
     public int setLayoutId() {
         return R.layout.mine_fragment_hyl;
@@ -143,6 +146,7 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
         rl_coupon.setOnClickListener(this);
         rl_version.setOnClickListener(this);
         tv_order_num.setOnClickListener(this);
+        iv_info.setOnClickListener(this);
     }
 
     /**
@@ -311,6 +315,11 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
                     }
                 }
 
+                break;
+
+            case R.id.iv_info:
+                Intent intent = new Intent(mActivity, CompanyInfoActivity.class);
+                startActivity(intent);
                 break;
         }
     }

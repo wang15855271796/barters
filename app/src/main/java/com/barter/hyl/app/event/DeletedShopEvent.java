@@ -1,4 +1,4 @@
-package com.puyue.www.qiaoge.event;
+package com.barter.hyl.app.event;
 
 /**
  * Created by ${王涛} on 2021/2/24

@@ -1,4 +1,4 @@
-package com.puyue.www.qiaoge.model;
+package com.barter.hyl.app.model;
 
 import com.luck.picture.lib.entity.LocalMedia;
 

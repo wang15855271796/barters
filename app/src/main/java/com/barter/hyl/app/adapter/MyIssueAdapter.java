@@ -1,30 +1,31 @@
-package com.puyue.www.qiaoge.adapter;
+package com.barter.hyl.app.adapter;
 
 import android.content.Intent;
 import android.graphics.Color;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
+import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.ShopDetailActivity;
+import com.barter.hyl.app.api.InfoListAPI;
+import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.event.DeletedShopEvent;
+import com.barter.hyl.app.model.HylLoginModel;
+import com.barter.hyl.app.model.InfoListModel;
+import com.barter.hyl.app.utils.ToastUtil;
+import com.barter.hyl.app.view.RoundImageView;
+import com.barter.hyl.app.view.StringSpecialHelper;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.puyue.www.qiaoge.R;
-import com.puyue.www.qiaoge.RoundImageView;
-import com.puyue.www.qiaoge.activity.IssueEditInfoActivity;
-import com.puyue.www.qiaoge.activity.mine.ShopDetailActivity;
-import com.puyue.www.qiaoge.api.home.InfoListAPI;
-import com.puyue.www.qiaoge.api.home.InfoListModel;
-import com.puyue.www.qiaoge.base.BaseModel;
-import com.puyue.www.qiaoge.event.DeletedShopEvent;
-import com.puyue.www.qiaoge.helper.AppHelper;
-import com.puyue.www.qiaoge.helper.StringSpecialHelper;
-import com.puyue.www.qiaoge.listener.NoDoubleClickListener;
-import com.puyue.www.qiaoge.utils.ToastUtil;
+import com.sdk.mobile.manager.login.NoDoubleClickListener;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -37,7 +38,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ${王涛} on 2021/1/4
  */
-public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.ListBean,BaseViewHolder> {
+public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.ListBean, BaseViewHolder> {
 
     public MyIssueAdapter(int layoutResId, @Nullable List<InfoListModel.DataBean.ListBean> data) {
         super(layoutResId, data);
@@ -52,7 +53,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
         tv_look.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,ShopDetailActivity.class);
+                Intent intent = new Intent(mContext, ShopDetailActivity.class);
                 intent.putExtra("msgId",item.getMsgId());
                 mContext.startActivity(intent);
             }
@@ -63,7 +64,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
                 Glide.with(mContext).load(item.getPictureList().get(i)).into(iv_pic);
             }
         }else {
-            iv_pic.setImageResource(R.mipmap.bg_emptys);
+//            iv_pic.setImageResource(R.mipmap.bg_emptys);
         }
 
         ImageView iv_status = helper.getView(R.id.iv_status);
@@ -188,7 +189,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
         InfoListAPI.InfoDeleted(mContext,item.getMsgId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseModel>() {
+                .subscribe(new Subscriber<HylLoginModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -199,7 +200,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
                     }
 
                     @Override
-                    public void onNext(BaseModel infoListModel) {
+                    public void onNext(HylLoginModel infoListModel) {
                         if (infoListModel.success) {
                             ToastUtil.showSuccessMsg(mContext,infoListModel.message);
                             EventBus.getDefault().post(new DeletedShopEvent());

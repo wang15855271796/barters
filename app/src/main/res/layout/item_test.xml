@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <com.puyue.www.qiaoge.RoundImageView
+        <com.barter.hyl.app.view.RoundImageView
             android:id="@+id/iv_pic"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_width="75dp"

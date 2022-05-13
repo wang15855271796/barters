@@ -1,10 +1,6 @@
-package com.puyue.www.qiaoge.fragment.home;
+package com.barter.hyl.app.fragment;
 
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,27 +8,31 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.puyue.www.qiaoge.R;
-import com.puyue.www.qiaoge.activity.InfoSearchActivity;
-import com.puyue.www.qiaoge.activity.ShopStartActivity;
-import com.puyue.www.qiaoge.activity.mine.IssueActivity;
-import com.puyue.www.qiaoge.api.cart.RecommendApI;
-import com.puyue.www.qiaoge.api.home.CityChangeAPI;
-import com.puyue.www.qiaoge.api.home.InfoListAPI;
-import com.puyue.www.qiaoge.api.home.InfoListModel;
-import com.puyue.www.qiaoge.base.BaseFragment;
-import com.puyue.www.qiaoge.base.BaseModel;
-import com.puyue.www.qiaoge.dialog.CatePopWindow;
-import com.puyue.www.qiaoge.dialog.ChooseCityPopWindow;
-import com.puyue.www.qiaoge.event.SearchShopEvent;
-import com.puyue.www.qiaoge.helper.AppHelper;
-import com.puyue.www.qiaoge.helper.UserInfoHelper;
-import com.puyue.www.qiaoge.listener.PopWindowListener;
-import com.puyue.www.qiaoge.model.home.CityChangeModel;
-import com.puyue.www.qiaoge.utils.SharedPreferencesUtil;
-import com.puyue.www.qiaoge.utils.Time;
-import com.puyue.www.qiaoge.utils.ToastUtil;
-import com.puyue.www.qiaoge.view.CascadingMenuViewOnSelectListener;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+
+import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.InfoSearchActivity;
+import com.barter.hyl.app.activity.IssueActivity;
+import com.barter.hyl.app.adapter.MarketsAdapter;
+import com.barter.hyl.app.api.InfoListAPI;
+import com.barter.hyl.app.base.BaseFragment;
+import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.event.CityEvent;
+import com.barter.hyl.app.event.SearchShopEvent;
+import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
+import com.barter.hyl.app.listener.PopWindowListener;
+import com.barter.hyl.app.model.CityChangeModel;
+import com.barter.hyl.app.model.HylLoginModel;
+import com.barter.hyl.app.model.InfoListModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
+import com.barter.hyl.app.utils.Time;
+import com.barter.hyl.app.utils.ToastUtil;
+import com.barter.hyl.app.view.CatePopWindow;
+import com.barter.hyl.app.view.ChooseCityPopWindow;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -96,16 +96,6 @@ public class InfoFragment extends BaseFragment {
     @Override
     public int setLayoutId() {
         return R.layout.fragment_info;
-    }
-
-    @Override
-    public void initViews(View view) {
-
-    }
-
-    @Override
-    public void findViewById(View view) {
-        bind = ButterKnife.bind(this, view);
     }
 
     @Override
@@ -212,7 +202,7 @@ public class InfoFragment extends BaseFragment {
         tv_issue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity,IssueActivity.class);
+                Intent intent = new Intent(mActivity, IssueActivity.class);
                 startActivity(intent);
             }
         });
@@ -340,12 +330,6 @@ public class InfoFragment extends BaseFragment {
                 });
     }
 
-
-    @Override
-    public void setClickEvent() {
-
-    }
-
     String provinceName;
     String cityName;
     String provinceCode = "";
@@ -406,21 +390,13 @@ public class InfoFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-
-        if(hidden&&SharedPreferencesUtil.getString(mActivity,"index1").equals("1")) {
-            long end = (System.currentTimeMillis()-start)/1000;
-            long time = Time.getTime(end);
-            getDatas(time);
-            if(cascadingMenuPopWindow!=null) {
-                cascadingMenuPopWindow.dismiss();
-                mask.setVisibility(View.GONE);
-            }
-            if(catePopWindow!=null) {
-                catePopWindow.dismiss();
-                mask.setVisibility(View.GONE);
-            }
-        }else {
-            start = System.currentTimeMillis();
+        if(cascadingMenuPopWindow!=null) {
+            cascadingMenuPopWindow.dismiss();
+            mask.setVisibility(View.GONE);
+        }
+        if(catePopWindow!=null) {
+            catePopWindow.dismiss();
+            mask.setVisibility(View.GONE);
         }
     }
 
@@ -448,44 +424,4 @@ public class InfoFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
-    long start;
-    @Override
-    public void onResume() {
-        super.onResume();
-        start = System.currentTimeMillis();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if(SharedPreferencesUtil.getString(mActivity,"index").equals("4")) {
-            long end = (System.currentTimeMillis()-start)/1000;
-            long time = Time.getTime(end);
-            getDatas(time);
-        }
-
-    }
-
-
-    private void getDatas(long end) {
-        RecommendApI.getDatas(mActivity,11,end)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-
-                    }
-                });
-    }
 }

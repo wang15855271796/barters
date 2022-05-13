@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:layout_height="wrap_content">
 
-    <com.puyue.www.qiaoge.RoundImageView
+    <com.barter.hyl.app.view.RoundImageView
         android:scaleType="fitXY"
         android:layout_centerHorizontal="true"
         android:id="@+id/iv_image"

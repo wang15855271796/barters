@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/expand_tab_item_height"
+    android:layout_height="@dimen/size_45dp"
     android:textColor="#333333"
     android:gravity="center"
     android:paddingLeft="10dp"

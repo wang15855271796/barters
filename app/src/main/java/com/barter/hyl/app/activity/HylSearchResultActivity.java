@@ -1,10 +1,12 @@
 package com.barter.hyl.app.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,6 +55,26 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
     TextView tv_activity_result;
     @BindView(R.id.rl_num)
     RelativeLayout rl_num;
+    @BindView(R.id.ll_all)
+    LinearLayout ll_all;
+    @BindView(R.id.tv_all)
+    TextView tv_all;
+    @BindView(R.id.iv_all)
+    ImageView iv_all;
+    @BindView(R.id.ll_sale)
+    LinearLayout ll_sale;
+    @BindView(R.id.tv_sale)
+    TextView tv_sale;
+    @BindView(R.id.iv_sale)
+    ImageView iv_sale;
+    @BindView(R.id.ll_price)
+    LinearLayout ll_price;
+    @BindView(R.id.tv_price)
+    TextView tv_price;
+    @BindView(R.id.iv_price)
+    ImageView iv_price;
+    @BindView(R.id.iv_direction)
+    ImageView iv_direction;
     String searchWord;
     HylSearchResultAdapter hylSearchResultAdapter;
     int pageNum = 1;
@@ -125,11 +147,52 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
         ll_back.setOnClickListener(this);
         tv_activity_result.setOnClickListener(this);
         rl_num.setOnClickListener(this);
+        ll_all.setOnClickListener(this);
+        ll_sale.setOnClickListener(this);
+        ll_price.setOnClickListener(this);
     }
 
+    boolean isAll;
+    boolean isSale;
+    boolean isPrice;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ll_all:
+                isAll = !isAll;
+                if(!isAll) {
+                    tv_all.setTextColor(Color.parseColor("#333333"));
+                    iv_all.setImageResource(R.mipmap.icon_all_un);
+                }else {
+                    iv_all.setImageResource(R.mipmap.icon_all_en);
+                    tv_all.setTextColor(Color.parseColor("#FF2925"));
+                }
+
+                break;
+
+            case R.id.ll_sale:
+                isSale = !isSale;
+                if(!isSale) {
+                    tv_sale.setTextColor(Color.parseColor("#333333"));
+                    iv_sale.setImageResource(R.mipmap.icon_sale);
+                }else {
+                    iv_all.setImageResource(R.mipmap.icon_sale_en);
+                    tv_all.setTextColor(Color.parseColor("#FF2925"));
+                }
+                break;
+
+            case R.id.ll_price:
+                isPrice = !isPrice;
+                if(!isPrice) {
+                    tv_price.setTextColor(Color.parseColor("#333333"));
+                    iv_price.setImageResource(R.mipmap.icon_price);
+                    iv_direction.setImageResource(R.mipmap.icon_up);
+                }else {
+                    iv_price.setImageResource(R.mipmap.icon_price_en);
+                    tv_price.setTextColor(Color.parseColor("#FF2925"));
+                    iv_direction.setImageResource(R.mipmap.icon_down);
+                }
+                break;
             case R.id.ll_back:
                 finish();
                 break;

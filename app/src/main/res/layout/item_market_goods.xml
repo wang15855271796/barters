@@ -10,7 +10,7 @@
         android:id="@+id/ll_root"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="119dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
 
@@ -87,21 +87,9 @@
                 android:textColor="@color/color_C1C1C1"
                 android:textSize="10dp" />
 
-            <TextView
-                android:id="@+id/tv_spec"
-                android:lines="1"
-                android:ellipsize="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_5dp"
-                tools:text="规格"
-                android:textColor="@color/color_C1C1C1"
-                android:textSize="10dp" />
-
-
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/size_25dp"
                 android:layout_below="@+id/line">
 
                 <RelativeLayout
@@ -143,6 +131,11 @@
 
                 </RelativeLayout>
             </RelativeLayout>
+
+            <com.barter.hyl.app.view.TagFlowLayout
+                android:id="@+id/rv_spec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

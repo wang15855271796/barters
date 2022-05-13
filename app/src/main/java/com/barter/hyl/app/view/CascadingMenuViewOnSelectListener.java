@@ -1,7 +1,6 @@
-package com.puyue.www.qiaoge.activity.mine.login;
+package com.barter.hyl.app.view;
 
-
-import com.puyue.www.qiaoge.model.home.AddressBean;
+import com.barter.hyl.app.model.AddressBean;
 
 /**
  * 通用级联菜单接口

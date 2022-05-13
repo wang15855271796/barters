@@ -1,7 +1,7 @@
-package com.puyue.www.qiaoge.view;
+package com.barter.hyl.app.listener;
 
 
-import com.puyue.www.qiaoge.model.home.CityChangeModel;
+import com.barter.hyl.app.model.CityChangeModel;
 
 /**
  * 通用级联菜单接口

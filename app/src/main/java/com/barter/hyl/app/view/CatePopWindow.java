@@ -1,18 +1,18 @@
-package com.puyue.www.qiaoge.dialog;
+package com.barter.hyl.app.view;
 
 import android.app.Activity;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.barter.hyl.app.R;
+import com.barter.hyl.app.adapter.CateAdapter;
+import com.barter.hyl.app.listener.PopWindowListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.puyue.www.qiaoge.R;
-import com.puyue.www.qiaoge.adapter.CateAdapter;
-import com.puyue.www.qiaoge.listener.PopWindowListener;
 
 import java.util.List;
 

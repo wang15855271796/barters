@@ -1,11 +1,11 @@
-package com.puyue.www.qiaoge.dialog;
+package com.barter.hyl.app.view;
 
 import android.app.Activity;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
-import com.puyue.www.qiaoge.model.home.CityChangeModel;
-import com.puyue.www.qiaoge.view.CascadingMenuViewOnSelectListener;
+import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
+import com.barter.hyl.app.model.CityChangeModel;
 
 import java.util.ArrayList;
 

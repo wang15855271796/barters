@@ -1,25 +1,26 @@
-package com.puyue.www.qiaoge.adapter;
-
-import androidx.annotation.Nullable;
+package com.barter.hyl.app.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
+
+import com.barter.hyl.app.R;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.puyue.www.qiaoge.R;
+
 
 import java.util.List;
 
 /**
  * Created by ${王涛} on 2021/1/8
  */
-public class CateAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
+public class CateAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     int pos = 0;
     Onclick onclick;
-    public CateAdapter(int layoutResId, @Nullable List<String> data,Onclick onclick) {
+    public CateAdapter(int layoutResId, @Nullable List<String> data, Onclick onclick) {
         super(layoutResId, data);
         this.onclick = onclick;
     }

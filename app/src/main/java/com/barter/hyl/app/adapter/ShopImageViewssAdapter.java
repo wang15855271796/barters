@@ -1,18 +1,16 @@
-package com.puyue.www.qiaoge.adapter;
+package com.barter.hyl.app.adapter;
 
 import android.app.Activity;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.barter.hyl.app.R;
 import com.bumptech.glide.Glide;
-import com.puyue.www.qiaoge.R;
 
 import java.util.List;
 

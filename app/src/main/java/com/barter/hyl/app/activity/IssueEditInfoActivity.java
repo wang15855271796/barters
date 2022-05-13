@@ -1,4 +1,4 @@
-package com.puyue.www.qiaoge.activity;
+package com.barter.hyl.app.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -8,10 +8,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -23,30 +19,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.barter.hyl.app.R;
+import com.barter.hyl.app.adapter.ShopImageViewssAdapter;
+import com.barter.hyl.app.base.BaseActivity;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.puyue.www.qiaoge.R;
-import com.puyue.www.qiaoge.activity.view.GlideEngine;
-import com.puyue.www.qiaoge.adapter.ShopImageViewssAdapter;
-import com.puyue.www.qiaoge.api.home.CityChangeAPI;
-import com.puyue.www.qiaoge.api.home.InfoListAPI;
-import com.puyue.www.qiaoge.api.mine.order.SendImageAPI;
-import com.puyue.www.qiaoge.base.BaseModel;
-import com.puyue.www.qiaoge.base.BaseSwipeActivity;
-import com.puyue.www.qiaoge.dialog.ShopStyleDialog;
-import com.puyue.www.qiaoge.event.MyShopEvent;
-import com.puyue.www.qiaoge.event.ShopStyleEvent;
-import com.puyue.www.qiaoge.helper.AppHelper;
-import com.puyue.www.qiaoge.model.InfoDetailIssueModel;
-import com.puyue.www.qiaoge.model.SendImagesModel;
-import com.puyue.www.qiaoge.model.home.CityChangeModel;
-import com.puyue.www.qiaoge.utils.ToastUtil;
-import com.puyue.www.qiaoge.view.CascadingMenuPopWindow;
-import com.puyue.www.qiaoge.view.CascadingMenuViewOnSelectListener;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -67,7 +50,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ${王涛} on 2021/1/11
  */
-public class IssueEditInfoActivity extends BaseSwipeActivity {
+public class IssueEditInfoActivity extends BaseActivity {
     @BindView(R.id.et)
     EditText et;
     @BindView(R.id.iv_back)
@@ -437,7 +420,7 @@ public class IssueEditInfoActivity extends BaseSwipeActivity {
 
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){
-         if(requestCode==PictureConfig.CHOOSE_REQUEST&&resultCode==Activity.RESULT_OK){
+         if(requestCode== PictureConfig.CHOOSE_REQUEST&&resultCode==Activity.RESULT_OK){
             handleImgeOnKitKat(data);
         }
     }

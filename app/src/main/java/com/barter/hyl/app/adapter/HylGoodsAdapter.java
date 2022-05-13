@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.model.HylGoodListModel;
+import com.barter.hyl.app.view.TagFlowLayout;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -33,13 +34,12 @@ public class HylGoodsAdapter extends BaseQuickAdapter<HylGoodListModel.DataBean.
         TextView tv_sale = helper.getView(R.id.tv_sale);
         TextView tv_title = helper.getView(R.id.tv_title);
         TextView tv_price = helper.getView(R.id.tv_price);
-        TextView tv_spec = helper.getView(R.id.tv_spec);
+        TagFlowLayout rv_spec = helper.getView(R.id.rv_spec);
         ImageView iv_add = helper.getView(R.id.iv_add);
         ImageView iv_pic = helper.getView(R.id.iv_pic);
         ImageView iv_sold = helper.getView(R.id.iv_sold);
         tv_title.setText(item.getProductName());
         tv_price.setText(item.getMinMaxPrice());
-        tv_spec.setText("规格："+item.getSpec());
         tv_sale.setText("销量："+item.getSaleNum());
         Glide.with(mContext).load(item.getDefaultPic()).into(iv_pic);
 

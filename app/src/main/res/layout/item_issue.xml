@@ -26,13 +26,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.puyue.www.qiaoge.RoundImageView
+                <com.barter.hyl.app.view.RoundImageView
                     android:id="@+id/iv_pic"
                     android:scaleType="fitXY"
                     android:layout_marginLeft="@dimen/size_12dp"
-                    android:src="@mipmap/bg_emptys"
-                    android:layout_width="@dimen/size_91dp"
-                    android:layout_height="@dimen/size_91dp" />
+                    android:layout_width="91dp"
+                    android:layout_height="91dp" />
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -141,7 +140,6 @@
                 android:paddingLeft="@dimen/dp_10"
                 android:paddingTop="@dimen/size_3dp"
                 android:paddingBottom="@dimen/size_3dp"
-                android:background="@drawable/shape_black"
                 android:id="@+id/tv_deleted"
                 android:layout_marginRight="15dp"
                 android:layout_centerVertical="true"
@@ -159,7 +157,6 @@
 
                 <TextView
                     android:text="编辑信息"
-                    android:background="@drawable/shape_black"
                     android:paddingRight="@dimen/dp_10"
                     android:layout_marginRight="@dimen/size_18dp"
                     android:paddingLeft="@dimen/dp_10"
@@ -172,7 +169,6 @@
 
                 <TextView
                     android:text="查看"
-                    android:background="@drawable/shape_black"
                     android:paddingRight="@dimen/dp_10"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingTop="@dimen/size_3dp"

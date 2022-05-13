@@ -19,11 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="171dp">
 
-            <com.puyue.www.qiaoge.view.RoundImageView
+            <com.barter.hyl.app.view.RoundImageView
                 android:id="@+id/iv_pic"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/bg_emptys"
                 android:layout_width="match_parent"
                 android:layout_height="171dp" />
 

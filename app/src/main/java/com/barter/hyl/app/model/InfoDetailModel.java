@@ -1,4 +1,4 @@
-package com.puyue.www.qiaoge.api.home;
+package com.barter.hyl.app.model;
 
 import java.util.List;
 

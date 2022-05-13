@@ -55,6 +55,7 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.aar', '*.jar'], dir: 'libs')
+    implementation project(path: ':banner')
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
     implementation 'androidx.appcompat:appcompat:1.0.0'

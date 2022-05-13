@@ -122,15 +122,15 @@ public class CartGoodsAdapter extends BaseQuickAdapter<HylCartListModel.DataBean
             public void onClick(View v) {
                 if(item.getBusinessType()==1) {
                     Intent intent = new Intent(mContext, HylCommonGoodsActivity.class);
-                    intent.putExtra("mainId",item.getProductMainId());
+                    intent.putExtra("mainId",item.getProductMainId()+"");
                     mContext.startActivity(intent);
                 }else if(item.getBusinessType()==2){
                     Intent intent = new Intent(mContext, HylActiveDetailActivity.class);
-                    intent.putExtra("activeId",item.getBusinessId());
+                    intent.putExtra("activeId",item.getBusinessId()+"");
                     mContext.startActivity(intent);
                 }else {
                     Intent intent = new Intent(mContext,HylActiveDetailActivity.class);
-                    intent.putExtra("activeId",item.getBusinessId());
+                    intent.putExtra("activeId",item.getBusinessId()+"");
                     mContext.startActivity(intent);
                 }
             }

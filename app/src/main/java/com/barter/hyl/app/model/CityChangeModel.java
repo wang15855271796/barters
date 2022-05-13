@@ -1,4 +1,4 @@
-package com.puyue.www.qiaoge.model.home;
+package com.barter.hyl.app.model;
 
 import com.chad.library.adapter.base.entity.SectionEntity;
 
@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ${王文博} on 2019/8/8
  */
-public class CityChangeModel extends SectionEntity<CityChangeModel.DataBean>{
+public class CityChangeModel extends SectionEntity<CityChangeModel.DataBean> {
 
 
     /**

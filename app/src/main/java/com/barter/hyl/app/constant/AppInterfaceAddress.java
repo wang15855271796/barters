@@ -7,7 +7,7 @@ public class AppInterfaceAddress {
 //    https://apis.huoyl.cn/qiaoge/正式
     // http://192.168.2.188:8082/qiaoge/
     //http://116.62.67.230:8082/qiaoge/   测试http://120.55.55.99:8082/qiaoge/
-    public static final String BASE_URL = "https://apis.huoyl.cn/qiaoge/";
+    public static final String BASE_URL = "http://120.55.55.99:8082/qiaoge/";
     // 正式https://shaokao.qoger.com/qiaoge/
     //http://192.168.1.45/   本地192.168.101.69:8088
     //http://qg.zhiyun88u.com/shen
@@ -15,6 +15,44 @@ public class AppInterfaceAddress {
 
     //http://192.168.101.41:8088/
 //    queryReturnProdIsContainFullGift
+    /**
+     *搜索店铺
+     */
+    public static final String Info_Search = "message/getList";
+    /**
+     *店铺热门搜索
+     */
+    public static final String Info_Hot_Search = "message/getMessageHotSearch";
+
+    /**
+     *资讯编辑
+     */
+    public static final String Info_Classify = "message/updateMessage";
+    /**
+     *获取资讯详情
+     */
+    public static final String Info_Issue_detail = "message/detail";
+    /**
+     * 发布资讯
+     */
+    public static final String Info_Issue = "message/addMessage";
+    /**
+     *删除资讯
+     */
+    public static final String Info_Deleted = "message/deleteMessage";
+    /**
+     * 我的资讯列表
+     */
+    public static final String Info_My_List = "message/mylist";
+    /**
+     * 资讯详情
+     */
+    public static final String Info_Detail = "message/detail";
+    /**
+     *  资讯列表
+     */
+    public static final String Info_List = "message/getList";
+
     /**
      * 更改登录企业
      */

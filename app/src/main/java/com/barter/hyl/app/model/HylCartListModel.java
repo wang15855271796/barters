@@ -256,8 +256,8 @@ public class HylCartListModel {
                  */
 
                 private int type;
-                private int productId;
-                private int productMainId;
+                private String productId;
+                private String productMainId;
                 private Object giftPoolNo;
                 private Object warehouseId;
                 private Object productUnit;
@@ -281,19 +281,19 @@ public class HylCartListModel {
                     this.type = type;
                 }
 
-                public int getProductId() {
+                public String getProductId() {
                     return productId;
                 }
 
-                public void setProductId(int productId) {
+                public void setProductId(String productId) {
                     this.productId = productId;
                 }
 
-                public int getProductMainId() {
+                public String getProductMainId() {
                     return productMainId;
                 }
 
-                public void setProductMainId(int productMainId) {
+                public void setProductMainId(String productMainId) {
                     this.productMainId = productMainId;
                 }
 

@@ -1,4 +1,4 @@
-package com.puyue.www.qiaoge.event;
+package com.barter.hyl.app.event;
 
 public class SearchShopEvent {
     String keyWord;

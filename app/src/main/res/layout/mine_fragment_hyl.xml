@@ -38,6 +38,18 @@
                         android:layout_alignParentRight="true">
 
                         <ImageView
+                            android:id="@+id/iv_info"
+                            android:layout_marginRight="@dimen/size_90dp"
+                            android:padding="@dimen/size_3dp"
+                            android:layout_marginTop="@dimen/size_42dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@mipmap/icon_info" />
+
+
+                        <ImageView
                             android:id="@+id/iv_setting"
                             android:layout_marginRight="@dimen/size_50dp"
                             android:padding="@dimen/size_3dp"

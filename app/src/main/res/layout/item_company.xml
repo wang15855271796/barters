@@ -36,6 +36,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_marginTop="7dp"
+                android:layout_below="@+id/tv_long"
+                android:text="客服电话：057-187758340"
+                android:textColor="#FF2925"
+                android:textSize="@dimen/sp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:text="已禁用"
+                android:id="@+id/tv_dis"
+                android:src="@mipmap/icon_gou"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textColor="#999999"
+                android:textSize="@dimen/sp_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <ImageView
                 android:id="@+id/iv_choose"
                 android:visibility="gone"

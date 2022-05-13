@@ -1,13 +1,15 @@
-package com.puyue.www.qiaoge.api.home;
+package com.barter.hyl.app.api;
 
 import android.content.Context;
 
-import com.puyue.www.qiaoge.base.BaseModel;
-import com.puyue.www.qiaoge.constant.AppInterfaceAddress;
-import com.puyue.www.qiaoge.helper.RestHelper;
-import com.puyue.www.qiaoge.model.InfoDetailIssueModel;
-import com.puyue.www.qiaoge.model.MyInfoListModel;
-import com.puyue.www.qiaoge.model.home.ProductNormalModel;
+import com.barter.hyl.app.constant.AppInterfaceAddress;
+import com.barter.hyl.app.constant.RestHelper;
+import com.barter.hyl.app.model.BaseModel;
+import com.barter.hyl.app.model.HylLoginModel;
+import com.barter.hyl.app.model.InfoDetailIssueModel;
+import com.barter.hyl.app.model.InfoDetailModel;
+import com.barter.hyl.app.model.InfoListModel;
+import com.barter.hyl.app.model.RecommendModel;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -22,7 +24,7 @@ public class InfoListAPI {
     private interface InfoList {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Info_List)
-        Observable<InfoListModel> getData(@Field("keyword") String keyword,@Field("type") String type,@Field("pageNum") int pageNum, @Field("pageSize") int pageSize
+        Observable<InfoListModel> getData(@Field("keyword") String keyword, @Field("type") String type, @Field("pageNum") int pageNum, @Field("pageSize") int pageSize
                 , @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode);
     }
 
@@ -45,7 +47,7 @@ public class InfoListAPI {
     private interface MyInfoList {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Info_My_List)
-        Observable<InfoListModel> getData(@Field("pageNum") int pageNum,@Field("pageSize") int pageSize);
+        Observable<InfoListModel> getData(@Field("pageNum") int pageNum, @Field("pageSize") int pageSize);
     }
 
     public static Observable<InfoListModel> getMyList(Context context, int pageNum,int pageSize) {
@@ -56,10 +58,10 @@ public class InfoListAPI {
     private interface InfoDeleted {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Info_Deleted)
-        Observable<BaseModel> getData(@Field("msgId") String msgId);
+        Observable<HylLoginModel> getData(@Field("msgId") String msgId);
     }
 
-    public static Observable<BaseModel> InfoDeleted(Context context,String msgId) {
+    public static Observable<HylLoginModel> InfoDeleted(Context context,String msgId) {
         InfoDeleted service = RestHelper.getBaseRetrofit(context).create(InfoDeleted.class);
         return service.getData(msgId);
     }
@@ -70,7 +72,7 @@ public class InfoListAPI {
     private interface InfoIssue {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Info_Issue)
-        Observable<BaseModel> getData(@Field("msgId") String msgId,@Field("msgType") int msgType,@Field("content") String content,@Field("pictureJson") String pictureJson,@Field("provinceCode") String provinceCode,@Field("cityCode") String cityCode,@Field("detailAddress") String detailAddress,@Field("phone")String phone);
+        Observable<BaseModel> getData(@Field("msgId") String msgId, @Field("msgType") int msgType, @Field("content") String content, @Field("pictureJson") String pictureJson, @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode, @Field("detailAddress") String detailAddress, @Field("phone") String phone);
     }
 
     public static Observable<BaseModel> InfoIssue(Context context,String msgId,int msgType,String content,String pictureJson,String provinceCode,String cityCode,String detailAddress,String phone) {
@@ -99,11 +101,39 @@ public class InfoListAPI {
     private interface InfoClassifyIssue {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Info_Classify)
-        Observable<BaseModel> getData(@Field("msgId") String msgId,@Field("msgType") int msgType,@Field("content") String content,@Field("pictureJson") String pictureJson,@Field("provinceCode") String provinceCode,@Field("cityCode") String cityCode,@Field("detailAddress") String detailAddress,@Field("phone")String phone);
+        Observable<BaseModel> getData(@Field("msgId") String msgId, @Field("msgType") int msgType, @Field("content") String content, @Field("pictureJson") String pictureJson, @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode, @Field("detailAddress") String detailAddress, @Field("phone") String phone);
     }
 
     public static Observable<BaseModel> EditInfo(Context context,String msgId,int msgType,String content,String pictureJson,String provinceCode,String cityCode,String detailAddress,String phone) {
         InfoClassifyIssue service = RestHelper.getBaseRetrofit(context).create(InfoClassifyIssue.class);
         return service.getData(msgId,msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone);
     }
+
+    /**
+     * 店铺热门搜索
+     */
+    public interface SearchHotService{
+        @POST(AppInterfaceAddress.Info_Hot_Search)
+        Observable<RecommendModel> setParam();
+    }
+
+    public static Observable<RecommendModel>getHotSearch(Context context){
+        Observable<RecommendModel> cityChangeModelObservable = RestHelper.getBaseRetrofit(context).create(SearchHotService.class).setParam();
+        return cityChangeModelObservable;
+    }
+
+    /**
+     * 店铺搜索
+     */
+    public interface InfoSearchService{
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Info_Search)
+        Observable<HylLoginModel> getData(@Field("keyword") String keyword);
+    }
+
+    public static Observable<HylLoginModel> getShopList(Context context, String keyword) {
+        InfoSearchService service = RestHelper.getBaseRetrofit(context).create(InfoSearchService.class);
+        return service.getData(keyword);
+    }
+
 }
