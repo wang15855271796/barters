@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.MyIssueAdapter;
+import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.event.DeletedShopEvent;
 import com.barter.hyl.app.model.InfoListModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,7 +37,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class IssueActivity extends BaseActivity {
+public class IssueActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tv_issue)
     TextView tv_issue;
     @BindView(R.id.iv_back)
@@ -62,8 +64,6 @@ public class IssueActivity extends BaseActivity {
 
     @Override
     public void findViewById() {
-        ButterKnife.bind(this);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         myIssueAdapter = new MyIssueAdapter(R.layout.item_issue,list);
         recyclerView.setAdapter(myIssueAdapter);
@@ -93,20 +93,7 @@ public class IssueActivity extends BaseActivity {
             }
         });
 
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
-        tv_issue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext,IssueInfoActivity.class);
-                startActivity(intent);
-            }
-        });
         myIssueAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -120,6 +107,13 @@ public class IssueActivity extends BaseActivity {
     @Override
     public void setViewData() {
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void setClickListener() {
+        iv_back.setOnClickListener(this);
+
+        tv_issue.setOnClickListener(this);
     }
 
     @Override
@@ -180,5 +174,19 @@ public class IssueActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void myShop(MyShopEvent event) {
         refreshLayout.autoRefresh();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+
+            case R.id.tv_issue:
+                Intent intent = new Intent(mContext,IssueInfoActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }
