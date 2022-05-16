@@ -1,6 +1,7 @@
 package com.barter.hyl.app.fragment;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.InfoSearchActivity;
 import com.barter.hyl.app.activity.IssueActivity;
 import com.barter.hyl.app.adapter.MarketsAdapter;
+import com.barter.hyl.app.api.AddressApi;
 import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.AppHelper;
@@ -26,6 +28,7 @@ import com.barter.hyl.app.event.SearchShopEvent;
 import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
 import com.barter.hyl.app.listener.PopWindowListener;
 import com.barter.hyl.app.model.CityChangeModel;
+import com.barter.hyl.app.model.HylAreaModel;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.InfoListModel;
 import com.barter.hyl.app.utils.SharedPreferencesUtil;
@@ -88,10 +91,9 @@ public class InfoFragment extends BaseFragment {
     MarketsAdapter marketsAdapter;
     InfoListModel infoListModel1;
     String[] data = {"全部分类","店铺转让","器具转让","厨师招聘","其它信息"};
-    boolean isOpen = false;
     CatePopWindow catePopWindow;
     ChooseCityPopWindow cascadingMenuPopWindow;
-    ArrayList<CityChangeModel.DataBean> listCity = new ArrayList<>();
+    ArrayList<HylAreaModel.DataBean> listCity = new ArrayList<>();
     String search;
     @Override
     public int setLayoutId() {
@@ -170,8 +172,10 @@ public class InfoFragment extends BaseFragment {
             public void onClick(View v) {
                 mask.setVisibility(View.VISIBLE);
                 if(cascadingMenuPopWindow==null) {
+
                     cascadingMenuPopWindow = new ChooseCityPopWindow(mActivity, listCity);
                 }
+
                 if(catePopWindow!=null) {
                     if(catePopWindow.isShowing()) {
                         catePopWindow.dismiss();
@@ -256,6 +260,11 @@ public class InfoFragment extends BaseFragment {
         getCityList("","","","");
     }
 
+    @Override
+    public void setClickListener() {
+
+    }
+
 
     /**
      * 资讯列表
@@ -293,8 +302,6 @@ public class InfoFragment extends BaseFragment {
                            }else {
                                smart.setEnableLoadMore(false);
                            }
-
-
                         } else {
                             AppHelper.showMsg(mActivity, infoListModel.getMessage());
                         }
@@ -303,10 +310,10 @@ public class InfoFragment extends BaseFragment {
     }
 
     private void getCityChoose() {
-        CityChangeAPI.requestCity(mActivity)
+        AddressApi.AddressArea(mActivity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CityChangeModel>() {
+                .subscribe(new Subscriber<HylAreaModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -317,10 +324,10 @@ public class InfoFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onNext(CityChangeModel cityChangeModel) {
+                    public void onNext(HylAreaModel cityChangeModel) {
                         if (cityChangeModel.isSuccess()) {
                             listCity.clear();
-                            List<CityChangeModel.DataBean> data = cityChangeModel.getData();
+                            List<HylAreaModel.DataBean> data = cityChangeModel.getData();
                             listCity.addAll(data);
 
                         } else {
@@ -336,14 +343,14 @@ public class InfoFragment extends BaseFragment {
     String cityCode = "";
     class NMCascadingMenuViewOnSelectListener implements CascadingMenuViewOnSelectListener {
         @Override
-        public void getValue(CityChangeModel.DataBean area) {
+        public void getValue(HylAreaModel.DataBean area) {
             provinceName = area.getProvinceName();
             provinceCode = area.getProvinceCode();
 
         }
 
         @Override
-        public void getValues(CityChangeModel.DataBean.CityNamesBean area) {
+        public void getValues(HylAreaModel.DataBean.CityListBean area) {
             if(provinceName == null) {
                 ToastUtil.showSuccessMsg(mActivity,"请选择上一级城市");
                 return;

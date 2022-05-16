@@ -132,6 +132,18 @@
             android:screenOrientation="portrait"
             />
 
+        <activity android:name=".activity.ShopDetailActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.IssueInfoActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.IssueActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.InfoSearchActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".activity.ApplyTryActivity"
             android:screenOrientation="portrait"
             />

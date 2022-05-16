@@ -37,6 +37,7 @@ import com.barter.hyl.app.fragment.HylCartFragment;
 import com.barter.hyl.app.fragment.HylHome1Fragment;
 import com.barter.hyl.app.fragment.HylMarketsFragment;
 import com.barter.hyl.app.fragment.HylMineFragment;
+import com.barter.hyl.app.fragment.InfoFragment;
 import com.barter.hyl.app.model.HylCartNumModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.R;
@@ -59,6 +60,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     LinearLayout ll_cart;
     @BindView(R.id.ll_goods)
     LinearLayout ll_goods;
+    @BindView(R.id.ll_info)
+    LinearLayout ll_info;
+    @BindView(R.id.tv_info)
+    TextView tv_info;
+    @BindView(R.id.iv_info)
+    ImageView iv_info;
     @BindView(R.id.ll_mine)
     LinearLayout ll_mine;
     @BindView(R.id.iv_home)
@@ -69,9 +76,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     ImageView iv_cart;
     @BindView(R.id.iv_mine)
     ImageView iv_mine;
-
-//    @BindView(R.id.tv_home)
-//    TextView tv_home;
     @BindView(R.id.tv_goods)
     TextView tv_goods;
     @BindView(R.id.tv_cart)
@@ -84,6 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAB_HOME = "tab_home";
     private static final String TAB_MARKET = "tab_market";
     private static final String TAB_CART = "tab_cart";
+    private static final String TAB_Info = "tab_info";
     private static final String TAB_MINE = "tab_mine";
     private MyLocationListener myListener = new MyLocationListener();
     public LocationClient mLocationClient = null;
@@ -101,6 +106,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             mTabMarket = fragment;
         if (mTabCart == null && fragment instanceof HylCartFragment)
             mTabCart = fragment;
+        if (mTabInfo == null && fragment instanceof InfoFragment)
+            mTabInfo = fragment;
         if (mTabMine == null && fragment instanceof HylMineFragment)
             mTabMine = fragment;
         super.onAttachFragment(fragment);
@@ -152,18 +159,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ll_home.setOnClickListener(this);
         ll_cart.setOnClickListener(this);
         ll_goods.setOnClickListener(this);
+        ll_info.setOnClickListener(this);
         ll_mine.setOnClickListener(this);
-//        iv_home.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
-//            case R.id.iv_home:
-//                EventBus.getDefault().post(new GoTopEvent());
-//                break;
             case R.id.ll_home:
                 if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
                     switchTab(TAB_HOME);
@@ -192,6 +195,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 break;
 
+            case R.id.ll_info:
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    switchTab(TAB_Info);
+                }else {
+                    goLogin();
+                }
+
+                break;
+
             case R.id.ll_mine:
                 if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
                     switchTab(TAB_MINE);
@@ -207,12 +219,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Fragment mTabMarket;
     private Fragment mTabCart;
     private Fragment mTabMine;
+    private Fragment mTabInfo;
     private void switchTab(String tab) {
         //开始事务
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         //隐藏所有的Fragment
         if (mTabHome != null) {
             mFragmentTransaction.hide(mTabHome);
+        }
+        if (mTabInfo != null) {
+            mFragmentTransaction.hide(mTabInfo);
         }
         if (mTabMarket != null) {
             mFragmentTransaction.hide(mTabMarket);
@@ -226,13 +242,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         //重置所有的tabStyle
         iv_home.setImageResource(R.mipmap.icon_go_top);
-//        tv_home.setTextColor(getResources().getColor(R.color.app_color_bottom_gray));
         iv_goods.setImageResource(R.mipmap.ic_tab_goods_unable);
         tv_goods.setTextColor(getResources().getColor(R.color.app_color_bottom_gray));
         iv_cart.setImageResource(R.mipmap.ic_tab_cart_unable);
         tv_cart.setTextColor(getResources().getColor(R.color.app_color_bottom_gray));
-        iv_mine.setImageResource(R.mipmap.ic_tab_mine_unable);
+        iv_info.setImageResource(R.mipmap.ic_tab_info_un);
+        tv_info.setTextColor(getResources().getColor(R.color.app_color_bottom_gray));
         tv_mine.setTextColor(getResources().getColor(R.color.app_color_bottom_gray));
+        iv_mine.setImageResource(R.mipmap.ic_tab_mine_unable);
         //切换被选中的tab
         switch (tab) {
             case TAB_HOME:
@@ -242,8 +259,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     mFragmentTransaction.show(mTabHome);
                 }
-//                tv_home.setVisibility(View.GONE);
-//                iv_home.setImageResource(R.mipmap.icon_go_top);
 
                 if (EasyPermissions.hasPermissions(this,params)) {//检查是否获取该权限
                     //全部允许
@@ -261,8 +276,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     mFragmentTransaction.show(mTabMarket);
                 }
-//                tv_home.setVisibility(View.VISIBLE);
-//                tv_home.setTextColor(getResources().getColor(R.color.app_color_bottom_gray));
                 iv_goods.setImageResource(R.mipmap.ic_tab_goods_enable);
                 tv_goods.setTextColor(getResources().getColor(R.color.app_tab_selected));
 
@@ -275,11 +288,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     mFragmentTransaction.show(mTabCart);
 
                 }
-//                tv_home.setVisibility(View.VISIBLE);
-//                tv_home.setTextColor(getResources().getColor(R.color.app_color_bottom_gray));
                 iv_cart.setImageResource(R.mipmap.ic_tab_cart_enable);
                 tv_cart.setTextColor(getResources().getColor(R.color.app_tab_selected));
                 break;
+
+            case TAB_Info:
+                if (mTabInfo == null) {
+                    mTabInfo = new InfoFragment();
+                    mFragmentTransaction.add(R.id.layout_home_container, mTabInfo);
+                } else {
+                    mFragmentTransaction.show(mTabInfo);
+                }
+                iv_info.setImageResource(R.mipmap.ic_tab_info_en);
+                tv_info.setTextColor(getResources().getColor(R.color.app_tab_selected));
+                break;
+
             case TAB_MINE:
 
                 if (mTabMine == null) {
@@ -288,13 +311,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     mFragmentTransaction.show(mTabMine);
                 }
-//                tv_home.setTextColor(getResources().getColor(R.color.app_color_bottom_gray));
-//                tv_home.setVisibility(View.VISIBLE);
                 iv_mine.setImageResource(R.mipmap.ic_tab_mine_enable);
                 tv_mine.setTextColor(getResources().getColor(R.color.app_tab_selected));
-
-//                Intent intent = new Intent(mActivity,LoginActivity.class);
-//                startActivity(intent);
                 break;
         }
         //提交事务
@@ -313,7 +331,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             UserInfoHelper.saveCity(mContext,location.getCity());
             UserInfoHelper.saveAreaName(mContext,location.getDistrict());
             UserInfoHelper.saveStreet(mContext,location.getStreet());
-//            switchTab(TAB_HOME);
         }
     }
 

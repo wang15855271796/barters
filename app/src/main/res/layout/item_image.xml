@@ -6,11 +6,11 @@
     android:layout_height="wrap_content">
 
     <com.barter.hyl.app.view.RoundImageView
-        android:scaleType="fitXY"
-        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/size_12dp"
+        android:layout_marginRight="3dp"
         android:id="@+id/iv_image"
-        android:layout_marginBottom="@dimen/size_11dp"
-        android:layout_width="110dp"
-        android:layout_height="110dp" />
+        android:layout_width="115dp"
+        android:layout_height="115dp" />
 
 </RelativeLayout>

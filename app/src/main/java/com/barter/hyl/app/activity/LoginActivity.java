@@ -93,22 +93,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         iv_back.setVisibility(View.GONE);
         tv_secret.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         tv_agreement.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-//        SpannableString smp = new SpannableString(tv_secret.getText().toString());
-//        smp.setSpan(new ClickableSpan() {
-//            @Override
-//            public void updateDrawState(TextPaint ds) {
-//                super.updateDrawState(ds);
-//                ds.setColor(Color.parseColor("#3483FF"));       //设置文件颜色
-//                   //设置下划线
-//                ds.setUnderlineText(false);
-//            }
-//
-//            @Override
-//            public void onClick(View widget) {
-//            }
-//        }, 0, tv_secret.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//
-//        tv_secret.setText(smp);
 
         getPolicy();
     }

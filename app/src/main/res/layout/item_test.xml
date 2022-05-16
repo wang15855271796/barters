@@ -17,7 +17,7 @@
             android:layout_height="75dp"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@mipmap/icon_adds"/>
+            android:src="@mipmap/post_photo"/>
 
         <LinearLayout
             android:id="@+id/ll_del"

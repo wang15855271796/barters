@@ -6,6 +6,7 @@ import android.widget.PopupWindow;
 
 import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
 import com.barter.hyl.app.model.CityChangeModel;
+import com.barter.hyl.app.model.HylAreaModel;
 
 import java.util.ArrayList;
 
@@ -15,11 +16,11 @@ import java.util.ArrayList;
 public class ChooseCityPopWindow extends PopupWindow {
     private Activity context;
     private ChooseViews cascadingMenuView;
-    private ArrayList<CityChangeModel.DataBean> areas;
+    private ArrayList<HylAreaModel.DataBean> areas;
     //提供给外的接口
     private CascadingMenuViewOnSelectListener menuViewOnSelectListener;
 
-    public ChooseCityPopWindow(Activity mActivity, ArrayList<CityChangeModel.DataBean> listCity) {
+    public ChooseCityPopWindow(Activity mActivity, ArrayList<HylAreaModel.DataBean> listCity) {
         super(mActivity);
         this.context=mActivity;
         this.areas=listCity;
@@ -44,14 +45,14 @@ public class ChooseCityPopWindow extends PopupWindow {
     class MCascadingMenuViewOnSelectListener implements CascadingMenuViewOnSelectListener{
 
         @Override
-        public void getValue(CityChangeModel.DataBean menuItem) {
+        public void getValue(HylAreaModel.DataBean menuItem) {
             if(menuViewOnSelectListener!=null){
                 menuViewOnSelectListener.getValue(menuItem);
             }
         }
 
         @Override
-        public void getValues(CityChangeModel.DataBean.CityNamesBean area) {
+        public void getValues(HylAreaModel.DataBean.CityListBean area) {
             if(menuViewOnSelectListener!=null){
                 menuViewOnSelectListener.getValues(area);
                 dismiss();

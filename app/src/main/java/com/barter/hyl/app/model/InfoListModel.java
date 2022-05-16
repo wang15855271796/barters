@@ -160,7 +160,8 @@ public class InfoListModel {
              * createTime : 2020-06-30
              * areaName : 浙江省杭州市
              */
-
+            private String headImage;
+            private String hidePhone;
             private String msgId;
             private String msgType;
             private String content;
@@ -172,6 +173,22 @@ public class InfoListModel {
             private String areaName;
             private List<String> pictureList;
             private String msgTypeName;
+
+            public String getHeadImage() {
+                return headImage;
+            }
+
+            public void setHeadImage(String headImage) {
+                this.headImage = headImage;
+            }
+
+            public String getHidePhone() {
+                return hidePhone;
+            }
+
+            public void setHidePhone(String hidePhone) {
+                this.hidePhone = hidePhone;
+            }
 
             public String getMsgTypeName() {
                 return msgTypeName;

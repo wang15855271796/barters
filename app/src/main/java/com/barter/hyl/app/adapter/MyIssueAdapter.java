@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.IssueEditInfoActivity;
 import com.barter.hyl.app.activity.ShopDetailActivity;
 import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.constant.AppHelper;
@@ -48,6 +49,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
     protected void convert(BaseViewHolder helper, InfoListModel.DataBean.ListBean item) {
         RoundImageView iv_pic = helper.getView(R.id.iv_pic);
         TextView tv_look = helper.getView(R.id.tv_look);
+        TextView tv_reason = helper.getView(R.id.tv_reason);
         ImageView iv_status1 = helper.getView(R.id.iv_status1);
         TextView tv_status1 = helper.getView(R.id.tv_status1);
         tv_look.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +92,12 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
             tv_status.setVisibility(View.VISIBLE);
             iv_status1.setVisibility(View.GONE);
             iv_status.setVisibility(View.VISIBLE);
-            tv_status.setText("审核信息已通过");
-            iv_status.setBackgroundResource(R.mipmap.icon_dui);
+            tv_status.setText("审核已通过");
+            tv_status.setTextColor(Color.parseColor("#17BD60"));
+            iv_status.setBackgroundResource(R.mipmap.icon_green);
+            tv_edit.setVisibility(View.GONE);
+            tv_look.setVisibility(View.VISIBLE);
+            tv_reason.setVisibility(View.GONE);
             tv_edit.setVisibility(View.GONE);
             tv_look.setVisibility(View.VISIBLE);
         }else if(item.getCheckStatus().equals("0")) {
@@ -100,23 +106,27 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
             tv_status.setVisibility(View.VISIBLE);
             iv_status1.setVisibility(View.GONE);
             iv_status.setVisibility(View.VISIBLE);
-            tv_status.setText("审核中…");
-            iv_status.setBackgroundResource(R.mipmap.icon_shengnue);
+            tv_status.setText("信息正在审核中");
+            tv_status.setTextColor(Color.parseColor("#0DAEFF"));
+            iv_status.setBackgroundResource(R.mipmap.icon_blue);
             tv_edit.setVisibility(View.VISIBLE);
             tv_look.setVisibility(View.GONE);
-
+            tv_reason.setVisibility(View.GONE);
+            tv_edit.setVisibility(View.VISIBLE);
+            tv_look.setVisibility(View.GONE);
         }else if(item.getCheckStatus().equals("2")){
             tv_status1.setVisibility(View.VISIBLE);
             tv_status.setVisibility(View.GONE);
             iv_status1.setVisibility(View.VISIBLE);
             iv_status.setVisibility(View.GONE);
-            SpannableStringBuilder text = StringSpecialHelper.buildSpanColorStyle("审核未通过查看原因", 5, 4, Color.parseColor("#FF5C00"));
-            tv_status1.setText(text);
-            iv_status1.setBackgroundResource(R.mipmap.icon_gantan);
+            tv_status1.setText("审核未通过 |");
+            iv_status1.setBackgroundResource(R.mipmap.icon_red);
             tv_edit.setVisibility(View.VISIBLE);
             tv_look.setVisibility(View.GONE);
-
-            tv_status1.setOnClickListener(new View.OnClickListener() {
+            tv_reason.setVisibility(View.VISIBLE);
+            tv_edit.setVisibility(View.VISIBLE);
+            tv_look.setVisibility(View.GONE);
+            tv_reason.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     showReason(item);
@@ -126,7 +136,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
         tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext,IssueEditInfoActivity.class);
+                Intent intent = new Intent(mContext, IssueEditInfoActivity.class);
                 intent.putExtra("msgId",item.getMsgId());
                 intent.putExtra("msgType",item.getMsgType());
                 mContext.startActivity(intent);

@@ -1,7 +1,6 @@
 package com.barter.hyl.app.listener;
 
-
-import com.barter.hyl.app.model.CityChangeModel;
+import com.barter.hyl.app.model.HylAreaModel;
 
 /**
  * 通用级联菜单接口
@@ -9,7 +8,7 @@ import com.barter.hyl.app.model.CityChangeModel;
  * 下午3:21:35
  */
 public interface CascadingMenuViewOnSelectListener {
-	void getValue(CityChangeModel.DataBean area);
-	void getValues(CityChangeModel.DataBean.CityNamesBean area);
+	void getValue(HylAreaModel.DataBean area);
+	void getValues(HylAreaModel.DataBean.CityListBean area);
 	void cloese();
 }

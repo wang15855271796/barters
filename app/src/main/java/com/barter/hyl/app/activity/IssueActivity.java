@@ -17,6 +17,7 @@ import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.event.DeletedShopEvent;
+import com.barter.hyl.app.event.MyShopEvent;
 import com.barter.hyl.app.model.InfoListModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -63,7 +64,8 @@ public class IssueActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    public void findViewById() {
+    public void setViewData() {
+        EventBus.getDefault().register(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         myIssueAdapter = new MyIssueAdapter(R.layout.item_issue,list);
         recyclerView.setAdapter(myIssueAdapter);
@@ -105,14 +107,8 @@ public class IssueActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    public void setViewData() {
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
     public void setClickListener() {
         iv_back.setOnClickListener(this);
-
         tv_issue.setOnClickListener(this);
     }
 
@@ -126,11 +122,6 @@ public class IssueActivity extends BaseActivity implements View.OnClickListener 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void deletedShop(DeletedShopEvent event) {
         refreshLayout.autoRefresh();
-
-    }
-
-    @Override
-    public void setClickEvent() {
 
     }
 

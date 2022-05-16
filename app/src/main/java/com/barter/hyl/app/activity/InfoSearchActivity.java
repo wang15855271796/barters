@@ -92,7 +92,7 @@ public class InfoSearchActivity extends BaseActivity implements SearchView.Searc
         mRecordsAdapter = new TagAdapter<String>(mListHistory) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
-                TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.item_spec_hyl,fl_search, false);
+                TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.item_shop_search,fl_search, false);
                 //为标签设置对应的内容
                 tv.setText(s);
                 return tv;

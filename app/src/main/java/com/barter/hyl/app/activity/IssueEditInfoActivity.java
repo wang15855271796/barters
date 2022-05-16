@@ -24,7 +24,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.ShopImageViewssAdapter;
+import com.barter.hyl.app.api.AddressApi;
+import com.barter.hyl.app.api.InfoListAPI;
+import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.dialog.ShopStyleDialog;
+import com.barter.hyl.app.event.MyShopEvent;
+import com.barter.hyl.app.event.ShopStyleEvent;
+import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
+import com.barter.hyl.app.model.BaseModel;
+import com.barter.hyl.app.model.CityChangeModel;
+import com.barter.hyl.app.model.HylAreaModel;
+import com.barter.hyl.app.model.HylSendImageModel;
+import com.barter.hyl.app.model.InfoDetailIssueModel;
+import com.barter.hyl.app.utils.ToastUtil;
+import com.barter.hyl.app.view.CascadingMenuPopWindow;
+import com.barter.hyl.app.view.GlideEngine;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -50,7 +66,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ${王涛} on 2021/1/11
  */
-public class IssueEditInfoActivity extends BaseActivity {
+public class IssueEditInfoActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.et)
     EditText et;
     @BindView(R.id.iv_back)
@@ -81,11 +97,6 @@ public class IssueEditInfoActivity extends BaseActivity {
     @Override
     public void setContentView() {
         setContentView(R.layout.activity_issue_edit);
-    }
-
-    @Override
-    public void findViewById() {
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -134,6 +145,11 @@ public class IssueEditInfoActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void setClickListener() {
+        tv_area.setOnClickListener(this);
+    }
+
     private int checkPhoneNum(String username){
         if (TextUtils.isEmpty(username)){
             return 2;
@@ -176,12 +192,11 @@ public class IssueEditInfoActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    String s1;
     private void upImage(List<MultipartBody.Part> parts) {
-        SendImageAPI.requestImg(mContext, parts)
+        OrderApi.requestImgDetail(mContext, parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<SendImagesModel>() {
+                .subscribe(new Subscriber<HylSendImageModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -192,14 +207,12 @@ public class IssueEditInfoActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onNext(SendImagesModel baseModel) {
+                    public void onNext(HylSendImageModel baseModel) {
 
                         if (baseModel.success) {
                             returnPic = "";
-
                             if (baseModel.data != null) {
-                                List<String> data = baseModel.data;
-                                data.addAll(pictureLists);
+                                String[] data = baseModel.data;
                                 Gson gson = new Gson();
                                 returnPic = gson.toJson(data);
                             }
@@ -228,31 +241,14 @@ public class IssueEditInfoActivity extends BaseActivity {
     String provinceName;
     String cityName;
     String cityCode;
-    @Override
-    public void setClickEvent() {
-        tv_area.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cascadingMenuPopWindow = new CascadingMenuPopWindow(mActivity, listCity);
-                cascadingMenuPopWindow.setMenuViewOnSelectListener(new NMCascadingMenuViewOnSelectListener());
-                cascadingMenuPopWindow.showAsDropDown(et, 5, 5);
-                cascadingMenuPopWindow.setOutsideTouchable(true);
-                cascadingMenuPopWindow.setBackgroundDrawable(new BitmapDrawable());
-                cascadingMenuPopWindow.setTouchable(true);
-                cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
-                backgroundAlpha(0.3f);
-            }
-        });
-    }
 
 
-
-    ArrayList<CityChangeModel.DataBean> listCity = new ArrayList<>();
+    ArrayList<HylAreaModel.DataBean> listCity = new ArrayList<>();
     private void getCityList() {
-        CityChangeAPI.requestCity(mContext)
+        AddressApi.AddressArea(mContext)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CityChangeModel>() {
+                .subscribe(new Subscriber<HylAreaModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -263,10 +259,10 @@ public class IssueEditInfoActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onNext(CityChangeModel cityChangeModel) {
-                        if (cityChangeModel.isSuccess()) {
+                    public void onNext(HylAreaModel cityChangeModel) {
+                        if (cityChangeModel.getCode()==1) {
                             listCity.clear();
-                            List<CityChangeModel.DataBean> data = cityChangeModel.getData();
+                            List<HylAreaModel.DataBean> data = cityChangeModel.getData();
                             listCity.addAll(data);
 
                         } else {
@@ -420,6 +416,7 @@ public class IssueEditInfoActivity extends BaseActivity {
 
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
          if(requestCode== PictureConfig.CHOOSE_REQUEST&&resultCode==Activity.RESULT_OK){
             handleImgeOnKitKat(data);
         }
@@ -459,6 +456,22 @@ public class IssueEditInfoActivity extends BaseActivity {
         tv_message_style.setText(shopStyleEvent.getDatum());
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_area:
+                cascadingMenuPopWindow = new CascadingMenuPopWindow(mActivity, listCity);
+                cascadingMenuPopWindow.setMenuViewOnSelectListener(new NMCascadingMenuViewOnSelectListener());
+                cascadingMenuPopWindow.showAsDropDown(et, 5, 5);
+                cascadingMenuPopWindow.setOutsideTouchable(true);
+                cascadingMenuPopWindow.setBackgroundDrawable(new BitmapDrawable());
+                cascadingMenuPopWindow.setTouchable(true);
+                cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
+                backgroundAlpha(0.3f);
+                break;
+        }
+    }
+
     private class popupDismissListener implements PopupWindow.OnDismissListener {
         @Override
         public void onDismiss() {
@@ -476,13 +489,13 @@ public class IssueEditInfoActivity extends BaseActivity {
     // 级联菜单选择回调接口
     class NMCascadingMenuViewOnSelectListener implements CascadingMenuViewOnSelectListener {
         @Override
-        public void getValue(CityChangeModel.DataBean area) {
+        public void getValue(HylAreaModel.DataBean area) {
             provinceName = area.getProvinceName();
             provinceCode = area.getProvinceCode();
         }
 
         @Override
-        public void getValues(CityChangeModel.DataBean.CityNamesBean area) {
+        public void getValues(HylAreaModel.DataBean.CityListBean area) {
             backgroundAlpha(1);
             cityName = area.getCityName();
             tv_area.setText(provinceName+cityName);

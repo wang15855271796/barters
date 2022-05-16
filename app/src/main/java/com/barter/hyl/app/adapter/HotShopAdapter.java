@@ -16,6 +16,6 @@ public class HotShopAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.tv_name,item);
+        helper.setText(R.id.tv_spec,item);
     }
 }

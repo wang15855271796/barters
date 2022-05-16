@@ -41,10 +41,11 @@
 
         <TextView
             android:id="@+id/tv_issue"
-            android:text="发布信息"
+            android:text="发布资讯"
             android:textSize="@dimen/sp_14"
             android:padding="@dimen/dp_10"
-            android:textColor="#333333"
+            android:background="@drawable/shape_orange2"
+            android:textColor="#ffffff"
             android:layout_marginRight="@dimen/size_12dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -107,14 +108,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-<!--            <ImageView-->
-<!--                android:src="@mipmap/icon_shop_empty"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content" />-->
+            <ImageView
+                android:src="@mipmap/icon_shop_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_gravity="center_horizontal"
-                android:text="您发布的信息为空"
+                android:text="暂时还没有发布内容哦～"
                 android:layout_marginTop="@dimen/size_20dp"
                 android:textColor="#FF999999"
                 android:layout_width="wrap_content"
