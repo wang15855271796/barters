@@ -26,6 +26,7 @@ import com.barter.hyl.app.api.LoginAPI;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.LoginDialog;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylOneRegisterModel;
@@ -282,7 +283,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             SharedPreferencesUtil.saveString(mActivity,"userPhone",et_account.getText().toString());
                             startActivity(intent);
                             finish();
-                        } else {
+                        } else if(hylLoginModel.code==100004) {
+                            LoginDialog loginDialog = new LoginDialog(mActivity,hylLoginModel.extData);
+                            loginDialog.show();
+                        }else {
                             ToastUtil.showSuccessMsg(mContext, hylLoginModel.message);
                         }
                     }

@@ -70,6 +70,24 @@ public class CompanyListModel {
         private String companyName;
         private String shortName;
         private int flag;
+        int enabled;
+        private String customerPhone;
+
+        public String getCustomerPhone() {
+            return customerPhone;
+        }
+
+        public void setCustomerPhone(String customerPhone) {
+            this.customerPhone = customerPhone;
+        }
+
+        public int getEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(int enabled) {
+            this.enabled = enabled;
+        }
 
         public String getCompanyId() {
             return companyId;

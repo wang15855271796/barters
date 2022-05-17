@@ -182,7 +182,7 @@
                 <ImageView
                     android:id="@+id/iv_direction"
                     android:layout_marginLeft="@dimen/size_6dp"
-                    android:src="@mipmap/icon_up"
+                    android:src="@mipmap/icon_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

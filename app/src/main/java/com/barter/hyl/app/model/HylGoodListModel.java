@@ -165,6 +165,15 @@ public class HylGoodListModel {
             private String saleNum;
             private String minMaxPrice;
             private int inventFlag;
+            public List<String> specList;
+
+            public List<String> getSpecList() {
+                return specList;
+            }
+
+            public void setSpecList(List<String> specList) {
+                this.specList = specList;
+            }
 
             public String getMainId() {
                 return mainId;

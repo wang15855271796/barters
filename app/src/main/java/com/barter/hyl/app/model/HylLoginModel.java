@@ -7,4 +7,34 @@ public class HylLoginModel extends BaseModel{
     public String data;
     public String companyName;
     public String connectPhone;
+    public ExtDataBean extData;
+
+    public ExtDataBean getExtData() {
+        return extData;
+    }
+
+    public void setExtData(ExtDataBean extData) {
+        this.extData = extData;
+    }
+
+    public static class ExtDataBean {
+        public String companyName;
+        public String connectPhone;
+
+        public String getCompanyName() {
+            return companyName;
+        }
+
+        public void setCompanyName(String companyName) {
+            this.companyName = companyName;
+        }
+
+        public String getConnectPhone() {
+            return connectPhone;
+        }
+
+        public void setConnectPhone(String connectPhone) {
+            this.connectPhone = connectPhone;
+        }
+    }
 }

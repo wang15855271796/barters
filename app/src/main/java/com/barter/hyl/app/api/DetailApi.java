@@ -121,12 +121,16 @@ public class DetailApi {
     public interface SearchResultService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Search_Result)
-        Observable<HylSearchResultModel> setParams(@Field("pageNum") int pageNum, @Field("pageSize") int pageSize, @Field("searchKey") String searchKey);
+        Observable<HylSearchResultModel> setParams(@Field("pageNum") int pageNum,
+                                                   @Field("pageSize") int pageSize,
+                                                   @Field("searchKey") String searchKey,
+                                                   @Field("saleDesc") int saleDesc,
+                                                   @Field("priceDesc") int priceDesc);
     }
 
-    public static Observable<HylSearchResultModel> getResultList(Context context, int pageNum, int pageSize, String searchKey) {
+    public static Observable<HylSearchResultModel> getResultList(Context context, int pageNum, int pageSize, String searchKey,int saleDesc,int priceDesc) {
         Observable<HylSearchResultModel> changeSpecModelObservable = RestHelper.getBaseRetrofit(context).create(SearchResultService.class)
-                .setParams(pageNum,pageSize,searchKey);
+                .setParams(pageNum,pageSize,searchKey,saleDesc,priceDesc);
         return changeSpecModelObservable;
     }
 

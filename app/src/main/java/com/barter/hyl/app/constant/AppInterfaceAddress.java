@@ -16,6 +16,13 @@ public class AppInterfaceAddress {
     //http://192.168.101.41:8088/
 //    queryReturnProdIsContainFullGift
     /**
+     * hyl/prod/getSearchProd
+     */
+    /**
+     * 企业信息-new
+     */
+    public static final String Company_Info = "hyl/getHylCompanyShowInfo";
+    /**
      *搜索店铺
      */
     public static final String Info_Search = "message/getList";

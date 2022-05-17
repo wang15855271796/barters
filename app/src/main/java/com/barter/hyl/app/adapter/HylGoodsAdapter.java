@@ -1,6 +1,8 @@
 package com.barter.hyl.app.adapter;
 
 import androidx.annotation.Nullable;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -8,6 +10,8 @@ import android.widget.TextView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.model.HylGoodListModel;
+import com.barter.hyl.app.view.FlowLayout;
+import com.barter.hyl.app.view.TagAdapter;
 import com.barter.hyl.app.view.TagFlowLayout;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -30,7 +34,7 @@ public class HylGoodsAdapter extends BaseQuickAdapter<HylGoodListModel.DataBean.
     @Override
     protected void convert(BaseViewHolder helper, final HylGoodListModel.DataBean.ListBean item) {
 //        helper.setIsRecyclable(false);
-        FrameLayout fl_container = helper.getView(R.id.fl_container);
+        TextView tv_style = helper.getView(R.id.tv_style);
         TextView tv_sale = helper.getView(R.id.tv_sale);
         TextView tv_title = helper.getView(R.id.tv_title);
         TextView tv_price = helper.getView(R.id.tv_price);
@@ -61,7 +65,34 @@ public class HylGoodsAdapter extends BaseQuickAdapter<HylGoodListModel.DataBean.
                 }
             }
         });
+
+        TagAdapter unAbleAdapter = new TagAdapter<String>(item.getSpecList()){
+            @Override
+            public View getView(FlowLayout parent, int position, String spec) {
+                View view = LayoutInflater.from(mContext).inflate(R.layout.item_specss,rv_spec, false);
+                TextView tv_spec = view.findViewById(R.id.tv_spec);
+                tv_spec.setText(spec);
+                return view;
+            }
+        };
+        rv_spec.setAdapter(unAbleAdapter);
+        unAbleAdapter.notifyDataChanged();
+        if(item.getSpecList().size()>3) {
+            tv_style.setVisibility(View.VISIBLE);
+        }else {
+            tv_style.setVisibility(View.GONE);
+        }
+
+        tv_style.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onAddClickListener!=null) {
+                    onAddClickListener.onAddClick(item.getMainId());
+                }
+            }
+        });
     }
+
 
     public interface OnAddClickListener {
         void onAddClick(String mainId);

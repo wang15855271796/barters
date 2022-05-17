@@ -6,6 +6,7 @@ import com.barter.app.model.CompanyListModel;
 import com.barter.hyl.app.constant.AppInterfaceAddress;
 import com.barter.hyl.app.constant.RestHelper;
 import com.barter.hyl.app.model.BaseModel;
+import com.barter.hyl.app.model.CompanyInfoModel;
 import com.barter.hyl.app.model.CouponListsModel;
 import com.barter.hyl.app.model.FullActiveCouponListModel;
 import com.barter.hyl.app.model.FullActiveDetailModel;
@@ -205,4 +206,14 @@ public class MyInfoApi {
         return myModelObservable;
     }
 
+    //企业信息-new
+    public interface CompanyInfoService {
+        @POST(AppInterfaceAddress.Company_Info)
+        Observable<CompanyInfoModel> setParams();
+    }
+
+    public static Observable<CompanyInfoModel>getCompanyInfo(Context context) {
+        Observable<CompanyInfoModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(CompanyInfoService.class).setParams();
+        return myModelObservable;
+    }
 }

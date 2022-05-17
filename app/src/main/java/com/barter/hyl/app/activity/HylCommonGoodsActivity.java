@@ -1,6 +1,8 @@
 package com.barter.hyl.app.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,9 +16,8 @@ import android.widget.TextView;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.HylChooseSpecAdapter;
 import com.barter.hyl.app.adapter.HylImageDetailAdapter;
+import com.barter.hyl.app.adapter.PicVideoAdapter;
 import com.barter.hyl.app.api.DetailApi;
-import com.barter.hyl.app.api.MyInfoApi;
-import com.barter.hyl.app.banner.Banner;
 import com.barter.hyl.app.banner.BannerConfig;
 import com.barter.hyl.app.banner.GlideImageLoader;
 import com.barter.hyl.app.banner.Transformer;
@@ -30,10 +31,17 @@ import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.model.HylCartNumModel;
 import com.barter.hyl.app.model.HylCollectionModel;
 import com.barter.hyl.app.model.HylCommonDetailModel;
+import com.barter.hyl.app.model.PicVideoModel;
 import com.barter.hyl.app.model.TipsModel;
+import com.barter.hyl.app.model.VideoHolder;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.DetailFlowLayout;
+import com.barter.hyl.app.view.NumIndicator;
 import com.bumptech.glide.Glide;
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.youth.banner.Banner;
+import com.youth.banner.config.IndicatorConfig;
+import com.youth.banner.listener.OnPageChangeListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -51,7 +59,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static rx.android.schedulers.AndroidSchedulers.mainThread;
 
 /**
  * Created by ${王涛} on 2021/8/10
@@ -115,7 +122,20 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     TextView tv_full;
     @BindView(R.id.rl_check)
     RelativeLayout rl_check;
+    @BindView(R.id.iv_sound)
+    ImageView iv_sound;
+    @BindView(R.id.ll_full_active)
+    LinearLayout ll_full_active;
+    @BindView(R.id.ll_skill_active)
+    LinearLayout ll_skill_active;
+    @BindView(R.id.ll_team_active)
+    LinearLayout ll_team_active;
+    @BindView(R.id.tv_skill)
+    TextView tv_skill;
+    @BindView(R.id.tv_team)
+    TextView tv_team;
     String mainId;
+    private List<PicVideoModel.DatasBean> picVideo = new ArrayList<>();
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         mainId = getIntent().getStringExtra("mainId");
@@ -130,8 +150,9 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     @Override
     public void setViewData() {
         EventBus.getDefault().register(this);
-        getDetail(mainId);
+        getDetail(mainId,this);
         getCartNum();
+
     }
 
 
@@ -147,6 +168,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
         tv_detail.setOnClickListener(this);
         ll_full.setOnClickListener(this);
         rl_check.setOnClickListener(this);
+        iv_sound.setOnClickListener(this);
     }
 
 
@@ -190,7 +212,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     HylCommonDetailModel.DataBean data;
     List<HylCommonDetailModel.DataBean.SpecsBean> specs = new ArrayList<>();
     List<String> detailPics = new ArrayList<>();
-    private void getDetail(String mainId) {
+    private void getDetail(String mainId,HylCommonGoodsActivity hylCommonGoodsActivity) {
         DetailApi.getDetail(mContext,mainId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -253,11 +275,60 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                 ll_no_eval.setVisibility(View.VISIBLE);
                             }
 
+
+
                             //规格
                             specs.clear();
                             specs.addAll(data.getSpecs());
                             getSpec(specs);
                             List<String> topPics = data.getTopPics();
+
+                            if(data.getVideoUrl()!=null&&!data.getVideoUrl().equals("")) {
+                                topPics.add(0,data.getVideoUrl());
+                                iv_sound.setVisibility(View.VISIBLE);
+                            }else {
+                                iv_sound.setVisibility(View.VISIBLE);
+                            }
+
+
+                            if(topPics.size()>0) {
+                                for (int i = 0; i < topPics.size(); i++) {
+                                    if(data.getVideoUrl()!=null&&!data.getVideoUrl().equals("")) {
+                                        if(i==0) {
+                                            picVideo.add(new PicVideoModel.DatasBean(topPics.get(0),2));
+                                        }else {
+                                            picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
+                                        }
+                                    } else {
+                                        picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
+                                    }
+                                }
+                            }else {
+                                for (int i = 0; i < picVideo.size(); i++) {
+                                    picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
+                                }
+                            }
+
+                            banner.addBannerLifecycleObserver(hylCommonGoodsActivity)
+                                    .setAdapter(new PicVideoAdapter(mContext, picVideo))
+                                    .setIndicator(new NumIndicator(mContext))
+                                    .setIndicatorGravity(IndicatorConfig.Direction.RIGHT)
+                                    .addOnPageChangeListener(new OnPageChangeListener() {
+                                        @Override
+                                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                                            stopVideo(position);
+                                        }
+
+                                        @Override
+                                        public void onPageSelected(int position) {
+                                            stopVideo(position);
+                                        }
+
+                                        @Override
+                                        public void onPageScrollStateChanged(int state) {
+
+                                        }
+                                    });
 
                             //底部详情图片
                             detailPics.clear();
@@ -268,12 +339,30 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                             rv_image.setAdapter(hylImageDetailAdapter);
 
                             //banner
-                            getBanner(topPics);
+//                            getBanner(topPics);
                         } else {
                             ToastUtil.showSuccessMsg(mContext, hylCommonDetailModel.getMessage());
                         }
                     }
                 });
+    }
+
+    StandardGSYVideoPlayer player;
+    private void stopVideo(int position) {
+        if (player == null) {
+            RecyclerView.ViewHolder viewHolder = banner.getAdapter().getViewHolder();
+            if (viewHolder instanceof VideoHolder) {
+                VideoHolder holder = (VideoHolder) viewHolder;
+                player = holder.player;
+                if (position != 0) {
+                    player.onVideoPause();
+                }
+            }
+        }else {
+            if (position != 0) {
+                player.onVideoPause();
+            }
+        }
     }
 
     /**
@@ -331,32 +420,32 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
 
     /**
      * banner图片
-     * @param topPics
+     * @param
      */
     //banner集合
-    List<String> bannerList = new ArrayList<>();
-    private void getBanner(List<String> topPics) {
-        bannerList.clear();
-        for (int i = 0; i < topPics.size(); i++) {
-            bannerList.add(topPics.get(i));
-        }
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        bannerList.addAll(topPics);
-        banner.setImages(bannerList);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(3000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.RIGHT);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
-    }
+//    List<String> bannerList = new ArrayList<>();
+//    private void getBanner(List<String> topPics) {
+//        bannerList.clear();
+//        for (int i = 0; i < topPics.size(); i++) {
+//            bannerList.add(topPics.get(i));
+//        }
+//        banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
+//        //设置图片加载器
+//        banner.setImageLoader(new GlideImageLoader());
+//        //设置图片集合
+//        bannerList.addAll(topPics);
+//        banner.setImages(bannerList);
+//        //设置banner动画效果
+//        banner.setBannerAnimation(Transformer.DepthPage);
+//        //设置自动轮播，默认为true
+//        banner.isAutoPlay(true);
+//        //设置轮播时间
+//        banner.setDelayTime(3000);
+//        //设置指示器位置（当banner模式中有指示器时）
+//        banner.setIndicatorGravity(BannerConfig.RIGHT);
+//        //banner设置方法全部调用完毕时最后调用
+//        banner.start();
+//    }
 
     @Override
     public void onResume() {
@@ -368,12 +457,9 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     @Override
     public void onDestroy() {
         super.onDestroy();
-        banner.stopAutoPlay();
+//        banner.stopAutoPlay();
         EventBus.getDefault().unregister(this);
     }
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -426,7 +512,23 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
 
             case R.id.rl_check:
                 Intent intent1 = new Intent(mActivity,QuarActivity.class);
+                intent1.putExtra("quarantines", (Serializable) data.getQuarantines());
                 startActivity(intent1);
+                break;
+
+            case R.id.iv_sound:
+                AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                boolean muteFlag = false;//获取当前音乐多媒体是否静音
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    muteFlag = audioManager.isStreamMute(AudioManager.STREAM_MUSIC);
+                }
+                if(muteFlag){
+                    iv_sound.setImageResource(R.mipmap.icon_opens);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,AudioManager.ADJUST_UNMUTE, 0);//取消静音
+                }else{
+                    iv_sound.setImageResource(R.mipmap.icon_close);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE , 0);//设为静音
+                }
                 break;
         }
     }

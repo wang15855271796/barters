@@ -18,6 +18,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/iv_icon1"
                 android:scaleType="fitXY"
                 android:src="@drawable/shape_orange1"
@@ -25,6 +26,7 @@
                 android:layout_height="210dp"/>
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/iv_icon2"
                 android:scaleType="fitXY"
                 android:layout_marginTop="@dimen/size_8dp"
@@ -32,22 +34,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="210dp"/>
 
-            <TextView
-                android:text="企业概况"
-                android:textColor="#333333"
-                android:layout_marginLeft="@dimen/size_12dp"
-                android:layout_marginTop="@dimen/size_20dp"
-                android:textSize="@dimen/size_18dp"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <TextView
-                android:textColor="#999999"
-                android:padding="@dimen/sp_12"
-                android:textSize="@dimen/sp_12"
-                android:text="杭州翘歌网络科技有限公司创立于2018年9月，是一家从事冷冻食品一站式云采购平台运营的新型网络科技公司，致力于解决中小餐饮商户采购难、效率低等问题。 我司通过多年的食品生产、市场运营及实体店落地经营等方面积累了丰富的行业经验，为越来越多的中小餐饮商户提供了便捷的服务、创造了更大的价值！ 我们以人为本、以客户为中心；以需求为导向、以服务为宗旨；以“专业、高效、诚信”为企业使命，通过互联网 的一站式服务模式为客户构建及时、高效且持续的业务运营平台。 我们致力于打造中小餐饮企业食材一站式采购平台，解决目前食材采购行业低效率的问题。 用翘歌，商家不必再起早贪黑，通过平台随时随地下单。全品类采购轻松搞定，省人、省事、省时间！翘歌专业的配送队伍，成熟的超近线路规划，最优质的免费配送服务以及宾至如归的售后服务让您没有后顾之忧。厂家、农场直接供货，低于一级市场批发价直供。平台把关，品质保证，先行赔付让你放心选购！"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
         </LinearLayout>
     </ScrollView>

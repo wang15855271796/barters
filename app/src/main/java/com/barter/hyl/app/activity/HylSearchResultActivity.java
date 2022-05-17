@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,6 +81,8 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
     HylSearchResultAdapter hylSearchResultAdapter;
     int pageNum = 1;
     int pageSize = 10;
+    int saleDesc = 0;
+    int priceDesc = 0;
     View emptyView;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
@@ -154,12 +158,23 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
 
     boolean isAll;
     boolean isSale;
-    boolean isPrice;
+    int isPrice = 0;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_all:
                 isAll = !isAll;
+                saleDesc = 0;
+                priceDesc = 0;
+
+                isSale = false;
+                tv_sale.setTextColor(Color.parseColor("#333333"));
+                iv_sale.setImageResource(R.mipmap.icon_sale);
+
+                tv_price.setTextColor(Color.parseColor("#333333"));
+                iv_price.setImageResource(R.mipmap.icon_price);
+                iv_direction.setImageResource(R.mipmap.icon_default);
+
                 if(!isAll) {
                     tv_all.setTextColor(Color.parseColor("#333333"));
                     iv_all.setImageResource(R.mipmap.icon_all_un);
@@ -167,31 +182,59 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
                     iv_all.setImageResource(R.mipmap.icon_all_en);
                     tv_all.setTextColor(Color.parseColor("#FF2925"));
                 }
-
+                getRecommend(searchWord);
                 break;
 
             case R.id.ll_sale:
                 isSale = !isSale;
+
+                priceDesc = 0;
+                tv_price.setTextColor(Color.parseColor("#333333"));
+                iv_price.setImageResource(R.mipmap.icon_price);
+                iv_direction.setImageResource(R.mipmap.icon_default);
+
+                tv_all.setTextColor(Color.parseColor("#333333"));
+                iv_all.setImageResource(R.mipmap.icon_all_un);
+
                 if(!isSale) {
                     tv_sale.setTextColor(Color.parseColor("#333333"));
                     iv_sale.setImageResource(R.mipmap.icon_sale);
+                    saleDesc = 0;
                 }else {
-                    iv_all.setImageResource(R.mipmap.icon_sale_en);
-                    tv_all.setTextColor(Color.parseColor("#FF2925"));
+                    saleDesc = 2;
+                    iv_sale.setImageResource(R.mipmap.icon_sale_en);
+                    tv_sale.setTextColor(Color.parseColor("#FF2925"));
                 }
+                getRecommend(searchWord);
                 break;
 
             case R.id.ll_price:
-                isPrice = !isPrice;
-                if(!isPrice) {
+                isPrice++;
+
+                tv_sale.setTextColor(Color.parseColor("#333333"));
+                iv_sale.setImageResource(R.mipmap.icon_sale);
+                saleDesc = 0;
+
+                tv_all.setTextColor(Color.parseColor("#333333"));
+                iv_all.setImageResource(R.mipmap.icon_all_un);
+
+                if(isPrice%3==0) {
+                    priceDesc = 0;
                     tv_price.setTextColor(Color.parseColor("#333333"));
                     iv_price.setImageResource(R.mipmap.icon_price);
+                    iv_direction.setImageResource(R.mipmap.icon_default);
+                }else if(isPrice%3==1){
+                    priceDesc = 1;
+                    iv_price.setImageResource(R.mipmap.icon_price_en);
+                    tv_price.setTextColor(Color.parseColor("#FF2925"));
                     iv_direction.setImageResource(R.mipmap.icon_up);
                 }else {
+                    priceDesc = 2;
                     iv_price.setImageResource(R.mipmap.icon_price_en);
                     tv_price.setTextColor(Color.parseColor("#FF2925"));
                     iv_direction.setImageResource(R.mipmap.icon_down);
                 }
+                getRecommend(searchWord);
                 break;
             case R.id.ll_back:
                 finish();
@@ -215,7 +258,7 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
      */
     List<HylSearchResultModel.DataBean.ListBean> list = new ArrayList<>();
     private void getRecommend(String searchWord) {
-        DetailApi.getResultList(mContext,pageNum,pageSize,searchWord)
+        DetailApi.getResultList(mContext,pageNum,pageSize,searchWord,saleDesc,priceDesc)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylSearchResultModel>() {

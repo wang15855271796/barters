@@ -43,19 +43,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.barter.hyl.app.banner.Banner
-                        android:id="@+id/banner"
-                        android:layout_width="match_parent"
-                        android:layout_height="376dp"
-                        />
-
-<!--                    <com.youth.banner.Banner-->
+<!--                    <com.barter.hyl.app.banner.Banner-->
 <!--                        android:id="@+id/banner"-->
 <!--                        android:layout_width="match_parent"-->
 <!--                        android:layout_height="376dp"-->
-<!--                        app:banner_infinite_loop="false"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"/>-->
+<!--                        />-->
 
+                    <com.youth.banner.Banner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="376dp"
+                        app:banner_infinite_loop="false"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                    <RelativeLayout
+                        android:paddingBottom="@dimen/size_25dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_marginRight="@dimen/size_5dp"
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/iv_sound"
+                            android:gravity="right"
+                            android:paddingTop="@dimen/size_2dp"
+                            android:paddingBottom="@dimen/size_2dp"
+                            android:paddingRight="@dimen/size_8dp"
+                            android:paddingLeft="@dimen/size_8dp"
+                            android:background="@drawable/shape_grey_alpha"
+                            android:src="@mipmap/icon_opens"
+                            android:padding="@dimen/size_6dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
                     <RelativeLayout
                         android:visibility="gone"
                         android:id="@+id/rl_coupon"
@@ -253,6 +274,7 @@
                                         android:layout_height="wrap_content">
 
                                         <LinearLayout
+                                            android:id="@+id/ll_full_active"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content">
 
@@ -271,11 +293,21 @@
                                                 android:layout_marginLeft="@dimen/dp_10"
                                                 android:ellipsize="end"
                                                 android:text="满800元赠送一包小三角薯饼舒适…"
+                                                android:layout_width="0dp"
+                                                android:layout_weight="1"
+                                                android:layout_height="wrap_content"/>
+
+                                            <ImageView
+                                                android:layout_marginRight="@dimen/dp_10"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="right"
+                                                android:src="@mipmap/rightarrow"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"/>
                                         </LinearLayout>
 
                                         <LinearLayout
+                                            android:id="@+id/ll_skill_active"
                                             android:layout_marginTop="@dimen/size_10dp"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content">
@@ -295,11 +327,21 @@
                                                 android:layout_marginLeft="@dimen/dp_10"
                                                 android:ellipsize="end"
                                                 android:text="满800元赠送一包小三角薯饼舒适…"
+                                                android:layout_width="0dp"
+                                                android:layout_weight="1"
+                                                android:layout_height="wrap_content"/>
+
+                                            <ImageView
+                                                android:layout_marginRight="@dimen/dp_10"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="right"
+                                                android:src="@mipmap/rightarrow"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"/>
                                         </LinearLayout>
 
                                         <LinearLayout
+                                            android:id="@+id/ll_team_active"
                                             android:layout_marginTop="@dimen/dp_10"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content">
@@ -319,6 +361,15 @@
                                                 android:layout_marginLeft="@dimen/dp_10"
                                                 android:ellipsize="end"
                                                 android:text="满800元赠送一包小三角薯饼舒适…"
+                                                android:layout_width="0dp"
+                                                android:layout_weight="1"
+                                                android:layout_height="wrap_content"/>
+
+                                            <ImageView
+                                                android:layout_marginRight="@dimen/dp_10"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="right"
+                                                android:src="@mipmap/rightarrow"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"/>
                                         </LinearLayout>
