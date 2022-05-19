@@ -1,5 +1,6 @@
 package com.barter.hyl.app.adapter;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -31,9 +32,9 @@ public class CateAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         ImageView iv_pic = helper.getView(R.id.iv_pic);
         RelativeLayout rl_root = helper.getView(R.id.rl_root);
         if(pos==helper.getAdapterPosition()) {
-            iv_pic.setVisibility(View.VISIBLE);
+            helper.setTextColor(R.id.tv_title, Color.parseColor("#FF2925"));
         }else {
-            iv_pic.setVisibility(View.GONE);
+            helper.setTextColor(R.id.tv_title, Color.parseColor("#333333"));
         }
     }
 

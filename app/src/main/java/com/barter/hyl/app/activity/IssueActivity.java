@@ -142,7 +142,7 @@ public class IssueActivity extends BaseActivity implements View.OnClickListener 
 
                     @Override
                     public void onNext(InfoListModel infoListModel) {
-                        if (infoListModel.isSuccess()) {
+                        if (infoListModel.getCode()==1) {
                             if(infoListModel.getData()!=null) {
                                 infoListModels = infoListModel;
                                 List<InfoListModel.DataBean.ListBean> lists = infoListModel.getData().getList();

@@ -14,7 +14,7 @@
         android:paddingLeft="@dimen/pickerview_topbar_padding"
         android:text="@string/pickerview_cancel"
         android:textAllCaps="false"
-        android:textColor="#F56D23"
+        android:textColor="#333333"
         android:textSize="@dimen/pickerview_topbar_btn_textsize" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:paddingRight="@dimen/pickerview_topbar_padding"
         android:text="@string/pickerview_submit"
         android:textAllCaps="false"
-        android:textColor="#F56D23"
+        android:textColor="#FF2925"
         android:textSize="@dimen/pickerview_topbar_btn_textsize" />
 
     <LinearLayout

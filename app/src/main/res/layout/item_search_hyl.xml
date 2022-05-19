@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="@dimen/dp_10"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
@@ -89,19 +90,7 @@
                 android:textColor="@color/app_black"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tv_spec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_10dp"
-                tools:text="规格"
-                android:lines="1"
-                android:ellipsize="end"
-                android:textColor="@color/color_C1C1C1"
-                android:textSize="12dp" />
-
             <RelativeLayout
-                android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line">
@@ -141,6 +130,24 @@
 
             </RelativeLayout>
 
+            <com.barter.hyl.app.view.TagFlowLayout
+                android:id="@+id/rv_spec"
+                app:is_limit="true"
+                app:limit_line_count="3"
+                app:max_select="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_below="@+id/tv_price"
+                android:id="@+id/tv_style"
+                android:textColor="#999999"
+                android:text="查看全部规则>"
+                android:layout_toRightOf="@+id/rl"
+                android:drawablePadding="@dimen/size_5dp"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_20dp"/>
         </LinearLayout>
 
     </LinearLayout>

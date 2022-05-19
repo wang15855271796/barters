@@ -41,6 +41,9 @@ import com.barter.hyl.app.model.InfoDetailIssueModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.CascadingMenuPopWindow;
 import com.barter.hyl.app.view.GlideEngine;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -91,6 +94,8 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     String returnPic;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
+        msgId = getIntent().getStringExtra("msgId");
+        position = Integer.parseInt(getIntent().getStringExtra("msgType"));
         return false;
     }
 
@@ -102,52 +107,17 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     @Override
     public void setViewData() {
         EventBus.getDefault().register(this);
-        msgId = getIntent().getStringExtra("msgId");
-        position = Integer.parseInt(getIntent().getStringExtra("msgType"));
         getCityList(msgId);
         getCityList();
 
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        rl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShopStyleDialog shopStyleDialog = new ShopStyleDialog(mContext);
-                shopStyleDialog.show();
-            }
-        });
-
-        tv_sure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String phone = et_phone.getText().toString();
-                int result = checkPhoneNum(phone);
-                if (result == 2) {
-                    Toast.makeText(getApplicationContext(), "请输入手机号", Toast.LENGTH_SHORT).show();
-                    return;
-                } else if (result == 1) {
-                    Toast.makeText(getApplicationContext(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    if(pictureList.size()>0) {
-                        IssueInfo(msgId,returnPic,et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
-                    }else {
-                        returnPic = "";
-                        IssueInfo(msgId,returnPic,et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
-                    }
-                }
-            }
-        });
     }
 
     @Override
     public void setClickListener() {
         tv_area.setOnClickListener(this);
+        tv_sure.setOnClickListener(this);
+        rl.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
     }
 
     private int checkPhoneNum(String username){
@@ -159,6 +129,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
             return 0;
         }
     }
+
     private void IssueInfo(String msgIds,String returnPic,String content,String address,String phone) {
         InfoListAPI.EditInfo(mContext,msgIds,position,content,returnPic,provinceCode,cityCode,address,phone)
                 .subscribeOn(Schedulers.io())
@@ -175,7 +146,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onNext(BaseModel infoListModel) {
-                        if (infoListModel.success) {
+                        if (infoListModel.code==1) {
                             ToastUtil.showSuccessMsg(mContext,infoListModel.message);
                             finish();
                             EventBus.getDefault().post(new MyShopEvent());
@@ -184,12 +155,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                         }
                     }
                 });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     private void upImage(List<MultipartBody.Part> parts) {
@@ -208,8 +173,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onNext(HylSendImageModel baseModel) {
-
-                        if (baseModel.success) {
+                        if (baseModel.code==1) {
                             returnPic = "";
                             if (baseModel.data != null) {
                                 String[] data = baseModel.data;
@@ -235,15 +199,9 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
         return parts;
     }
 
-    CascadingMenuPopWindow cascadingMenuPopWindow;
-
     String provinceCode;
-    String provinceName;
-    String cityName;
     String cityCode;
 
-
-    ArrayList<HylAreaModel.DataBean> listCity = new ArrayList<>();
     private void getCityList() {
         AddressApi.AddressArea(mContext)
                 .subscribeOn(Schedulers.io())
@@ -261,10 +219,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onNext(HylAreaModel cityChangeModel) {
                         if (cityChangeModel.getCode()==1) {
-                            listCity.clear();
-                            List<HylAreaModel.DataBean> data = cityChangeModel.getData();
-                            listCity.addAll(data);
-
+                            parseData(cityChangeModel.getData());
                         } else {
                             AppHelper.showMsg(mContext, cityChangeModel.getMessage());
                         }
@@ -294,7 +249,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onNext(InfoDetailIssueModel infoListModel) {
-                        if (infoListModel.isSuccess()) {
+                        if (infoListModel.getCode()==1) {
                             data = infoListModel.getData();
                             et.setText(data.getContent());
 
@@ -307,9 +262,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                             Gson gson = new Gson();
                             pictureList = data.getPictureList();
                             pictureLists.addAll(data.getPictureList());
-//                            for (int i = 0; i < pictureLists.size(); i++) {
-//                                Log.d("wdadqwssss.....",pictureLists.get(i)+"bb");
-//                            }
+
                             returnPic = gson.toJson(pictureList);
                             GridLayoutManager manager = new GridLayoutManager(mContext,3);
 
@@ -342,16 +295,13 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                     }
                 });
     }
-    PopupWindow pop;
-    private int maxSelectNum = 6;
-    private List<String> selectList = new ArrayList<>();
 
+    PopupWindow pop;
     private void showPop() {
         View bottomView = View.inflate(IssueEditInfoActivity.this, R.layout.layout_bottom_dialog, null);
         TextView mAlbum = (TextView) bottomView.findViewById(R.id.tv_album);
         TextView mCamera = (TextView) bottomView.findViewById(R.id.tv_camera);
         TextView mCancel = (TextView) bottomView.findViewById(R.id.tv_cancel);
-
         pop = new PopupWindow(bottomView, -1, -2);
         pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         pop.setOutsideTouchable(true);
@@ -359,7 +309,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.alpha = 0.5f;
         getWindow().setAttributes(lp);
-
 
         pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
@@ -389,22 +338,9 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                                 .loadImageEngine(GlideEngine.createGlideEngine())
                                 .selectionMode(PictureConfig.MULTIPLE)
                                 .forResult(PictureConfig.CHOOSE_REQUEST);
-
-                        break;
-                    case R.id.tv_camera:
-                        //拍照
-                        PictureSelector.create(IssueEditInfoActivity.this)
-                                .openCamera(PictureMimeType.ofImage())
-                                .compress(true)
-                                .loadImageEngine(GlideEngine.createGlideEngine())
-                                .setOutputCameraPath("/CustomPath")
-                                .forResult(PictureConfig.CHOOSE_REQUEST);
-                        break;
-                    case R.id.tv_cancel:
-                        //取消
-                        //closePopupWindow();
                         break;
                 }
+
                 closePopupWindow();
             }
         };
@@ -430,7 +366,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
         for (int i = 0; i < images.size(); i++) {
             picList.add(images.get(i).getCompressPath());
         }
-
 
         pictureList.add(images.get(0).getCompressPath());
         shopImageViewAdapter.notifyDataSetChanged();
@@ -459,54 +394,124 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+
             case R.id.tv_area:
-                cascadingMenuPopWindow = new CascadingMenuPopWindow(mActivity, listCity);
-                cascadingMenuPopWindow.setMenuViewOnSelectListener(new NMCascadingMenuViewOnSelectListener());
-                cascadingMenuPopWindow.showAsDropDown(et, 5, 5);
-                cascadingMenuPopWindow.setOutsideTouchable(true);
-                cascadingMenuPopWindow.setBackgroundDrawable(new BitmapDrawable());
-                cascadingMenuPopWindow.setTouchable(true);
-                cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
-                backgroundAlpha(0.3f);
+                if(isLoaded) {
+                    showPickerView();
+                }
+
+            case R.id.rl:
+                ShopStyleDialog shopStyleDialog = new ShopStyleDialog(mContext);
+                shopStyleDialog.show();
+                break;
+
+            case R.id.tv_sure:
+                String phone = et_phone.getText().toString();
+                int result = checkPhoneNum(phone);
+                if (result == 2) {
+                    Toast.makeText(getApplicationContext(), "请输入手机号", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (result == 1) {
+                    Toast.makeText(getApplicationContext(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    if(pictureList.size()>0) {
+                        IssueInfo(msgId,returnPic,et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
+                    }else {
+                        returnPic = "";
+                        IssueInfo(msgId,returnPic,et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
+                    }
+                }
                 break;
         }
     }
 
-    private class popupDismissListener implements PopupWindow.OnDismissListener {
-        @Override
-        public void onDismiss() {
-            backgroundAlpha(1f);
-        }
+    String proviceCode;
+    String areaCode;
+    private void showPickerView() {
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                proviceCode = options1Items.get(options1).getProvinceCode();
+                cityCode = options2Items.get(options1).get(options2).getCityCode();
+                areaCode = options3Items.get(options1).get(options2).get(options3).getAreaCode();
+                String tx = options1Items.get(options1).getProvinceName() +
+                        options2Items.get(options1).get(options2).getCityName() +
+                        options3Items.get(options1).get(options2).get(options3).getAreaName();
+                tv_area.setText(tx);
+                tv_area.setTextColor(Color.parseColor("#333333"));
+            }
+        })
+
+                .setTitleText("选择地区")
+                .setCancelColor(Color.parseColor("#333333"))
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setContentTextSize(20)
+                .setFlag(false)
+                .build();
+        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+        pvOptions.show();
     }
 
+    /**
+     * 处理地址数据结构
+     * @param data
+     */
+    boolean isLoaded = false;
+    //  省
+    private List<HylAreaModel.DataBean> options1Items = new ArrayList<>();
+    //  市
+    private ArrayList<ArrayList<HylAreaModel.DataBean.CityListBean>> options2Items = new ArrayList<>();
+    //  区
+    private ArrayList<ArrayList<ArrayList<HylAreaModel.DataBean.CityListBean.AreaListBean>>> options3Items = new ArrayList<>();
+    private void parseData(List<HylAreaModel.DataBean> data) {
+        options1Items = data;
+        //     遍历省
+        for(int i = 0; i <data.size() ; i++) {
 
-    public void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();
-        lp.alpha = bgAlpha; //0.0-1.0
-        mActivity.getWindow().setAttributes(lp);
+//         存放城市
+            ArrayList<HylAreaModel.DataBean.CityListBean> cityList = new ArrayList<>();
+//         存放区
+            ArrayList<ArrayList<HylAreaModel.DataBean.CityListBean.AreaListBean>> province_AreaList = new ArrayList<>();
+            List<HylAreaModel.DataBean.CityListBean> children1 = data.get(i).getCityList();
+            cityList.addAll(children1);
+//         遍历市
+            for(int c = 0; c <data.get(i).getCityList().size() ; c++) {
+                //该城市的所有地区列表
+                ArrayList<HylAreaModel.DataBean.CityListBean.AreaListBean> city_AreaList = new ArrayList<>();
+
+                if (data.get(i).getCityList().get(c).getAreaList() == null || data.get(i).getCityList().get(c).getAreaList().size() == 0) {
+                    HylAreaModel.DataBean.CityListBean.AreaListBean childrenBean = new HylAreaModel.DataBean.CityListBean.AreaListBean();
+                    childrenBean.setAreaName("");
+                    city_AreaList.add(childrenBean);
+                } else {
+
+                    List<HylAreaModel.DataBean.CityListBean.AreaListBean> children = data.get(i).getCityList().get(c).getAreaList();
+                    city_AreaList.addAll(children);
+                    province_AreaList.add(city_AreaList);
+
+                }
+            }
+            /**
+             * 添加城市数据
+             */
+            options2Items.add(cityList);
+            /**
+             * 添加地区数据
+             */
+            options3Items.add(province_AreaList);
+        }
+        isLoaded = true;
     }
 
-    // 级联菜单选择回调接口
-    class NMCascadingMenuViewOnSelectListener implements CascadingMenuViewOnSelectListener {
-        @Override
-        public void getValue(HylAreaModel.DataBean area) {
-            provinceName = area.getProvinceName();
-            provinceCode = area.getProvinceCode();
-        }
-
-        @Override
-        public void getValues(HylAreaModel.DataBean.CityListBean area) {
-            backgroundAlpha(1);
-            cityName = area.getCityName();
-            tv_area.setText(provinceName+cityName);
-            cityCode = area.getCityCode();
-        }
-
-        @Override
-        public void cloese() {
-            backgroundAlpha(1);
-        }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
-
 }

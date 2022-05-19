@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.InfoSearchActivity;
 import com.barter.hyl.app.activity.IssueActivity;
+import com.barter.hyl.app.activity.IssueEditInfoActivity;
+import com.barter.hyl.app.activity.IssueInfoActivity;
 import com.barter.hyl.app.adapter.MarketsAdapter;
 import com.barter.hyl.app.api.AddressApi;
 import com.barter.hyl.app.api.InfoListAPI;
@@ -66,8 +68,8 @@ public class InfoFragment extends BaseFragment {
     LinearLayout linearLayoutData;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.iv_back)
-    ImageView iv_back;
+    @BindView(R.id.iv_sure)
+    ImageView iv_sure;
     @BindView(R.id.tv_issue)
     TextView tv_issue;
     @BindView(R.id.smart)
@@ -196,10 +198,11 @@ public class InfoFragment extends BaseFragment {
 
             }
         });
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        iv_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerView.smoothScrollToPosition(0);
+                Intent intent = new Intent(mActivity, IssueInfoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -285,7 +288,7 @@ public class InfoFragment extends BaseFragment {
 
                     @Override
                     public void onNext(InfoListModel infoListModel) {
-                        if (infoListModel.isSuccess()) {
+                        if (infoListModel.getCode()==1) {
                            if(infoListModel.getData()!=null&&infoListModel.getData().getList().size()>0) {
                                infoListModel1 = infoListModel;
                                List<InfoListModel.DataBean.ListBean> lists = infoListModel.getData().getList();

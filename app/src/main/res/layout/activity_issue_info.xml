@@ -39,7 +39,7 @@
                     android:src="@mipmap/ic_back_arrow" />
 
                 <TextView
-                    android:text="发布信息"
+                    android:text="发布资讯"
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,16 +70,18 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:background="#FF0C00"
+                android:background="@drawable/shape_orange3"
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_20dp">
 
                 <TextView
-                    android:textColor="#ffffff"
+                    android:textColor="#FF4C00"
                     android:layout_gravity="center_vertical"
                     android:textSize="@dimen/dp_10"
+                    android:drawablePadding="@dimen/size_5dp"
+                    android:drawableLeft="@mipmap/iv_notice"
                     android:text="为了提高审核通过率，请保证图片真实有效，不要上传二维码类的图片！"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -148,6 +150,7 @@
                     android:layout_height="@dimen/size_48dp">
 
                     <TextView
+                        android:id="@+id/tv_style"
                         android:text="消息类型："
                         android:textColor="#333333"
                         android:textSize="@dimen/sp_16"
@@ -157,18 +160,24 @@
                         android:layout_height="@dimen/size_60dp" />
 
                     <TextView
+                        android:layout_toRightOf="@+id/tv_style"
                         android:id="@+id/tv_message_style"
-                        android:text="请选择消息类型"
-                        android:layout_marginRight="@dimen/size_18dp"
-                        android:layout_alignParentRight="true"
                         android:textColor="#333333"
+                        android:hint="请选择消息类型"
+                        android:textColorHint="#999999"
                         android:textSize="@dimen/sp_16"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:drawablePadding="@dimen/size_5dp"
-                        android:drawableRight="@mipmap/ic_address_icon"
                         android:layout_height="@dimen/size_60dp" />
 
+                    <ImageView
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_address_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                     <View
                         android:layout_alignParentBottom="true"
@@ -184,6 +193,7 @@
                     android:layout_height="@dimen/size_48dp">
 
                     <TextView
+                        android:id="@+id/tv_phone"
                         android:text="手机号码："
                         android:textColor="#333333"
                         android:textSize="@dimen/sp_16"
@@ -197,9 +207,8 @@
                         android:id="@+id/et_phone"
                         android:inputType="number"
                         android:maxLength="11"
+                        android:layout_toRightOf="@+id/tv_phone"
                         android:hint="请输入电话号码"
-                        android:layout_marginRight="@dimen/size_18dp"
-                        android:layout_alignParentRight="true"
                         android:textColor="#333333"
                         android:background="@null"
                         android:textSize="@dimen/sp_16"
@@ -222,6 +231,7 @@
                     android:layout_height="@dimen/size_48dp">
 
                     <TextView
+                        android:id="@+id/address"
                         android:text="详细地址："
                         android:textColor="#333333"
                         android:textSize="@dimen/sp_16"
@@ -231,16 +241,14 @@
                         android:layout_height="@dimen/size_60dp" />
 
                     <EditText
+                        android:layout_toRightOf="@+id/address"
                         android:background="@null"
                         android:maxLength="15"
                         android:singleLine="true"
                         android:id="@+id/tv_address"
                         android:hint="请输入详细地址"
-                        android:layout_marginRight="@dimen/size_18dp"
-                        android:layout_alignParentRight="true"
                         android:textColor="#333333"
                         android:textSize="@dimen/sp_16"
-                        android:layout_marginLeft="@dimen/size_18dp"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_60dp" />

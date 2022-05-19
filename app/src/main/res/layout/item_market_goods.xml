@@ -148,7 +148,6 @@
                 android:text="查看全部规则>"
                 android:layout_toRightOf="@+id/rl"
                 android:drawablePadding="@dimen/size_5dp"
-                android:layout_marginLeft="@dimen/size_5dp"
                 android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_20dp"/>

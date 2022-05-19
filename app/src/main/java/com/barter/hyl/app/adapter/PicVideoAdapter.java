@@ -75,6 +75,8 @@ public class PicVideoAdapter extends BannerAdapter<PicVideoModel.DatasBean, Recy
                 int screenTypeFull = GSYVideoType.SCREEN_TYPE_DEFAULT;
                 GSYVideoType.setShowType(screenTypeFull);
                 videoHolder.player.setThumbImageView(imageView);
+                videoHolder.player.setEnlargeImageRes(R.mipmap.iv_open);
+                videoHolder.player.getFullscreenButton().setImageResource(R.mipmap.iv_open);
                 videoHolder.player.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

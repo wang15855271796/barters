@@ -3,28 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginLeft="40dp"
-    android:layout_marginRight="40dp"
+    android:layout_marginLeft="53dp"
+    android:layout_marginRight="53dp"
     android:background="@drawable/app_add_sub_account_dialog_background"
     android:orientation="vertical">
 
     <TextView
-        android:text="删除发布"
+        android:text="提示"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/size_15dp"
         android:textSize="@dimen/size_18dp"
         android:textColor="#000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:text="删除这条信息么？删除之后无法恢复。"
+        android:layout_marginLeft="@dimen/size_26dp"
+        android:layout_marginRight="@dimen/size_26dp"
+        android:text="删除之后将无法恢复该条信息，是否确认删除？"
         android:textColor="#ff161616"
         android:textSize="15sp" />
 
@@ -63,8 +65,8 @@
             android:gravity="center"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
-            android:text="删除"
-            android:textColor="#ff161616"
+            android:text="确定"
+            android:textColor="#FF2925"
             android:textSize="15sp" />
     </LinearLayout>
 </LinearLayout>

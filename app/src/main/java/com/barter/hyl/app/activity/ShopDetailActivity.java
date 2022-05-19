@@ -84,7 +84,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
 
                     @Override
                     public void onNext(InfoDetailModel infoListModel) {
-                        if (infoListModel.isSuccess()) {
+                        if (infoListModel.getCode()==1) {
                             if (infoListModel.getData() != null) {
                                 lists = infoListModel.getData();
                                 tv_phone.setText(lists.getUserPhone());

@@ -24,6 +24,7 @@
 
     <ImageView
         android:id="@+id/iv_pic"
+        android:visibility="gone"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/size_18dp"
         android:layout_alignParentRight="true"

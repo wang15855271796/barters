@@ -37,7 +37,7 @@
                             android:id="@+id/iv_pic"
                             android:layout_marginLeft="@dimen/size_9dp"
                             android:layout_marginTop="@dimen/size_12dp"
-                            android:src="@mipmap/touxiang"
+                            android:src="@mipmap/info_head"
                             android:layout_width="@dimen/dp_40"
                             android:layout_height="@dimen/dp_40" />
 
@@ -72,6 +72,7 @@
 
                         <View
                             android:background="#FF2925"
+                            android:layout_marginTop="@dimen/size_2dp"
                             android:layout_width="@dimen/size_3dp"
                             android:layout_height="@dimen/size_20dp"/>
 

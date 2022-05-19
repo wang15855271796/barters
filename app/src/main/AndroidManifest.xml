@@ -138,6 +138,10 @@
         <activity android:name=".activity.IssueInfoActivity"
             android:screenOrientation="portrait"
             />
+
+        <activity android:name=".activity.IssueEditInfoActivity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".activity.IssueActivity"
             android:screenOrientation="portrait"
             />

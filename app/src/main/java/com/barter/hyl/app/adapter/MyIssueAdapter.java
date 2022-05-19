@@ -94,7 +94,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
             iv_status.setVisibility(View.VISIBLE);
             tv_status.setText("审核已通过");
             tv_status.setTextColor(Color.parseColor("#17BD60"));
-            iv_status.setBackgroundResource(R.mipmap.icon_green);
+            iv_status.setImageResource(R.mipmap.icon_green);
             tv_edit.setVisibility(View.GONE);
             tv_look.setVisibility(View.VISIBLE);
             tv_reason.setVisibility(View.GONE);
@@ -108,7 +108,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
             iv_status.setVisibility(View.VISIBLE);
             tv_status.setText("信息正在审核中");
             tv_status.setTextColor(Color.parseColor("#0DAEFF"));
-            iv_status.setBackgroundResource(R.mipmap.icon_blue);
+            iv_status.setImageResource(R.mipmap.icon_blue);
             tv_edit.setVisibility(View.VISIBLE);
             tv_look.setVisibility(View.GONE);
             tv_reason.setVisibility(View.GONE);
@@ -120,7 +120,7 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
             iv_status1.setVisibility(View.VISIBLE);
             iv_status.setVisibility(View.GONE);
             tv_status1.setText("审核未通过 |");
-            iv_status1.setBackgroundResource(R.mipmap.icon_red);
+            iv_status1.setImageResource(R.mipmap.icon_red);
             tv_edit.setVisibility(View.VISIBLE);
             tv_look.setVisibility(View.GONE);
             tv_reason.setVisibility(View.VISIBLE);

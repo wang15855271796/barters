@@ -125,26 +125,25 @@ public class ShopImageViewAdapter extends RecyclerView.Adapter<ShopImageViewAdap
                     mOnAddPicClickListener.onAddPicClick();
                 }
             });
-            viewHolder.ll_del.setVisibility(View.INVISIBLE);
+            viewHolder.ll_del.setVisibility(View.GONE);
         } else {
-            viewHolder.ll_del.setVisibility(View.VISIBLE);
+            viewHolder.ll_del.setVisibility(View.GONE);
             viewHolder.ll_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mItemClickListener.deletPic(position);
                     int index = viewHolder.getAdapterPosition();
+                    Log.d("qwrfwedsdff.....",index+"----"+position);
                     // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
                     // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
                     if (index != RecyclerView.NO_POSITION) {
                         list.remove(index);
                         notifyItemRemoved(index);
                         notifyItemRangeChanged(index, list.size());
-//                        DebugUtil.i("delete position:", index + "--->remove after:" + list.size());
                     }
                 }
             });
             LocalMedia media = list.get(position);
-            String mimeType = media.getMimeType();
             String path = "";
             if (media.isCut() && !media.isCompressed()) {
                 // 裁剪过
@@ -163,25 +162,9 @@ public class ShopImageViewAdapter extends RecyclerView.Adapter<ShopImageViewAdap
             }
 
             Log.i("原图地址::", media.getPath());
-//            int pictureType = PictureMimeType.isPictureType(media.getPictureType());
             if (media.isCut()) {
                 Log.i("裁剪地址::", media.getCutPath());
             }
-//            long duration = media.getDuration();
-//            viewHolder.tv_duration.setVisibility(pictureType == PictureConfig.TYPE_VIDEO
-//                    ? View.VISIBLE : View.GONE);
-//            if (mimeType == PictureMimeType.ofAudio()) {
-//                viewHolder.tv_duration.setVisibility(View.VISIBLE);
-//                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.picture_audio);
-//                StringUtils.modifyTextViewDrawable(viewHolder.tv_duration, drawable, 0);
-//            } else {
-//                Drawable drawable = ContextCompat.getDrawable(context, R.drawable.video_icon);
-//                StringUtils.modifyTextViewDrawable(viewHolder.tv_duration, drawable, 0);
-//            }
-//            viewHolder.tv_duration.setText(DateUtils.timeParse(duration));
-//            if (mimeType == PictureMimeType.ofAudio()) {
-//                viewHolder.mImg.setImageResource(R.drawable.audio_placeholder);
-//            } else {
                 RequestOptions options = new RequestOptions()
                         .centerCrop()
                         .placeholder(R.color.color_f6)

@@ -29,6 +29,7 @@ import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.dialog.ShopStyleDialog;
+import com.barter.hyl.app.event.DeletePicEvent;
 import com.barter.hyl.app.event.MyShopEvent;
 import com.barter.hyl.app.event.ShopStyleEvent;
 import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
@@ -40,6 +41,9 @@ import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.CascadingMenuPopWindow;
 import com.barter.hyl.app.view.FullyGridLayoutManager;
 import com.barter.hyl.app.view.GlideEngine;
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -96,7 +100,6 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
     String provinceName;
     String cityName;
     String cityCode;
-    String msgId;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -116,27 +119,21 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         shopImageViewAdapter = new ShopImageViewAdapter(mContext,onAddPicClickListener);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(shopImageViewAdapter);
-        msgId = getIntent().getStringExtra("msgId");
         shopImageViewAdapter.setOnItemClickListener(new ShopImageViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
+
                 if (selectList.size() > 0) {
                     LocalMedia media = selectList.get(position);
                     String pictureType = media.getMimeType();
                     int mediaType = PictureMimeType.getMimeType(pictureType);
+
                     switch (mediaType) {
                         case 1:
                             // 预览图片 可自定长按保存路径
                             //PictureSelector.create(MainActivity.this).externalPicturePreview(position, "/custom_file", selectList);
-                            PictureSelector.create(mActivity).externalPicturePreview(position, selectList,position);
-                            break;
-                        case 2:
-                            // 预览视频
-                            PictureSelector.create(mActivity).externalPictureVideo(media.getPath());
-                            break;
-                        case 3:
-                            // 预览音频
-                            PictureSelector.create(mActivity).externalPictureAudio(media.getPath());
+//                            PictureSelector.create(mActivity).externalPicturePreview(position, selectList,position);
+                            AppHelper.showPhotoDetailsDialog(mContext,picList,position,selectList,shopImageViewAdapter);
                             break;
                     }
                 }
@@ -151,15 +148,17 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         tv_area.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cascadingMenuPopWindow = new CascadingMenuPopWindow(mActivity, listCity);
-                cascadingMenuPopWindow.setMenuViewOnSelectListener(new NMCascadingMenuViewOnSelectListener());
-                cascadingMenuPopWindow.showAsDropDown(et, 5, 5);
-                cascadingMenuPopWindow.setOutsideTouchable(true);
-                cascadingMenuPopWindow.setBackgroundDrawable(new BitmapDrawable());
-                cascadingMenuPopWindow.setTouchable(true);
-                cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
-                backgroundAlpha(0.3f);
-
+//                cascadingMenuPopWindow = new CascadingMenuPopWindow(mActivity, listCity);
+//                cascadingMenuPopWindow.setMenuViewOnSelectListener(new NMCascadingMenuViewOnSelectListener());
+//                cascadingMenuPopWindow.showAsDropDown(et, 5, 5);
+//                cascadingMenuPopWindow.setOutsideTouchable(true);
+//                cascadingMenuPopWindow.setBackgroundDrawable(new BitmapDrawable());
+//                cascadingMenuPopWindow.setTouchable(true);
+//                cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
+//                backgroundAlpha(0.3f);
+                if(isLoaded) {
+                    showPickerView();
+                }
             }
         });
 
@@ -175,7 +174,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    IssueInfo(msgId,et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
+                    IssueInfo(et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
                 }
 
             }
@@ -219,6 +218,35 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
         }
+    }
+    String proviceCode;
+    String areaCode;
+    private void showPickerView() {
+        OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+
+                proviceCode = options1Items.get(options1).getProvinceCode();
+                cityCode = options2Items.get(options1).get(options2).getCityCode();
+                areaCode = options3Items.get(options1).get(options2).get(options3).getAreaCode();
+                String tx = options1Items.get(options1).getProvinceName() +
+                        options2Items.get(options1).get(options2).getCityName() +
+                        options3Items.get(options1).get(options2).get(options3).getAreaName();
+                tv_area.setText(tx);
+                tv_area.setTextColor(Color.parseColor("#333333"));
+            }
+        })
+
+                .setTitleText("选择地区")
+                .setCancelColor(Color.parseColor("#333333"))
+                .setDividerColor(Color.BLACK)
+                .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
+                .setContentTextSize(20)
+                .setFlag(false)
+                .build();
+        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+        pvOptions.show();
     }
 
 
@@ -385,6 +413,12 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                 });
     }
 
+    /**
+     * 售卖类型
+     * @param shopStyleEvent
+     */
+    String datum;
+
     public List<MultipartBody.Part> filesToMultipartBodyParts(List<String> localUrls) {
         List<MultipartBody.Part> parts = new ArrayList<>(localUrls.size());
         for (String url : localUrls) {
@@ -395,12 +429,6 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         }
         return parts;
     }
-
-    /**
-     * 售卖类型
-     * @param shopStyleEvent
-     */
-    String datum;
     int position = -1;
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getTotal(ShopStyleEvent shopStyleEvent) {
@@ -409,8 +437,15 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         tv_message_style.setText(shopStyleEvent.getDatum());
     }
 
-    ArrayList<HylAreaModel.DataBean> listCity = new ArrayList<>();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getTotal(DeletePicEvent deletePicEvent) {
+        Log.d("sdfqewadfs....",picList.size()+"---------"+position);
+        picList.remove(deletePicEvent.getPos());
+        upImage(filesToMultipartBodyParts(picList));
+    }
 
+
+    ArrayList<HylAreaModel.DataBean> listCity = new ArrayList<>();
     private void getCityList() {
         AddressApi.AddressArea(mContext)
                 .subscribeOn(Schedulers.io())
@@ -428,10 +463,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                     @Override
                     public void onNext(HylAreaModel hylAreaModel) {
                         if (hylAreaModel.getCode()==1) {
-
-                            listCity.clear();
-                            List<HylAreaModel.DataBean> data = hylAreaModel.getData();
-                            listCity.addAll(data);
+                            parseData(hylAreaModel.getData());
 
                         } else {
                             AppHelper.showMsg(mContext, hylAreaModel.getMessage());
@@ -440,9 +472,61 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                 });
     }
 
+    /**
+     * 处理地址数据结构
+     * @param data
+     */
+    boolean isLoaded = false;
+    //  省
+    private List<HylAreaModel.DataBean> options1Items = new ArrayList<>();
+    //  市
+    private ArrayList<ArrayList<HylAreaModel.DataBean.CityListBean>> options2Items = new ArrayList<>();
+    //  区
+    private ArrayList<ArrayList<ArrayList<HylAreaModel.DataBean.CityListBean.AreaListBean>>> options3Items = new ArrayList<>();
+    private void parseData(List<HylAreaModel.DataBean> data) {
+        options1Items = data;
+        //     遍历省
+        for(int i = 0; i <data.size() ; i++) {
 
-    private void IssueInfo(String msgIds,String content,String address,String phone) {
-        InfoListAPI.InfoIssue(mContext,msgIds,position,content,returnPic,provinceCode,cityCode,address,phone)
+//         存放城市
+            ArrayList<HylAreaModel.DataBean.CityListBean> cityList = new ArrayList<>();
+//         存放区
+            ArrayList<ArrayList<HylAreaModel.DataBean.CityListBean.AreaListBean>> province_AreaList = new ArrayList<>();
+            List<HylAreaModel.DataBean.CityListBean> children1 = data.get(i).getCityList();
+            cityList.addAll(children1);
+//         遍历市
+            for(int c = 0; c <data.get(i).getCityList().size() ; c++) {
+                //该城市的所有地区列表
+                ArrayList<HylAreaModel.DataBean.CityListBean.AreaListBean> city_AreaList = new ArrayList<>();
+
+                if (data.get(i).getCityList().get(c).getAreaList() == null || data.get(i).getCityList().get(c).getAreaList().size() == 0) {
+                    HylAreaModel.DataBean.CityListBean.AreaListBean childrenBean = new HylAreaModel.DataBean.CityListBean.AreaListBean();
+                    childrenBean.setAreaName("");
+                    city_AreaList.add(childrenBean);
+                } else {
+
+                    List<HylAreaModel.DataBean.CityListBean.AreaListBean> children = data.get(i).getCityList().get(c).getAreaList();
+                    city_AreaList.addAll(children);
+                    province_AreaList.add(city_AreaList);
+
+                }
+            }
+            /**
+             * 添加城市数据
+             */
+            options2Items.add(cityList);
+            /**
+             * 添加地区数据
+             */
+            options3Items.add(province_AreaList);
+
+        }
+
+        isLoaded = true;
+    }
+
+    private void IssueInfo(String content,String address,String phone) {
+        InfoListAPI.InfoIssue(mContext,position,content,returnPic,provinceCode,cityCode,address,phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseModel>() {
@@ -467,13 +551,4 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                     }
                 });
     }
-
-    private class popupDismissListener implements PopupWindow.OnDismissListener {
-        @Override
-        public void onDismiss() {
-            backgroundAlpha(1f);
-        }
-    }
-
-
 }

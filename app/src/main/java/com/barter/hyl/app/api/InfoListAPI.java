@@ -72,12 +72,12 @@ public class InfoListAPI {
     private interface InfoIssue {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Info_Issue)
-        Observable<BaseModel> getData(@Field("msgId") String msgId, @Field("msgType") int msgType, @Field("content") String content, @Field("pictureJson") String pictureJson, @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode, @Field("detailAddress") String detailAddress, @Field("phone") String phone);
+        Observable<BaseModel> getData(@Field("msgType") int msgType, @Field("content") String content, @Field("pictureJson") String pictureJson, @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode, @Field("detailAddress") String detailAddress, @Field("phone") String phone);
     }
 
-    public static Observable<BaseModel> InfoIssue(Context context,String msgId,int msgType,String content,String pictureJson,String provinceCode,String cityCode,String detailAddress,String phone) {
+    public static Observable<BaseModel> InfoIssue(Context context,int msgType,String content,String pictureJson,String provinceCode,String cityCode,String detailAddress,String phone) {
         InfoIssue service = RestHelper.getBaseRetrofit(context).create(InfoIssue.class);
-        return service.getData(msgId,msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone);
+        return service.getData(msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone);
     }
 
     /**

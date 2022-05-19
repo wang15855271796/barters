@@ -2,6 +2,7 @@ package com.barter.hyl.app.adapter;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
@@ -23,6 +24,12 @@ public class MarketsAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
     @Override
     protected void convert(BaseViewHolder helper, InfoListModel.DataBean.ListBean item) {
         helper.setIsRecyclable(false);
+        String phoneNum = item.getPhone().substring(0, 3) + "****" + item.getPhone().substring(7, 11);
+        helper.setText(R.id.tv_phone,phoneNum);
+        ImageView iv_head = helper.getView(R.id.iv_head);
+        if(item.getHeadImage()!=null && !item.getHeadImage().equals("")) {
+            Glide.with(mContext).load(item.getHeadImage()).into(iv_head);
+        }
         if(item.getPictureList()!=null&&item.getPictureList().size()>0) {
             RoundImageView iv_pic = helper.getView(R.id.iv_pic);
             Glide.with(mContext).load(item.getPictureList().get(0)).into(iv_pic);
@@ -38,7 +45,7 @@ public class MarketsAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
         }
         helper.setText(R.id.tv_title,item.getContent());
         helper.setText(R.id.tv_time,item.getCreateTime()+"发布");
-        helper.setText(R.id.tv_num,item.getBrowseNum());
+        helper.setText(R.id.tv_num,item.getBrowseNum()+"人看过");
         helper.setText(R.id.tv_address,"地址:"+item.getAreaName());
         helper.getView(R.id.rl_group).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -182,7 +182,7 @@ public class HylReturnGoodActivity extends Base1Activity {
                     @Override
                     public void onNext(HylReturnOrderDetailModel hylReturnOrderDetailModel) {
 
-                        if (hylReturnOrderDetailModel.isSuccess()) {
+                        if (hylReturnOrderDetailModel.getCode()==1) {
                             if (hylReturnOrderDetailModel.getData() != null) {
                                 mDetailModel = hylReturnOrderDetailModel;
                                 mProductList.clear();
@@ -280,71 +280,6 @@ public class HylReturnGoodActivity extends Base1Activity {
             }
         }
     };
-
-//    private void getSelectReason(String orderStatus) {
-//        ReturnSelectReasonAPI.requestReturnOrderReason(mContext, orderStatus)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<OrderReturnSelectReasonModel>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(OrderReturnSelectReasonModel orderReturnSelectReasonModel) {
-//
-//                        if (orderReturnSelectReasonModel.isSuccess()) {
-//                            mReturnReason.clear();
-//                            mReturnReason.addAll(orderReturnSelectReasonModel.getData());
-//                            showPopuWindow();
-//                        }
-//                    }
-//                });
-//    }
-
-    private void showPopuWindow() {
-        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
-        View view = View.inflate(this, R.layout.deliver_time_popu_hyl, null);
-        mRySeclectionReason = view.findViewById(R.id.ry_select);
-        tvCancel = view.findViewById(R.id.tv_cancel_reason);
-        mReturnAdapter = new HylReturnOrderAdapter(R.layout.select_reason, mReturnReason);
-        mRySeclectionReason.setLayoutManager(new LinearLayoutManager(mContext));
-
-        mRySeclectionReason.setAdapter(mReturnAdapter);
-        dialog.setContentView(view);
-        dialog.setCanceledOnTouchOutside(true);
-        Window dialogWindow = dialog.getWindow();
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.gravity = Gravity.BOTTOM;
-        dialogWindow.setAttributes(lp);
-
-        dialog.show();
-
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-//        mReturnAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                dialog.dismiss();
-//                icFirst = true;
-//                mTvSelectReason.setText(mReturnReason.get(position));
-//
-//            }
-//        });
-    }
-
 
     protected void setTranslucentStatus() {
         // 5.0以上系统状态栏透明

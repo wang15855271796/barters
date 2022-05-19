@@ -1,5 +1,6 @@
 package com.barter.hyl.app.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -7,7 +8,14 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,6 +30,7 @@ import com.barter.hyl.app.banner.BannerConfig;
 import com.barter.hyl.app.banner.GlideImageLoader;
 import com.barter.hyl.app.banner.Transformer;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.dialog.CommonDetailDialog;
 import com.barter.hyl.app.dialog.FullDetailDialog;
 import com.barter.hyl.app.dialog.FullDetailsDialog;
@@ -36,11 +45,15 @@ import com.barter.hyl.app.model.TipsModel;
 import com.barter.hyl.app.model.VideoHolder;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.DetailFlowLayout;
+import com.barter.hyl.app.view.FingerFrameLayout;
 import com.barter.hyl.app.view.NumIndicator;
+import com.barter.hyl.app.view.PhotoViewAdapter;
+import com.barter.hyl.app.view.PhotoViewPager;
 import com.bumptech.glide.Glide;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.youth.banner.Banner;
 import com.youth.banner.config.IndicatorConfig;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.listener.OnPageChangeListener;
 
 import org.greenrobot.eventbus.EventBus;
@@ -169,6 +182,9 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
         ll_full.setOnClickListener(this);
         rl_check.setOnClickListener(this);
         iv_sound.setOnClickListener(this);
+        ll_skill_active.setOnClickListener(this);
+        ll_team_active.setOnClickListener(this);
+        ll_full_active.setOnClickListener(this);
     }
 
 
@@ -212,6 +228,9 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     HylCommonDetailModel.DataBean data;
     List<HylCommonDetailModel.DataBean.SpecsBean> specs = new ArrayList<>();
     List<String> detailPics = new ArrayList<>();
+    String skillId;
+    String teamId;
+    String fullId;
     private void getDetail(String mainId,HylCommonGoodsActivity hylCommonGoodsActivity) {
         DetailApi.getDetail(mContext,mainId)
                 .subscribeOn(Schedulers.io())
@@ -275,19 +294,44 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                 ll_no_eval.setVisibility(View.VISIBLE);
                             }
 
+                            if(data.getActives()!=null&&data.getActives().size()>0) {
+                                List<HylCommonDetailModel.DataBean.ActivesBean> actives = data.getActives();
+                                for (int i = 0; i < actives.size(); i++) {
+                                    if(actives.get(i).getActiveType()==2) {
+                                        ll_skill_active.setVisibility(View.VISIBLE);
+                                        tv_skill.setText(actives.get(i).getActiveName());
+                                        skillId = actives.get(i).getActiveId();
+                                    }else if(actives.get(i).getActiveType()==3) {
+                                        ll_team_active.setVisibility(View.VISIBLE);
+                                        tv_team.setText(actives.get(i).getActiveName());
+                                        teamId = actives.get(i).getActiveId();
+                                    }else {
+                                        ll_full_active.setVisibility(View.VISIBLE);
+                                        tv_full.setText(actives.get(i).getActiveName());
+                                        fullId = actives.get(i).getActiveId();
+                                    }
+                                }
+                            }
 
 
+                            List<String> topPics = data.getTopPics();
+                            //banner设置点击监听
+                            banner.setOnBannerListener(new OnBannerListener() {
+                                @Override
+                                public void OnBannerClick(Object data, int position) {
+                                    showPhotoDetailDialog(mContext, topPics, position);
+                                }
+                            });
                             //规格
                             specs.clear();
                             specs.addAll(data.getSpecs());
                             getSpec(specs);
-                            List<String> topPics = data.getTopPics();
 
                             if(data.getVideoUrl()!=null&&!data.getVideoUrl().equals("")) {
                                 topPics.add(0,data.getVideoUrl());
                                 iv_sound.setVisibility(View.VISIBLE);
                             }else {
-                                iv_sound.setVisibility(View.VISIBLE);
+                                iv_sound.setVisibility(View.GONE);
                             }
 
 
@@ -304,9 +348,10 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                     }
                                 }
                             }else {
-                                for (int i = 0; i < picVideo.size(); i++) {
-                                    picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
-                                }
+//                                picVideo.add(data.getDefaultPic());
+//                                for (int i = 0; i < topPics.size(); i++) {
+//                                    picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
+//                                }
                             }
 
                             banner.addBannerLifecycleObserver(hylCommonGoodsActivity)
@@ -345,6 +390,86 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                         }
                     }
                 });
+    }
+
+    public static Dialog dialog;
+    public static View dialogView;
+    public static boolean isShow = false;
+    public static void showPhotoDetailDialog(Context mContext, final List<String> mListUrl, int position) {
+        dialog = new Dialog(mContext, R.style.Theme_Light_Dialog);
+        dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_show_photo, null);
+        //获得dialog的window窗口
+        Window window = dialog.getWindow();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.BOTTOM);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        // window.setWindowAnimations(R.style.dialogStyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        //获得window窗口的属性
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+        //将自定义布局加载到dialog上
+        dialog.setContentView(dialogView);
+        final TextView mTv = dialog.findViewById(R.id.tv_dialog_photo);
+        PhotoViewPager mVp = dialog.findViewById(R.id.vp_dialog_photo);
+        FingerFrameLayout mFl = dialog.findViewById(R.id.ffl_dialog_photo);
+        mFl.setOnAlphaChangeListener(new FingerFrameLayout.onAlphaChangedListener() {
+            @Override
+            public void onAlphaChanged(float alpha) {
+                Log.e("fengan", "[onAlphaChanged]:alpha=" + alpha);
+            }
+
+            @Override
+            public void onTranslationYChanged(float translationY) {
+                Log.e("fengan", "[onTranslationYChanged]:translationY=" + translationY);
+            }
+
+            @Override
+            public void onFinishAction() {
+                AppHelper.hidePhotoDetailDialog();
+            }
+        });
+        PhotoViewAdapter photoViewAdapter = new PhotoViewAdapter(mListUrl, mContext);
+        mVp.setAdapter(photoViewAdapter);
+        mVp.setCurrentItem(position);
+        mTv.setText(position  + 1+"/" + mListUrl.size());
+        photoViewAdapter.setPhotoListener(new PhotoViewAdapter.OnPhotoListener() {
+            @Override
+            public void onPhotoListenter() {
+                if (dialog!=null){
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        mVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTv.setText(position + 1 + "/" + mListUrl.size());
+                mTv.getBackground().setAlpha(100);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
+
+        dialog.show();
+        isShow = true;
     }
 
     StandardGSYVideoPlayer player;
@@ -529,6 +654,24 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                     iv_sound.setImageResource(R.mipmap.icon_close);
                     audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE , 0);//设为静音
                 }
+                break;
+
+            case R.id.ll_skill_active:
+                Intent intent2 = new Intent(mActivity,HylActiveDetailActivity.class);
+                intent2.putExtra("activeId",skillId);
+                startActivity(intent2);
+                break;
+
+            case R.id.ll_team_active:
+                Intent intent3 = new Intent(mActivity,HylActiveDetailActivity.class);
+                intent3.putExtra("activeId",teamId);
+                startActivity(intent3);
+                break;
+
+            case R.id.ll_full_active:
+                Intent intent4 = new Intent(mActivity,HylActiveDetailActivity.class);
+                intent4.putExtra("activeId",fullId);
+                startActivity(intent4);
                 break;
         }
     }
