@@ -541,7 +541,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
 
                     @Override
                     public void onNext(BaseModel infoListModel) {
-                        if (infoListModel.success) {
+                        if (infoListModel.code==1) {
                             ToastUtil.showSuccessMsg(mContext,infoListModel.message);
                             finish();
                             EventBus.getDefault().post(new MyShopEvent());
