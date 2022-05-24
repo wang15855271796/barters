@@ -107,6 +107,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void setContentView() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_issue_info);
     }
 
@@ -115,6 +116,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+
         FullyGridLayoutManager manager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         shopImageViewAdapter = new ShopImageViewAdapter(mContext,onAddPicClickListener);
         recyclerView.setLayoutManager(manager);
@@ -219,7 +221,6 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                 break;
         }
     }
-    String proviceCode;
     String areaCode;
     private void showPickerView() {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
@@ -227,7 +228,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
 
-                proviceCode = options1Items.get(options1).getProvinceCode();
+                provinceCode = options1Items.get(options1).getProvinceCode();
                 cityCode = options2Items.get(options1).get(options2).getCityCode();
                 areaCode = options3Items.get(options1).get(options2).get(options3).getAreaCode();
                 String tx = options1Items.get(options1).getProvinceName() +

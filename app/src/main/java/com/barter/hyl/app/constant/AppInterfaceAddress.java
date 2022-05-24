@@ -280,7 +280,7 @@ public class AppInterfaceAddress {
     /**
      *新增地址
      */
-    public static final String Add_Address = "hyl/address/hylUserAddAddress ";
+    public static final String Add_Address = "hyl/address/hylUserAddAddress";
     /**
      * 结算
      */

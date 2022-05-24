@@ -2,6 +2,12 @@ package com.barter.hyl.app.utils;
 
 
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.text.Spannable;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
+
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
@@ -11,6 +17,12 @@ import java.util.Random;
 
 public class StringUtil {
 
+    public static Spannable addDrawableInText(int start, int end, int resouceId, Spannable text, Context context) {
+        Drawable drawable = context.getResources().getDrawable(resouceId);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        text.setSpan(new ImageSpan(drawable), start, end, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        return text;
+    }
 
     public static Object NullToObject(Object o) {
         if (null == o || JSONObject.NULL == o || "null" == o) {

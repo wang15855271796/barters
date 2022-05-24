@@ -30,6 +30,7 @@
         </RelativeLayout>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_style"
             android:text="其他信息"
             android:padding="@dimen/public_space_value_2"
@@ -54,7 +55,7 @@
             android:layout_below="@+id/rl_pic"
             android:layout_marginTop="8dp"
             android:text="崇贤上亿官场二层真香集排破产了，低价转让了"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <LinearLayout
@@ -114,7 +115,7 @@
             android:layout_toRightOf="@+id/iv_head"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_below="@+id/v_view"
-            android:text="18757104840"
+            tools:text="18757104840"
             android:textSize="12sp"
             android:textColor="#999999"
             android:layout_marginTop="@dimen/size_5dp"

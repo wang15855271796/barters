@@ -270,7 +270,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="20dp"
-        android:background="@drawable/app_sub_account_button"
+        android:background="@drawable/shape_grey_button"
         android:text="保存收货地址"
         android:textColor="@color/app_color_white"
         android:textSize="18dp" />

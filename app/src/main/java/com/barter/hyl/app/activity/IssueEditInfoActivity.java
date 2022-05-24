@@ -101,6 +101,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void setContentView() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_issue_edit);
     }
 
@@ -403,6 +404,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                     showPickerView();
                 }
 
+                break;
             case R.id.rl:
                 ShopStyleDialog shopStyleDialog = new ShopStyleDialog(mContext);
                 shopStyleDialog.show();

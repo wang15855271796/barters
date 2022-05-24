@@ -63,7 +63,6 @@ import rx.schedulers.Schedulers;
  * Created by ${王涛} on 2020/1/5
  */
 public class InfoFragment extends BaseFragment {
-    Unbinder bind;
     @BindView(R.id.linearLayoutData)
     LinearLayout linearLayoutData;
     @BindView(R.id.recyclerView)
@@ -375,8 +374,6 @@ public class InfoFragment extends BaseFragment {
             }else {
                 getCityList(search,"4",cityCode,provinceCode);
             }
-
-
         }
 
         @Override
@@ -384,7 +381,9 @@ public class InfoFragment extends BaseFragment {
             mask.setVisibility(View.GONE);
             cityCode = "";
             provinceCode = "";
-            getCityList(search,"","","");
+            list.clear();
+
+            getCityList(search,pos+"","","");
             tv_address.setText("全部");
         }
 

@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 
 import androidx.annotation.NonNull;
+
+import com.barter.hyl.app.activity.TestActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,7 +26,6 @@ import com.barter.hyl.app.activity.HylActiveListActivity;
 import com.barter.hyl.app.activity.HylCommonGoodsActivity;
 import com.barter.hyl.app.activity.HylFullListActivity;
 import com.barter.hyl.app.activity.LoginActivity;
-import com.barter.hyl.app.activity.HylMessageCenterActivity;
 import com.barter.hyl.app.activity.HylSearchStartActivity;
 import com.barter.hyl.app.activity.HylTeamActivity;
 import com.barter.hyl.app.adapter.HylFullAdapter;
@@ -623,10 +624,12 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                 break;
 
             case R.id.rl_message:
-                Intent messageIntent = new Intent(mActivity,HylMessageCenterActivity.class);
-//                messageIntent.putExtra("test1",1);
-//                Intent messageIntent = new Intent(mActivity,HylTestActivity.class);
-                startActivity(messageIntent);
+//                Intent messageIntent = new Intent(mActivity,HylMessageCenterActivity.class);
+////                messageIntent.putExtra("test1",1);
+////                Intent messageIntent = new Intent(mActivity,HylTestActivity.class);
+//                startActivity(messageIntent);
+                Intent intent1 = new Intent(mActivity, TestActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.tv_notice_desc:
                 String titleInsert  = "请输入想输入的内容";

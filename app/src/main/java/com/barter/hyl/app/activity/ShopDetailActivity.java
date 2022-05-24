@@ -26,6 +26,8 @@ import rx.schedulers.Schedulers;
 public class ShopDetailActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tv_call)
     TextView tv_call;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     @BindView(R.id.iv_back)
     ImageView iv_back;
     String msgId;
@@ -56,7 +58,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void setViewData() {
-
+        tv_title.setText("资讯详情");
         iv_back.setOnClickListener(this);
         tv_call.setOnClickListener(this);
         getCityList();
@@ -91,8 +93,7 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                                 tv_content.setText(lists.getContent());
                                 tv_cate.setText(lists.getMsgTypeName());
                                 tv_contact.setText(lists.getContactPhone());
-                                tv_address.setText(lists.getDetailAddress());
-
+                                tv_address.setText(lists.getProvinceName()+lists.getCityName()+lists.getAreaName()+lists.getDetailAddress());
                                 ImageViewAdapter imageViewAdapter = new ImageViewAdapter(R.layout.item_image, lists.getPictureList());
                                 recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
                                 recyclerView.setAdapter(imageViewAdapter);

@@ -113,6 +113,7 @@
             android:screenOrientation="portrait"
             />
 
+        <activity android:name=".activity.TestActivity"/>
         <activity android:name=".activity.QuarActivity"
             android:screenOrientation="portrait"
             />
@@ -140,6 +141,7 @@
             />
 
         <activity android:name=".activity.IssueEditInfoActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:screenOrientation="portrait"
             />
         <activity android:name=".activity.IssueActivity"
