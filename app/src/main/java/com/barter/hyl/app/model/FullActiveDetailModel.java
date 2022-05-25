@@ -162,7 +162,7 @@ public class FullActiveDetailModel {
             private String sendNum;
             private int type;
             private String poolNo;
-            int productMainId;
+            String productMainId;
             String name;
             String spec;
             String picture;
@@ -236,11 +236,11 @@ public class FullActiveDetailModel {
                 this.giftProdUseType = giftProdUseType;
             }
 
-            public int getProductMainId() {
+            public String getProductMainId() {
                 return productMainId;
             }
 
-            public void setProductMainId(int productMainId) {
+            public void setProductMainId(String productMainId) {
                 this.productMainId = productMainId;
             }
             public String getGiftName() {
@@ -306,10 +306,10 @@ public class FullActiveDetailModel {
              */
 
             private String type;
-            private Object activeId;
+            private String activeId;
             private String productMainId;
             private String buyFlag;
-            private int productId;
+            private String productId;
             private String productName;
             private String defaultPic;
             private int flag;
@@ -325,7 +325,7 @@ public class FullActiveDetailModel {
             private String deductAmount;
             private String selfProd;
             private String sendTimeTpl;
-            private Object companyId;
+            private String companyId;
             private int notSend;
             private String unitName;
             private Object amount;
@@ -347,11 +347,11 @@ public class FullActiveDetailModel {
                 this.type = type;
             }
 
-            public Object getActiveId() {
+            public String getActiveId() {
                 return activeId;
             }
 
-            public void setActiveId(Object activeId) {
+            public void setActiveId(String activeId) {
                 this.activeId = activeId;
             }
 
@@ -371,11 +371,11 @@ public class FullActiveDetailModel {
                 this.buyFlag = buyFlag;
             }
 
-            public int getProductId() {
+            public String getProductId() {
                 return productId;
             }
 
-            public void setProductId(int productId) {
+            public void setProductId(String productId) {
                 this.productId = productId;
             }
 
@@ -492,11 +492,11 @@ public class FullActiveDetailModel {
                 this.sendTimeTpl = sendTimeTpl;
             }
 
-            public Object getCompanyId() {
+            public String getCompanyId() {
                 return companyId;
             }
 
-            public void setCompanyId(Object companyId) {
+            public void setCompanyId(String companyId) {
                 this.companyId = companyId;
             }
 

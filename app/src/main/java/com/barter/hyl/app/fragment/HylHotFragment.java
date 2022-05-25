@@ -4,6 +4,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 
 import com.barter.hyl.app.R;
@@ -84,6 +86,7 @@ public class HylHotFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mActivity,HylCommonGoodsActivity.class);
                 intent.putExtra("mainId",list.get(position).getMaidId());
+                Log.d("cdfesfdsfsd...","sdsds");
                 startActivity(intent);
             }
         });

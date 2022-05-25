@@ -837,7 +837,7 @@ public class HomeBaseModel {
             private String banner;
             private int type;
             private String detailPic;
-            private int businessId;
+            private String businessId;
             private int businessType;
 
             public String getBanner() {
@@ -864,11 +864,11 @@ public class HomeBaseModel {
                 this.detailPic = detailPic;
             }
 
-            public int getBusinessId() {
+            public String getBusinessId() {
                 return businessId;
             }
 
-            public void setBusinessId(int businessId) {
+            public void setBusinessId(String businessId) {
                 this.businessId = businessId;
             }
 

@@ -20,17 +20,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_marginTop="180dp"
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/smart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <com.scwang.smartrefresh.header.MaterialHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_marginTop="180dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
         </RelativeLayout>
 
     </com.barter.hyl.app.view.MyScrollView>
+
+
 
 
     <LinearLayout
@@ -48,10 +60,10 @@
 
             <ImageView
                 android:id="@+id/iv_back"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="7dp"
                 android:padding="10dp"
                 android:src="@mipmap/ic_back_arrow_two" />
@@ -70,5 +82,15 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_back1"
+        android:layout_marginTop="37dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="7dp"
+        android:padding="10dp"
+        android:src="@mipmap/ic_back_arrow_two" />
 
 </RelativeLayout>

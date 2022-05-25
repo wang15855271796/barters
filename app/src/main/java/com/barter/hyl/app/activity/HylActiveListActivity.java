@@ -102,7 +102,7 @@ public class HylActiveListActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mContext,HylActiveDetailActivity.class);
-                intent.putExtra("activeId",skillList.get(position).getActiveId());
+                intent.putExtra("activeId",skillList.get(position).getActiveId()+"");
                 startActivity(intent);
             }
         });

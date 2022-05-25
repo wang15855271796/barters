@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
@@ -58,8 +59,8 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     TextView tv_area;
     @BindView(R.id.bt_save)
     Button bt_save;
-    @BindView(R.id.ll_default)
-    LinearLayout ll_default;
+    @BindView(R.id.rl_default)
+    RelativeLayout rl_default;
     @BindView(R.id.cb_default)
     CheckBox cb_default;
     int addressId;
@@ -144,7 +145,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     public void setClickListener() {
         iv_back.setOnClickListener(this);
         bt_save.setOnClickListener(this);
-        ll_default.setOnClickListener(this);
+        rl_default.setOnClickListener(this);
 
         tv_area.setOnClickListener(this);
         et_shop.addTextChangedListener(textWatcher);

@@ -5,6 +5,7 @@ import android.graphics.Color;
 
 import androidx.annotation.NonNull;
 
+import com.barter.hyl.app.activity.HylMessageCenterActivity;
 import com.barter.hyl.app.activity.TestActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -522,12 +523,16 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
 
     //banner集合
     List<String> bannerList = new ArrayList<>();
+    List<String> detailList = new ArrayList<>();
     private void scrollBanner(List<HomeBaseModel.DataBean.BannersBean> banners) {
         bannerList.clear();
         banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
         banner.setImageLoader(new GlideImageLoader());
         for (int i = 0; i < banners.size(); i++) {
             bannerList.add(banners.get(i).getBanner());
+            if(banners.get(i).getType()==2) {
+                detailList.add(banners.get(i).getDetailPic());
+            }
         }
 
         banner.setImages(bannerList);
@@ -550,16 +555,16 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                     return;
                 } else if (showType == 2) {
                     //图片
-                    AppHelper.showPhotoDetailDialog(mActivity, bannerList, position);
+                    AppHelper.showPhotoDetailDialog(mActivity,detailList, detailList.size());
                 } else if (showType == 4) {
                     //商品
-                    int businessId = banners.get(position).getBusinessId();
+                    String businessId = banners.get(position).getBusinessId();
                     Intent intent = new Intent(getActivity(), HylCommonGoodsActivity.class);
-                    intent.putExtra("mainId", businessId);
+                    intent.putExtra("mainId", businessId+"");
                     startActivity(intent);
                 } else if (showType == 5) {
                     //活动
-                    int businessId = banners.get(position).getBusinessId();
+                    String businessId = banners.get(position).getBusinessId();
                     Intent intent = new Intent(getActivity(), HylActiveDetailActivity.class);
                     intent.putExtra(AppConstant.ACTIVEID, businessId);
                     startActivity(intent);
@@ -624,12 +629,12 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                 break;
 
             case R.id.rl_message:
-//                Intent messageIntent = new Intent(mActivity,HylMessageCenterActivity.class);
-////                messageIntent.putExtra("test1",1);
-////                Intent messageIntent = new Intent(mActivity,HylTestActivity.class);
-//                startActivity(messageIntent);
-                Intent intent1 = new Intent(mActivity, TestActivity.class);
-                startActivity(intent1);
+                Intent messageIntent = new Intent(mActivity, HylMessageCenterActivity.class);
+//                messageIntent.putExtra("test1",1);
+//                Intent messageIntent = new Intent(mActivity,HylTestActivity.class);
+                startActivity(messageIntent);
+//                Intent intent1 = new Intent(mActivity, TestActivity.class);
+//                startActivity(intent1);
                 break;
             case R.id.tv_notice_desc:
                 String titleInsert  = "请输入想输入的内容";

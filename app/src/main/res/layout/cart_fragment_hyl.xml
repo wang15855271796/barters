@@ -389,13 +389,17 @@
             android:textColor="@color/color_4C4C4C"
             android:textSize="@dimen/size_22dp" />
 
-        <ImageView
-            android:id="@+id/imageGoBay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/size_50dp"
-            android:src="@mipmap/ic_go_bay" />
+        <TextView
+            android:id="@+id/tv_go"
+            android:layout_width="@dimen/public_space_value_120"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:text="去逛逛"
+            android:textSize="@dimen/sp_16"
+            android:textColor="#ffffff"
+            android:background="@drawable/shape_grey_button"
+            android:layout_marginTop="@dimen/size_50dp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.barter.hyl.app.adapter;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -19,9 +20,11 @@ public class QuarAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
+
         ImageView iv_pic = helper.getView(R.id.iv_pic);
         if(item!=null && !item.equals("")) {
             Glide.with(mContext).load(item).into(iv_pic);
+
         }
     }
 }

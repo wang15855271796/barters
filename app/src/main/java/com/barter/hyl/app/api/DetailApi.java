@@ -44,10 +44,10 @@ public class DetailApi {
     public interface ActiveService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Active_Data)
-        Observable<HylActiveDetailModel> setParams(@Field("activeId") int activeId);
+        Observable<HylActiveDetailModel> setParams(@Field("activeId") String activeId);
     }
 
-    public static Observable<HylActiveDetailModel> getActiveDetail(Context context, int activeId) {
+    public static Observable<HylActiveDetailModel> getActiveDetail(Context context, String activeId) {
         Observable<HylActiveDetailModel> detailModelObservable = RestHelper.getBaseRetrofit(context).create(ActiveService.class).setParams(activeId);
         return detailModelObservable;
     }

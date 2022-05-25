@@ -2,6 +2,7 @@ package com.barter.hyl.app.activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
@@ -60,11 +63,12 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
     ImageView iv_back;
     @BindView(R.id.tv_title)
     TextView tv_title;
-    @BindView(R.id.ll_default)
-    LinearLayout ll_default;
+    @BindView(R.id.rl_default)
+    RelativeLayout rl_default;
     @BindView(R.id.cb_default)
     CheckBox cb_default;
-
+    @BindView(R.id.iv_switch)
+    ImageView iv_switch;
     //  省
     private List<HylAreaModel.DataBean> options1Items = new ArrayList<>();
     //  市
@@ -104,7 +108,7 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
         et_name.addTextChangedListener(textWatcher);
         et_phone.addTextChangedListener(textWatcher);
         tv_address.addTextChangedListener(textWatcher);
-        ll_default.setOnClickListener(this);
+        rl_default.setOnClickListener(this);
     }
 
     /**
@@ -215,6 +219,7 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
 
     boolean isLoaded = false;
     private boolean isDefaultNow;
+    int isDefault = 0;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -222,10 +227,14 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
                 if (isDefaultNow) {
                     //现在就是默认的,点击变成不是默认的
                     cb_default.setChecked(false);
+                    iv_switch.setImageResource(R.mipmap.iv_closes);
                     isDefaultNow = false;
+                    isDefault = 0;
                 } else {
                     cb_default.setChecked(true);
+                    iv_switch.setImageResource(R.mipmap.iv_opens);
                     isDefaultNow = true;
+                    isDefault = 1;
 
                 }
                 break;
@@ -243,7 +252,7 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
                     String etPhone = et_phone.getText().toString();
                     String tvAddress = tv_address.getText().toString();
 
-                    addAddress(etName,etPhone,etShop,proviceCode,cityCode,areaCode,tvAddress,1);
+                    addAddress(etName,etPhone,etShop,proviceCode,cityCode,areaCode,tvAddress,isDefault);
                 }else {
                     ToastUtil.showSuccessMsg(mContext,"请填入对应正确的信息");
                 }
@@ -317,36 +326,6 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
         pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
         pvOptions.show();
     }
-
-    /**
-     * 切换默认地址
-     */
-    private void getDefaultAddress(int addressId) {
-        AddressApi.AddressDefault(mContext,addressId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(BaseModel baseModel) {
-                        if (baseModel.code==1) {
-                            ToastUtil.showSuccessMsg(mContext, baseModel.message);
-
-                        } else {
-                            ToastUtil.showSuccessMsg(mContext, baseModel.message);
-                        }
-                    }
-                });
-    }
-
 
     //此方法只是关闭软键盘
     private void hintKbTwo() {

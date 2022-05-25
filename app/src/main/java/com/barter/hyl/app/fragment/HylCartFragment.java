@@ -74,8 +74,8 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
     TagFlowLayout rv_unable;
     @BindView(R.id.btn_sure)
     Button btn_sure;
-    @BindView(R.id.imageGoBay)
-    ImageView imageGoBay;
+    @BindView(R.id.tv_go)
+    TextView tv_go;
     @BindView(R.id.tv_arrow)
     TextView tv_arrow;
     HylCartAdapter hylCartAdapter;
@@ -139,7 +139,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
         tv_clear.setOnClickListener(this);
         ll_delete.setOnClickListener(this);
         ll_go_market.setOnClickListener(this);
-        imageGoBay.setOnClickListener(this);
+        tv_go.setOnClickListener(this);
     }
 
 
@@ -447,7 +447,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.imageGoBay:
+            case R.id.tv_go:
                 EventBus.getDefault().post(new JumpMarketEvent());
                 break;
             case R.id.ll_go_market:

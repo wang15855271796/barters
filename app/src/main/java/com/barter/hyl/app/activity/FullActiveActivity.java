@@ -2,6 +2,7 @@ package com.barter.hyl.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -81,40 +82,19 @@ public class FullActiveActivity extends BaseActivity implements View.OnClickList
     }
 
     FullActiveAdapter fullActiveAdapter;
-    FullGivenAdapter fullGivenAdapter;
     @Override
     public void setViewData() {
         tv_title.setText("参加满赠活动商品");
         EventBus.getDefault().register(this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         fullActiveAdapter = new FullActiveAdapter(R.layout.item_active_full_list,list,mActivity);
         recyclerView.setAdapter(fullActiveAdapter);
-
-//        fullGivenAdapter = new FullGivenAdapter(R.layout.item_full_desc,sendGifts);
-//        rv_full_given.setLayoutManager(new LinearLayoutManager(mContext));
-//        rv_full_given.setAdapter(fullGivenAdapter);
         getActiveDetail();
-
-//        fullGivenAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                if(sendGifts.get(position).getType()==0) {
-//                    Intent intent = new Intent(mContext,HylCommonGoodsActivity.class);
-//                    intent.putExtra("mainId",sendGifts.get(position).getProductMainId());
-//                    startActivity(intent);
-//                }else {
-//                    CouponFullListDialog couponFullListDialog = new CouponFullListDialog(mContext,
-//                            sendGifts.get(position).getPoolNo(),sendGifts.get(position).getGiftProdUseType(),
-//                            sendGifts.get(position).getName());
-//                    couponFullListDialog.show();
-//                }
-//            }
-//        });
 
         fullActiveAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(mContext,HylCommonGoodsActivity.class);
+                Intent intent = new Intent(mActivity,HylCommonGoodsActivity.class);
                 intent.putExtra("mainId",list.get(position).getProductMainId());
                 startActivity(intent);
             }
@@ -220,13 +200,14 @@ public class FullActiveActivity extends BaseActivity implements View.OnClickList
                                 unAbleAdapter.notifyDataChanged();
 
                                 list.addAll(data.getProds());
+
                                 if(sendGifts.size()>4||sendGifts.size()==4) {
                                     tv_more.setVisibility(View.VISIBLE);
                                 }else {
                                     tv_more.setVisibility(View.GONE);
                                 }
-                                fullGivenAdapter.notifyDataSetChanged();
                                 fullActiveAdapter.notifyDataSetChanged();
+
                             }
                         }else {
                             ToastUtil.showSuccessMsg(mContext,fullDetailModel.getMessage());

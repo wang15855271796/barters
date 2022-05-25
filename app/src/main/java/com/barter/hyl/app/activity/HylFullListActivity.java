@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,6 +29,9 @@ import com.barter.hyl.app.model.HylFullListModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.MyScrollView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,7 +49,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ${王涛} on 2021/8/6
  */
-public class HylFullListActivity extends BaseActivity {
+public class HylFullListActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.scrollView)
@@ -51,6 +58,10 @@ public class HylFullListActivity extends BaseActivity {
     LinearLayout ll_title;
     @BindView(R.id.iv_back)
     ImageView iv_back;
+    @BindView(R.id.iv_back1)
+    ImageView iv_back1;
+    @BindView(R.id.smart)
+    SmartRefreshLayout smart;
     HylFullListAdapter fullAdapter;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
@@ -79,28 +90,41 @@ public class HylFullListActivity extends BaseActivity {
                 mContext.startActivity(intent);
             }
         });
+
+        smart.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                list.clear();
+                getFullList();
+                smart.finishRefresh();
+            }
+        });
     }
+
+
 
     @Override
     public void setClickListener() {
-        iv_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        iv_back.setOnClickListener(this);
 
         scrollView.setScrollChangeListener(new MyScrollView.ScrollChangedListener() {
             @Override
             public void onScrollChangedListener(int x, int y, int oldX, int oldY) {
+                Log.d("sfdsfsfs...",y+"aa");
                 if (y > fadingHeight) {
                     y = fadingHeight; // 当滑动到指定位置之后设置颜色为纯色，之前的话要渐变---实现下面的公式即可
 
                 } else if (y < 0) {
                     y = 0;
-                } else {
+                }else {
+
                 }
 
+                if(y>0) {
+                    iv_back1.setVisibility(View.GONE);
+                }else if(y==0) {
+                    iv_back1.setVisibility(View.VISIBLE);
+                }
                 float scale = (float) y / 255;
                 ll_title.setAlpha(scale);
             }
@@ -156,6 +180,18 @@ public class HylFullListActivity extends BaseActivity {
                 });
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+
+            case R.id.iv_back1:
+                finish();
+                break;
+        }
+    }
 
     public static Date getNowDate() {
         Date currentTimes = new Date();
@@ -191,5 +227,6 @@ public class HylFullListActivity extends BaseActivity {
         String dateStrings = formatters.format(currentTimes);
         return dateStrings;
     }
+
 
 }

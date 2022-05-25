@@ -98,12 +98,12 @@ public class HylActiveDetailActivity extends BaseActivity implements View.OnClic
     RelativeLayout rl_back;
     @BindView(R.id.snap)
     Snap snap;
-    int activeId;
+    String activeId;
 
     HylActiveDetailAdapter hylActiveDetailAdapter;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
-        activeId = getIntent().getIntExtra("activeId",0);
+        activeId = getIntent().getStringExtra("activeId");
         return false;
     }
 
@@ -127,7 +127,7 @@ public class HylActiveDetailActivity extends BaseActivity implements View.OnClic
      */
     List<String> detailPics = new ArrayList<>();
     HylActiveDetailModel.DataBean data;
-    private void getDetail(int activeId) {
+    private void getDetail(String activeId) {
         DetailApi.getActiveDetail(mContext,activeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

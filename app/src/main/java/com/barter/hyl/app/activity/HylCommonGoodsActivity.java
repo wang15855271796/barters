@@ -147,6 +147,8 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     TextView tv_skill;
     @BindView(R.id.tv_team)
     TextView tv_team;
+    @BindView(R.id.ll_coupon)
+    LinearLayout ll_coupon;
     String mainId;
     private List<PicVideoModel.DatasBean> picVideo = new ArrayList<>();
     @Override
@@ -263,11 +265,10 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                 rl_desc.setVisibility(View.VISIBLE);
                             }
 
-                            if(data.getFullActiveFlag()==0) {
-                                ll_full.setVisibility(View.GONE);
+                            if(data.getActives()!=null && data.getActives().size()>0) {
+                                ll_coupon.setVisibility(View.VISIBLE);
                             }else {
-                                ll_full.setVisibility(View.VISIBLE);
-                                tv_full.setText(data.getFullName());
+                                ll_coupon.setVisibility(View.GONE);
                             }
 
                             if(data.getFullRoles()!=null&&data.getFullRoles().size()>0) {
@@ -280,6 +281,12 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                 iv_collection.setImageResource(R.mipmap.ic_unlove);
                             }else {
                                 iv_collection.setImageResource(R.mipmap.ic_love);
+                            }
+
+                            if(data.getQuarantines()!=null&&data.getQuarantines().size()>0) {
+                                rl_check.setVisibility(View.VISIBLE);
+                            }else {
+                                rl_check.setVisibility(View.GONE);
                             }
                             if(data.getComment()!=null) {
                                 HylCommonDetailModel.DataBean.CommentBean comment = data.getComment();
@@ -347,11 +354,6 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                         picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
                                     }
                                 }
-                            }else {
-//                                picVideo.add(data.getDefaultPic());
-//                                for (int i = 0; i < topPics.size(); i++) {
-//                                    picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
-//                                }
                             }
 
                             banner.addBannerLifecycleObserver(hylCommonGoodsActivity)
@@ -543,34 +545,6 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
         fl_container.setAdapter(hylChooseSpecAdapter);
     }
 
-    /**
-     * banner图片
-     * @param
-     */
-    //banner集合
-//    List<String> bannerList = new ArrayList<>();
-//    private void getBanner(List<String> topPics) {
-//        bannerList.clear();
-//        for (int i = 0; i < topPics.size(); i++) {
-//            bannerList.add(topPics.get(i));
-//        }
-//        banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
-//        //设置图片加载器
-//        banner.setImageLoader(new GlideImageLoader());
-//        //设置图片集合
-//        bannerList.addAll(topPics);
-//        banner.setImages(bannerList);
-//        //设置banner动画效果
-//        banner.setBannerAnimation(Transformer.DepthPage);
-//        //设置自动轮播，默认为true
-//        banner.isAutoPlay(true);
-//        //设置轮播时间
-//        banner.setDelayTime(3000);
-//        //设置指示器位置（当banner模式中有指示器时）
-//        banner.setIndicatorGravity(BannerConfig.RIGHT);
-//        //banner设置方法全部调用完毕时最后调用
-//        banner.start();
-//    }
 
     @Override
     public void onResume() {
@@ -637,7 +611,8 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
 
             case R.id.rl_check:
                 Intent intent1 = new Intent(mActivity,QuarActivity.class);
-                intent1.putExtra("quarantines", (Serializable) data.getQuarantines());
+//                intent1.putExtra("quarantines", (Serializable) data.getQuarantines());
+                intent1.putExtra("mainId",mainId);
                 startActivity(intent1);
                 break;
 
@@ -669,8 +644,8 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.ll_full_active:
-                Intent intent4 = new Intent(mActivity,HylActiveDetailActivity.class);
-                intent4.putExtra("activeId",fullId);
+                Intent intent4 = new Intent(mActivity,HylFullListActivity.class);
+                intent4.putExtra("activeId", fullId);
                 startActivity(intent4);
                 break;
         }

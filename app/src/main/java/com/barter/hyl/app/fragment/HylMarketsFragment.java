@@ -253,8 +253,11 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
                                     for (int i = 0; i < data.size(); i++) {
                                         if(data.get(i).getFirstId() == ids) {
                                             selectIdPosition = i;
+                                            rv_cate.scrollToPosition(i);
                                         }
                                     }
+
+
                                     secondId = data.get(selectIdPosition).getSeconds().get(0).getSecondId();
                                     list.clear();
                                     list.addAll(data);

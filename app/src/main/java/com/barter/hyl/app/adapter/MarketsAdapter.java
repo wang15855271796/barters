@@ -60,10 +60,9 @@ public class MarketsAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
             }
 
             TextView tv_title = helper.getView(R.id.tv_title);
-            SpannableString spannableString = new SpannableString(" "+item.getContent());
-            spannableString.setSpan(imageSpan, 0, 1,  Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            SpannableString spannableString = new SpannableString("a "+item.getContent());
+            spannableString.setSpan(imageSpan, 0, 1,  Spanned.SPAN_INCLUSIVE_INCLUSIVE);
             tv_title.setText(spannableString);
-            Log.d("sffefdsfsd.....",spannableString+"s");
             helper.setText(R.id.tv_time,item.getCreateTime());
             helper.setText(R.id.tv_num,item.getBrowseNum()+"人看过");
             helper.setText(R.id.tv_address,"地址:"+item.getAreaName());
