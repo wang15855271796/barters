@@ -19,7 +19,7 @@ public class HylLoginModel extends BaseModel{
 
     public static class ExtDataBean {
         public String companyName;
-        public String connectPhone;
+        public String contactPhone;
 
         public String getCompanyName() {
             return companyName;
@@ -29,12 +29,12 @@ public class HylLoginModel extends BaseModel{
             this.companyName = companyName;
         }
 
-        public String getConnectPhone() {
-            return connectPhone;
+        public String getContactPhone() {
+            return contactPhone;
         }
 
-        public void setConnectPhone(String connectPhone) {
-            this.connectPhone = connectPhone;
+        public void setContactPhone(String contactPhone) {
+            this.contactPhone = contactPhone;
         }
     }
 }

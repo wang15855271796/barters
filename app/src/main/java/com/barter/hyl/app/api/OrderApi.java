@@ -23,6 +23,7 @@ import com.barter.hyl.app.model.HylPayResultModel;
 import com.barter.hyl.app.model.HylReturnNumModel;
 import com.barter.hyl.app.model.HylSearchBillModel;
 import com.barter.hyl.app.model.HylSendImageModel;
+import com.barter.hyl.app.model.UpdateImageModel;
 
 import org.json.JSONArray;
 
@@ -244,6 +245,18 @@ public class OrderApi {
 
     public static Observable<HylSendImageModel> requestImgDetail(Context context, List<MultipartBody.Part> parts) {
         Observable<HylSendImageModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(updateImageService.class)
+                .setParams(parts);
+        return loginModelObservable;
+    }
+    //上传图片2
+    public interface updatesImageService {
+        @Multipart
+        @POST(AppInterfaceAddress.Upload_Img)
+        Observable<UpdateImageModel> setParams(@Part List<MultipartBody.Part> parts);
+    }
+
+    public static Observable<UpdateImageModel> requestImgsDetail(Context context, List<MultipartBody.Part> parts) {
+        Observable<UpdateImageModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(updatesImageService.class)
                 .setParams(parts);
         return loginModelObservable;
     }

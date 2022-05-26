@@ -11,6 +11,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,12 +49,12 @@ public class LoginDialog extends Dialog {
         tv_ok = findViewById(R.id.tv_ok);
         tv_phone = findViewById(R.id.tv_phone);
         String content = "您当前绑定的"+extData.getCompanyName()+"账号已停用，请联系企业进行处理";
-        String phonesDesc = "客服电话："+extData.connectPhone;
-        SpannableStringBuilder account = StringSpecialHelper.buildSpanColorStyle(content, 7,
+        String phonesDesc = "客服电话："+extData.contactPhone;
+        SpannableStringBuilder account = StringSpecialHelper.buildSpanColorStyle(content, 6,
                 extData.getCompanyName().length(), Color.parseColor("#3483FF"));
 
         SpannableStringBuilder phone = StringSpecialHelper.buildSpanColorStyle(phonesDesc, 5,
-                extData.getConnectPhone().length(), Color.parseColor("#3483FF"));
+                extData.getContactPhone().length(), Color.parseColor("#3483FF"));
         tv_phone.setText(phone);
         tv_title.setText(account);
 

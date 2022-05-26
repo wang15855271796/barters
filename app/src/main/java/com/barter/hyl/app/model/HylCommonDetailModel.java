@@ -94,7 +94,7 @@ public class HylCommonDetailModel {
         private List<FullRolesBean> fullRoles;
         private String fullId;
         private String fullName;
-        List<String> quarantines;
+        private List<String> quarantines;
         private String videoUrl;
         List<ActivesBean> actives;
 

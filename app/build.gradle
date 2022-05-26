@@ -5,7 +5,7 @@ android {
         release {
             keyAlias 'mark'
             keyPassword '666666'
-            storeFile file('D:/Barter/app/key.jks')
+            storeFile file('E:/Barter/app/key.jks')
             storePassword '666666'
         }
     }

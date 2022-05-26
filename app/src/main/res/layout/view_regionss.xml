@@ -80,7 +80,7 @@
             android:layout_centerInParent="true"
             android:textSize="@dimen/size_15dp"
             android:layout_weight="1"
-            android:background="#f6f6f6"
+            android:background="#ffffff"
             android:layout_width="0dp"
             android:layout_height="45dp" />
     </LinearLayout>

@@ -52,9 +52,19 @@ public class ShopImageViewssAdapter extends RecyclerView.Adapter<ShopImageViewss
                 @Override
                 public void onClick(View view) {
                     onclick.deletPic(position);
-
                 }
             });
+
+            if (mItemClickListener != null) {
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int adapterPosition = viewHolder.getAdapterPosition();
+                        mItemClickListener.onItemClick(adapterPosition, v);
+                    }
+                });
+            }
+
             viewHolder.ll_del.setVisibility(View.GONE);
         }
     }
@@ -104,9 +114,15 @@ public class ShopImageViewssAdapter extends RecyclerView.Adapter<ShopImageViewss
         void addDialog();
         void deletPic(int pos);
     }
-    public interface Onclick1 {
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, View v);
+        void deletPic(int position);
+    }
 
+    protected OnItemClickListener mItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mItemClickListener = listener;
     }
 
 }

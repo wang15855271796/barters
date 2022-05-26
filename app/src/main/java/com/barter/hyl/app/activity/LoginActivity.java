@@ -275,6 +275,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                     @Override
                     public void onNext(HylLoginModel hylLoginModel) {
+
                         if (hylLoginModel.code==1) {
                             ToastUtil.showSuccessMsg(mContext, hylLoginModel.message);
                             Intent intent = new Intent(mActivity,MainActivity.class);
@@ -284,8 +285,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             startActivity(intent);
                             finish();
                         } else if(hylLoginModel.code==100004) {
+                            Log.d("dfesfs........",hylLoginModel.code+"wee");
                             LoginDialog loginDialog = new LoginDialog(mActivity,hylLoginModel.extData);
+                            Log.d("dfesfs........",hylLoginModel.code+"wee");
                             loginDialog.show();
+
                         }else {
                             ToastUtil.showSuccessMsg(mContext, hylLoginModel.message);
                         }

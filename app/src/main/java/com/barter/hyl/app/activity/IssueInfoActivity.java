@@ -1,5 +1,6 @@
 package com.barter.hyl.app.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -158,9 +160,11 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
 //                cascadingMenuPopWindow.setTouchable(true);
 //                cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
 //                backgroundAlpha(0.3f);
+                hintKbTwo();
                 if(isLoaded) {
                     showPickerView();
                 }
+
             }
         });
 
@@ -191,6 +195,16 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
             }
         });
         getCityList();
+    }
+
+    //此方法只是关闭软键盘
+    private void hintKbTwo() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive() && getCurrentFocus() != null) {
+            if (getCurrentFocus().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
     }
 
     @Override
@@ -279,8 +293,8 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
 
         @Override
         public void onAddPicClick() {
+            hintKbTwo();
             showPop();
-
         }
     };
 
@@ -401,6 +415,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                         if (baseModel.success) {
                             returnPic = "";
                             if (baseModel.data != null) {
+                                Log.d("sdfqewadfs....",baseModel.message+"ccc");
                                 String[] data = baseModel.data;
                                 Gson gson = new Gson();
                                 returnPic = gson.toJson(data);
@@ -440,8 +455,11 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getTotal(DeletePicEvent deletePicEvent) {
-        Log.d("sdfqewadfs....",picList.size()+"---------"+position);
         picList.remove(deletePicEvent.getPos());
+        for (int i = 0; i < picList.size(); i++) {
+            Log.d("sdfadfeas......",picList.get(i)+"---"+filesToMultipartBodyParts(picList));
+        }
+
         upImage(filesToMultipartBodyParts(picList));
     }
 

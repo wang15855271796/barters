@@ -48,9 +48,8 @@
             android:id="@+id/ll_cancel"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/size_15dp"
-            android:layout_marginRight="@dimen/size_15dp"
             android:orientation="vertical">
 
             <View

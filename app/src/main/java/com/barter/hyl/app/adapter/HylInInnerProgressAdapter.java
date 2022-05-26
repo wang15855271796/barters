@@ -72,7 +72,7 @@ public class HylInInnerProgressAdapter extends BaseQuickAdapter<HylTeamListModel
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext,HylActiveDetailActivity.class);
-                intent.putExtra("activeId",item.getActiveId());
+                intent.putExtra("activeId",item.getActiveId()+"");
                 mContext.startActivity(intent);
             }
         });

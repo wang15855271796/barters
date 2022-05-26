@@ -9,16 +9,24 @@
         android:layout_height="wrap_content">
 
 
-        <RelativeLayout
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:id="@+id/rl_bg"
-                android:background="@mipmap/bg_fulls"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/rl_bg"
+                    android:background="@mipmap/bg_fulls"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </RelativeLayout>
 
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/smart"
@@ -31,14 +39,15 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
-                    android:layout_marginTop="180dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
+
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-        </RelativeLayout>
+        </LinearLayout>
+
 
     </com.barter.hyl.app.view.MyScrollView>
 

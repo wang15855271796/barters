@@ -610,10 +610,16 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.rl_check:
-                Intent intent1 = new Intent(mActivity,QuarActivity.class);
-//                intent1.putExtra("quarantines", (Serializable) data.getQuarantines());
-                intent1.putExtra("mainId",mainId);
+                Intent intent1 = new Intent(mContext,QuarActivity.class);
+                List<String> quarantines = data.getQuarantines();
+                intent1.putExtra("quarantines", (Serializable) quarantines);
                 startActivity(intent1);
+
+
+//                Intent intent1 = new Intent(mContext,TestActivity.class);
+//                List<String> quarantines = data.getQuarantines();
+//                intent1.putExtra("quarantines", (Serializable) quarantines);
+//                startActivity(intent1);
                 break;
 
             case R.id.iv_sound:
@@ -644,8 +650,8 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.ll_full_active:
-                Intent intent4 = new Intent(mActivity,HylFullListActivity.class);
-                intent4.putExtra("activeId", fullId);
+                Intent intent4 = new Intent(mActivity,FullActiveActivity.class);
+                intent4.putExtra("fullId", fullId);
                 startActivity(intent4);
                 break;
         }

@@ -49,6 +49,10 @@ public class ChooseCompanyActivity extends BaseActivity implements View.OnClickL
     TextView tv_short;
     @BindView(R.id.tv_sure)
     TextView tv_sure;
+    @BindView(R.id.tv_phone)
+    TextView tv_phone;
+    @BindView(R.id.tv_desc)
+    TextView tv_desc;
     CompanyListAdapter companyListAdapter;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
@@ -175,6 +179,19 @@ public class ChooseCompanyActivity extends BaseActivity implements View.OnClickL
                                         tv_short.setText(data.get(i).getShortName());
                                         tv_long.setText(data.get(i).getCompanyName());
                                         companyId = data.get(i).getCompanyId();
+                                        if(data.get(i).getEnabled()==0) {
+                                            if(data.get(i).getCustomerPhone()!=null && !data.get(i).getCustomerPhone().equals("")) {
+                                                tv_phone.setText("客服电话："+data.get(i).getCustomerPhone());
+                                                tv_phone.setVisibility(View.VISIBLE);
+                                            }else {
+                                                tv_phone.setVisibility(View.GONE);
+                                            }
+
+                                            tv_desc.setText("当前企业(已禁用)");
+                                        }else {
+                                            tv_phone.setVisibility(View.GONE);
+                                            tv_desc.setText("当前企业");
+                                        }
                                     }else {
                                         list.add(data.get(i));
                                     }

@@ -1,6 +1,5 @@
 package com.barter.hyl.app.adapter;
 
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -12,9 +11,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-public class QuarAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class TestAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public QuarAdapter(int layoutResId, @Nullable List<String> data) {
+    public TestAdapter(int layoutResId, @Nullable List<String> data) {
         super(layoutResId, data);
     }
 

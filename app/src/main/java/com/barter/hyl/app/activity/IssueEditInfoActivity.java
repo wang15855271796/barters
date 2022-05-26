@@ -2,6 +2,7 @@ package com.barter.hyl.app.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,9 +10,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -30,6 +33,8 @@ import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.dialog.ShopStyleDialog;
+import com.barter.hyl.app.event.DeletePicEvent;
+import com.barter.hyl.app.event.DeletePicsEvent;
 import com.barter.hyl.app.event.MyShopEvent;
 import com.barter.hyl.app.event.ShopStyleEvent;
 import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
@@ -38,6 +43,7 @@ import com.barter.hyl.app.model.CityChangeModel;
 import com.barter.hyl.app.model.HylAreaModel;
 import com.barter.hyl.app.model.HylSendImageModel;
 import com.barter.hyl.app.model.InfoDetailIssueModel;
+import com.barter.hyl.app.model.UpdateImageModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.CascadingMenuPopWindow;
 import com.barter.hyl.app.view.GlideEngine;
@@ -55,6 +61,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -143,11 +150,13 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onError(Throwable e) {
+
                     }
 
                     @Override
                     public void onNext(BaseModel infoListModel) {
                         if (infoListModel.code==1) {
+
                             ToastUtil.showSuccessMsg(mContext,infoListModel.message);
                             finish();
                             EventBus.getDefault().post(new MyShopEvent());
@@ -159,10 +168,10 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     private void upImage(List<MultipartBody.Part> parts) {
-        OrderApi.requestImgDetail(mContext, parts)
+        OrderApi.requestImgsDetail(mContext, parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<HylSendImageModel>() {
+                .subscribe(new Subscriber<UpdateImageModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -170,16 +179,25 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.d("defewfdfsdf.....",e.getMessage()+"aaaaaaaa");
                     }
 
                     @Override
-                    public void onNext(HylSendImageModel baseModel) {
+                    public void onNext(UpdateImageModel baseModel) {
+
                         if (baseModel.code==1) {
                             returnPic = "";
                             if (baseModel.data != null) {
-                                String[] data = baseModel.data;
+//                                String[] data = baseModel.data;
+//                                Gson gson = new Gson();
+//                                returnPic = gson.toJson(data);
+
+                                List<String> arr = baseModel.data;
+                                Log.d("defewfdfsdf.....",pictureLists.size()+"b");
+                                arr.addAll(pictureLists);
                                 Gson gson = new Gson();
-                                returnPic = gson.toJson(data);
+                                returnPic = gson.toJson(arr);
+                                Log.d("defewfdfsdf.....",returnPic+"ccc");
                             }
                         } else {
                             AppHelper.showMsg(mContext, baseModel.message);
@@ -263,7 +281,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                             Gson gson = new Gson();
                             pictureList = data.getPictureList();
                             pictureLists.addAll(data.getPictureList());
-
                             returnPic = gson.toJson(pictureList);
                             GridLayoutManager manager = new GridLayoutManager(mContext,3);
 
@@ -271,6 +288,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                                 @Override
                                 public void addDialog() {
                                     showPop();
+                                    hintKbTwo();
                                 }
 
                                 @Override
@@ -289,6 +307,18 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                             recyclerView.setLayoutManager(manager);
                             recyclerView.setAdapter(shopImageViewAdapter);
 
+                            shopImageViewAdapter.setOnItemClickListener(new ShopImageViewssAdapter.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(int position, View v) {
+                                    if (pictureList.size() > 0) {
+                                        AppHelper.showPhotoDetailssDialog(mContext,position,pictureList,shopImageViewAdapter);
+                                    }
+                                }
+
+                                @Override
+                                public void deletPic(int position) {
+                                }
+                            });
 
                         } else {
                             AppHelper.showMsg(mContext, infoListModel.getMessage());
@@ -351,6 +381,25 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
         mCancel.setOnClickListener(clickListener);
     }
 
+    Gson gson1 = new Gson();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getTotals(DeletePicEvent deletePicEvent) {
+        Log.d("fewfsdfs........",returnPic+"aa");
+        pictureLists.remove(deletePicEvent.getPos());
+        returnPic = gson1.toJson(pictureLists);
+        Log.d("fewfsdfs........",returnPic+"bb");
+    }
+
+    //此方法只是关闭软键盘
+    private void hintKbTwo() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive() && getCurrentFocus() != null) {
+            if (getCurrentFocus().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -360,18 +409,19 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     List<LocalMedia> images;
+    List<LocalMedia> selectList = new ArrayList<>();
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void handleImgeOnKitKat(Intent data) {
         images = PictureSelector.obtainMultipleResult(data);
-
+        selectList.addAll(images);
         for (int i = 0; i < images.size(); i++) {
             picList.add(images.get(i).getCompressPath());
+
         }
 
         pictureList.add(images.get(0).getCompressPath());
         shopImageViewAdapter.notifyDataSetChanged();
         List<MultipartBody.Part> parts = filesToMultipartBodyParts(picList);
-
         upImage(parts);
     }
 
@@ -400,6 +450,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                 break;
 
             case R.id.tv_area:
+                hintKbTwo();
                 if(isLoaded) {
                     showPickerView();
                 }

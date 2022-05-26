@@ -24,7 +24,9 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.ShopImageViewAdapter;
+import com.barter.hyl.app.adapter.ShopImageViewssAdapter;
 import com.barter.hyl.app.event.DeletePicEvent;
+import com.barter.hyl.app.event.DeletePicsEvent;
 import com.barter.hyl.app.view.FingerFrameLayout;
 import com.barter.hyl.app.view.PhotoViewAdapter;
 import com.barter.hyl.app.view.PhotoViewPager;
@@ -229,7 +231,7 @@ public class AppHelper {
             @Override
             public void onPageSelected(int position) {
                 mTv.setText(position + 1 + "/" + mListUrl.size());
-                mTv.getBackground().setAlpha(100);
+//                mTv.getBackground().setAlpha(100);
 
             }
 
@@ -326,7 +328,7 @@ public class AppHelper {
             @Override
             public void onPageSelected(int position) {
                 mTv.setText(position + 1 + "/" + mListUrl.size());
-                mTv.getBackground().setAlpha(100);
+//                mTv.getBackground().setAlpha(100);
 
             }
 
@@ -336,7 +338,99 @@ public class AppHelper {
             }
         });
 
+        dialog.show();
+        isShow = true;
+    }
 
+    public static void showPhotoDetailssDialog(Context mContext,int position, List<String> selectList, ShopImageViewssAdapter shopImageViewAdapter) {
+        dialog = new Dialog(mContext, R.style.Theme_Light_Dialog);
+        dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_show_photos_hyl, null);
+        //获得dialog的window窗口
+        Window window = dialog.getWindow();
+        //设置dialog在屏幕底部
+        window.setGravity(Gravity.BOTTOM);
+        //设置dialog弹出时的动画效果，从屏幕底部向上弹出
+        // window.setWindowAnimations(R.style.dialogStyle);
+        window.getDecorView().setPadding(0, 0, 0, 0);
+        //获得window窗口的属性
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //设置窗口宽度为充满全屏
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        //设置窗口高度为包裹内容
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        //将设置好的属性set回去
+        window.setAttributes(lp);
+        //将自定义布局加载到dialog上
+        dialog.setContentView(dialogView);
+
+
+        final ImageView iv_delete = dialog.findViewById(R.id.iv_delete);
+        final TextView mTv = dialog.findViewById(R.id.tv_dialog_photo);
+        PhotoViewPager mVp = dialog.findViewById(R.id.vp_dialog_photo);
+        FingerFrameLayout mFl = dialog.findViewById(R.id.ffl_dialog_photo);
+
+        iv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectList.remove(position);
+                shopImageViewAdapter.notifyItemRemoved(position);
+                shopImageViewAdapter.notifyItemRangeChanged(position, selectList.size());
+                EventBus.getDefault().post(new DeletePicEvent(position));
+
+                if (dialog!=null){
+                    dialog.dismiss();
+                }
+            }
+        });
+        mFl.setOnAlphaChangeListener(new FingerFrameLayout.onAlphaChangedListener() {
+            @Override
+            public void onAlphaChanged(float alpha) {
+                Log.e("fengan", "[onAlphaChanged]:alpha=" + alpha);
+            }
+
+            @Override
+            public void onTranslationYChanged(float translationY) {
+                Log.e("fengan", "[onTranslationYChanged]:translationY=" + translationY);
+            }
+
+            @Override
+            public void onFinishAction() {
+                hidePhotoDetailDialog();
+            }
+        });
+        PhotoViewAdapter photoViewAdapter = new PhotoViewAdapter(selectList, mContext);
+        mVp.setAdapter(photoViewAdapter);
+        mVp.setCurrentItem(position);
+        mTv.setText(position  + 1+"/" + selectList.size());
+        photoViewAdapter.setPhotoListener(new PhotoViewAdapter.OnPhotoListener() {
+            @Override
+            public void onPhotoListenter() {
+                if (dialog!=null){
+                    dialog.dismiss();
+                }
+            }
+        });
+
+
+        mVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTv.setText(position + 1 + "/" + selectList.size());
+//                mTv.getBackground().setAlpha(100);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         dialog.show();
         isShow = true;

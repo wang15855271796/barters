@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="ssssssssssssssssssssssssssssssssssssssssssssssss"
-        android:background="@mipmap/icon_back"
-        android:layout_width="wrap_content"
+    <include layout="@layout/common_title_hyl"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

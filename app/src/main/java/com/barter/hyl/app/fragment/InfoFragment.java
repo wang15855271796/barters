@@ -1,6 +1,7 @@
 package com.barter.hyl.app.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -85,6 +86,10 @@ public class InfoFragment extends BaseFragment {
     TextView tv_address;
     @BindView(R.id.tv_search)
     TextView tv_search;
+    @BindView(R.id.iv_downs)
+    ImageView iv_downs;
+    @BindView(R.id.iv_area)
+    ImageView iv_area;
     List<InfoListModel.DataBean.ListBean> list = new ArrayList<>();
     int pageNum = 1;
     int pageSize = 10;
@@ -144,6 +149,9 @@ public class InfoFragment extends BaseFragment {
                         catePopWindow.dismiss();
                         list.clear();
                         mask.setVisibility(View.GONE);
+                        pageNum = 1;
+                        smart.resetNoMoreData();
+                        Log.d("eddsfsdf......","aaa");
                         if(position==0) {
                             getCityList(search,"",cityCode,provinceCode);
                         }else if(position==1) {
@@ -161,8 +169,10 @@ public class InfoFragment extends BaseFragment {
 
                 if(catePopWindow.isShowing()) {
                     catePopWindow.dismiss();
+                    iv_downs.setImageResource(R.mipmap.icon_downs);
                     mask.setVisibility(View.GONE);
                 }else {
+                    iv_downs.setImageResource(R.mipmap.icon_ups);
                     catePopWindow.showAsDropDown(ll_cate,0,0);
                 }
             }
@@ -190,8 +200,10 @@ public class InfoFragment extends BaseFragment {
 
                 if(cascadingMenuPopWindow.isShowing()) {
                     cascadingMenuPopWindow.dismiss();
+                    iv_area.setImageResource(R.mipmap.icon_downs);
                     mask.setVisibility(View.GONE);
                 }else {
+                    iv_area.setImageResource(R.mipmap.icon_ups);
                     cascadingMenuPopWindow.showAsDropDown(ll_cate,0,0);
                 }
 
@@ -348,6 +360,7 @@ public class InfoFragment extends BaseFragment {
         public void getValue(HylAreaModel.DataBean area) {
             provinceName = area.getProvinceName();
             provinceCode = area.getProvinceCode();
+            Log.d("efsfefe.....",provinceName+"aa");
 
         }
 
@@ -382,8 +395,7 @@ public class InfoFragment extends BaseFragment {
             cityCode = "";
             provinceCode = "";
             list.clear();
-
-            getCityList(search,pos+"","","");
+            getCityList(search,"","","");
             tv_address.setText("全部");
         }
 

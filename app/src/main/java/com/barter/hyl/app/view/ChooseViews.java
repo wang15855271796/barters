@@ -2,6 +2,7 @@ package com.barter.hyl.app.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -101,20 +102,8 @@ public class ChooseViews extends LinearLayout {
                 if (mOnSelectListener != null) {
                     mOnSelectListener.getValue(menuItem.get(position));
                 }
-
-                secondMenuListViewAdapter.setOnItemClickListener(new MenuItemAdapter.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(View view, final int position) {
-                        if (mOnSelectListener != null) {
-                            mOnSelectListener.getValues(secondItem.get(position));
-                        }
-                    }
-                });
-
             }
         });
-
 
         // 初始化二级主菜单
         secondItem = menuItem.get(firstPosition).getCityList();
@@ -123,6 +112,16 @@ public class ChooseViews extends LinearLayout {
         secondMenuListViewAdapter.setSelectedPositionNoNotify(secondPosition, secondItem);
         secondMenuListView.setAdapter(secondMenuListViewAdapter);
 
+        secondMenuListViewAdapter.setOnItemClickListener(new MenuItemAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view, final int position) {
+                Log.d("efsfefe.....",position+"aaaaaa");
+                if (mOnSelectListener != null) {
+                    mOnSelectListener.getValues(secondItem.get(position));
+                }
+            }
+        });
     }
 
     public void setCascadingMenuViewOnSelectListener(CascadingMenuViewOnSelectListener onSelectListener) {

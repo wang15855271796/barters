@@ -77,16 +77,18 @@
                 android:background="#ffffff"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_64dp">
+                android:layout_height="82dp">
 
                 <RelativeLayout
                     android:layout_marginRight="@dimen/size_20dp"
                     android:layout_marginLeft="@dimen/size_24dp"
                     android:layout_centerVertical="true"
-                    android:layout_width="match_parent"
+                    android:layout_width="210dp"
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:id="@+id/tv_short"
                         android:text="加盟名称公司简称"
                         android:textColor="#333333"
@@ -97,6 +99,8 @@
                     <TextView
                         android:id="@+id/tv_long"
                         android:layout_marginTop="7dp"
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:layout_below="@+id/tv_short"
                         android:text="公司名称公司名称公司名称"
                         android:textColor="#666666"
@@ -105,14 +109,26 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
-                        android:text="当前企业"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:textColor="#FF5C00"
+                        android:visibility="gone"
+                        android:id="@+id/tv_phone"
+                        android:layout_marginTop="7dp"
+                        android:layout_below="@+id/tv_long"
+                        tools:text="客服电话：13075517895"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/sp_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:text="当前企业(已禁用)"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#FF5C00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </RelativeLayout>
 

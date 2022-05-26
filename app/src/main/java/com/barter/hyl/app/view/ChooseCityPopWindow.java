@@ -1,6 +1,7 @@
 package com.barter.hyl.app.view;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 

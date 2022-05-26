@@ -101,11 +101,17 @@
                             android:id="@+id/tv_cate"
                             android:text="全部分类"
                             android:drawablePadding="@dimen/dp_10"
-                            android:drawableRight="@mipmap/icon_arrow_down"
                             android:textColor="#333333"
                             android:textSize="@dimen/sp_14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:id="@+id/iv_downs"
+                            android:layout_marginLeft="@dimen/size_5dp"
+                            android:src="@mipmap/icon_downs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
                     </LinearLayout>
 
 
@@ -127,11 +133,17 @@
                             android:id="@+id/tv_address"
                             android:text="全部地区"
                             android:drawablePadding="@dimen/dp_10"
-                            android:drawableRight="@mipmap/icon_arrow_down"
                             android:textColor="#333333"
                             android:textSize="@dimen/sp_14"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
+
+                        <ImageView
+                            android:id="@+id/iv_area"
+                            android:layout_marginLeft="@dimen/size_5dp"
+                            android:src="@mipmap/icon_downs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
