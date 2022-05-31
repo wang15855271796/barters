@@ -117,7 +117,7 @@
                 android:layout_centerVertical="true"
                 tools:text="20"
                 android:id="@+id/tv_total"
-                android:textColor="#FF680A"
+                android:textColor="#FF2925"
                 android:textSize="@dimen/sp_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -128,7 +128,7 @@
                 tools:text="20"
                 android:layout_marginLeft="@dimen/size_20dp"
                 android:id="@+id/tv_total_price"
-                android:textColor="#FF680A"
+                android:textColor="#FF2925"
                 android:textSize="@dimen/sp_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

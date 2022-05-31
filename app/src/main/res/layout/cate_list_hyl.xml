@@ -28,15 +28,22 @@
                     android:padding="@dimen/size_5dp"
                     android:textColor="#333333"
                     android:textSize="@dimen/sp_14"
+                    android:layout_marginLeft="@dimen/size_5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+                <View
+                    android:background="#FF2F2B"
+                    android:layout_marginTop="@dimen/size_5dp"
+                    android:layout_width="@dimen/size_3dp"
+                    android:layout_height="@dimen/size_20dp"/>
 
                 <ImageView
                     android:id="@+id/iv_close"
                     android:padding="@dimen/size_5dp"
                     android:layout_marginRight="@dimen/sp_12"
                     android:layout_alignParentRight="true"
-                    android:src="@mipmap/ic_landing_dele"
+                    android:src="@mipmap/iv_dialog_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>

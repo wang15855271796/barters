@@ -1,6 +1,7 @@
 package com.barter.hyl.app.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -151,7 +152,6 @@ public class InfoFragment extends BaseFragment {
                         mask.setVisibility(View.GONE);
                         pageNum = 1;
                         smart.resetNoMoreData();
-                        Log.d("eddsfsdf......","aaa");
                         if(position==0) {
                             getCityList(search,"",cityCode,provinceCode);
                         }else if(position==1) {
@@ -166,14 +166,17 @@ public class InfoFragment extends BaseFragment {
 
                     }
                 });
-
+                tv_address.setTextColor(Color.parseColor("#333333"));
+                iv_area.setImageResource(R.mipmap.icon_downs);
                 if(catePopWindow.isShowing()) {
                     catePopWindow.dismiss();
                     iv_downs.setImageResource(R.mipmap.icon_downs);
                     mask.setVisibility(View.GONE);
+                    tv_cate.setTextColor(Color.parseColor("#333333"));
                 }else {
                     iv_downs.setImageResource(R.mipmap.icon_ups);
                     catePopWindow.showAsDropDown(ll_cate,0,0);
+                    tv_cate.setTextColor(Color.parseColor("#FF2925"));
                 }
             }
         });
@@ -197,12 +200,15 @@ public class InfoFragment extends BaseFragment {
                 cascadingMenuPopWindow.setMenuViewOnSelectListener(new NMCascadingMenuViewOnSelectListener());
                 cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
 
-
+                iv_downs.setImageResource(R.mipmap.icon_downs);
+                tv_cate.setTextColor(Color.parseColor("#333333"));
                 if(cascadingMenuPopWindow.isShowing()) {
                     cascadingMenuPopWindow.dismiss();
                     iv_area.setImageResource(R.mipmap.icon_downs);
                     mask.setVisibility(View.GONE);
+                    tv_address.setTextColor(Color.parseColor("#333333"));
                 }else {
+                    tv_address.setTextColor(Color.parseColor("#FF2925"));
                     iv_area.setImageResource(R.mipmap.icon_ups);
                     cascadingMenuPopWindow.showAsDropDown(ll_cate,0,0);
                 }

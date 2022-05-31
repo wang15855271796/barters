@@ -84,7 +84,7 @@ public class FullActiveActivity extends BaseActivity implements View.OnClickList
     FullActiveAdapter fullActiveAdapter;
     @Override
     public void setViewData() {
-        tv_title.setText("参加满赠活动商品");
+        tv_title.setText("参加满赠活动商品列表");
         EventBus.getDefault().register(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
         fullActiveAdapter = new FullActiveAdapter(R.layout.item_active_full_list,list,mActivity);

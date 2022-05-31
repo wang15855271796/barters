@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -218,22 +219,19 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
 
 
     boolean isLoaded = false;
-    private boolean isDefaultNow;
     int isDefault = 0;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_default:
-                if (isDefaultNow) {
+            case R.id.rl_default:
+                Log.d("dfefdsf......",isDefault+"s");
+                if (isDefault==1) {
                     //现在就是默认的,点击变成不是默认的
-                    cb_default.setChecked(false);
                     iv_switch.setImageResource(R.mipmap.iv_closes);
-                    isDefaultNow = false;
                     isDefault = 0;
                 } else {
                     cb_default.setChecked(true);
                     iv_switch.setImageResource(R.mipmap.iv_opens);
-                    isDefaultNow = true;
                     isDefault = 1;
 
                 }

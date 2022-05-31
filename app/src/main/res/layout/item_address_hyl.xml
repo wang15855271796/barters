@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dp"
                     android:text="设置为默认地址"
-                    android:textColor="#fff56d23"
+                    android:textColor="#333333"
                     android:textSize="14dp" />
 
             </LinearLayout>

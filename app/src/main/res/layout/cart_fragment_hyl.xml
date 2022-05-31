@@ -369,7 +369,7 @@
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/ll_NoData"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/size_98dp"
         android:layout_width="match_parent"
         android:layout_height="338dp"
         android:layout_marginLeft="@dimen/size_10dp"

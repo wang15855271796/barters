@@ -139,7 +139,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/shape_red_order"
+                android:background="@drawable/shape_red_orders"
                 android:padding="10dp"
                 android:textSize="@dimen/size_18dp"
                 android:text="立即付款"

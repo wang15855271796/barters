@@ -25,7 +25,10 @@ public class CompanyAdapter extends BaseQuickAdapter<CompanyInfoModel.DataBean, 
         TextView tv_desc = helper.getView(R.id.tv_desc);
         ImageView iv_pic = helper.getView(R.id.iv_pic);
         if(item.getCompanyPic()!=null&&!item.getCompanyPic().equals("")) {
+            iv_pic.setVisibility(View.VISIBLE);
             Glide.with(mContext).load(item.getCompanyPic()).into(iv_pic);
+        }else {
+            iv_pic.setVisibility(View.GONE);
         }
 
         if(item.getCompanyDesc()!=null&&!item.getCompanyDesc().equals("")) {

@@ -3,6 +3,8 @@ package com.barter.hyl.app.adapter;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,12 +28,14 @@ public class HylOrderDetailAdapter extends BaseQuickAdapter<HylOrderDetailModel.
     TextView tv_price;
     TextView tv_spec;
     TextView textTitle;
+    ImageView imageIcon;
     public HylOrderDetailAdapter(int layoutResId, @Nullable List<HylOrderDetailModel.DataBean.ProdsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, HylOrderDetailModel.DataBean.ProdsBean item) {
+        imageIcon = helper.getView(R.id.imageIcon);
         textTitle = helper.getView(R.id.textTitle);
         tv_spec = helper.getView(R.id.tv_spec);
         tv_old_price = helper.getView(R.id.tv_old_price);
@@ -47,5 +51,9 @@ public class HylOrderDetailAdapter extends BaseQuickAdapter<HylOrderDetailModel.
         rv_spec.setLayoutManager(new LinearLayoutManager(mContext));
         rv_spec.setAdapter(orderPriceAdapter);
 
+        if(item.getProdFlag()!=null && !item.getProdFlag().equals("")) {
+            Glide.with(mContext).load(item.getProdFlag()).into(imageIcon);
+            Log.d("fdgdfgrds....","asaa");
+        }
     }
 }

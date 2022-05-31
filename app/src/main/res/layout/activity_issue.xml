@@ -109,7 +109,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:src="@mipmap/icon_shop_empty"
+                android:src="@mipmap/ic_no_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

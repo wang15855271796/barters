@@ -18,11 +18,6 @@
         android:textColor="#232131"
         android:textSize="15dp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/app_line_color" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,13 +25,16 @@
 
         <TextView
             android:id="@+id/tv_customer_phone"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            android:paddingBottom="11dp"
+            android:paddingTop="11dp"
             tools:text="电话"
+            android:layout_marginBottom="@dimen/size_22dp"
+            android:background="@drawable/shape_grey7"
             android:textColor="#232131"
             android:textSize="15dp" />
 

@@ -3,6 +3,8 @@ package com.barter.hyl.app.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +27,7 @@ import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.MessageNumHylEvent;
+import com.barter.hyl.app.model.CompanyInfoModel;
 import com.barter.hyl.app.model.HylMessageNumModel;
 import com.barter.hyl.app.model.HylMyModel;
 import com.barter.hyl.app.utils.APKVersionCodeUtils;
@@ -39,9 +42,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import rx.Subscriber;
@@ -111,9 +117,12 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 getMessageNum();
                 myInfo();
+                getCompanyInfo();
                 smart.finishRefresh();
             }
         });
+
+        getCompanyInfo();
         myInfo();
     }
 
@@ -319,9 +328,46 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
 
             case R.id.iv_info:
                 Intent intent = new Intent(mActivity, CompanyInfoActivity.class);
+                intent.putExtra("companyInfo", (Serializable) dataInfo);
                 startActivity(intent);
                 break;
         }
+    }
+
+    /**
+     * 获取企业信息
+     */
+    List<CompanyInfoModel.DataBean> dataInfo = new ArrayList<>();
+    private void getCompanyInfo() {
+        MyInfoApi.getCompanyInfo(mActivity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<CompanyInfoModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(CompanyInfoModel companyInfoModel) {
+                        if(companyInfoModel.code==1) {
+                            dataInfo.clear();
+                            if(companyInfoModel.getData()!=null&&companyInfoModel.getData().size()>0) {
+                                dataInfo.addAll(companyInfoModel.getData());
+                                iv_info.setVisibility(View.VISIBLE);
+                            }else {
+                                iv_info.setVisibility(View.GONE);
+                            }
+                        }else {
+                            ToastUtil.showSuccessMsg(mActivity,companyInfoModel.message);
+                        }
+                    }
+                });
     }
 
     /**
@@ -378,6 +424,8 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
     public void getUserInfo(ChangeAccountHylEvent changeAccountHylEvent) {
         getMessageNum();
         myInfo();
+        getCompanyInfo();
+
     }
 
     public static Date getNowDate() {

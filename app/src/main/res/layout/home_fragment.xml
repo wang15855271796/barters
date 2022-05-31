@@ -434,13 +434,13 @@
                                 android:id="@+id/tab_layout"
                                 android:layout_width="match_parent"
                                 android:layout_height="48dp"
-                                tl:tl_indicator_color="#FF680A"
+                                tl:tl_indicator_color="#FF2925"
                                 tl:tl_indicator_margin_bottom="10dp"
                                 tl:tl_indicator_width="18dp"
                                 tl:tl_textAllCaps="true"
                                 app:tl_tab_space_equal="true"
                                 tl:tl_textBold="BOTH"
-                                tl:tl_textSelectColor="#FF680A"
+                                tl:tl_textSelectColor="#FF2925"
                                 tl:tl_textUnselectColor="#666666"
                                 tl:tl_textsize="@dimen/size_16dp" />
 

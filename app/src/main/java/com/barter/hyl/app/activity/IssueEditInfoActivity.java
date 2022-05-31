@@ -179,7 +179,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("defewfdfsdf.....",e.getMessage()+"aaaaaaaa");
                     }
 
                     @Override
@@ -188,16 +187,10 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                         if (baseModel.code==1) {
                             returnPic = "";
                             if (baseModel.data != null) {
-//                                String[] data = baseModel.data;
-//                                Gson gson = new Gson();
-//                                returnPic = gson.toJson(data);
-
-                                List<String> arr = baseModel.data;
-                                Log.d("defewfdfsdf.....",pictureLists.size()+"b");
-                                arr.addAll(pictureLists);
                                 Gson gson = new Gson();
-                                returnPic = gson.toJson(arr);
-                                Log.d("defewfdfsdf.....",returnPic+"ccc");
+                                pictureLists.addAll(baseModel.data);
+                                returnPic = gson.toJson(pictureLists);
+                                shopImageViewAdapter.notifyDataSetChanged();
                             }
                         } else {
                             AppHelper.showMsg(mContext, baseModel.message);
@@ -247,11 +240,8 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     }
 
 
-    List<String> pictureList;
     List<String> pictureLists = new ArrayList<>();
     InfoDetailIssueModel.DataBean data;
-    List<String> deletPic = new ArrayList<>();
-    List<String> deletPics = new ArrayList<>();
     private void getCityList(String msgId) {
         InfoListAPI.InfoDetailIssue(mContext,msgId)
                 .subscribeOn(Schedulers.io())
@@ -279,12 +269,11 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                             et_phone.setText(data.getContactPhone());
                             tv_address.setText(data.getDetailAddress());
                             Gson gson = new Gson();
-                            pictureList = data.getPictureList();
                             pictureLists.addAll(data.getPictureList());
-                            returnPic = gson.toJson(pictureList);
+                            returnPic = gson.toJson(pictureLists);
                             GridLayoutManager manager = new GridLayoutManager(mContext,3);
 
-                            shopImageViewAdapter = new ShopImageViewssAdapter(mActivity,pictureList, new ShopImageViewssAdapter.Onclick() {
+                            shopImageViewAdapter = new ShopImageViewssAdapter(mActivity,pictureLists, new ShopImageViewssAdapter.Onclick() {
                                 @Override
                                 public void addDialog() {
                                     showPop();
@@ -293,13 +282,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                                 @Override
                                 public void deletPic(int pos) {
-                                    String removePic = pictureList.remove(pos);
-                                    deletPic.add(removePic);
-                                    String removes = pictureLists.remove(pos);
-                                    deletPics.add(removes);
-                                    shopImageViewAdapter.notifyDataSetChanged();
-                                    Gson gson1 = new Gson();
-                                    returnPic = gson1.toJson(pictureLists);
 
                                 }
                             });
@@ -310,8 +292,8 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                             shopImageViewAdapter.setOnItemClickListener(new ShopImageViewssAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(int position, View v) {
-                                    if (pictureList.size() > 0) {
-                                        AppHelper.showPhotoDetailssDialog(mContext,position,pictureList,shopImageViewAdapter);
+                                    if (pictureLists.size() > 0) {
+                                        AppHelper.showPhotoDetailssDialog(mContext,position,pictureLists,shopImageViewAdapter);
                                     }
                                 }
 
@@ -361,7 +343,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                         //相册
                         PictureSelector.create(IssueEditInfoActivity.this)
                                 .openGallery(PictureMimeType.ofImage())
-                                .maxSelectNum(1)
+                                .maxSelectNum(6-pictureLists.size())
                                 .minSelectNum(1)
                                 .imageSpanCount(4)
                                 .compress(true)
@@ -384,10 +366,9 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     Gson gson1 = new Gson();
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getTotals(DeletePicEvent deletePicEvent) {
-        Log.d("fewfsdfs........",returnPic+"aa");
+        Log.d("efsdfsdfdf.....",deletePicEvent.getPos()+"aaaa");
         pictureLists.remove(deletePicEvent.getPos());
         returnPic = gson1.toJson(pictureLists);
-        Log.d("fewfsdfs........",returnPic+"bb");
     }
 
     //此方法只是关闭软键盘
@@ -409,18 +390,15 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     List<LocalMedia> images;
-    List<LocalMedia> selectList = new ArrayList<>();
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void handleImgeOnKitKat(Intent data) {
         images = PictureSelector.obtainMultipleResult(data);
-        selectList.addAll(images);
+        picList.clear();
         for (int i = 0; i < images.size(); i++) {
             picList.add(images.get(i).getCompressPath());
-
         }
 
-        pictureList.add(images.get(0).getCompressPath());
-        shopImageViewAdapter.notifyDataSetChanged();
+
         List<MultipartBody.Part> parts = filesToMultipartBodyParts(picList);
         upImage(parts);
     }
@@ -471,7 +449,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                     Toast.makeText(getApplicationContext(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    if(pictureList.size()>0) {
+                    if(pictureLists.size()>0) {
                         IssueInfo(msgId,returnPic,et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
                     }else {
                         returnPic = "";

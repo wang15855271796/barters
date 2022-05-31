@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
@@ -63,6 +64,8 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     RelativeLayout rl_default;
     @BindView(R.id.cb_default)
     CheckBox cb_default;
+    @BindView(R.id.iv_switch)
+    ImageView iv_switch;
     int addressId;
     String areaCode;
     String cityCode;
@@ -247,7 +250,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     }
 
     boolean isLoaded = false;
-    private boolean isDefaultNow;
+    int isDefault = 0;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -270,14 +273,15 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
 
                 break;
 
-            case R.id.ll_default:
-                if (isDefaultNow) {
+            case R.id.rl_default:
+                if (isDefault==1) {
                     //现在就是默认的,点击变成不是默认的
-                    cb_default.setChecked(false);
-                    isDefaultNow = false;
+                    iv_switch.setImageResource(R.mipmap.iv_closes);
+                    isDefault = 0;
                 } else {
                     cb_default.setChecked(true);
-                    isDefaultNow = true;
+                    iv_switch.setImageResource(R.mipmap.iv_opens);
+                    isDefault = 1;
 
                 }
                 getDefaultAddress(addressId);

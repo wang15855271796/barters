@@ -66,13 +66,13 @@
             android:layout_below="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
+<!--        #FF2925-->
         <TextView
             android:lines="1"
             android:ellipsize="end"
             android:layout_marginRight="@dimen/size_90dp"
             tools:text="15.000000000000000000000"
-            android:textColor="#FF680A"
+            android:textColor="#FF2925"
             android:id="@+id/tv_price"
             android:textStyle="bold"
             android:layout_marginTop="@dimen/size_15dp"

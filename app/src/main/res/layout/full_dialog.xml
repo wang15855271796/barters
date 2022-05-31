@@ -212,7 +212,7 @@
                         <TextView
                             android:id="@+id/tv_coupon_desc"
                             tools:text="111111111111"
-                            android:textColor="#FF680A"
+                            android:textColor="#FF2925"
                             android:textSize="@dimen/sp_12"
                             android:layout_marginLeft="@dimen/size_15dp"
                             android:layout_marginTop="@dimen/size_6dp"
@@ -277,7 +277,7 @@
                 android:layout_marginLeft="@dimen/size_5dp"
                 android:layout_centerVertical="true"
                 android:textSize="@dimen/sp_16"
-                android:textColor="#FF680A"
+                android:textColor="#FF2925"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -314,7 +314,7 @@
             <ImageView
                 android:id="@+id/iv_cart"
                 android:layout_marginLeft="@dimen/size_15dp"
-                android:src="@drawable/icon_shop_car"
+                android:src="@mipmap/icon_skill_add_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

@@ -223,7 +223,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#F6561A"
+                        android:textColor="#FF2925"
                         tools:text="ssassssss"
                         android:textSize="12sp" />
                 </RelativeLayout>
@@ -251,7 +251,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#F6561A"
+                        android:textColor="#FF2925"
                         tools:text="ssassssss"
                         android:textSize="@dimen/sp_12" />
                 </RelativeLayout>
@@ -281,7 +281,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#F6561A"
+                        android:textColor="#FF2925"
                         tools:text="ssassssss"
                         android:textSize="@dimen/sp_12" />
                 </RelativeLayout>
@@ -311,7 +311,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#F6561A"
+                        android:textColor="#FF2925"
                         tools:text="ssassssss"
                         android:textSize="@dimen/sp_12" />
                 </RelativeLayout>
@@ -376,11 +376,15 @@
                     android:id="@+id/tv_pay"
                     android:text="立即支付"
                     android:textColor="#ffffff"
-                    android:padding="@dimen/size_3dp"
+                    android:paddingBottom="@dimen/size_3dp"
+                    android:paddingTop="@dimen/size_3dp"
+                    android:paddingRight="@dimen/size_5dp"
+                    android:paddingLeft="@dimen/size_5dp"
                     android:layout_gravity="right"
                     android:layout_marginBottom="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:background="@drawable/shape_full_reds"
+
+                    android:background="@drawable/shape_red_orders"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 

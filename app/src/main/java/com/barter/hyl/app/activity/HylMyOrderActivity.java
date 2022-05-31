@@ -84,29 +84,12 @@ public class HylMyOrderActivity extends BaseActivity implements View.OnClickList
 
     //信用订单
     private void initCredit() {
-//        xTabLayout.removeAllTabs();
-//        mListTitles.clear();
-//        mListFragment.clear();
-//        viewPager.removeAllViews();
-//        mListTitles.addAll(Arrays.asList("全部", "待付款", "待提货", "待评价", "退货"));
-//        mListFragment.add(new HylAllOrderFragment());
-//        mListFragment.add(new HylPaymentOrderFragment());
-//        mListFragment.add(new HylDeliveryOrderFragment());
-//        mListFragment.add(new EvaluatedOrderFragment());
-//        mListFragment.add(new HylReturnOrderFragment());
-//
-//        hylMyOrdersViewPagerAdapter = new HylMyOrdersViewPagerAdapter(getSupportFragmentManager(), mListTitles, mListFragment);
-//        viewPager.setOffscreenPageLimit(5);
-//        hylMyOrdersViewPagerAdapter.clear(viewPager);
-//
-//        viewPager.setAdapter(hylMyOrdersViewPagerAdapter);
-//        xTabLayout.setupWithViewPager(viewPager);
 
-        tv_credit_order.setTextColor(Color.parseColor("#FF000000"));
+        tv_credit_order.setTextColor(Color.parseColor("#FF2925"));
         tv_line_two.setVisibility(View.VISIBLE);
-        tv_line_two.setBackgroundColor(Color.parseColor("#FFFF680A"));
+        tv_line_two.setBackgroundColor(Color.parseColor("#FF2925"));
         tv_line_one.setVisibility(View.GONE);
-        tv_credit_order.setTextColor(Color.parseColor("#FFA1A1A1"));
+        tv_common_order.setTextColor(Color.parseColor("#606060"));
         viewPager.setVisibility(View.GONE);
         viewPager1.setVisibility(View.VISIBLE);
         xTabLayoutCredit.removeAllTabs();
@@ -137,11 +120,11 @@ public class HylMyOrderActivity extends BaseActivity implements View.OnClickList
 
     //一般订单
     private void initView() {
-        tv_common_order.setTextColor(Color.parseColor("#FF000000"));
+        tv_common_order.setTextColor(Color.parseColor("#FF2925"));
         tv_line_one.setVisibility(View.VISIBLE);
-        tv_line_one.setBackgroundColor(Color.parseColor("#FFFF680A"));
+        tv_line_one.setBackgroundColor(Color.parseColor("#FF2925"));
         tv_line_two.setVisibility(View.GONE);
-        tv_credit_order.setTextColor(Color.parseColor("#FFA1A1A1"));
+        tv_credit_order.setTextColor(Color.parseColor("#606060"));
         viewPager.setVisibility(View.VISIBLE);
         viewPager1.setVisibility(View.GONE);
         xTabLayout.removeAllTabs();
@@ -182,11 +165,11 @@ public class HylMyOrderActivity extends BaseActivity implements View.OnClickList
                 break;
 
             case R.id.tv_common_order:
-                tv_common_order.setTextColor(Color.parseColor("#FF000000"));
+                tv_common_order.setTextColor(Color.parseColor("#FF2925"));
                 tv_line_one.setVisibility(View.VISIBLE);
-                tv_line_one.setBackgroundColor(Color.parseColor("#FFFF680A"));
+                tv_line_one.setBackgroundColor(Color.parseColor("#FF2925"));
                 tv_line_two.setVisibility(View.GONE);
-                tv_credit_order.setTextColor(Color.parseColor("#FFA1A1A1"));
+                tv_credit_order.setTextColor(Color.parseColor("#606060"));
                 orderDeliveryType = 0;
                 UserInfoHelper.saveDeliverType(mActivity, orderDeliveryType + "");
 
@@ -195,11 +178,11 @@ public class HylMyOrderActivity extends BaseActivity implements View.OnClickList
 
             case R.id.tv_credit_order:
                 orderDeliveryType = 1;
-                tv_credit_order.setTextColor(Color.parseColor("#FF000000"));
+                tv_credit_order.setTextColor(Color.parseColor("#FF2925"));
                 tv_line_two.setVisibility(View.VISIBLE);
-                tv_line_two.setBackgroundColor(Color.parseColor("#FFFF680A"));
+                tv_line_two.setBackgroundColor(Color.parseColor("#FF2925"));
                 tv_line_one.setVisibility(View.GONE);
-                tv_credit_order.setTextColor(Color.parseColor("#FFA1A1A1"));
+                tv_common_order.setTextColor(Color.parseColor("#606060"));
                 UserInfoHelper.saveDeliverType(mActivity, orderDeliveryType + "");
                 initCredit();
                 break;

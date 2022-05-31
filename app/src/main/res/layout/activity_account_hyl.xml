@@ -247,7 +247,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="29dp"
                 android:padding="15dp"
-                android:background="@drawable/shape_red1"
+                android:background="@drawable/shape_red_orders"
                 android:text="退出登录"
                 android:textColor="#ffffff"
                 android:textSize="15dp" />

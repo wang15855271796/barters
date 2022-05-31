@@ -112,7 +112,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         if(isCheck!=null&&isCheck.size()>0) {
             helper.setChecked(R.id.cb_choose, isCheck.get(helper.getAdapterPosition()));
         }
-        helper.setText(R.id.tv_item_my_order_all_price, "合计"+item.getTotalAmount());//总价
+        helper.setText(R.id.tv_item_my_order_all_price, item.getTotalAmount());//总价
 
         if(item.getOrderStateStr()!=null) {
             tv_state.setVisibility(View.VISIBLE);

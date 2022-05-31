@@ -6,7 +6,7 @@
     <!-- 边框的颜色和宽度 -->
     <stroke
         android:width="@dimen/size_1dp"
-        android:color="#F6551A" >
+        android:color="#FF2925" >
     </stroke>
 
 </shape>

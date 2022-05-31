@@ -1,5 +1,6 @@
 package com.barter.hyl.app.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class CompanyInfoModel extends BaseModel{
@@ -29,7 +30,7 @@ public class CompanyInfoModel extends BaseModel{
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * companyPic : https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/message/f11bd8f83fbb43e8aa9a38b41f874303.jpeg
          * companyDesc : null

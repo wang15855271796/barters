@@ -141,29 +141,20 @@
 
                     <RelativeLayout
                         android:id="@+id/rl"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:background="@drawable/shape_white1"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/size_55dp">
-
-                        <TextView
-                            android:text="自营商品"
-                            android:textColor="#343434"
-                            android:textStyle="bold"
-                            android:visibility="gone"
-                            android:layout_centerVertical="true"
-                            android:textSize="@dimen/sp_14"
-                            android:id="@+id/tv_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
                         <TextView
                             tools:text="订单编号：1232356898985859895854321"
                             android:textSize="@dimen/dp_10"
                             android:singleLine="true"
                             android:maxLines="1"
+                            android:layout_marginTop="@dimen/size_13dp"
                             android:id="@+id/tv_order_num"
-                            android:layout_marginLeft="@dimen/size_5dp"
+                            android:layout_marginLeft="@dimen/size_7dp"
                             android:layout_marginRight="@dimen/size_5dp"
-                            android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -172,23 +163,24 @@
                             android:layout_width="@dimen/size_35dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_marginTop="12dp"
                             android:layout_marginRight="@dimen/size_10dp"
                             android:background="@drawable/copy_order_num"
                             android:gravity="center"
-                            android:layout_centerVertical="true"
                             android:padding="2dp"
                             android:text="复制"
-                            android:textColor="#F6551A"
+                            android:textColor="#FF2925"
                             android:textSize="11dp" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_marginTop="@dimen/size_16dp"
+                            android:layout_below="@+id/tv_order_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
                     </RelativeLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:background="@drawable/shape_white1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
 
 
                 </LinearLayout>

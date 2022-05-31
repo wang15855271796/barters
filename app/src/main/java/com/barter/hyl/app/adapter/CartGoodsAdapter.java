@@ -42,7 +42,7 @@ public class CartGoodsAdapter extends BaseQuickAdapter<HylCartListModel.DataBean
     protected void convert(BaseViewHolder helper, HylCartListModel.DataBean.ProdsBeanX.ProdsBean item) {
         TextView tv_delete = helper.getView(R.id.tv_delete);
         ImageView iv_send = helper.getView(R.id.iv_send);
-//        ImageView iv_icon = helper.getView(R.id.iv_icon);
+        ImageView iv_pic = helper.getView(R.id.iv_pic);
         LinearLayout ll_root = helper.getView(R.id.ll_root);
 //        ImageView iv_operate = helper.getView(R.id.iv_operate);
         RoundImageView iv_head = helper.getView(R.id.iv_head);
@@ -68,13 +68,15 @@ public class CartGoodsAdapter extends BaseQuickAdapter<HylCartListModel.DataBean
                 EventBus.getDefault().post(new DeleteGoodsEvent(helper.getAdapterPosition(),item));
             }
         });
-//        if(item.getFlagUrl()!=null&&item.getFlagUrl()!="") {
-//            Glide.with(mContext).load(item.getFlagUrl()).into(iv_icon);
-//        }
+
+        if(item.getFlagUrl()!=null && !item.getFlagUrl().equals("")) {
+            Glide.with(mContext).load(item.getFlagUrl()).into(iv_pic);
+        }
 
 //        if(item.getSelfProd()!=null&&!item.getSelfProd().equals("")) {
 //            Glide.with(mContext).load(item.getSelfProd()).into(iv_operate);
 //        }
+
         tv_title.setText(item.getProductName());
         Glide.with(mContext).load(item.getDefaultPic()).into(iv_head);
 

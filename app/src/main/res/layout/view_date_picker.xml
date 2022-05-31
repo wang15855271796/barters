@@ -137,8 +137,8 @@
                 android:paddingBottom="8dp"
                 android:layout_marginRight="@dimen/size_21dp"
                 android:text="取消"
-                android:background="@drawable/shape_orange"
-                android:textColor="@color/white"
+                android:background="@drawable/shape_grey5"
+                android:textColor="#606060"
                 android:textSize="15dp" />
 
 
@@ -150,7 +150,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_weight="1"
-                android:background="@drawable/shape_orange"
+                android:background="@drawable/shape_red_orders"
                 android:gravity="center"
                 android:paddingLeft="23dp"
                 android:paddingTop="8dp"

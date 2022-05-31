@@ -20,6 +20,7 @@ import com.barter.hyl.app.utils.APKVersionCodeUtils;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.bumptech.glide.Glide;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,10 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     CompanyAdapter companyAdapter;
+    List<CompanyInfoModel.DataBean> companyInfo;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
+        companyInfo = (List<CompanyInfoModel.DataBean>) getIntent().getSerializableExtra("companyInfo");
         return false;
     }
 
@@ -49,11 +52,11 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void setViewData() {
         tv_title.setText("企业信息");
-        getCompanyInfo();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        companyAdapter = new CompanyAdapter(R.layout.item_company_info,data);
+        companyAdapter = new CompanyAdapter(R.layout.item_company_info,companyInfo);
         recyclerView.setAdapter(companyAdapter);
+        companyAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -61,38 +64,7 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
         iv_back.setOnClickListener(this);
     }
 
-    /**
-     * 获取企业信息
-     */
-    List<CompanyInfoModel.DataBean> data = new ArrayList<>();
-    private void getCompanyInfo() {
-        MyInfoApi.getCompanyInfo(mActivity)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CompanyInfoModel>() {
-                    @Override
-                    public void onCompleted() {
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(CompanyInfoModel companyInfoModel) {
-                        if(companyInfoModel.code==1) {
-                            data.clear();
-                            if(companyInfoModel.getData()!=null&&companyInfoModel.getData().size()>0) {
-                                data.addAll(companyInfoModel.getData());
-                            }
-                        }else {
-                            ToastUtil.showSuccessMsg(mContext,companyInfoModel.message);
-                        }
-                    }
-                });
-    }
 
     @Override
     public void onClick(View view) {

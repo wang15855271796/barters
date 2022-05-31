@@ -100,7 +100,6 @@ public class MenuItemsAdapter extends BaseAdapter {
 
         if (convertView == null) {
             view = (TextView) LayoutInflater.from(mContext).inflate(R.layout.choose_item, parent, false);
-
         } else {
             view = (TextView) convertView;
         }
@@ -119,10 +118,11 @@ public class MenuItemsAdapter extends BaseAdapter {
 
         if (selectedText != null && selectedText.equals(mString)) {
 //            view.setBackgroundDrawable(selectedDrawble);//设置选中的背景图�?/
-            view.setBackgroundColor(mContext.getResources().getColor(R.color.color_f6));
+            view.setBackgroundResource(R.mipmap.iocn_selector);
         } else {
 //            view.setBackgroundDrawable(mContext.getResources().getDrawable(normalDrawbleId));//设置未�?中状态背景图�?
             view.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+            view.setBackgroundResource(R.drawable.shape_white4);
         }
         view.setPadding(20, 0, 0, 0);
         view.setOnClickListener(onClickListener);

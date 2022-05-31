@@ -85,8 +85,8 @@ public class ChooseViews extends LinearLayout {
         secondMenuListView = (ListView) findViewById(R.id.listView2);
         // 初始化一级主菜单
         firstMenuListViewAdapter = new MenuItemsAdapter(context, menuItem,
-                R.drawable.choose_eara_item_selector,
-                R.drawable.choose_eara_item_selector);
+                R.drawable.choose_eara_selector,
+                R.drawable.choose_eara_selector);
         firstMenuListViewAdapter.setTextSize(17);
         firstMenuListViewAdapter.setSelectedPositionNoNotify(firstPosition, menuItem);
         firstMenuListView.setAdapter(firstMenuListViewAdapter);

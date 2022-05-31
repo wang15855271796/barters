@@ -378,10 +378,6 @@
         <activity android:name=".activity.HylBillActivity"
             android:screenOrientation="portrait"
             />
-
-        <activity android:name=".activity.HylBillsActivity"
-            android:screenOrientation="portrait"
-            />
         <activity android:name=".activity.BillDetailActivity"
             android:screenOrientation="portrait"
             />
