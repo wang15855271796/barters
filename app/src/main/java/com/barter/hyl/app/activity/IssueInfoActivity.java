@@ -152,14 +152,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         tv_area.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                cascadingMenuPopWindow = new CascadingMenuPopWindow(mActivity, listCity);
-//                cascadingMenuPopWindow.setMenuViewOnSelectListener(new NMCascadingMenuViewOnSelectListener());
-//                cascadingMenuPopWindow.showAsDropDown(et, 5, 5);
-//                cascadingMenuPopWindow.setOutsideTouchable(true);
-//                cascadingMenuPopWindow.setBackgroundDrawable(new BitmapDrawable());
-//                cascadingMenuPopWindow.setTouchable(true);
-//                cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
-//                backgroundAlpha(0.3f);
+
                 hintKbTwo();
                 if(isLoaded) {
                     showPickerView();

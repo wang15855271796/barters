@@ -37,11 +37,11 @@
 
             <ImageView
                 android:id="@+id/iv_pic"
-                android:layout_width="32dp"
-                android:layout_height="@dimen/size_24dp"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@+id/iv_head"
-                tools:src="@mipmap/icon_downs" />
+                android:layout_width="22dp"
+                android:layout_marginLeft="@dimen/size_18dp"
+                android:layout_toRightOf="@+id/cb_item_out"
+                android:layout_height="@dimen/sp_14"
+                android:layout_marginTop="15dp" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -50,7 +50,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="@dimen/sp_12"
-                android:layout_toRightOf="@+id/iv_pic"
+                android:layout_toRightOf="@+id/iv_head"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="【妙可蓝多】精致马苏里里苏里里苏奶马苏里奶"

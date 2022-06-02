@@ -366,8 +366,8 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     Gson gson1 = new Gson();
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getTotals(DeletePicEvent deletePicEvent) {
-        Log.d("efsdfsdfdf.....",deletePicEvent.getPos()+"aaaa");
         pictureLists.remove(deletePicEvent.getPos());
+        shopImageViewAdapter.notifyDataSetChanged();
         returnPic = gson1.toJson(pictureLists);
     }
 

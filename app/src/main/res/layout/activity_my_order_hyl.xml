@@ -93,7 +93,7 @@
         android:background="#ffffff"
         app:xTabIndicatorHeight="0dp"
         app:xTabMode="fixed"
-        app:xTabSelectedTextColor="#F56D23"
+        app:xTabSelectedTextColor="#FF2925"
         app:xTabTextColor="#737373"
         app:xTabTextSize="@dimen/size_13dp" />
 

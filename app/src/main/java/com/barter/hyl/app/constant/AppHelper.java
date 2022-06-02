@@ -342,7 +342,7 @@ public class AppHelper {
         isShow = true;
     }
 
-    public static void showPhotoDetailssDialog(Context mContext,int position, List<String> selectList, ShopImageViewssAdapter shopImageViewAdapter) {
+    public static void showPhotoDetailssDialog(Context mContext,int position, List<String>pictureLists , ShopImageViewssAdapter shopImageViewAdapter) {
         dialog = new Dialog(mContext, R.style.Theme_Light_Dialog);
         dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_show_photos_hyl, null);
         //获得dialog的window窗口
@@ -372,10 +372,9 @@ public class AppHelper {
         iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                selectList.remove(position);
-                shopImageViewAdapter.notifyItemRemoved(position);
-                shopImageViewAdapter.notifyItemRangeChanged(position, selectList.size());
+//                pictureLists.remove(position);
+//                shopImageViewAdapter.notifyItemRemoved(position);
+//                shopImageViewAdapter.notifyItemRangeChanged(position, pictureLists.size());
                 EventBus.getDefault().post(new DeletePicEvent(position));
 
                 if (dialog!=null){
@@ -399,10 +398,10 @@ public class AppHelper {
                 hidePhotoDetailDialog();
             }
         });
-        PhotoViewAdapter photoViewAdapter = new PhotoViewAdapter(selectList, mContext);
+        PhotoViewAdapter photoViewAdapter = new PhotoViewAdapter(pictureLists, mContext);
         mVp.setAdapter(photoViewAdapter);
         mVp.setCurrentItem(position);
-        mTv.setText(position  + 1+"/" + selectList.size());
+        mTv.setText(position  + 1+"/" + pictureLists.size());
         photoViewAdapter.setPhotoListener(new PhotoViewAdapter.OnPhotoListener() {
             @Override
             public void onPhotoListenter() {
@@ -421,7 +420,7 @@ public class AppHelper {
 
             @Override
             public void onPageSelected(int position) {
-                mTv.setText(position + 1 + "/" + selectList.size());
+                mTv.setText(position + 1 + "/" + pictureLists.size());
 //                mTv.getBackground().setAlpha(100);
 
             }
