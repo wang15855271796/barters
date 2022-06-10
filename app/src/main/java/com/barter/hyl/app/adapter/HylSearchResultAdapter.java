@@ -58,7 +58,7 @@ public class HylSearchResultAdapter extends BaseQuickAdapter<HylSearchResultMode
         };
         rv_spec.setAdapter(unAbleAdapter);
         unAbleAdapter.notifyDataChanged();
-        if(item.getSpecList().size()>3 || item.getSpecList().size()==3) {
+        if(item.getSpecList().size()>3) {
             tv_style.setVisibility(View.VISIBLE);
         }else {
             tv_style.setVisibility(View.GONE);

@@ -53,8 +53,9 @@ public class HylGoodsAdapter extends BaseQuickAdapter<HylGoodListModel.DataBean.
             iv_add.setEnabled(true);
         }else {
             iv_sold.setVisibility(View.VISIBLE);
-            iv_add.setImageResource(R.mipmap.icon_add_saled);
-            iv_add.setEnabled(false);
+            iv_add.setVisibility(View.GONE);
+//            iv_add.setImageResource(R.mipmap.icon_add_saled);
+//            iv_add.setEnabled(false);
         }
 
         iv_add.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,7 @@ public class HylGoodsAdapter extends BaseQuickAdapter<HylGoodListModel.DataBean.
         };
         rv_spec.setAdapter(unAbleAdapter);
         unAbleAdapter.notifyDataChanged();
-        if(item.getSpecList().size()>3 || item.getSpecList().size()==3) {
+        if(item.getSpecList().size()>3) {
             tv_style.setVisibility(View.VISIBLE);
         }else {
             tv_style.setVisibility(View.GONE);

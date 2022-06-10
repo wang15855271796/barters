@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import com.barter.hyl.app.event.InitEventBus;
+import com.barter.hyl.app.utils.HookUtils;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -24,9 +25,8 @@ public class MApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        HookUtils.hookMacAddress("Z-Application",getApplicationContext());
         EventBus.getDefault().register(this);
-
-
     }
 
     public static Context getContext() {
@@ -37,23 +37,5 @@ public class MApplication extends Application {
     public void init(InitEventBus initEventBus) {
         api = WXAPIFactory.createWXAPI(this, "wxf62d1bee757cd65a");
         api.registerApp("wxf62d1bee757cd65a");
-//        sHmelvZ7正确
-//        OneKeyLoginManager.getInstance().init(getApplicationContext(), "sHmelvZ7", new InitListener() {
-//            @Override
-//            public void getInitStatus(int code, String result) {
-//                //初始化回调
-//
-//            }
-//        });
-//
-//        //闪验SDK预取号（可缩短拉起授权页时间）
-//        OneKeyLoginManager.getInstance().getPhoneInfo(new GetPhoneInfoListener() {
-//            @Override
-//            public void getPhoneInfoStatus(int code, String result) {
-//                //预取号回调
-//                Log.e("VVV", "预取号： code==" + code + "   result==" + result);
-//
-//            }
-//        });
     }
 }

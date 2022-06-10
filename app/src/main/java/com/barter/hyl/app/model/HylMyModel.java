@@ -86,6 +86,15 @@ public class HylMyModel {
         private String updateMsg;
         private String downLoadUrl;
         private String andVersion;
+        private int companyInfoFlag;
+
+        public int getCompanyInfoFlag() {
+            return companyInfoFlag;
+        }
+
+        public void setCompanyInfoFlag(int companyInfoFlag) {
+            this.companyInfoFlag = companyInfoFlag;
+        }
 
         public String getAndVersion() {
             return andVersion;

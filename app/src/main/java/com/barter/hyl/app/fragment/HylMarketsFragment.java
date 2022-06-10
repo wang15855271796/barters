@@ -76,8 +76,8 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
     LinearLayout ll_price;
     @BindView(R.id.iv_tip)
     ImageView iv_tip;
-    @BindView(R.id.ll_all)
-    LinearLayout ll_all;
+    @BindView(R.id.rl_all)
+    RelativeLayout rl_all;
     @BindView(R.id.ll_search)
     RelativeLayout ll_search;
     @BindView(R.id.v_shadow)
@@ -184,6 +184,7 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
                         secondId = seconds.get(scrollPosition).getSecondId();
                         brandName = "";
                         hylSecondAdapter.selectPosition(scrollPosition);
+
                         getGoodList();
                         dialog.show();
                     }else {
@@ -199,7 +200,7 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
                             scrollPosition = seconds.size()-1;
                             x_rv.noMoreLoading(true);
                         }
-
+                        rv_cate.smoothScrollToPosition(selectIdPosition);
                     }
 //                    x_rv.noMoreLoading(true);
                 }
@@ -216,7 +217,7 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
         tv_sale.setOnClickListener(this);
         tv_select.setOnClickListener(this);
         ll_price.setOnClickListener(this);
-        ll_all.setOnClickListener(this);
+        rl_all.setOnClickListener(this);
         ll_search.setOnClickListener(this);
     }
 
@@ -428,7 +429,7 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ll_all:
+            case R.id.rl_all:
                 shopListView();
                 break;
 
@@ -656,13 +657,13 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                getCategories();
 //                selectIdPosition = position;
-//
                 dialog.show();
                 selectIdPosition = position;
-//                hylCateAdapter.selectPosition(position);
+                rv_cate.smoothScrollToPosition(selectIdPosition);
                 getCategories();
             }
         });
+
         iv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -686,7 +687,6 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
         id = goTopHylEvent.getId();
         pos = goTopHylEvent.getPosition();
         selectIdPosition = pos;
-        Log.d("fesdfefds.......",selectIdPosition+"a");
         getCategori();
 
     }
@@ -698,6 +698,7 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getCategory(ChangeAccountHylEvent changeAccountHylEvent) {
         getCategori();
+        Log.d("dfewfdsf......","12333");
     }
 
     @Override

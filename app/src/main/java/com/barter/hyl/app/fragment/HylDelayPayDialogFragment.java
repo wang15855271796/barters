@@ -80,6 +80,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
     LinearLayout ll_special_desc;
     List<String>ids = new ArrayList<>();
     String total;
+//    无关
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

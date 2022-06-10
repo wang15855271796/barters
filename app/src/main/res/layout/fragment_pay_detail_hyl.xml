@@ -60,23 +60,24 @@
                         android:layout_height="120dp">
 
                         <TextView
-                            android:text="￥"
-                            android:visibility="gone"
-                            android:textColor="#333333"
-                            android:layout_marginTop="@dimen/size_30dp"
-                            android:layout_alignBaseline="@+id/tv"
+                            android:id="@+id/tv_tip"
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/tv"
                             android:layout_marginLeft="-10dp"
-                            android:layout_height="wrap_content" />
+                            android:layout_marginTop="@dimen/size_30dp"
+                            android:text="￥"
+                            android:textColor="#333333" />
 
                         <TextView
-                            android:layout_toRightOf="@+id/tv"
                             android:id="@+id/tv_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="100"
+                            android:layout_toRightOf="@+id/tv"
+                            android:textColor="#333333"
+                            android:layout_marginLeft="@dimen/size_10dp"
                             android:textSize="@dimen/size_40dp"
-                            android:textColor="#333333" />
+                            tools:text="100" />
 
                     </RelativeLayout>
 

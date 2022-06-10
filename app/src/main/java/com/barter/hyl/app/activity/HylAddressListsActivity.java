@@ -6,8 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -55,6 +58,10 @@ public class HylAddressListsActivity extends BaseActivity implements View.OnClic
     RecyclerView recyclerView;
     @BindView(R.id.smart)
     SmartRefreshLayout smart;
+    @BindView(R.id.ll_no)
+    LinearLayout ll_no;
+    @BindView(R.id.ll_data)
+    LinearLayout ll_data;
     HylAddressAdapter hylAddressAdapter;
 
     View emptyView;
@@ -117,15 +124,6 @@ public class HylAddressListsActivity extends BaseActivity implements View.OnClic
             public void onAddressClick(int addressId,int pos) {
                 position = pos;
                 for (int i = 0; i < list.size(); i++) {
-
-                    //isDefault 1默认地址
-//                    if(list.get(i).isDefault==0) {
-//                        list.get(i).isDefault = 1;
-//                        getDefaultAddress(addressId);
-//                    }else {
-//                        list.get(i).isDefault = 0;
-//                        getDefaultAddress(addressId);
-//                    }
                     if(i == position) {
                         if(list.get(i).isDefault == 0) {
                             list.get(i).isDefault = 1;
@@ -133,7 +131,7 @@ public class HylAddressListsActivity extends BaseActivity implements View.OnClic
                         }
                     } else {
                         list.get(i).isDefault = 0;
-                        getDefaultAddress(addressId);
+                        hylAddressAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -261,12 +259,15 @@ public class HylAddressListsActivity extends BaseActivity implements View.OnClic
                         if (hylAddressListModel.getCode()==1) {
                             if(hylAddressListModel.getData()!=null) {
                                 hylAddressListModels = hylAddressListModel;
-                                if(hylAddressListModel.getData().getList()!=null&& hylAddressListModel.getData().getList().size()>0) {
+                                if(hylAddressListModel.getData().getList()!=null && hylAddressListModel.getData().getList().size()>0) {
                                     list.clear();
                                     list.addAll(hylAddressListModel.getData().getList());
                                     hylAddressAdapter.notifyDataSetChanged();
+                                    ll_no.setVisibility(View.GONE);
+                                    ll_data.setVisibility(View.VISIBLE);
                                 }else {
-                                    hylAddressAdapter.setEmptyView(emptyView);
+                                    ll_data.setVisibility(View.GONE);
+                                    ll_no.setVisibility(View.VISIBLE);
                                 }
                             }
                         } else {

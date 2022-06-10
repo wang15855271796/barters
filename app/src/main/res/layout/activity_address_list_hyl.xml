@@ -14,6 +14,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_data"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -42,26 +43,46 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:layout_alignParentBottom="true"
             android:id="@+id/rl_add_address"
-            android:background="@drawable/shape_grey_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/size_13dp"
             android:layout_marginRight="@dimen/size_13dp"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_40">
+            android:background="@drawable/shape_grey_button">
 
             <TextView
-                android:text="新增收货地址"
-                android:textSize="@dimen/sp_16"
-                android:textColor="#ffffff"
-                android:drawablePadding="@dimen/size_8dp"
-                android:drawableLeft="@mipmap/icon_add_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:drawableLeft="@mipmap/icon_add_address"
+                android:drawablePadding="@dimen/size_8dp"
+                android:text="新增收货地址"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/sp_16" />
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:id="@+id/ll_no"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_no_data" />
+
+            <TextView
+                android:text="暂无数据"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
     </RelativeLayout>
 

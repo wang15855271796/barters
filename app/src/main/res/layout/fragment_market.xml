@@ -58,28 +58,21 @@
 
                     </androidx.recyclerview.widget.RecyclerView>
 
-                    <LinearLayout
-                        android:id="@+id/ll_all"
-                        android:background="#f8f8f8"
-                        android:orientation="vertical"
-                        android:gravity="center_horizontal"
+                    <RelativeLayout
+                        android:id="@+id/rl_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_width="@dimen/size_47dp"
-                        android:layout_height="75dp">
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:text="全"
+                        <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_50dp"
+                            android:src="@mipmap/iv_more" />
 
-                        <TextView
-                            android:text="部"
-                            android:drawablePadding="@dimen/size_5dp"
-                            android:drawableBottom="@mipmap/icon_all"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
+                    </RelativeLayout>
 
                 </RelativeLayout>
 
@@ -136,6 +129,16 @@
                                         android:layout_height="36dp"
                                         android:orientation="horizontal">
 
+                                        <TextView
+                                            android:text="销量"
+                                            android:id="@+id/tv_sale"
+                                            android:gravity="center"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_width="0dp"
+                                            android:layout_weight="1"
+                                            android:textSize="12dp"
+                                            android:layout_height="match_parent" />
+
                                         <LinearLayout
                                             android:layout_weight="1"
                                             android:id="@+id/ll_price"
@@ -160,16 +163,6 @@
                                         </LinearLayout>
 
                                         <TextView
-                                            android:text="销量"
-                                            android:id="@+id/tv_sale"
-                                            android:gravity="center"
-                                            android:layout_gravity="center_vertical"
-                                            android:layout_width="0dp"
-                                            android:layout_weight="1"
-                                            android:textSize="12dp"
-                                            android:layout_height="match_parent" />
-
-                                        <TextView
                                             android:gravity="center"
                                             android:id="@+id/tv_select"
                                             android:layout_width="0dp"
@@ -179,7 +172,6 @@
                                             android:text="筛选"
                                             android:textColor="#666666"
                                             android:textSize="12dp" />
-
                                     </LinearLayout>
 
                                     <View

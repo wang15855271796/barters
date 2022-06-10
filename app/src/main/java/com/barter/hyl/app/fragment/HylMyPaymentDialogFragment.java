@@ -97,7 +97,7 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
         // 使用不带Theme的构造器, 获得的dialog边框距离屏幕仍有几毫米的缝隙。
         Dialog dialog = new Dialog(getActivity(), R.style.BottomDialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置Content前设定
-        dialog.setContentView(R.layout.fragment_pay_detail_hyl);
+        dialog.setContentView(R.layout.fragment_pay_detail_hyl1);
         dialog.setCanceledOnTouchOutside(true); // 外部点击取消
         getPayList();
         // 设置宽度为屏宽, 靠近屏幕底部。
@@ -122,8 +122,6 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
         btnPay = (Button) dialog.findViewById(R.id.btn_confirm_pay);
         rePayWay.setOnClickListener(listener);
         btnPay.setOnClickListener(listener);
-//        String totals = total.substring(0, 1);
-//        Log.d("fewfewf.....",total.length()+"s");
         tv_amount.setText(total);
         iv_close.setOnClickListener(listener);
         iv_closes.setOnClickListener(listener);

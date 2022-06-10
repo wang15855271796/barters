@@ -268,11 +268,14 @@
         </LinearLayout>
 
         <Button
-            android:layout_alignParentBottom="true"
             android:id="@+id/bt_save"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/shape_grey_button"
             android:text="保存地址"
             android:textColor="@color/app_color_white"

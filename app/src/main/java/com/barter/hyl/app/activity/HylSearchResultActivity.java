@@ -142,7 +142,7 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
                 getRecommend(searchWord);
             }
         });
-
+        tv_activity_result.setText(searchWord);
         ptr_layout.autoRefresh();
     }
 

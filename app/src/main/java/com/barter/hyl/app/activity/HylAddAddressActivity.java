@@ -93,7 +93,7 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
     @Override
     public void setViewData() {
         bt_add.setEnabled(false);
-        bt_add.setTextColor(getResources().getColor(R.color.app_btn_unable));
+//        bt_add.setTextColor(getResources().getColor(R.color.app_btn_unable));
         getAddressArea();
     }
 
@@ -148,7 +148,6 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
         options1Items = data;
     //     遍历省
         for(int i = 0; i <data.size() ; i++) {
-
 //         存放城市
             ArrayList<HylAreaModel.DataBean.CityListBean> cityList = new ArrayList<>();
 //         存放区
@@ -293,7 +292,7 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
                 bt_add.setTextColor(getResources().getColor(R.color.app_color_white));
             } else {
                 bt_add.setEnabled(false);
-                bt_add.setTextColor(getResources().getColor(R.color.app_btn_unable));
+//                bt_add.setTextColor(getResources().getColor(R.color.app_btn_unable));
             }
         }
     };

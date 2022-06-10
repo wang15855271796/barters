@@ -117,12 +117,9 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 getMessageNum();
                 myInfo();
-                getCompanyInfo();
                 smart.finishRefresh();
             }
         });
-
-        getCompanyInfo();
         myInfo();
     }
 
@@ -196,6 +193,12 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
 
                             String verName = APKVersionCodeUtils.getVerName(mActivity);
 
+                            if(hylMyModel.getData().getCompanyInfoFlag()==0) {
+                                //不展示城市信息入口
+                                iv_info.setVisibility(View.GONE);
+                            }else {
+                                iv_info.setVisibility(View.VISIBLE);
+                            }
                             if(data.isAndAppUpdate()) {
                                 iv_update.setVisibility(View.VISIBLE);
                                 tv_version.setText(verName);
@@ -328,46 +331,9 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
 
             case R.id.iv_info:
                 Intent intent = new Intent(mActivity, CompanyInfoActivity.class);
-                intent.putExtra("companyInfo", (Serializable) dataInfo);
                 startActivity(intent);
                 break;
         }
-    }
-
-    /**
-     * 获取企业信息
-     */
-    List<CompanyInfoModel.DataBean> dataInfo = new ArrayList<>();
-    private void getCompanyInfo() {
-        MyInfoApi.getCompanyInfo(mActivity)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CompanyInfoModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(CompanyInfoModel companyInfoModel) {
-                        if(companyInfoModel.code==1) {
-                            dataInfo.clear();
-                            if(companyInfoModel.getData()!=null&&companyInfoModel.getData().size()>0) {
-                                dataInfo.addAll(companyInfoModel.getData());
-                                iv_info.setVisibility(View.VISIBLE);
-                            }else {
-                                iv_info.setVisibility(View.GONE);
-                            }
-                        }else {
-                            ToastUtil.showSuccessMsg(mActivity,companyInfoModel.message);
-                        }
-                    }
-                });
     }
 
     /**
@@ -424,7 +390,6 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
     public void getUserInfo(ChangeAccountHylEvent changeAccountHylEvent) {
         getMessageNum();
         myInfo();
-        getCompanyInfo();
 
     }
 

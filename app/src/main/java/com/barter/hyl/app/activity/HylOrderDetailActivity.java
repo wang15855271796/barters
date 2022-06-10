@@ -24,6 +24,7 @@ import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.CartNumHylEvent;
+import com.barter.hyl.app.fragment.HylMyOrderDetailPaymentDialogFragment;
 import com.barter.hyl.app.fragment.HylMyPaymentDialogFragment;
 import com.barter.hyl.app.model.BaseModel;
 import com.barter.hyl.app.model.HylLoginModel;
@@ -498,7 +499,7 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
         tv_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HylMyPaymentDialogFragment paymentDialogFragment = new HylMyPaymentDialogFragment();
+                HylMyOrderDetailPaymentDialogFragment paymentDialogFragment = new HylMyOrderDetailPaymentDialogFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("orderId", orderId);
                 bundle.putString("id",data.getId()+"");
@@ -693,7 +694,7 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
                 showCancleOrder();
                 break;
             case R.id.buttonGOPay://去支付
-                HylMyPaymentDialogFragment paymentOrderFragment = new HylMyPaymentDialogFragment();
+                HylMyOrderDetailPaymentDialogFragment paymentOrderFragment = new HylMyOrderDetailPaymentDialogFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("id", data.getId()+"");
                 bundle.putString("orderId", orderId);

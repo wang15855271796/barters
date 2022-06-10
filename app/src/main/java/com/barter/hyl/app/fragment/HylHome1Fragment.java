@@ -148,8 +148,8 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     AppBarLayout appbar;
     @BindView(R.id.marqueeView)
     MarqueeView marqueeView;
-//    @BindView(R.id.scrollView)
-//    AnimationNestedScrollView scrollView;
+    @BindView(R.id.iv_location)
+    ImageView iv_location;
 
     public AppBarLayoutState state;
     public enum AppBarLayoutState {
@@ -579,6 +579,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
         tv_search.setOnClickListener(this);
         rl_message.setOnClickListener(this);
         tv_company.setOnClickListener(this);
+        iv_location.setOnClickListener(this);
     }
 
     /**
@@ -626,6 +627,11 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
             case R.id.tv_company:
                 Intent intent = new Intent(mActivity, ChooseCompanyActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.iv_location:
+                Intent intent1 = new Intent(mActivity, ChooseCompanyActivity.class);
+                startActivity(intent1);
                 break;
 
             case R.id.rl_message:

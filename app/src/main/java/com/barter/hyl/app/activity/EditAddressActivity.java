@@ -124,6 +124,14 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
                             proviceCode = data.getProvinceCode();
                             areaCode = data.getAreaCode();
                             String areaName = data.getAreaName();
+                            //1默认   0非默认
+                            isDefault = data.getIsDefault();
+
+                            if(isDefault==1) {
+                                iv_switch.setImageResource(R.mipmap.iv_opens);
+                            }else {
+                                iv_switch.setImageResource(R.mipmap.iv_closes);
+                            }
                             String provinceName = data.getProvinceName();
                             String cityName = data.getCityName();
                             cityCode = data.getCityCode();
@@ -180,7 +188,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
                 bt_save.setTextColor(getResources().getColor(R.color.app_color_white));
             } else {
                 bt_save.setEnabled(false);
-                bt_save.setTextColor(getResources().getColor(R.color.app_btn_unable));
+//                bt_save.setTextColor(getResources().getColor(R.color.app_btn_unable));
             }
         }
     };
@@ -194,7 +202,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
      * @param
      */
     private void editAddress(String userName, String contactPhone, String shopName, String detailAddress, String proviceCode,String cityCode,String areaCode) {
-        AddressApi.AddressEdit(mContext, userName,contactPhone,shopName,proviceCode,cityCode,areaCode,detailAddress,setDefault,addressId)
+        AddressApi.AddressEdit(mContext, userName,contactPhone,shopName,proviceCode,cityCode,areaCode,detailAddress,isDefault,addressId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseModel>() {
@@ -250,7 +258,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
     }
 
     boolean isLoaded = false;
-    int isDefault = 0;
+    int isDefault;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -284,7 +292,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
                     isDefault = 1;
 
                 }
-                getDefaultAddress(addressId);
+//                getDefaultAddress(addressId);
                 break;
 
             case R.id.iv_back:
@@ -299,6 +307,7 @@ public class EditAddressActivity extends BaseActivity implements View.OnClickLis
                 break;
         }
     }
+
 
     private void showPickerView() {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {

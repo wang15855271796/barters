@@ -37,10 +37,8 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     CompanyAdapter companyAdapter;
-    List<CompanyInfoModel.DataBean> companyInfo;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
-        companyInfo = (List<CompanyInfoModel.DataBean>) getIntent().getSerializableExtra("companyInfo");
         return false;
     }
 
@@ -54,9 +52,11 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
         tv_title.setText("企业信息");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        companyAdapter = new CompanyAdapter(R.layout.item_company_info,companyInfo);
+        companyAdapter = new CompanyAdapter(R.layout.item_company_info,dataInfo);
         recyclerView.setAdapter(companyAdapter);
         companyAdapter.notifyDataSetChanged();
+
+        getCompanyInfo();
     }
 
     @Override
@@ -65,6 +65,39 @@ public class CompanyInfoActivity extends BaseActivity implements View.OnClickLis
     }
 
 
+    /**
+     * 获取企业信息
+     */
+    List<CompanyInfoModel.DataBean> dataInfo = new ArrayList<>();
+    private void getCompanyInfo() {
+        MyInfoApi.getCompanyInfo(mActivity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<CompanyInfoModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(CompanyInfoModel companyInfoModel) {
+                        if(companyInfoModel.code==1) {
+                            dataInfo.clear();
+                            if(companyInfoModel.getData()!=null&&companyInfoModel.getData().size()>0) {
+                                dataInfo.addAll(companyInfoModel.getData());
+                                companyAdapter.notifyDataSetChanged();
+                            }
+                        }else {
+                            ToastUtil.showSuccessMsg(mActivity,companyInfoModel.message);
+                        }
+                    }
+                });
+    }
 
     @Override
     public void onClick(View view) {

@@ -118,7 +118,6 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:src="@mipmap/icon_add"
                         android:id="@+id/iv_add"
                         android:layout_width="@dimen/size_30dp"
                         android:layout_height="@dimen/size_30dp"
@@ -126,6 +125,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:padding="3dp"
+                        android:src="@mipmap/icon_add"
                         android:textColor="@color/white"
                         android:textSize="11dp" />
 

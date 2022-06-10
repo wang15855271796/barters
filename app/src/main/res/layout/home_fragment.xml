@@ -43,11 +43,11 @@
 
                     <ImageView
                         android:id="@+id/iv_location"
-                        android:layout_marginLeft="15dp"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/icon_address2"
                         android:layout_width="19dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:src="@mipmap/icon_address2" />
 
                     <TextView
                         android:layout_toRightOf="@+id/iv_location"

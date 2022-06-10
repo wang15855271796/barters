@@ -2,10 +2,13 @@ package com.barter.hyl.app.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +18,7 @@ import com.barter.hyl.app.model.PicVideoModel;
 import com.barter.hyl.app.model.VideoHolder;
 import com.barter.hyl.app.utils.Utils;
 import com.bumptech.glide.Glide;
+import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener;
 import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.youth.banner.adapter.BannerAdapter;
 import com.youth.banner.util.BannerUtils;
@@ -45,12 +49,8 @@ public class PicVideoAdapter extends BannerAdapter<PicVideoModel.DatasBean, Recy
 
     @Override
     public int getItemViewType(int position) {
-        //先取得真实的position,在获取实体
-//        return getData(getRealPosition(position)).viewType;
-        //直接获取真实的实体
         return getRealData(position).getType();
-        //或者自己直接去操作集合
-//        return mDatas.get(getRealPosition(position)).viewType;
+
     }
 
     @Override
@@ -70,12 +70,23 @@ public class PicVideoAdapter extends BannerAdapter<PicVideoModel.DatasBean, Recy
                 //增加封面
                 ImageView imageView = new ImageView(context);
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
                 Bitmap videoThumbnail = Utils.createVideoThumbnail(data.getUrl(), 500,200);
                 imageView.setImageBitmap(videoThumbnail);
                 int screenTypeFull = GSYVideoType.SCREEN_TYPE_DEFAULT;
                 GSYVideoType.setShowType(screenTypeFull);
                 videoHolder.player.setThumbImageView(imageView);
                 videoHolder.player.setEnlargeImageRes(R.mipmap.iv_open);
+//                Drawable drawable = context.getResources().getDrawable(R.drawable.white_bg);
+//                videoHolder.player.setBottomProgressBarDrawable(drawable);
+//                SeekBar seek = videoHolder.player.findViewById(R.id.seek);
+//                videoHolder.player.setGSYVideoProgressListener(new GSYVideoProgressListener() {
+//                    @Override
+//                    public void onProgress(int progress, int secProgress, int currentPosition, int duration) {
+//                        Log.d("xsdfesfs....","wwewew"+progress);
+//                        seek.setProgress(currentPosition);
+//                    }
+//                });
                 videoHolder.player.getFullscreenButton().setImageResource(R.mipmap.iv_open);
                 videoHolder.player.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
                     @Override

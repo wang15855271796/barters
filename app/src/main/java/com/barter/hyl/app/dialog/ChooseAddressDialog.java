@@ -6,6 +6,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +89,7 @@ public class ChooseAddressDialog extends Dialog {
         addressAdapter.setOnItemChangeClickListener(new HylChooseAddresssAdapter.OnEventClickListener() {
             @Override
             public void onEventClick(View view, int position, String flag) {
+
                 if (flag.equals("default")) {
                     //这里只是表面上地显示成这个地址为默认地址,要退出这个界面的时候调接口告知后台哪个变成默认地址了
                     for (int i = 0; i < list.size(); i++) {
@@ -101,7 +104,9 @@ public class ChooseAddressDialog extends Dialog {
                                 list.get(i).isDefault = 1;
                                 //这里代表着切换了默认地址
                                 defaultId = list.get(i).getAddressId();
+
                                 getDefaultAddress(defaultId);
+
                                 dismiss();
                             }
                         } else {

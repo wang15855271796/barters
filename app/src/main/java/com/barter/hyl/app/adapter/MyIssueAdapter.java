@@ -161,9 +161,9 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
         TextView tv_sure = (TextView) window.findViewById(R.id.tv_sure);
         tv_reason.setText(item.getRefuseReason());
 
-        tv_sure.setOnClickListener(new NoDoubleClickListener() {
+        tv_sure.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNoDoubleClick(View view) {
+            public void onClick(View view) {
                 alertDialog.dismiss();
             }
         });
@@ -179,18 +179,18 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
         window.setContentView(R.layout.dialog_delete_shop);
         TextView mTvCancel = (TextView) window.findViewById(R.id.tv_cancel);
         TextView mTvConfirm = (TextView) window.findViewById(R.id.tv_deleted);
-        mTvCancel.setOnClickListener(new NoDoubleClickListener() {
+        mTvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNoDoubleClick(View view) {
+            public void onClick(View view) {
                 alertDialog.dismiss();
             }
         });
-        mTvConfirm.setOnClickListener(new NoDoubleClickListener() {
+
+        mTvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNoDoubleClick(View view) {
+            public void onClick(View view) {
                 getCityList(item);
                 alertDialog.dismiss();
-
             }
         });
     }

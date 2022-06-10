@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.dialog.PrivacySettingDialog;
+import com.barter.hyl.app.utils.ToastUtil;
 
 import butterknife.BindView;
 
@@ -42,6 +44,8 @@ public class HylPrivacySettingActivity extends BaseActivity implements View.OnCl
     TextView tv3;
     @BindView(R.id.tv4)
     TextView tv4;
+    @BindView(R.id.iv_switch)
+    ImageView iv_switch;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -66,15 +70,45 @@ public class HylPrivacySettingActivity extends BaseActivity implements View.OnCl
         ll_root4.setOnClickListener(this);
         ll_root5.setOnClickListener(this);
         iv_back.setOnClickListener(this);
+        iv_switch.setOnClickListener(this);
     }
 
 
+    PrivacySettingDialog privacySettingDialog;
+    boolean isOpen = true;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
                 finish();
                 break;
+
+            case R.id.iv_switch:
+                if(isOpen) {
+                    privacySettingDialog = new PrivacySettingDialog(mActivity) {
+                        @Override
+                        public void close() {
+                            privacySettingDialog.dismiss();
+                            iv_switch.setImageResource(R.mipmap.iv_opens);
+                            isOpen = true;
+                        }
+
+                        @Override
+                        public void sure() {
+                            privacySettingDialog.dismiss();
+                            isOpen = false;
+                            iv_switch.setImageResource(R.mipmap.iv_closes);
+                            ToastUtil.showSuccessMsg(mContext,"已关闭");
+                        }
+                    };
+                    privacySettingDialog.show();
+                }else {
+                    isOpen = true;
+                    iv_switch.setImageResource(R.mipmap.iv_opens);
+                    ToastUtil.showSuccessMsg(mContext,"已开启");
+                }
+                break;
+
             case R.id.ll_root1:
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -84,7 +84,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     TextView tv_mine;
     @BindView(R.id.tv_number)
     TextView tv_number;
-    String[] params = { Manifest.permission.ACCESS_COARSE_LOCATION};
+//    String[] params = { Manifest.permission.ACCESS_COARSE_LOCATION};
     private static final String TAB_HOME = "tab_home";
     private static final String TAB_MARKET = "tab_market";
     private static final String TAB_CART = "tab_cart";
@@ -260,12 +260,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     mFragmentTransaction.show(mTabHome);
                 }
 
-                if (EasyPermissions.hasPermissions(this,params)) {//检查是否获取该权限
-                    //全部允许
-                } else {//第二次请求
-                    //存在不允许的权限  对话框为什么一会出来一会不出来
-                    EasyPermissions.requestPermissions(this, "需要加载必要的权限。", 1, params);
-                }
+//                if (EasyPermissions.hasPermissions(this,params)) {//检查是否获取该权限
+//                    //全部允许
+//                } else {//第二次请求
+//                    //存在不允许的权限  对话框为什么一会出来一会不出来
+//                    EasyPermissions.requestPermissions(this, "需要加载必要的权限。", 1, params);
+//                }
                 break;
 
             case TAB_MARKET:
