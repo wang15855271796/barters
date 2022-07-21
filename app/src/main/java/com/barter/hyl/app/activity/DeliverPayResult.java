@@ -2,6 +2,7 @@ package com.barter.hyl.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,10 +77,14 @@ public class DeliverPayResult extends BaseActivity implements View.OnClickListen
                 break;
 
             case R.id.tv_order_look:
-                Intent intent = new Intent(mContext,HylOrderDetailActivity.class);
-                intent.putExtra("orderId",orderId);
-                startActivity(intent);
-                finish();
+                if(!TextUtils.isEmpty(orderId) && !orderId.equals("")) {
+                    Intent intent = new Intent(mContext,HylOrderDetailActivity.class);
+                    intent.putExtra("orderId",orderId);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mContext,HylMyOrderActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

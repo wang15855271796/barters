@@ -1,4 +1,13 @@
-package com.puyue.www.qiaoge.utils;
+package com.barter.hyl.app.utils;
+
+import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.text.TextUtils;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -10,23 +19,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import android.annotation.SuppressLint;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.text.TextUtils;
-import android.util.Log;
-
 /**
  * 
  * @author Administrator
  * 
  */
 
-public class DateUtils {
+public class DateUtil {
 
 	private static final String SUNDAY = "周日";
 	private static final String SATARDAY = "周六";

@@ -3,6 +3,7 @@ package com.barter.hyl.app.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -33,6 +34,7 @@ import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
 import com.barter.hyl.app.listener.PopWindowListener;
 import com.barter.hyl.app.model.CityChangeModel;
 import com.barter.hyl.app.model.HylAreaModel;
+import com.barter.hyl.app.model.HylAreaModel1;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.InfoListModel;
 import com.barter.hyl.app.utils.SharedPreferencesUtil;
@@ -141,6 +143,8 @@ public class InfoFragment extends BaseFragment {
                     }
                 }
 
+                catePopWindow.setOnDismissListener(new popupDismissListener());
+
                 catePopWindow.setBackgroundDrawable(null);
                 catePopWindow.setPopWindowListener(new PopWindowListener() {
                     @Override
@@ -186,7 +190,6 @@ public class InfoFragment extends BaseFragment {
             public void onClick(View v) {
                 mask.setVisibility(View.VISIBLE);
                 if(cascadingMenuPopWindow==null) {
-
                     cascadingMenuPopWindow = new ChooseCityPopWindow(mActivity, listCity);
                 }
 
@@ -329,6 +332,8 @@ public class InfoFragment extends BaseFragment {
                 });
     }
 
+
+    List<HylAreaModel1.DataBean> city = new ArrayList<>();
     private void getCityChoose() {
         AddressApi.AddressArea(mActivity)
                 .subscribeOn(Schedulers.io())
@@ -350,6 +355,7 @@ public class InfoFragment extends BaseFragment {
                             List<HylAreaModel.DataBean> data = cityChangeModel.getData();
                             listCity.addAll(data);
 
+//                            listCity.add(0,);
                         } else {
                             AppHelper.showMsg(mActivity, cityChangeModel.getMessage());
                         }
@@ -366,16 +372,15 @@ public class InfoFragment extends BaseFragment {
         public void getValue(HylAreaModel.DataBean area) {
             provinceName = area.getProvinceName();
             provinceCode = area.getProvinceCode();
-            Log.d("efsfefe.....",provinceName+"aa");
-
         }
 
         @Override
-        public void getValues(HylAreaModel.DataBean.CityListBean area) {
+        public void getValues(HylAreaModel.DataBean.CityListBean area,int pos) {
             if(provinceName == null) {
-                ToastUtil.showSuccessMsg(mActivity,"请选择上一级城市");
+                ToastUtil.showSuccessMsg(mActivity,"请先选择上一级");
                 return;
             }
+
             list.clear();
             mask.setVisibility(View.GONE);
             cityName = area.getCityName();
@@ -393,6 +398,8 @@ public class InfoFragment extends BaseFragment {
             }else {
                 getCityList(search,"4",cityCode,provinceCode);
             }
+
+            cascadingMenuPopWindow.dismiss();
         }
 
         @Override

@@ -26,6 +26,7 @@ public class MyControllView extends StandardGSYVideoPlayer {
     @Override
     protected void init(Context context) {
         super.init(context);
+        mFullscreenButton.setImageResource(R.mipmap.icon_full);
 //        Drawable drawable = getResources().getDrawable(R.drawable.white_bg);
 //        mBottomProgressBar.setProgressDrawable(drawable);
 //        mProgressBar.setProgressDrawable(drawable);

@@ -1,5 +1,6 @@
 package com.barter.hyl.app.adapter;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -17,8 +18,10 @@ import java.util.List;
 public class ImageViewAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     private RoundImageView imageView;
+    List<String> data;
     public ImageViewAdapter(int layoutResId, @Nullable List<String> data) {
         super(layoutResId, data);
+        this.data = data;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class ImageViewAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             @Override
             public void onClick(View v) {
                 List<String> result = Arrays.asList(item.split(","));
-                AppHelper.showPhotoDetailDialog(mContext, result, helper.getAdapterPosition());
+                AppHelper.showPhotoDetailDialog(mContext, data, helper.getAdapterPosition());
             }
         });
     }

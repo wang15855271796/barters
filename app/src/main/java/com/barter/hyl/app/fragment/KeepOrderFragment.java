@@ -254,8 +254,6 @@ public class KeepOrderFragment extends BaseFragment implements View.OnClickListe
                 isAllSelected = false;
                 cb_all_select.setChecked(false);
                 selectedNum = 0;
-//                tv_total_amount.setText("0.0");
-//                ids.clear();
                 hylMyOrderListAdapter.setSelectAll(false);
                 for (int i = 0; i < list.size(); i++) {
                     isCheck.put(i,false);
@@ -723,34 +721,6 @@ public class KeepOrderFragment extends BaseFragment implements View.OnClickListe
                             if(hylAmountNumModel.getData()!=null) {
                                 tv_num.setText(hylAmountNumModel.getData().getOrderNum()+"");
                                 tv_price.setText(hylAmountNumModel.getData().getOrderAmt());
-                            }
-                        }
-                    }
-                });
-    }
-
-    /**
-     * 货到付款支付接口
-     */
-    private void getDelayPay() {
-        OrderApi.getDelayPay(getContext(),ids.toString(),16)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<HylPayInfoModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(HylPayInfoModel payListModel) {
-                        if(payListModel.getCode()==1) {
-                            if(payListModel.getData()!=null) {
-
                             }
                         }
                     }

@@ -50,48 +50,48 @@
                         android:src="@mipmap/icon_address2" />
 
                     <TextView
-                        android:layout_toRightOf="@+id/iv_location"
                         android:id="@+id/tv_company"
-                        android:layout_marginLeft="@dimen/size_5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        tools:text="杭州.余杭.余杭区杭州.余杭区"
-                        android:ellipsize="end"
-                        android:maxEms="11"
-                        android:lines="1"
+                        android:layout_marginLeft="@dimen/size_5dp"
+                        android:layout_toRightOf="@+id/iv_location"
                         android:drawableRight="@mipmap/ic_arrow_right"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:maxEms="11"
                         android:textColor="#ffffff"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:text="杭州.余杭.余杭区杭州.余杭区" />
 
                     <RelativeLayout
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
                         android:id="@+id/rl_message"
                         android:layout_width="@dimen/size_60dp"
                         android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_weight="1">
 
                         <ImageView
                             android:id="@+id/homeMessage"
-                            android:layout_marginRight="@dimen/size_15dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@mipmap/ic_mine_email"  />
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/size_15dp"
+                            android:src="@mipmap/ic_mine_email" />
 
                         <TextView
-                            android:text="4"
                             android:id="@+id/tv_num"
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="-25dp"
-                            android:textColor="#FF0000"
-                            android:textSize="9dp"
-                            android:gravity="center"
-                            android:background="@drawable/bg_msg_count"
                             android:layout_toRightOf="@+id/homeMessage"
-                            android:layout_height="wrap_content" />
+                            android:background="@drawable/bg_msg_count"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="#FF0000"
+                            android:textSize="9dp" />
 
                     </RelativeLayout>
                 </RelativeLayout>
@@ -105,19 +105,20 @@
                     android:layout_marginTop="49dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/shape_goods_progress_fill"
+                    android:background="@drawable/shape_white1"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="visible">
 
                     <TextView
                         android:id="@+id/tv_search"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="1"
                         android:cursorVisible="false"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableLeft="@mipmap/icon_search"
                         android:gravity="center_vertical|center_horizontal"
                         android:hint="请输入商品名称"
                         android:textSize="15dp" />

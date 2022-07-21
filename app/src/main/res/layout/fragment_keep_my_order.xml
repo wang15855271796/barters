@@ -67,16 +67,16 @@
 
 
             <TextView
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
                 android:id="@+id/tv_pay"
-                android:layout_marginRight="@dimen/size_12dp"
-                android:text="批量付款"
-                android:textColor="#FF2925"
-                android:padding="@dimen/size_3dp"
-                android:background="@drawable/shape_red2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/size_12dp"
+                android:background="@drawable/shape_red2"
+                android:padding="@dimen/size_3dp"
+                android:text="批量付款"
+                android:textColor="#FF2925" />
 
         </RelativeLayout>
 

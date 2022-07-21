@@ -1,10 +1,16 @@
 package com.barter.hyl.app.constant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+
+import com.barter.hyl.app.activity.LoginActivity;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -14,7 +20,10 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okio.Buffer;
+import okio.BufferedSource;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -96,27 +105,15 @@ public class RestHelper {
         Interceptor commonParamsInterceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-//                //后期修改
-//                UserModel userModel = (UserModel) CommonMethod.getObject(context, UserModel.class, Const.USERMODEL);
-//                String userId = null;
-//                if (userModel != null) {
-//                    userId = userModel.getUserId();
-//                }
+
                 Request originalRequest = chain.request();
-                String stime = AppSafeHelper.getSTime();
                 HttpUrl commonUrl = originalRequest.url()
                         .newBuilder()
                         .addQueryParameter(AppConstant.APP_TYPE, "1")
-
                         .addQueryParameter(AppConstant.VERSION, AppHelper.getVersion(context))
                         .addQueryParameter(AppConstant.TOKEN, UserInfoHelper.getUserId(context))
                         .addQueryParameter(AppConstant.PHONEMODEL, AppHelper.getSystemModel())
                         .addQueryParameter(AppConstant.SYSETEMMODEL, AppHelper.getSystemModel())
-                        .addQueryParameter(AppConstant.LOCATIONADDRESS, UserInfoHelper.getProvince(context)
-                                +UserInfoHelper.getCity(context)
-                                +UserInfoHelper.getAreaName(context)
-                                +UserInfoHelper.getStreet(context)
-                        )
                         .build();
                 Request commonRequest = originalRequest.newBuilder().url(commonUrl).build();
                 Log.d("----->", commonRequest + AppConstant.TOKEN);
@@ -130,6 +127,7 @@ public class RestHelper {
                 Log.i("RestLogging", message);
             }
         });
+
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //cache拦截器
         File cacheFile = new File(context.getExternalCacheDir(), "QiaoGeCache");
@@ -144,6 +142,30 @@ public class RestHelper {
                             .build();
                 }
                 Response response = chain.proceed(request);
+
+                ResponseBody responseBody = response.body();
+                if (responseBody != null) {
+                    BufferedSource source = responseBody.source();
+                    source.request(Long.MAX_VALUE); // Buffer the entire body.
+                    Buffer buffer = source.buffer();
+
+                    try {
+
+                        String result = buffer.clone().readString(StandardCharsets.UTF_8);
+
+                        JSONObject jsonObject = new JSONObject(result);
+
+                        int code = jsonObject.getInt("code");
+                        if(code==-10001) {
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            context.startActivity(intent);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
                 if (NetWorkHelper.isNetworkAvailable(context)) {
                     int maxAge = 0 * 60;
                     // 有网络时 设置缓存超时时间0个小时
@@ -173,6 +195,7 @@ public class RestHelper {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .build();
+
         return client;
     }
 }

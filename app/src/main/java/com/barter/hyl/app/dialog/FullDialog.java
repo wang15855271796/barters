@@ -235,17 +235,19 @@ public class FullDialog extends Dialog implements View.OnClickListener {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getCartNum(CartListHylEvent cartListHylEvent) {
-        HylCartNumModel.DataBean data = cartListHylEvent.getCartNumModel().getData();
+        if(cartListHylEvent.getCartNumModel()!=null && cartListHylEvent.getCartNumModel().getData()!=null) {
+            HylCartNumModel.DataBean data = cartListHylEvent.getCartNumModel().getData();
 
-        if(data.getProdNum()>0) {
-            tv_price_total.setText(data.getAmount());
-            tv_num.setText(data.getProdNum()+"");
-            tv_num.setVisibility(View.VISIBLE);
-            tv_free_desc.setText("满"+data.getSendAmount()+"元免配送费");
-        }else {
-            tv_free_desc.setText("未选购商品");
-            tv_num.setVisibility(View.GONE);
-            tv_price_total.setText(data.getAmount());
+            if(data.getProdNum()>0) {
+                tv_price_total.setText(data.getAmount());
+                tv_num.setText(data.getProdNum()+"");
+                tv_num.setVisibility(View.VISIBLE);
+                tv_free_desc.setText("满"+data.getSendAmount()+"元免配送费");
+            }else {
+                tv_free_desc.setText("未选购商品");
+                tv_num.setVisibility(View.GONE);
+                tv_price_total.setText(data.getAmount());
+            }
         }
     }
 

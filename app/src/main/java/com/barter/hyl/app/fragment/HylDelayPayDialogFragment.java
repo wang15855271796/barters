@@ -23,23 +23,28 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alipay.sdk.app.PayResultActivity;
 import com.alipay.sdk.app.PayTask;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.DelayPayResultActivity;
 import com.barter.hyl.app.activity.DeliverPayResult;
+import com.barter.hyl.app.activity.HylOrderDetailActivity;
 import com.barter.hyl.app.adapter.HylPayListAdapter;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.constant.AppConstant;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.WeChatPayEvent;
 import com.barter.hyl.app.event.WeChatUnPayEvent;
 import com.barter.hyl.app.model.HylPayInfoModel;
 import com.barter.hyl.app.model.HylPayListModel;
+import com.barter.hyl.app.utils.DateUtil;
 import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chinaums.pppay.unify.UnifyPayPlugin;
 import com.chinaums.pppay.unify.UnifyPayRequest;
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -61,6 +66,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * Created by ${王涛} on 2021/9/17
+ * （订单列表页面）
  */
 public class HylDelayPayDialogFragment extends DialogFragment {
 
@@ -74,27 +80,21 @@ public class HylDelayPayDialogFragment extends DialogFragment {
     String orderId;
     String orderDeliveryType;
     ImageView iv_closes;
-    String memo;
-    String giftNo;
     TextView tv_desc;
     LinearLayout ll_special_desc;
     List<String>ids = new ArrayList<>();
     String total;
-//    无关
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         total = bundle.getString("total");
         ids = (List<String>) bundle.getSerializable("ids");
-//        ids = bundle.getString("ids");
-//        orderDeliveryType = bundle.getString("orderDeliveryType");
         // 使用不带Theme的构造器, 获得的dialog边框距离屏幕仍有几毫米的缝隙。
         Dialog dialog = new Dialog(getActivity(), R.style.BottomDialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置Content前设定
         dialog.setContentView(R.layout.fragment_pay_detail_hyl);
         dialog.setCanceledOnTouchOutside(true); // 外部点击取消
-        getPayList();
         // 设置宽度为屏宽, 靠近屏幕底部。
         final Window window = dialog.getWindow();
         window.setWindowAnimations(R.style.AnimBottom);
@@ -116,7 +116,6 @@ public class HylDelayPayDialogFragment extends DialogFragment {
         btnPay = (Button) dialog.findViewById(R.id.btn_confirm_pay);
         rePayWay.setOnClickListener(listener);
         btnPay.setOnClickListener(listener);
-//        String total = total.substring(0, 1);
         tv_amount.setText(total);
         iv_close.setOnClickListener(listener);
         iv_closes.setOnClickListener(listener);
@@ -126,6 +125,8 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                 dismiss();
             }
         });
+
+        getPayList(ids.toString());
         return dialog;
     }
 
@@ -173,7 +174,19 @@ public class HylDelayPayDialogFragment extends DialogFragment {
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        if(outTradeNo!=null&&SharedPreferencesUtil.getString(getActivity(),"payKey").equals("4")) {
+        if(outTradeNo!=null && jumpWx==1) {
+            dismiss();
+//            Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
+//            intent.putExtra(AppConstant.ORDERID,orderId);
+//            startActivity(intent);
+//            getActivity().finish();
+        }
+
+        if(outTradeNo!=null&&jumpWx==0) {
+            Intent intent = new Intent(getActivity(), DeliverPayResult.class);
+            intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
+            intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
+            intent.putExtra(AppConstant.ORDERID, orderId);
 //            getPayResult(outTradeNo);
         }
     }
@@ -330,8 +343,9 @@ public class HylDelayPayDialogFragment extends DialogFragment {
     HylPayListAdapter hylPayListAdapter;
     //支付方式
     int payChannel;
-    private void getPayList() {
-        OrderApi.getPayWay(getActivity(),1)
+    HylPayListModel.DataBean dataBean;
+    private void getPayList(String orderId) {
+        OrderApi.getPayWay(getActivity(),1,orderId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylPayListModel>() {
@@ -350,11 +364,14 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                             if(hylPayListModel.getData()!=null) {
                                 list.clear();
                                 list.addAll(hylPayListModel.getData());
+
                                 tv_balance.setText(hylPayListModel.getData().get(0).getPayChannelName());
                                 hylPayListAdapter = new HylPayListAdapter(R.layout.item_pay_list_hyl,list,total);
                                 recyclerView.setAdapter(hylPayListAdapter);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 payChannel = hylPayListModel.getData().get(0).getPayChannel();
+                                jumpWx = hylPayListModel.getData().get(0).getJumpWx();
+                                dataBean = hylPayListModel.getData().get(0);
                                 for (int i = 0; i < hylPayListModel.getData().size(); i++) {
                                     if(hylPayListModel.getData().get(i).getPayChannel()==17) {
                                         if(hylPayListModel.getData().get(i).getDesc()!=null|| hylPayListModel.getData().get(i).getDesc()!="") {
@@ -379,6 +396,22 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                                         rePayDetail.setVisibility(View.VISIBLE);
                                         LinPayWay.startAnimation(slide_left_to_right);
                                         LinPayWay.setVisibility(View.GONE);
+
+                                        if(hylPayListModel.getData().get(position).getPayChannel()==2) {
+                                            //支付宝
+                                            payChannel = 2;
+                                            jumpWx = hylPayListModel.getData().get(position).getJumpWx();
+                                            dataBean = hylPayListModel.getData().get(position);
+                                        }else if(hylPayListModel.getData().get(position).getPayChannel()==3){
+                                            //微信
+                                            payChannel = 3;
+                                            dataBean = hylPayListModel.getData().get(position);
+                                            jumpWx = hylPayListModel.getData().get(position).getJumpWx();
+                                        }else if(hylPayListModel.getData().get(position).getPayChannel()==17){
+                                            payChannel = 17;
+                                            dataBean = hylPayListModel.getData().get(position);
+                                            jumpWx = hylPayListModel.getData().get(position).getJumpWx();
+                                        }
                                     }
                                 });
                             }
@@ -392,6 +425,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
     /**
      *获取支付信息
      */
+    int jumpWx;
     private void getPayInfo() {
         OrderApi.getDelayPay(getActivity(),ids.toString(),payChannel)
                 .subscribeOn(Schedulers.io())
@@ -414,14 +448,28 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                                 if (payChannel == 2&& hylPayInfoModel.getData().getPayType()==2) {
                                     //支付宝支付 已经改好了
                                     SharedPreferencesUtil.saveString(getActivity(),"payKey","2");
-                                    Log.d("cdesfsdfe.....",hylPayInfoModel.getData().getPayToken()+"s");
                                     aliPay(hylPayInfoModel.getData().getPayToken());
-                                } else if (payChannel == 3) {
+                                } else if (payChannel == 3 && jumpWx==1) {
+//                                    //微信支付
+//                                    SharedPreferencesUtil.saveString(getContext(),"payKey","3");
+//                                    weChatPay(hylPayInfoModel.getData().getPayToken());
+                                    //微信支付(小程序)1
+                                    if(DateUtil.isWeixin(getActivity())) {
+                                        SharedPreferencesUtil.saveString(getActivity(),"payKey","3");
+                                        Intent lan = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+                                        Intent t2 = new Intent(Intent.ACTION_MAIN);
+                                        t2.addCategory(Intent.CATEGORY_LAUNCHER);
+                                        t2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        t2.setComponent(lan.getComponent());
+                                        startActivity(t2);
+                                        weChatPay2(dataBean);
+                                    }
+                                }else if(payChannel == 3 && jumpWx==0) {
                                     //微信支付
-//                                    ToastUtil.showSuccessMsg(getActivity(),"暂未开通请使用支付宝");
-                                    SharedPreferencesUtil.saveString(getActivity(),"payKey","3");
-                                    weChatPay(hylPayInfoModel.getData().getPayToken());
-
+                                    if(DateUtil.isWeixin(getActivity())) {
+                                        SharedPreferencesUtil.saveString(getActivity(),"payKey","3");
+                                        weChatPay(hylPayInfoModel.getData().getPayToken());
+                                    }
                                 }else if(hylPayInfoModel.getData().getPayType()==14&&payChannel == 2) {
                                     //银联
                                     SharedPreferencesUtil.saveString(getActivity(),"payKey","4");
@@ -450,6 +498,25 @@ public class HylDelayPayDialogFragment extends DialogFragment {
     }
 
 
+    private void weChatPay2(HylPayListModel.DataBean dataBean) {
+        SharedPreferencesUtil.saveString(getActivity(),"pays","0");
+        String appId = "wxf62d1bee757cd65a"; // 填移动应用(App)的 AppId，非小程序的 AppID
+        IWXAPI api = WXAPIFactory.createWXAPI(getActivity(), appId);
+        String userId = UserInfoHelper.getUserId(getActivity());
+        WXLaunchMiniProgram.Req req = new WXLaunchMiniProgram.Req();
+        req.userName = dataBean.getUserName(); // 填小程序原始id
+        req.path = dataBean.getPath();
+        ////拉起小程序页面的可带参路径，不填默认拉起小程序首页，对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"。
+        if(dataBean.getType().equals("dev")) {
+            //体验
+            req.miniprogramType =  WXLaunchMiniProgram.Req.MINIPROGRAM_TYPE_PREVIEW;// 可选打开 开发版，体验版和正式版
+        }else {
+            //正式
+            req.miniprogramType =  WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE;// 可选打开 开发版，体验版和正式版
+        }
+
+        api.sendReq(req);
+    }
 
 
 

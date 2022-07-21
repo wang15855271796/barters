@@ -46,10 +46,12 @@ import com.barter.hyl.app.model.VideoHolder;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.DetailFlowLayout;
 import com.barter.hyl.app.view.FingerFrameLayout;
+import com.barter.hyl.app.view.MyScrollView;
 import com.barter.hyl.app.view.NumIndicator;
 import com.barter.hyl.app.view.PhotoViewAdapter;
 import com.barter.hyl.app.view.PhotoViewPager;
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.AppBarLayout;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.youth.banner.Banner;
 import com.youth.banner.config.IndicatorConfig;
@@ -149,6 +151,12 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     TextView tv_team;
     @BindView(R.id.ll_coupon)
     LinearLayout ll_coupon;
+    @BindView(R.id.scroll)
+    MyScrollView scroll;
+    @BindView(R.id.rl_title)
+    RelativeLayout rl_title;
+    @BindView(R.id.iv_back1)
+    ImageView iv_back1;
     String mainId;
     private List<PicVideoModel.DatasBean> picVideo = new ArrayList<>();
     @Override
@@ -162,11 +170,29 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.common_detail_activity_hyl);
     }
 
+    int fadingHeight = 375;
     @Override
     public void setViewData() {
         EventBus.getDefault().register(this);
         getDetail(mainId,this);
         getCartNum();
+
+        scroll.setScrollChangeListener(new MyScrollView.ScrollChangedListener() {
+            @Override
+            public void onScrollChangedListener(int x, int y, int oldX, int oldY) {
+
+                if (y > fadingHeight) {
+                    y = fadingHeight; // 当滑动到指定位置之后设置颜色为纯色，之前的话要渐变---实现下面的公式即可
+                } else if (y < 0) {
+                    y = 0;
+                } else {
+                }
+
+                float scale = (float) y / 255;
+                rl_title.setAlpha(scale);
+            }
+        });
+        rv_image.setNestedScrollingEnabled(false);
 
     }
 
@@ -176,6 +202,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     public void setClickListener() {
         iv_collection.setOnClickListener(this);
         iv_back.setOnClickListener(this);
+        iv_back1.setOnClickListener(this);
         rl_desc.setOnClickListener(this);
         ll_comment.setOnClickListener(this);
         tv_add_car.setOnClickListener(this);
@@ -595,6 +622,10 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.iv_back:
+                finish();
+                break;
+
+            case R.id.iv_back1:
                 finish();
                 break;
 

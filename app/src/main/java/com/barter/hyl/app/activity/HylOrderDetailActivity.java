@@ -238,6 +238,8 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
     RelativeLayout rl_remain_pay;
     @BindView(R.id.rl_payed)
     RelativeLayout rl_payed;
+//    @BindView(R.id.tv_status)
+//    TextView tv_status;
     String returnMainId = "";
     int status = 0;
     HylReturnAdapter hylReturnAdapter;
@@ -259,15 +261,6 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
     public void setViewData() {
         tv_title.setText("订单详情");
         tv_order_num.setText("订单编号："+orderId);
-        //未支付，15分钟后跳转到取消订单
-//        orderTimerView.setTimeout(new Snap.Timeout() {
-//            @Override
-//            public void getStop() {
-//                if (orderStatusRequest == 1) {
-//                    cancelOrder(orderId);
-//                }
-//            }
-//        });
 
         adapter = new HylOrderDetailAdapter(R.layout.order_detail,list);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -286,9 +279,6 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
                 startActivity(intent);
             }
         });
-
-//        list.clear();
-
     }
 
 
@@ -385,7 +375,7 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
         tv_amount.setText(data.getProdNum()+"");
         tvNewOrderCommodityAmount.setText("￥" + data.getProdAmt());
         tvNewOrderDistributionFeePrice.setText("￥" + data.getDeliveryFee());
-
+//        tv_status.setText(data.getOrderStatusStr());
         if(info.getData().getTitle()!=null) {
             tvOrderContent.setVisibility(View.VISIBLE);
             tvOrderContent.setText(info.getData().getTitle());

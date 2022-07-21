@@ -88,20 +88,20 @@
                 </LinearLayout>
 
                 <TextView
-                    android:text="立即兑换"
                     android:id="@+id/tv_change"
-                    android:textSize="@dimen/sp_12"
-                    android:textColor="#ffffff"
-                    android:paddingBottom="@dimen/dp_4"
-                    android:paddingTop="@dimen/dp_4"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingRight="@dimen/dp_10"
-                    android:background="@drawable/shape_red_two"
-                    android:layout_marginRight="@dimen/size_20dp"
-                    android:layout_marginTop="@dimen/size_15dp"
-                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/size_15dp"
+                    android:layout_marginRight="@dimen/size_20dp"
+                    android:background="@drawable/shape_red1"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_4"
+                    android:paddingRight="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_4"
+                    android:text="立即兑换"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
                     android:text="立即使用"

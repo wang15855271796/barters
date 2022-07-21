@@ -58,9 +58,9 @@ public class CascadingMenuPopWindow extends PopupWindow {
 		}
 
 		@Override
-		public void getValues(HylAreaModel.DataBean.CityListBean area) {
+		public void getValues(HylAreaModel.DataBean.CityListBean area,int pos) {
 			if(menuViewOnSelectListener!=null){
-				menuViewOnSelectListener.getValues(area);
+				menuViewOnSelectListener.getValues(area,pos);
 				dismiss();
 			}
 		}

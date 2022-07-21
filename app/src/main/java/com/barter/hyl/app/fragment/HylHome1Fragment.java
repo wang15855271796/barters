@@ -120,8 +120,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     TextView tv_team_small;
     @BindView(R.id.tv_full_small)
     TextView tv_full_small;
-    @BindView(R.id.tv_search)
-    TextView tv_search;
     @BindView(R.id.rl_message)
     RelativeLayout rl_message;
     @BindView(R.id.ll_full)
@@ -576,7 +574,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     @Override
     public void setClickListener() {
         tv_notice_desc.setOnClickListener(this);
-        tv_search.setOnClickListener(this);
+        ll_search.setOnClickListener(this);
         rl_message.setOnClickListener(this);
         tv_company.setOnClickListener(this);
         iv_location.setOnClickListener(this);
@@ -652,7 +650,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
 //                }, true);
                 break;
 
-            case R.id.tv_search:
+            case R.id.ll_search:
                 Intent intents = new Intent(mActivity,HylSearchStartActivity.class);
                 intents.putExtra("test1",2);
                 startActivity(intents);

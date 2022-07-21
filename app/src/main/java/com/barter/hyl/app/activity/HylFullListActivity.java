@@ -110,7 +110,6 @@ public class HylFullListActivity extends BaseActivity implements View.OnClickLis
         scrollView.setScrollChangeListener(new MyScrollView.ScrollChangedListener() {
             @Override
             public void onScrollChangedListener(int x, int y, int oldX, int oldY) {
-                Log.d("sfdsfsfs...",y+"aa");
                 if (y > fadingHeight) {
                     y = fadingHeight; // 当滑动到指定位置之后设置颜色为纯色，之前的话要渐变---实现下面的公式即可
 

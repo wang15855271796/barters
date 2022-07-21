@@ -25,6 +25,9 @@ public class ChooseCityPopWindow extends PopupWindow {
         super(mActivity);
         this.context=mActivity;
         this.areas=listCity;
+        setOutsideTouchable(true);
+        setFocusable(true);
+        setTouchable(true);
         init();
     }
 
@@ -53,10 +56,10 @@ public class ChooseCityPopWindow extends PopupWindow {
         }
 
         @Override
-        public void getValues(HylAreaModel.DataBean.CityListBean area) {
+        public void getValues(HylAreaModel.DataBean.CityListBean area,int pos) {
             if(menuViewOnSelectListener!=null){
-                menuViewOnSelectListener.getValues(area);
-                dismiss();
+                menuViewOnSelectListener.getValues(area,pos);
+//                dismiss();
             }
         }
 

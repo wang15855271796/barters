@@ -235,28 +235,6 @@ public class HylAllOrderFragment extends BaseFragment {
         });
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (getUserVisibleHint()) {
-//            getMyOrderList();
-//        }
-//    }
-//
-//    //重新进来的时候自动刷新fragment
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if ((isVisibleToUser && isResumed())) {
-//            onResume();
-//        } else if (!isVisibleToUser) {
-//            onPause();
-//
-//        }
-//    }
-
-
-
     /**
      * 确认收货订单
      * @param orderId
@@ -498,18 +476,6 @@ public class HylAllOrderFragment extends BaseFragment {
                                 mPtr.refreshComplete();
                                 hylMyOrderListModels = hylMyOrderListModel;
                                 updateOrderList();
-
-//                                list.addAll(hylMyOrderListModel.getData().getList());
-//                                hylMyOrderListAdapter.notifyDataSetChanged();
-
-//                                if (hylMyOrderListModel.getData().isHasNextPage()) {
-//                                    //有下一页数据
-//                                    hylMyOrderListAdapter.loadMoreComplete();
-//                                } else {
-//                                    //没有下一页数据了
-//                                    hylMyOrderListAdapter.loadMoreEnd();
-//                                }
-
                             }
                         }else {
                             ToastUtil.showSuccessMsg(mActivity, hylMyOrderListModel.getMessage());

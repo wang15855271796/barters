@@ -62,7 +62,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ${王涛} on 2021/9/2
  */
-public class HylReturnGoodActivity extends Base1Activity {
+public class HylReturnGoodActivity extends Base1Activity implements View.OnClickListener {
 
     private String orderId;
     private String orderStatus;
@@ -157,9 +157,9 @@ public class HylReturnGoodActivity extends Base1Activity {
 
     @Override
     public void setClickEvent() {
-        mTvSelectReason.setOnClickListener(noDoubleClickListener);
-        tv_post_order.setOnClickListener(noDoubleClickListener);
-        iv_back.setOnClickListener(noDoubleClickListener);
+        mTvSelectReason.setOnClickListener(this);
+        tv_post_order.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
     }
 
     double f1;
@@ -256,30 +256,6 @@ public class HylReturnGoodActivity extends Base1Activity {
         mRyOrderDetail.setItemViewCacheSize(500);
 
     }
-
-
-    private NoDoubleClickListener noDoubleClickListener = new NoDoubleClickListener() {
-        @Override
-        public void onNoDoubleClick(View view) {
-            switch (view.getId()) {
-                case R.id.tv_select_reason:
-                    showReturnWay(mDetailModel);
-                    break;
-
-                case R.id.tv_post_order:
-                    sendMgs();
-                    if (icFirst) {
-                        if (mTvSelectReason.getText().toString() != null) {
-
-                        }
-                    }
-                    break;
-
-                case R.id.iv_back:
-                    finish();
-            }
-        }
-    };
 
     protected void setTranslucentStatus() {
         // 5.0以上系统状态栏透明
@@ -632,4 +608,24 @@ public class HylReturnGoodActivity extends Base1Activity {
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_select_reason:
+                showReturnWay(mDetailModel);
+                break;
+
+            case R.id.tv_post_order:
+                sendMgs();
+                if (icFirst) {
+                    if (mTvSelectReason.getText().toString() != null) {
+
+                    }
+                }
+                break;
+
+            case R.id.iv_back:
+                finish();
+        }
+    }
 }

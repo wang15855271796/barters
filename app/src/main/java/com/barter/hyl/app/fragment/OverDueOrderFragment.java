@@ -575,12 +575,9 @@ public class OverDueOrderFragment extends BaseFragment implements View.OnClickLi
                             if(hylMyOrderListModel.getData()!=null) {
                                 mPtr.refreshComplete();
                                 hylMyOrderListModels = hylMyOrderListModel;
-
-//                                list.addAll(hylMyOrderListModel.getData().getList());
-//                                hylMyOrderListAdapter.notifyDataSetChanged();
                                 updateOrderList();
                                 if(hylMyOrderListModel.getData().getList().size()>0) {
-                                    rl_keep_order.setVisibility(View.GONE);
+                                    rl_keep_order.setVisibility(View.VISIBLE);
                                 }else {
                                     rl_keep_order.setVisibility(View.GONE);
                                 }

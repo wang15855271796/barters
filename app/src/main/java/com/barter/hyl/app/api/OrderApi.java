@@ -332,11 +332,11 @@ public class OrderApi {
     public interface PayWayService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Pay_List)
-        Observable<HylPayListModel> setParams(@Field("flag") int flag);
+        Observable<HylPayListModel> setParams(@Field("flag") int flag,@Field("orderId") String orderId);
     }
 
-    public static Observable<HylPayListModel> getPayWay(Context context, int flag) {
-        Observable<HylPayListModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(PayWayService.class).setParams(flag);
+    public static Observable<HylPayListModel> getPayWay(Context context, int flag,String orderId) {
+        Observable<HylPayListModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(PayWayService.class).setParams(flag,orderId);
         return loginModelObservable;
     }
 

@@ -72,6 +72,7 @@ public class HylPayInfoModel {
         private String payToken;
         private int payType;
 
+
         public String getOutTradeNo() {
             return outTradeNo;
         }

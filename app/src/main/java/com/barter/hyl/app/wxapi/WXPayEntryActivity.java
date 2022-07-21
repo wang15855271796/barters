@@ -22,20 +22,20 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private static final String TAG = WXPayEntryActivity.class.getSimpleName();
     IWXAPI api;
-
+//              wxf62d1bee757cd65a
+//            wxbc18d7b8fee86977
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.pay_result);
         api = WXAPIFactory.createWXAPI(this, "wxf62d1bee757cd65a");
-       api.handleIntent(getIntent(), this);
+        api.handleIntent(getIntent(), this);
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-       api.handleIntent(intent, this);
+        api.handleIntent(intent, this);
     }
 
     @Override
@@ -46,8 +46,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             int code = resp.errCode;
-//            String errStr = resp.errStr;
-//            Log.d("dsgfefff.....",errStr);
             switch (code) {
                 case 0:
                     AppHelper.showMsg(this, "支付成功");

@@ -29,17 +29,14 @@ import java.util.List;
  * Created by ${王涛} on 2021/1/8
  */
 public class ChooseViews extends LinearLayout {
-    private static final String TAG = CascadingMenuView.class.getSimpleName();
     // 三级菜单选择后触发的接口，即最终选择的内容
     private CascadingMenuViewOnSelectListener mOnSelectListener;
 
     // 每次选择的子菜单内容
     private List<HylAreaModel.DataBean.CityListBean> secondItem = new ArrayList<>();
     private ArrayList<HylAreaModel.DataBean> menuItem;
-    private Activity context;
     private ListView firstMenuListView;
     private ListView secondMenuListView;
-    private ListView thirdMenuListView;
     private MenuItemsAdapter firstMenuListViewAdapter;
     AVLoadingIndicatorView lav_activity_loading;
     private MenuSecondItemAdapter secondMenuListViewAdapter;
@@ -53,14 +50,10 @@ public class ChooseViews extends LinearLayout {
     public ChooseViews(Activity context, ArrayList<HylAreaModel.DataBean> menuList) {
         super(context);
         this.menuItem = menuList;
-        this.context = context;
         init(context);
     }
 
-    String city;
-
     private void init(final Activity context) {
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_regionss, this, true);
         lav_activity_loading = findViewById(R.id.lav_activity_loading);
@@ -90,6 +83,10 @@ public class ChooseViews extends LinearLayout {
         firstMenuListViewAdapter.setTextSize(17);
         firstMenuListViewAdapter.setSelectedPositionNoNotify(firstPosition, menuItem);
         firstMenuListView.setAdapter(firstMenuListViewAdapter);
+        View headView = inflater.inflate(R.layout.head_view,null);
+//        firstMenuListView.addHeaderView(headView);
+//        secondMenuListView.addHeaderView(headView);
+
         firstMenuListViewAdapter.setOnItemClickListener(new MenuItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -109,6 +106,7 @@ public class ChooseViews extends LinearLayout {
         secondItem = menuItem.get(firstPosition).getCityList();
         secondMenuListViewAdapter = new MenuSecondItemAdapter(context, secondItem, R.drawable.choose_eara_item_selector, R.drawable.choose_eara_item_selector);
         secondMenuListViewAdapter.setTextSize(15);
+//        secondMenuListViewAdapter
         secondMenuListViewAdapter.setSelectedPositionNoNotify(secondPosition, secondItem);
         secondMenuListView.setAdapter(secondMenuListViewAdapter);
 
@@ -116,9 +114,8 @@ public class ChooseViews extends LinearLayout {
 
             @Override
             public void onItemClick(View view, final int position) {
-                Log.d("efsfefe.....",position+"aaaaaa");
                 if (mOnSelectListener != null) {
-                    mOnSelectListener.getValues(secondItem.get(position));
+                    mOnSelectListener.getValues(secondItem.get(position),position);
                 }
             }
         });

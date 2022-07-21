@@ -84,13 +84,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     TextView tv_mine;
     @BindView(R.id.tv_number)
     TextView tv_number;
+    @BindView(R.id.iv_home_un)
+    ImageView iv_home_un;
+    @BindView(R.id.tv_home_un)
+    TextView tv_home_un;
 //    String[] params = { Manifest.permission.ACCESS_COARSE_LOCATION};
     private static final String TAB_HOME = "tab_home";
     private static final String TAB_MARKET = "tab_market";
     private static final String TAB_CART = "tab_cart";
     private static final String TAB_Info = "tab_info";
     private static final String TAB_MINE = "tab_mine";
-    private MyLocationListener myListener = new MyLocationListener();
+//    private MyLocationListener myListener = new MyLocationListener();
     public LocationClient mLocationClient = null;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
@@ -125,31 +129,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         SDKInitializer.initialize(getApplicationContext());
         EventBus.getDefault().register(this);
 
-        mLocationClient = new LocationClient(getApplicationContext());
+//        mLocationClient = new LocationClient(getApplicationContext());
         //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);
+//        mLocationClient.registerLocationListener(myListener);
         EventBus.getDefault().post(new InitEventBus());
 
         //注册监听函数
-        LocationClientOption option = new LocationClientOption();
-
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
-        option.setIsNeedAddress(true);
+//        LocationClientOption option = new LocationClientOption();
+//
+//        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+//        option.setIsNeedAddress(true);
 //可选，是否需要地址信息，默认为不需要，即参数为false
 //如果开发者需要获得当前点的地址信息，此处必须为true
-        option.setOpenGps(true);
+//        option.setOpenGps(true);
 //可选，设置是否使用gps，默认false
 //使用高精度和仅用设备两种定位模式的，参数必须设置为true
 
-        option.setLocationNotify(true);
+//        option.setLocationNotify(true);
 //可选，设置是否当GPS有效时按照1S/1次频率输出GPS结果，默认false
 
-        option.setIgnoreKillProcess(true);
-        mLocationClient.setLocOption(option);
-
-        option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
+//        option.setIgnoreKillProcess(true);
+//        mLocationClient.setLocOption(option);
+//
+//        option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
 
 //        mLocationClient.start();
+        tv_home_un.setVisibility(View.GONE);
+        iv_home_un.setVisibility(View.GONE);
+        iv_home.setVisibility(View.VISIBLE);
         switchTab(TAB_HOME);
         getCartNum();
     }
@@ -174,7 +181,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }else {
                     goLogin();
                 }
-
+                tv_home_un.setVisibility(View.GONE);
+                iv_home_un.setVisibility(View.GONE);
+                iv_home.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ll_goods:
@@ -183,7 +192,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }else {
                     goLogin();
                 }
-
+                tv_home_un.setVisibility(View.VISIBLE);
+                iv_home_un.setVisibility(View.VISIBLE);
+                iv_home.setVisibility(View.GONE);
                 break;
 
             case R.id.ll_cart:
@@ -192,7 +203,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }else {
                     goLogin();
                 }
-
+                tv_home_un.setVisibility(View.VISIBLE);
+                iv_home_un.setVisibility(View.VISIBLE);
+                iv_home.setVisibility(View.GONE);
                 break;
 
             case R.id.ll_info:
@@ -201,7 +214,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }else {
                     goLogin();
                 }
-
+                tv_home_un.setVisibility(View.VISIBLE);
+                iv_home_un.setVisibility(View.VISIBLE);
+                iv_home.setVisibility(View.GONE);
                 break;
 
             case R.id.ll_mine:
@@ -210,6 +225,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }else {
                     goLogin();
                 }
+                tv_home_un.setVisibility(View.VISIBLE);
+                iv_home_un.setVisibility(View.VISIBLE);
+                iv_home.setVisibility(View.GONE);
                 break;
         }
     }
@@ -327,10 +345,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
-            UserInfoHelper.saveProvince(mContext,location.getProvince());
-            UserInfoHelper.saveCity(mContext,location.getCity());
-            UserInfoHelper.saveAreaName(mContext,location.getDistrict());
-            UserInfoHelper.saveStreet(mContext,location.getStreet());
+//            UserInfoHelper.saveProvince(mContext,location.getProvince());
+//            UserInfoHelper.saveCity(mContext,location.getCity());
+//            UserInfoHelper.saveAreaName(mContext,location.getDistrict());
+//            UserInfoHelper.saveStreet(mContext,location.getStreet());
         }
     }
 

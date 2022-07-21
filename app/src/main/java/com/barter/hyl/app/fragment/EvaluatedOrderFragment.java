@@ -164,25 +164,6 @@ public class EvaluatedOrderFragment extends BaseFragment {
 
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (getUserVisibleHint()) {
-//            getMyOrderList();
-//        }
-//    }
-//
-//    //重新进来的时候自动刷新fragment
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if ((isVisibleToUser && isResumed())) {
-//            onResume();
-//        } else if (!isVisibleToUser) {
-//            onPause();
-//
-//        }
-//    }
 
     private void showConfirmOrderDialog(final String orderId) {
         final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.DialogStyle).create();
@@ -238,8 +219,6 @@ public class EvaluatedOrderFragment extends BaseFragment {
                     }
                 });
     }
-
-
 
     /**
      * 支付订单

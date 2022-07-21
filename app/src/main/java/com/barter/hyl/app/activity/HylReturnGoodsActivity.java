@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -212,25 +214,6 @@ public class HylReturnGoodsActivity extends BaseActivity implements View.OnClick
         jsonArray = new JSONArray();
 
         JSONArray jsonArray = new JSONArray();
-//        for (int i = 0; i < prodsList.size(); i++) {
-//            JSONObject jsonObject = new JSONObject();
-//            try {
-//                jsonObject.put("businessId", prodsList.get(i).getBusinessId());
-//                jsonObject.put("businessType", prodsList.get(i).getBusinessType());
-//                for (int j = 0; j < prodsList.get(i).getDetails().size(); j++) {
-//                    jsonObject.put("detailId", prodsList.get(i).getDetails().get(j).getDetailId());
-//                    jsonObject.put("num", prodsList.get(i).getDetails().get(j).getNum());
-//                    for (int k = 0; k < prodsList.get(i).getDetails().get(j).getUnits().size(); k++) {
-//                        jsonObject.put("unitId", prodsList.get(i).getDetails().get(j).getUnits().get(k).getUnitId());
-//                    }
-//                }
-//                jsonArray.put(jsonObject);
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
         for (int i = 0; i < hylReturnGoodModels.getData().getProds().size(); i++) {
             HylReturnGoodModel.DataBean.ProdsBean prodsBean = hylReturnGoodModels.getData().getProds().get(i);
             JSONObject jsonObject = new JSONObject();

@@ -70,7 +70,7 @@
             android:gravity="center"
             android:layout_marginLeft="@dimen/size_15dp"
             android:layout_marginRight="@dimen/size_15dp"
-            android:background="@drawable/shape_orange"
+            android:background="@drawable/shape_orange2"
             android:orientation="horizontal">
 
             <TextView

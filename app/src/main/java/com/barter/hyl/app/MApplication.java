@@ -25,7 +25,7 @@ public class MApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-        HookUtils.hookMacAddress("Z-Application",getApplicationContext());
+//        HookUtils.hookMacAddress("Z-Application",getApplicationContext());
         EventBus.getDefault().register(this);
     }
 

@@ -9,6 +9,6 @@ import com.barter.hyl.app.model.HylAreaModel;
  */
 public interface CascadingMenuViewOnSelectListener {
 	void getValue(HylAreaModel.DataBean area);
-	void getValues(HylAreaModel.DataBean.CityListBean area);
+	void getValues(HylAreaModel.DataBean.CityListBean area,int pos);
 	void cloese();
 }

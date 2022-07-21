@@ -74,7 +74,42 @@ public class HylPayListModel {
         private String desc;
         private int limitType;
         private AmtVoBean amtVo;
+        private String userName;
+        private int jumpWx;
+        private String path;
+        private String type;
 
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        public int getJumpWx() {
+            return jumpWx;
+        }
+
+        public void setJumpWx(int jumpWx) {
+            this.jumpWx = jumpWx;
+        }
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
         public AmtVoBean getAmtVo() {
             return amtVo;
         }

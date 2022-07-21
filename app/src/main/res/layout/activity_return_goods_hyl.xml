@@ -223,14 +223,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:gravity="right"
-                                android:drawablePadding="@dimen/size_8dp"
                                 android:layout_marginTop="@dimen/size_15dp"
-                                android:paddingRight="@dimen/size_14dp"
                                 android:layout_marginRight="@dimen/size_14dp"
-                                android:hint="点击选择原因（必选）"
                                 android:drawableRight="@mipmap/ic_qg_bill_right"
+                                android:drawablePadding="@dimen/size_8dp"
+                                android:gravity="right"
+                                android:hint="点击选择原因（必选）"
                                 android:padding="6dp"
+                                android:paddingRight="@dimen/size_14dp"
                                 android:textSize="@dimen/size_14dp" />
 
 

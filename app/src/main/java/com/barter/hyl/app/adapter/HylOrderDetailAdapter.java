@@ -53,7 +53,6 @@ public class HylOrderDetailAdapter extends BaseQuickAdapter<HylOrderDetailModel.
 
         if(item.getProdFlag()!=null && !item.getProdFlag().equals("")) {
             Glide.with(mContext).load(item.getProdFlag()).into(imageIcon);
-            Log.d("fdgdfgrds....","asaa");
         }
     }
 }

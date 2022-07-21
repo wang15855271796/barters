@@ -258,29 +258,6 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-    // 级联菜单选择回调接口
-    class NMCascadingMenuViewOnSelectListener implements CascadingMenuViewOnSelectListener {
-        @Override
-        public void getValue(HylAreaModel.DataBean area) {
-            provinceName = area.getProvinceName();
-            provinceCode = area.getProvinceCode();
-        }
-
-        @Override
-        public void getValues(HylAreaModel.DataBean.CityListBean area) {
-            backgroundAlpha(1);
-            cityName = area.getCityName();
-            tv_area.setText(provinceName+cityName);
-            cityCode = area.getCityCode();
-        }
-
-        @Override
-        public void cloese() {
-            backgroundAlpha(1);
-        }
-
-    }
-
 
     private ShopImageViewAdapter.onAddPicClickListener onAddPicClickListener = new ShopImageViewAdapter.onAddPicClickListener() {
 
@@ -408,12 +385,10 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                         if (baseModel.success) {
                             returnPic = "";
                             if (baseModel.data != null) {
-                                Log.d("sdfqewadfs....",baseModel.message+"ccc");
                                 String[] data = baseModel.data;
                                 Gson gson = new Gson();
                                 returnPic = gson.toJson(data);
                             }
-                            Log.i("wwwwbbb", "onNext: " + returnPic);
                             //  sendMgs();
                         } else {
                             AppHelper.showMsg(mContext, baseModel.message);
@@ -450,7 +425,6 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
     public void getTotal(DeletePicEvent deletePicEvent) {
         picList.remove(deletePicEvent.getPos());
         for (int i = 0; i < picList.size(); i++) {
-            Log.d("sdfadfeas......",picList.get(i)+"---"+filesToMultipartBodyParts(picList));
         }
 
         upImage(filesToMultipartBodyParts(picList));

@@ -70,8 +70,6 @@ public class HylReturnGoodDetailTwoAdapter extends RecyclerView.Adapter<HylRetur
 
     @Override
     public void onBindViewHolder(@NonNull final ReturnOrderViewHolder holder, int position) {
-        double totalPrice = 0.00;
-
         //必须局部变量，不然editview使用的时候会复用
         //规格
         List<HylReturnOrderDetailModel.DataBean.ProdsBean.DetailsBean> mListSpec = new ArrayList<>();
@@ -97,8 +95,6 @@ public class HylReturnGoodDetailTwoAdapter extends RecyclerView.Adapter<HylRetur
         });
 
         holder.mRyNum.setLayoutManager(new GridLayoutManager(context, 1));
-
-
         holder.mRyNum.setAdapter(mHylReturnNumAdapter);
         mHylReturnNumAdapter.notifyDataSetChanged();
 

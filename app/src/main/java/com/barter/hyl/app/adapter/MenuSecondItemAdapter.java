@@ -1,6 +1,7 @@
 package com.barter.hyl.app.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -121,10 +122,10 @@ public class MenuSecondItemAdapter extends BaseAdapter {
         view.setTextSize(TypedValue.COMPLEX_UNIT_SP,textSize);
 
         if (selectedText != null && selectedText.equals(mString)) {
-//            view.setBackgroundDrawable(selectedDrawble);//设置选中的背景图�?/
+            view.setTextColor(Color.parseColor("#FF2925"));
             view.setBackgroundColor(mContext.getResources().getColor(R.color.color_f6));
         } else {
-//            view.setBackgroundDrawable(mContext.getResources().getDrawable(normalDrawbleId));//设置未�?中状态背景图�?
+            view.setTextColor(Color.parseColor("#333333"));
             view.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
         view.setPadding(20, 0, 0, 0);

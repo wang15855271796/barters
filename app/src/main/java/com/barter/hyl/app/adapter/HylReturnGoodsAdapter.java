@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
@@ -41,7 +43,6 @@ public class HylReturnGoodsAdapter extends BaseQuickAdapter<HylReturnGoodModel.D
         Glide.with(mContext).load(item.getDefaultPic()).into(iv_pic);
         tv_name.setText(item.getProdName());
         tv_spec.setText(item.getSpec());
-
         //价格adapter
         rv_spec.setLayoutManager(new LinearLayoutManager(mContext));
         HylReturnPriceAdapter returnSpecAdapter = new HylReturnPriceAdapter(R.layout.item_show_return_price,item.getDetails());

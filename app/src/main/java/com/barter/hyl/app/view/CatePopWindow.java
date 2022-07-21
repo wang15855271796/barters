@@ -27,6 +27,9 @@ public class CatePopWindow extends PopupWindow {
         super(context);
         this.context=context;
         this.strings = strings;
+        setOutsideTouchable(true);
+        setFocusable(true);
+        setTouchable(true);
         init();
     }
 

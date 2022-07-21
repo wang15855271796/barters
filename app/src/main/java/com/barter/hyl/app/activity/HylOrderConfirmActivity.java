@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -114,12 +116,6 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-//        setStatusBar();
-    }
-
-    @Override
     public void setViewData() {
         tv_title.setText("确认订单");
         EventBus.getDefault().register(this);
@@ -153,7 +149,6 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
         ll_back.setOnClickListener(this);
         rl_beizhu.setOnClickListener(this);
         ll_choose_address.setOnClickListener(this);
-//        iv_change_address.setOnClickListener(this);
         ll_coupon.setOnClickListener(this);
         btn_sure.setOnClickListener(this);
         rl_choose_address.setOnClickListener(this);
@@ -190,17 +185,13 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
                 Intent chooseAddressIntent = new Intent(mContext,HylAddressListsActivity.class);
                 startActivity(chooseAddressIntent);
                 break;
-
-//            case R.id.iv_change_address:
-//                Intent changeIntent = new Intent(mContext,HylAddressListsActivity.class);
-//                startActivity(changeIntent);
-//                break;
         }
     }
 
     /**
      * 提交订单
      */
+    HylPaymentDialogFragment paymentOrderFragment;
     String orderId;
     private void orderPay() {
         OrderApi.cartOrder(mActivity,cartIds.toString(),giftNo,tv_beizhu.getText().toString())
@@ -221,7 +212,7 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
                     public void onNext(HylLoginModel hylLoginModel) {
                         if(hylLoginModel.code==1) {
                             orderId = hylLoginModel.data;
-                            HylPaymentDialogFragment paymentOrderFragment = new HylPaymentDialogFragment();
+                            paymentOrderFragment = new HylPaymentDialogFragment();
                             Bundle bundle = new Bundle();
                             bundle.putString("memo", tv_beizhu.getText().toString());
                             bundle.putString("total",totalAmount);
@@ -343,12 +334,20 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
         ll_unDispose.setVisibility(View.GONE);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-
-    }
-
-
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        EventBus.getDefault().unregister(this);
+//        if(paymentOrderFragment!=null) {
+//            paymentOrderFragment.dismiss();
+//        }
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        if(paymentOrderFragment!=null) {
+//            paymentOrderFragment.dismiss();
+//        }
+//    }
 }

@@ -223,7 +223,6 @@ public class HylAddAddressActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_default:
-                Log.d("dfefdsf......",isDefault+"s");
                 if (isDefault==1) {
                     //现在就是默认的,点击变成不是默认的
                     iv_switch.setImageResource(R.mipmap.iv_closes);

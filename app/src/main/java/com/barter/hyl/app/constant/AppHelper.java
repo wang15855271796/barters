@@ -212,7 +212,7 @@ public class AppHelper {
         PhotoViewAdapter photoViewAdapter = new PhotoViewAdapter(mListUrl, mContext);
         mVp.setAdapter(photoViewAdapter);
         mVp.setCurrentItem(position);
-        mTv.setText(position  + "/" + mListUrl.size());
+        mTv.setText(position  + 1 + "/" + mListUrl.size());
         photoViewAdapter.setPhotoListener(new PhotoViewAdapter.OnPhotoListener() {
             @Override
             public void onPhotoListenter() {
@@ -278,7 +278,6 @@ public class AppHelper {
         iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("asfdsdsfsd.....",position+"aa");
                 selectList.remove(position);
                 shopImageViewAdapter.notifyItemRemoved(position);
                 shopImageViewAdapter.notifyItemRangeChanged(position, selectList.size());

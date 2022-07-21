@@ -107,6 +107,7 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
                 searchDialog.show();
             }
         });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.setAdapter(hylSearchResultAdapter);
 
@@ -130,8 +131,7 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNum = 1;
                 getRecommend(searchWord);
-                ptr_layout.autoRefresh();
-                ptr_layout.refreshComplete();
+//                ptr_layout.autoRefresh();
             }
         });
 
@@ -182,12 +182,12 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
                     iv_all.setImageResource(R.mipmap.icon_all_en);
                     tv_all.setTextColor(Color.parseColor("#FF2925"));
                 }
-                getRecommend(searchWord);
+                pageNum = 1;
+                ptr_layout.autoRefresh();
                 break;
 
             case R.id.ll_sale:
                 isSale = !isSale;
-
                 priceDesc = 0;
                 tv_price.setTextColor(Color.parseColor("#333333"));
                 iv_price.setImageResource(R.mipmap.icon_price);
@@ -205,7 +205,8 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
                     iv_sale.setImageResource(R.mipmap.icon_sale_en);
                     tv_sale.setTextColor(Color.parseColor("#FF2925"));
                 }
-                getRecommend(searchWord);
+                pageNum = 1;
+                ptr_layout.autoRefresh();
                 break;
 
             case R.id.ll_price:
@@ -234,7 +235,8 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
                     tv_price.setTextColor(Color.parseColor("#FF2925"));
                     iv_direction.setImageResource(R.mipmap.icon_down);
                 }
-                getRecommend(searchWord);
+                pageNum = 1;
+                ptr_layout.autoRefresh();
                 break;
             case R.id.ll_back:
                 finish();
@@ -276,7 +278,6 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
                     public void onNext(HylSearchResultModel hylSearchResultModel) {
                         if (hylSearchResultModel.getCode()==1) {
                             if(hylSearchResultModel.getData()!=null&& hylSearchResultModel.getData().getList().size()>0) {
-                                ptr_layout.refreshComplete();
                                 setState(hylSearchResultModel.getData());
                             }else {
                                 hylSearchResultAdapter.setEmptyView(emptyView);
@@ -303,6 +304,8 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
         }else {
             hylSearchResultAdapter.loadMoreEnd();
         }
+
+        ptr_layout.refreshComplete();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

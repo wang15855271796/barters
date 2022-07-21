@@ -132,6 +132,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             />
 
         <activity android:name=".activity.ShopDetailActivity"
@@ -341,27 +342,38 @@
             android:screenOrientation="portrait"
             />
 
-        <activity
-            android:name=".wxapi.WXPayEntryActivity"
-            android:exported="true"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="wxf62d1bee757cd65a"/>
-            </intent-filter>
-        </activity>
+<!--        <activity-->
+<!--            android:name=".wxapi.WXPayEntryActivity"-->
+<!--            android:exported="true"-->
+<!--            android:launchMode="singleInstance">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW"/>-->
+<!--                <category android:name="android.intent.category.DEFAULT"/>-->
+<!--                <data android:scheme="wxf62d1bee757cd65a"/>-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
+<!--        <activity-->
+<!--            android:name=".wxapi.WXEntryActivity"-->
+<!--            android:exported="true"-->
+<!--            android:launchMode="singleInstance">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.VIEW"/>-->
+<!--                <category android:name="android.intent.category.DEFAULT"/>-->
+<!--                <data android:scheme="wxf62d1bee757cd65a"/>-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.barter.hyl.app.wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="wxf62d1bee757cd65a"/>
-            </intent-filter>
-        </activity>
+            android:launchMode="singleTask" />
+<!--   android:taskAffinity="com.barbecue.hyl.app"-->
+
+        <activity android:name="com.barter.hyl.app.wxapi.WXEntryActivity"
+            android:launchMode="singleTask"
+            android:exported="true"
+            />
+
 
         <activity android:name=".activity.DeliverPayResult"
             android:screenOrientation="portrait"

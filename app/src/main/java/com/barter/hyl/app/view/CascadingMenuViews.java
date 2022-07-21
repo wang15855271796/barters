@@ -29,7 +29,6 @@ public class CascadingMenuViews extends LinearLayout {
     private com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener mOnSelectListener;
     private ListView firstMenuListView;
     private ListView secondMenuListView;
-    private ListView thirdMenuListView;
 
     // 每次选择的子菜单内容
     private List<HylAreaModel.DataBean.CityListBean> secondItem = new ArrayList<>();
@@ -42,7 +41,6 @@ public class CascadingMenuViews extends LinearLayout {
     ImageView iv_close;
     private int firstPosition = 0;
     private int secondPosition = 0;
-    private Activity context;
 
     /**
      * @param context
@@ -52,7 +50,6 @@ public class CascadingMenuViews extends LinearLayout {
     public CascadingMenuViews(Activity context, ArrayList<HylAreaModel.DataBean> menuList) {
         super(context);
         this.menuItem = menuList;
-        this.context = context;
         init(context);
     }
 
@@ -92,7 +89,7 @@ public class CascadingMenuViews extends LinearLayout {
                             @Override
                             public void onItemClick(View view, final int position) {
                                 if (mOnSelectListener != null) {
-                                    mOnSelectListener.getValues(secondItem.get(position));
+                                    mOnSelectListener.getValues(secondItem.get(position),position);
                                 }
                             }
                         });
