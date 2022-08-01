@@ -28,6 +28,7 @@ import com.alipay.sdk.app.PayTask;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.DelayPayResultActivity;
 import com.barter.hyl.app.activity.DeliverPayResult;
+import com.barter.hyl.app.activity.HylMyOrderActivity;
 import com.barter.hyl.app.activity.HylOrderDetailActivity;
 import com.barter.hyl.app.adapter.HylPayListAdapter;
 import com.barter.hyl.app.api.OrderApi;
@@ -171,23 +172,24 @@ public class HylDelayPayDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        //信用订单 待履约和已逾期 只有ids
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        if(outTradeNo!=null && jumpWx==1) {
-            dismiss();
-//            Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
-//            intent.putExtra(AppConstant.ORDERID,orderId);
+//        if(outTradeNo!=null && jumpWx==1) {
+//            dismiss();
+//        }
+//
+//        if(outTradeNo!=null&&jumpWx==0) {
+//            Intent intent = new Intent(getActivity(), DeliverPayResult.class);
+//            intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
+//            intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
+//            intent.putExtra(AppConstant.ORDERID, orderId);
 //            startActivity(intent);
-//            getActivity().finish();
-        }
+//        }
 
-        if(outTradeNo!=null&&jumpWx==0) {
-            Intent intent = new Intent(getActivity(), DeliverPayResult.class);
-            intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
-            intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
-            intent.putExtra(AppConstant.ORDERID, orderId);
-//            getPayResult(outTradeNo);
+        if(outTradeNo!=null) {
+            dismiss();
         }
     }
 
@@ -425,7 +427,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
     /**
      *获取支付信息
      */
-    int jumpWx;
+    int jumpWx = 0;
     private void getPayInfo() {
         OrderApi.getDelayPay(getActivity(),ids.toString(),payChannel)
                 .subscribeOn(Schedulers.io())
@@ -450,9 +452,6 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                                     SharedPreferencesUtil.saveString(getActivity(),"payKey","2");
                                     aliPay(hylPayInfoModel.getData().getPayToken());
                                 } else if (payChannel == 3 && jumpWx==1) {
-//                                    //微信支付
-//                                    SharedPreferencesUtil.saveString(getContext(),"payKey","3");
-//                                    weChatPay(hylPayInfoModel.getData().getPayToken());
                                     //微信支付(小程序)1
                                     if(DateUtil.isWeixin(getActivity())) {
                                         SharedPreferencesUtil.saveString(getActivity(),"payKey","3");

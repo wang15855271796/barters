@@ -185,21 +185,32 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        //各种其他列表
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        if(outTradeNo!=null&&jumpWx==1) {
-            Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
-            intent.putExtra(AppConstant.ORDERID,orderId);
-            startActivity(intent);
-            getActivity().finish();
-        }
-        if(outTradeNo!=null&&jumpWx==0) {
-            Intent intent = new Intent(getContext(), DeliverPayResult.class);
-            intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
-            intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
-            intent.putExtra(AppConstant.ORDERID, orderId);
-//            getPayResult(outTradeNo);
+//        if(outTradeNo!=null&&jumpWx==1) {
+//            Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
+//            intent.putExtra(AppConstant.ORDERID,orderId);
+//            startActivity(intent);
+//            getActivity().finish();
+//        }
+//        if(outTradeNo!=null&&jumpWx==0) {
+//            Intent intent = new Intent(getContext(), DeliverPayResult.class);
+//            intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
+//            intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
+//            intent.putExtra(AppConstant.ORDERID, orderId);
+//            startActivity(intent);
+//            getActivity().finish();
+//
+//        }
+
+        if(outTradeNo!=null) {
+            dismiss();
+//            Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
+//            intent.putExtra(AppConstant.ORDERID,orderId);
+//            startActivity(intent);
+//            getActivity().finish();
         }
     }
 
@@ -359,7 +370,7 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
     HylPayListAdapter hylPayListAdapter;
     //支付方式 信用订单flag 1 普通订单0
     int payChannel;
-    int jumpWx;
+    int jumpWx = 0;
     HylPayListModel.DataBean dataBean;
     private void getPayList(String orderId) {
         OrderApi.getPayWay(getContext(),Integer.parseInt(orderType),orderId)

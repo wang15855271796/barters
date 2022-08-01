@@ -195,18 +195,29 @@ public class HylPaymentDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        //订单确认界面的都有orderId
         if(outTradeNo!=null && jumpWx==1) {
             Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
             intent.putExtra(AppConstant.ORDERID,orderId);
             startActivity(intent);
             getActivity().finish();
         }
+
         if(outTradeNo!=null&&jumpWx==0) {
             Intent intent = new Intent(getContext(), DeliverPayResult.class);
             intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
             intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
             intent.putExtra(AppConstant.ORDERID, orderId);
+            startActivity(intent);
+            getActivity().finish();
         }
+
+//        if(outTradeNo!=null) {
+//            Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
+//            intent.putExtra(AppConstant.ORDERID,orderId);
+//            startActivity(intent);
+//            getActivity().finish();
+//        }
     }
 
     @Override
@@ -440,7 +451,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
     /**
      *获取支付信息
      */
-    int jumpWx;
+    int jumpWx = 0;
     HylPayInfoModel.DataBean data;
     private void getPayInfo() {
         OrderApi.getPayInfo(getContext(),orderId,payChannel)

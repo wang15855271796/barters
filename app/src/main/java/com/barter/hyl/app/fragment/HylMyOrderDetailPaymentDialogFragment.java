@@ -180,18 +180,24 @@ public class HylMyOrderDetailPaymentDialogFragment extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
+        //订单详情
         if(!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        if(outTradeNo!=null && jumpWx==1) {
-            dismiss();
-        }
+//        if(outTradeNo!=null && jumpWx==1) {
+//            dismiss();
+//        }
+//
+//        if(outTradeNo!=null&&jumpWx==0) {
+//            Intent intent = new Intent(getContext(), DeliverPayResult.class);
+//            intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
+//            intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
+//            intent.putExtra(AppConstant.ORDERID, orderId);
+//            startActivity(intent);
+//        }
 
-        if(outTradeNo!=null&&jumpWx==0) {
-            Intent intent = new Intent(getContext(), DeliverPayResult.class);
-            intent.putExtra(AppConstant.PAYCHANNAL, payChannel);
-            intent.putExtra(AppConstant.OUTTRADENO, outTradeNo);
-            intent.putExtra(AppConstant.ORDERID, orderId);
+        if(outTradeNo!=null) {
+            dismiss();
         }
     }
 
@@ -431,7 +437,7 @@ public class HylMyOrderDetailPaymentDialogFragment extends DialogFragment {
     /**
      *获取一般支付信息
      */
-    int jumpWx;
+    int jumpWx = 0;
     HylPayListModel.DataBean dataBean;
     private void getPayInfo() {
         OrderApi.getPayInfo(getContext(),orderId,payChannel)

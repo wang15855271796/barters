@@ -342,18 +342,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         startActivity(intent);
     }
 
-    public class MyLocationListener extends BDAbstractLocationListener {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-//            UserInfoHelper.saveProvince(mContext,location.getProvince());
-//            UserInfoHelper.saveCity(mContext,location.getCity());
-//            UserInfoHelper.saveAreaName(mContext,location.getDistrict());
-//            UserInfoHelper.saveStreet(mContext,location.getStreet());
-        }
-    }
-
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void changeIv(ChangeIvEvent changeIvEvent) {
         if(changeIvEvent.getState()==HylHome1Fragment.AppBarLayoutState.COLLAPSED) {
