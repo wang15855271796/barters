@@ -1,5 +1,6 @@
 package com.barter.hyl.app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,11 +11,16 @@ import android.widget.TextView;
 
 import com.barter.app.event.CompanyEvent;
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.api.LoginAPI;
 import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.LoginDialog;
+import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.model.BaseModel;
-import com.barter.hyl.app.model.HylMyCouponModel;
+import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylOneRegisterModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,6 +41,7 @@ public class AddCompanyActivity extends BaseActivity implements View.OnClickList
     EditText et_sms;
     @BindView(R.id.tv_company)
     TextView tv_company;
+    String phone;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;

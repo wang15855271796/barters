@@ -22,24 +22,6 @@
             android:layout_height="130dp"
             android:background="@color/white">
 
-            <FrameLayout
-                android:visibility="gone"
-                android:id="@+id/fl_container"
-                android:layout_width="@dimen/size_40dp"
-                android:layout_height="match_parent">
-
-                <CheckBox
-                    android:id="@+id/cb_choose"
-                    android:layout_gravity="center"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/app_equipment_all_select"
-                    android:button="@null"
-                    android:clickable="false"
-                    android:enabled="false" />
-            </FrameLayout>
 
             <LinearLayout
                 android:gravity="center"
@@ -56,19 +38,8 @@
                     android:scaleType="fitXY"
                     />
 
-                <ImageView
-                    android:id="@+id/iv_sold"
-                    android:visibility="gone"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_saled"
-                    android:layout_marginRight="5dp"
-                    />
 
             </LinearLayout>
-
-
 
         </RelativeLayout>
 
@@ -104,29 +75,29 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:lines="1"
-                        android:ellipsize="end"
                         android:id="@+id/tv_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="100"
-                        android:textColor="#FFFF2925"
                         android:layout_centerVertical="true"
-                        android:textSize="16sp" />
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:textColor="#FFFF2925"
+                        android:textSize="16sp"
+                        tools:text="100" />
 
                 </RelativeLayout>
 
-                <ImageView
-                    android:src="@mipmap/icon_add"
-                    android:id="@+id/iv_add"
-                    android:layout_width="@dimen/size_30dp"
-                    android:layout_height="@dimen/size_30dp"
+                <TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="@dimen/size_70dp"
+                    android:layout_height="@dimen/size_21dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
-                    android:padding="3dp"
+                    android:background="@drawable/shape_add_car_red"
+                    android:gravity="center"
+                    android:text="选规格"
                     android:textColor="@color/white"
-                    android:textSize="11dp" />
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 
@@ -155,7 +126,6 @@
     <View
         android:id="@+id/v_show"
         android:background="#14000000"
-        android:visibility="gone"
         android:layout_marginRight="@dimen/size_8dp"
         android:layout_marginLeft="@dimen/size_8dp"
         android:layout_width="match_parent"

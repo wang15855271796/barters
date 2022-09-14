@@ -7,7 +7,7 @@ public class AppInterfaceAddress {
 //    https://apis.huoyl.cn/qiaoge/正式
     // http://192.168.2.188:8082/qiaoge/
     //http://116.62.67.230:8082/qiaoge/   测试http://120.55.55.99:8082/qiaoge/
-    public static final String BASE_URL = "http://192.168.2.160:8088/";
+    public static final String BASE_URL = "http://192.168.2.188:8082/qiaoge/";
     // 正式https://shaokao.qoger.com/qiaoge/
     //http://192.168.1.45/   本地192.168.101.69:8088
     //http://qg.zhiyun88u.com/shen
@@ -278,6 +278,10 @@ public class AppInterfaceAddress {
      */
     public static final String Address_Area = "hyl/address/getOpenArea";
     /**
+     * 行业资讯-全部地区
+     */
+    public static final String All_Area = "hyl/address/getAllArea";
+    /**
      *新增地址
      */
     public static final String Add_Address = "hyl/address/hylUserAddAddress";
@@ -336,6 +340,12 @@ public class AppInterfaceAddress {
      *我的优惠券
      */
     public static final String My_Coupon_List = "hyl/getMyGiftPage";
+
+    /**
+     *我的优惠券
+     */
+    public static final String My_Coupon_Detail = "hyl/getGiftUseProdList";
+
     /**
      *我的积分
      */
@@ -406,6 +416,11 @@ public class AppInterfaceAddress {
      * 登录
      */
     public static final String LOGIN = "auth/hyl/login";
+
+    /**
+     * 登录-添加企业
+     */
+    public static final String LOGIN_Address = "auth/hyl/loginAddFranchise";
 
     /**
      * 退出登录

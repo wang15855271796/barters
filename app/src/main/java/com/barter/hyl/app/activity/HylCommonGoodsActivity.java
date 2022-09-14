@@ -37,7 +37,9 @@ import com.barter.hyl.app.dialog.FullDetailsDialog;
 import com.barter.hyl.app.dialog.ProductDescDialog;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
+import com.barter.hyl.app.event.RefreshVideoEvent;
 import com.barter.hyl.app.model.HylCartNumModel;
+import com.barter.hyl.app.model.HylChangeSpecModel;
 import com.barter.hyl.app.model.HylCollectionModel;
 import com.barter.hyl.app.model.HylCommonDetailModel;
 import com.barter.hyl.app.model.PicVideoModel;
@@ -260,6 +262,8 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
     String skillId;
     String teamId;
     String fullId;
+    HylImageDetailAdapter hylImageDetailAdapter;
+    List<String> topPics = new ArrayList<>();
     private void getDetail(String mainId,HylCommonGoodsActivity hylCommonGoodsActivity) {
         DetailApi.getDetail(mContext,mainId)
                 .subscribeOn(Schedulers.io())
@@ -283,7 +287,6 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                             tv_price.setText(data.getMinMaxPrice());
                             tv_sale.setText(data.getSaleNum());
                             tv_desc.setText(data.getIntrduction());
-
                             tv_num.setText("商品评价"+data.getCommentNum());
                             if(data.getIntrduction()==null||data.getIntrduction().equals("")) {
                                 rl_desc.setVisibility(View.GONE);
@@ -348,7 +351,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                             }
 
 
-                            List<String> topPics = data.getTopPics();
+                            topPics.addAll(data.getTopPics());
                             //banner设置点击监听
                             banner.setOnBannerListener(new OnBannerListener() {
                                 @Override
@@ -407,13 +410,10 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                             //底部详情图片
                             detailPics.clear();
                             detailPics.addAll(data.getDetailPics());
-                            HylImageDetailAdapter hylImageDetailAdapter = new HylImageDetailAdapter(R.layout.item_imageview,detailPics);
+                            hylImageDetailAdapter = new HylImageDetailAdapter(R.layout.item_imageview,detailPics);
                             rv_image.setLayoutManager(new LinearLayoutManager(mActivity));
 
                             rv_image.setAdapter(hylImageDetailAdapter);
-
-                            //banner
-//                            getBanner(topPics);
                         } else {
                             ToastUtil.showSuccessMsg(mContext, hylCommonDetailModel.getMessage());
                         }
@@ -501,6 +501,104 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
         isShow = true;
     }
 
+    private void exchangeList(int productId, HylCommonGoodsActivity commonGoodsDetailActivity) {
+        DetailApi.changeSpec(mContext,productId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<HylChangeSpecModel>() {
+
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(HylChangeSpecModel changeSpecModel) {
+                        if(changeSpecModel.getCode()==1) {
+                            if(changeSpecModel.getData()!=null) {
+                                HylChangeSpecModel.DataBean data = changeSpecModel.getData();
+                                detailPics.clear();
+                                detailPics.addAll(data.getDetailPics());
+                                hylImageDetailAdapter.notifyDataSetChanged();
+
+                                if(data.getQuarantines()!=null && data.getQuarantines().size()>0) {
+                                    rl_check.setVisibility(View.VISIBLE);
+                                }else {
+                                    rl_check.setVisibility(View.GONE);
+                                }
+
+                                if(data.getQuarantines()!=null && data.getQuarantines().size()>0) {
+                                    List<String> quarterPic = HylCommonGoodsActivity.this.data.getQuarantines();
+                                }
+
+                                topPics.clear();
+                                picVideo.clear();
+                                if(data.getTopPics()!=null &&data.getTopPics().size()>0) {
+                                    topPics.addAll(data.getTopPics());
+                                }else {
+                                    topPics.add(data.getDefaultPic());
+                                }
+
+                                if(data.getVideoUrl()!=null&&!data.getVideoUrl().equals("")) {
+                                    topPics.add(0, HylCommonGoodsActivity.this.data.getVideoUrl());
+                                    iv_sound.setVisibility(View.VISIBLE);
+                                }else {
+                                    iv_sound.setVisibility(View.GONE);
+                                }
+
+
+                                if(topPics.size()>0) {
+                                    for (int i = 0; i < topPics.size(); i++) {
+                                        if(data.getVideoUrl()!=null&&!data.getVideoUrl().equals("")) {
+                                            if(i==0) {
+                                                picVideo.add(new PicVideoModel.DatasBean(topPics.get(0),2));
+                                            }else {
+                                                picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
+                                            }
+                                        } else {
+                                            picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
+                                        }
+                                    }
+                                }else {
+                                    for (int i = 0; i < topPics.size(); i++) {
+                                        picVideo.add(new PicVideoModel.DatasBean(topPics.get(i),1));
+                                    }
+                                }
+
+                                banner.addBannerLifecycleObserver(commonGoodsDetailActivity)
+                                        .setAdapter(new PicVideoAdapter(mContext, picVideo))
+                                        .setIndicator(new NumIndicator(mContext))
+                                        .setIndicatorGravity(IndicatorConfig.Direction.RIGHT)
+                                        .addOnPageChangeListener(new OnPageChangeListener() {
+                                            @Override
+                                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                                                stopVideo(position);
+                                            }
+
+                                            @Override
+                                            public void onPageSelected(int position) {
+                                                stopVideo(position);
+                                            }
+
+                                            @Override
+                                            public void onPageScrollStateChanged(int state) {
+
+                                            }
+                                        });
+
+                            }
+                        }else {
+                            ToastUtil.showErroMsg(mContext,changeSpecModel.getMessage());
+                        }
+                    }
+                });
+    }
+
     StandardGSYVideoPlayer player;
     private void stopVideo(int position) {
         if (player == null) {
@@ -567,6 +665,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
             public void addDialog(int position) {
                 CommonDetailDialog commonDialog = new CommonDetailDialog(mActivity,data,position);
                 commonDialog.show();
+                exchangeList(Integer.parseInt(mainId),HylCommonGoodsActivity.this);
             }
         });
         fl_container.setAdapter(hylChooseSpecAdapter);
@@ -704,7 +803,11 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
         getCartNum();
     }
 
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void messageEventBuss(RefreshVideoEvent event) {
+        hylChooseSpecAdapter.selectPosition(event.getPos());
+        exchangeList(event.getProductId(),HylCommonGoodsActivity.this);
+    }
 
 
 

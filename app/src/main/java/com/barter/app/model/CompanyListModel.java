@@ -72,6 +72,15 @@ public class CompanyListModel {
         private int flag;
         int enabled;
         private String customerPhone;
+        int companyEnabled;
+
+        public int getCompanyEnabled() {
+            return companyEnabled;
+        }
+
+        public void setCompanyEnabled(int companyEnabled) {
+            this.companyEnabled = companyEnabled;
+        }
 
         public String getCustomerPhone() {
             return customerPhone;

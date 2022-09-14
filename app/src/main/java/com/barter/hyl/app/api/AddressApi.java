@@ -59,6 +59,20 @@ public class AddressApi {
     }
 
     /**
+     * 行业资讯-全部地区
+     */
+    public interface AllAreaService {
+        @POST(AppInterfaceAddress.All_Area)
+        Observable<HylAreaModel> setParams();
+    }
+
+    public static Observable<HylAreaModel> getAllArea(Context context) {
+        Observable<HylAreaModel> cartListModelObservable = RestHelper.getBaseRetrofit(context).create(AllAreaService.class)
+                .setParams();
+        return cartListModelObservable;
+    }
+
+    /**
      * 获取地址列表
      */
     public interface AddressListService {

@@ -12,67 +12,89 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_marginRight="@dimen/size_20dp"
-            android:layout_marginLeft="@dimen/size_24dp"
-            android:layout_marginBottom="@dimen/dp_10"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_24dp"
+            android:layout_marginRight="@dimen/size_20dp"
+            android:layout_marginBottom="@dimen/dp_10">
 
             <TextView
                 android:id="@+id/tv_short"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text="加盟名称公司简称"
                 android:textColor="#333333"
-                android:textSize="@dimen/size_16dp"
-                android:lines="1"
-                android:ellipsize="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/size_16dp" />
 
             <TextView
                 android:id="@+id/tv_long"
-                android:layout_marginTop="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_short"
+                android:layout_marginTop="7dp"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text="公司名称公司名称公司名称"
                 android:textColor="#666666"
-                android:textSize="@dimen/sp_12"
-                android:lines="1"
-                android:ellipsize="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textSize="@dimen/sp_12" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_phone"
-                android:layout_marginTop="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_long"
+                android:layout_marginTop="7dp"
                 android:text="客服电话：057-187758340"
                 android:textColor="#FF2925"
                 android:textSize="@dimen/sp_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:visibility="gone" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_50dp"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/size_45dp"
+                    android:layout_toLeftOf="@+id/v_line"
+                    android:text="企业已停业"
+                    android:textColor="#999999"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
 
             <TextView
-                android:text="已禁用"
                 android:id="@+id/tv_dis"
-                android:visibility="gone"
-                android:src="@mipmap/icon_gou"
-                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="已禁用"
+                android:layout_marginRight="@dimen/size_20dp"
                 android:textColor="#999999"
                 android:textSize="@dimen/sp_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_choose"
-                android:visibility="gone"
-                android:src="@mipmap/icon_gou"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:textColor="#FF5C00"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/icon_gou"
+                android:textColor="#FF5C00"
+                android:visibility="gone" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

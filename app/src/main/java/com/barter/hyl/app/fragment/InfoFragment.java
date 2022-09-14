@@ -335,7 +335,7 @@ public class InfoFragment extends BaseFragment {
 
     List<HylAreaModel1.DataBean> city = new ArrayList<>();
     private void getCityChoose() {
-        AddressApi.AddressArea(mActivity)
+        AddressApi.getAllArea(mActivity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylAreaModel>() {
@@ -354,8 +354,6 @@ public class InfoFragment extends BaseFragment {
                             listCity.clear();
                             List<HylAreaModel.DataBean> data = cityChangeModel.getData();
                             listCity.addAll(data);
-
-//                            listCity.add(0,);
                         } else {
                             AppHelper.showMsg(mActivity, cityChangeModel.getMessage());
                         }

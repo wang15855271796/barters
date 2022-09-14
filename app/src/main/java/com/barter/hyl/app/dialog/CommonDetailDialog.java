@@ -20,6 +20,7 @@ import com.barter.hyl.app.adapter.HylChoosePriceAdapter;
 import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
+import com.barter.hyl.app.event.RefreshVideoEvent;
 import com.barter.hyl.app.model.HylAddCartModel;
 import com.barter.hyl.app.model.HylCartNumModel;
 import com.barter.hyl.app.model.HylChangeSpecModel;
@@ -127,6 +128,7 @@ public class CommonDetailDialog extends Dialog implements View.OnClickListener {
                 productId = specs.get(position).getProductId();
                 changeSpec(productId);
                 chooseSpecAdapter.selectPosition(position);
+                EventBus.getDefault().post(new RefreshVideoEvent(productId,position));
             }
         });
 

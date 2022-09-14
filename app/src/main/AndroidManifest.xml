@@ -173,6 +173,10 @@
         <activity android:name=".activity.AddCompanyActivity"
             android:screenOrientation="portrait"
             />
+
+        <activity android:name=".activity.AddCompany1Activity"
+            android:screenOrientation="portrait"
+            />
         <activity android:name=".activity.Test2Activity"/>
 
         <activity android:name=".activity.HylForgetPassWordActivity"
@@ -228,6 +232,10 @@
             />
 
         <activity android:name=".activity.HylAddAddressActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".activity.CouponDetailActivity"
             android:screenOrientation="portrait"
             />
 

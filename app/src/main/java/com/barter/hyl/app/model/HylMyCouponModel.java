@@ -162,6 +162,24 @@ public class HylMyCouponModel {
             private List<String> role;
             private String dateTime;
             private String state;
+            int useProd;
+            String poolNo;
+
+            public int getUseProd() {
+                return useProd;
+            }
+
+            public void setUseProd(int useProd) {
+                this.useProd = useProd;
+            }
+
+            public String getPoolNo() {
+                return poolNo;
+            }
+
+            public void setPoolNo(String poolNo) {
+                this.poolNo = poolNo;
+            }
 
             public List<String> getRole() {
                 return role;

@@ -27,9 +27,8 @@
             <LinearLayout
                 android:background="#ff2925"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_35dp">
+                android:layout_height="@dimen/size_35dp"/>
 
-            </LinearLayout>
             <RelativeLayout
                 android:id="@+id/search_rl_top"
                 android:layout_width="match_parent"
@@ -154,184 +153,298 @@
 
                             <RelativeLayout
                                 android:id="@+id/rl_red"
-                                android:background="#FF2925"
                                 android:layout_width="match_parent"
-                                android:layout_height="120dp">
+                                android:layout_height="120dp"
+                                android:background="#FF2925" />
 
-                            </RelativeLayout>
 
                             <LinearLayout
-                                android:orientation="vertical"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <com.barter.hyl.app.view.MyCompanyScrollView
+                                    android:id="@+id/my_scroll"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/public_space_value_120"
+                                    android:background="@drawable/shape_white5">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/size_20dp"
+                                            android:layout_below="@+id/ll_desc"
+                                            android:layout_alignParentBottom="true"
+                                            android:background="@drawable/shape_blue"
+                                            android:gravity="center"
+                                            android:text="本企业已停业，如需与企业联系，可拨打上方电话"
+                                            android:textColor="#1890FF"
+                                            android:textSize="@dimen/sp_12" />
+
+                                        <LinearLayout
+                                            android:id="@+id/ll_phone"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/size_30dp"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="@dimen/size_17dp"
+                                                android:layout_marginTop="@dimen/dp_10"
+                                                android:drawableLeft="@mipmap/icon_phone"
+                                                android:drawablePadding="@dimen/size_5dp"
+                                                android:text="客服电话:"
+                                                android:textColor="#606060"
+                                                android:textSize="11sp" />
+
+                                            <TextView
+                                                android:id="@+id/tv_phone_num"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="@dimen/size_5dp"
+                                                android:layout_marginTop="@dimen/dp_10"
+                                                android:text="18757144843"
+                                                android:textColor="#FF2925"
+                                                android:textSize="11sp" />
+
+                                            <TextView
+                                                android:id="@+id/tv_call"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:layout_marginLeft="@dimen/size_5dp"
+                                                android:layout_marginTop="@dimen/dp_10"
+                                                android:text="拨打"
+                                                android:textColor="#FF2925"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/ll_address"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/size_20dp"
+                                            android:layout_below="@+id/ll_phone"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="@dimen/size_17dp"
+                                                android:drawableLeft="@mipmap/icon_address"
+                                                android:drawablePadding="@dimen/size_5dp"
+                                                android:text="地址:"
+                                                android:textColor="#999999"
+                                                android:textSize="11sp" />
+
+                                            <TextView
+                                                android:id="@+id/tv_address"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="@dimen/size_5dp"
+                                                android:ellipsize="end"
+                                                android:lines="1"
+                                                android:text="杭州西湖"
+                                                android:textColor="#999999"
+                                                android:textSize="11sp" />
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/ll_desc"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/ll_address"
+                                            android:orientation="horizontal">
+
+                                            <ImageView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="@dimen/size_17dp"
+                                                android:layout_marginTop="@dimen/size_2dp"
+                                                android:src="@mipmap/icon_desc" />
+
+                                            <TextView
+                                                android:id="@+id/tv_introduce"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginLeft="@dimen/size_8dp"
+                                                android:ellipsize="end"
+                                                android:text="西湖杭州西湖杭州西湖杭州西湖湖杭州西湖杭好背景"
+                                                android:textColor="#999999"
+                                                android:textSize="11sp" />
+
+                                        </LinearLayout>
+
+                                    </RelativeLayout>
+                                </com.barter.hyl.app.view.MyCompanyScrollView>
 
                                 <com.barter.hyl.app.banner.Banner
                                     android:id="@+id/banner"
-                                    app:image_scale_type="fit_xy"
                                     android:layout_width="match_parent"
                                     android:layout_height="142dp"
                                     android:layout_marginLeft="@dimen/dp_10"
+                                    android:layout_marginTop="@dimen/dp_10"
                                     android:layout_marginRight="@dimen/dp_10"
-                                    />
+                                    app:image_scale_type="fit_xy" />
 
                                 <RelativeLayout
-                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/size_40dp"
                                     android:background="@color/white"
                                     android:gravity="center_vertical"
                                     android:paddingLeft="@dimen/size_20dp"
                                     android:paddingRight="@dimen/size_20dp"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/size_40dp">
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:id="@+id/tv_notice_desc"
-                                        android:textColor="#FF0000"
-                                        android:text="系统维护停服升级公告"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:text="系统维护停服升级公告"
+                                        android:textColor="#FF0000" />
 
                                     <TextView
-                                        android:layout_alignParentRight="true"
-                                        android:textColor="#FF0000"
-                                        android:text="07.25"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentRight="true"
+                                        android:text="07.25"
+                                        android:textColor="#FF0000" />
 
 
                                 </RelativeLayout>
 
                                 <com.frankfancode.marqueeview.MarqueeView
                                     android:id="@+id/marqueeView"
-                                    android:layout_marginTop="@dimen/size_10dp"
                                     android:layout_width="match_parent"
                                     android:layout_height="40dp"
+                                    android:layout_marginTop="@dimen/size_10dp"
                                     android:background="@android:color/white"
                                     app:scrollItemCount="1"
                                     app:showItemCount="1"
                                     app:standDuration="2000"
-                                    app:turningDuration="1000"/>
+                                    app:turningDuration="1000" />
 
                                 <LinearLayout
                                     android:id="@+id/ll_icon"
-                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/dp_10"
                                     android:background="@drawable/shape_white4"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
+                                    android:orientation="vertical">
 
                                     <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_icon"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content">
+                                        android:layout_height="wrap_content" />
 
-                                    </androidx.recyclerview.widget.RecyclerView>
 
                                     <com.barter.hyl.app.view.HIndicators
                                         android:id="@+id/indicator"
-                                        android:layout_marginBottom="@dimen/size_5dp"
-                                        android:layout_gravity="center_horizontal"
                                         android:layout_width="@dimen/size_22dp"
-                                        android:layout_height="@dimen/size_3dp" />
+                                        android:layout_height="@dimen/size_3dp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_marginBottom="@dimen/size_5dp" />
 
                                 </LinearLayout>
 
                                 <!--秒杀-->
                                 <LinearLayout
                                     android:id="@+id/ll_skill"
-                                    android:layout_marginTop="@dimen/dp_10"
-                                    android:orientation="horizontal"
-                                    android:background="@color/white"
                                     android:layout_width="match_parent"
-                                    android:layout_height="135dp">
+                                    android:layout_height="135dp"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:background="@color/white"
+                                    android:orientation="horizontal">
 
                                     <LinearLayout
-                                        android:padding="@dimen/size_12dp"
                                         android:layout_width="104dp"
+                                        android:layout_height="match_parent"
                                         android:orientation="vertical"
-                                        android:layout_height="match_parent">
+                                        android:padding="@dimen/size_12dp">
 
                                         <TextView
-                                            android:text="限时秒杀"
                                             android:id="@+id/tv_skill_title"
-                                            android:layout_gravity="center_horizontal"
-                                            android:textColor="#333333"
-                                            android:textSize="@dimen/size_16dp"
                                             android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content" />
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_horizontal"
+                                            android:text="限时秒杀"
+                                            android:textColor="#333333"
+                                            android:textSize="@dimen/size_16dp" />
 
                                         <TextView
                                             android:id="@+id/tv_time_desc"
-                                            tools:text="距开始"
-                                            android:layout_marginTop="@dimen/size_17dp"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
                                             android:layout_gravity="center_horizontal"
+                                            android:layout_marginTop="@dimen/size_17dp"
                                             android:textColor="#999999"
                                             android:textSize="@dimen/size_12dp"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content" />
+                                            tools:text="距开始" />
 
                                         <com.barter.hyl.app.view.Snap
                                             android:id="@+id/snap"
                                             android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content">
+                                            android:layout_height="wrap_content" />
 
-                                        </com.barter.hyl.app.view.Snap>
 
                                     </LinearLayout>
 
                                     <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_skill"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent">
+                                        android:layout_height="match_parent" />
 
-                                    </androidx.recyclerview.widget.RecyclerView>
                                 </LinearLayout>
 
                                 <!--组合-->
                                 <LinearLayout
                                     android:id="@+id/ll_team"
-                                    android:layout_marginTop="@dimen/dp_10"
-                                    android:orientation="horizontal"
-                                    android:background="@color/white"
                                     android:layout_width="match_parent"
-                                    android:layout_height="135dp">
+                                    android:layout_height="135dp"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:background="@color/white"
+                                    android:orientation="horizontal">
 
                                     <LinearLayout
                                         android:layout_width="104dp"
                                         android:layout_height="match_parent">
 
                                         <LinearLayout
-                                            android:padding="@dimen/size_12dp"
                                             android:layout_width="104dp"
+                                            android:layout_height="match_parent"
                                             android:orientation="vertical"
-                                            android:layout_height="match_parent">
+                                            android:padding="@dimen/size_12dp">
 
                                             <TextView
-                                                android:text="组合"
                                                 android:id="@+id/tv_team"
-                                                android:layout_gravity="center_horizontal"
-                                                android:textColor="#333333"
-                                                android:textSize="@dimen/size_16dp"
                                                 android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content" />
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_horizontal"
+                                                android:text="组合"
+                                                android:textColor="#333333"
+                                                android:textSize="@dimen/size_16dp" />
 
                                             <TextView
-                                                tools:text="距开始"
                                                 android:id="@+id/tv_team_small"
-                                                android:layout_marginTop="@dimen/size_5dp"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
                                                 android:layout_gravity="center_horizontal"
+                                                android:layout_marginTop="@dimen/size_5dp"
                                                 android:textColor="#999999"
                                                 android:textSize="@dimen/size_12dp"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content" />
+                                                tools:text="距开始" />
 
                                             <ImageView
                                                 android:id="@+id/iv_team"
-                                                android:layout_marginTop="@dimen/size_5dp"
-                                                android:layout_gravity="center_horizontal"
-                                                android:textColor="#FF2925"
-                                                android:textSize="@dimen/size_16dp"
                                                 android:layout_width="@dimen/size_43dp"
-                                                android:layout_height="@dimen/size_43dp" />
+                                                android:layout_height="@dimen/size_43dp"
+                                                android:layout_gravity="center_horizontal"
+                                                android:layout_marginTop="@dimen/size_5dp"
+                                                android:textColor="#FF2925"
+                                                android:textSize="@dimen/size_16dp" />
 
                                         </LinearLayout>
 
@@ -347,49 +460,49 @@
                                 <!--满赠-->
                                 <LinearLayout
                                     android:id="@+id/ll_full"
-                                    android:layout_marginTop="@dimen/dp_10"
-                                    android:orientation="horizontal"
-                                    android:background="@color/white"
                                     android:layout_width="match_parent"
-                                    android:layout_height="135dp">
+                                    android:layout_height="135dp"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:background="@color/white"
+                                    android:orientation="horizontal">
 
                                     <LinearLayout
                                         android:layout_width="104dp"
                                         android:layout_height="match_parent">
 
                                         <LinearLayout
-                                            android:padding="@dimen/size_12dp"
                                             android:layout_width="104dp"
+                                            android:layout_height="match_parent"
                                             android:orientation="vertical"
-                                            android:layout_height="match_parent">
+                                            android:padding="@dimen/size_12dp">
 
                                             <TextView
-                                                android:text="满赠"
                                                 android:id="@+id/tv_full"
-                                                android:layout_gravity="center_horizontal"
-                                                android:textColor="#333333"
-                                                android:textSize="@dimen/size_16dp"
                                                 android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content" />
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center_horizontal"
+                                                android:text="满赠"
+                                                android:textColor="#333333"
+                                                android:textSize="@dimen/size_16dp" />
 
                                             <TextView
-                                                tools:text="距开始"
                                                 android:id="@+id/tv_full_small"
-                                                android:layout_marginTop="@dimen/size_5dp"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
                                                 android:layout_gravity="center_horizontal"
+                                                android:layout_marginTop="@dimen/size_5dp"
                                                 android:textColor="#999999"
                                                 android:textSize="@dimen/size_12dp"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content" />
+                                                tools:text="距开始" />
 
                                             <ImageView
                                                 android:id="@+id/iv_full"
-                                                android:layout_marginTop="@dimen/size_5dp"
-                                                android:layout_gravity="center_horizontal"
-                                                android:textColor="#FF2925"
-                                                android:textSize="@dimen/size_16dp"
                                                 android:layout_width="@dimen/size_43dp"
-                                                android:layout_height="@dimen/size_43dp" />
+                                                android:layout_height="@dimen/size_43dp"
+                                                android:layout_gravity="center_horizontal"
+                                                android:layout_marginTop="@dimen/size_5dp"
+                                                android:textColor="#FF2925"
+                                                android:textSize="@dimen/size_16dp" />
 
                                         </LinearLayout>
 
@@ -398,21 +511,18 @@
                                     <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_full"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent">
-
-                                    </androidx.recyclerview.widget.RecyclerView>
+                                        android:layout_height="match_parent" />
                                 </LinearLayout>
 
                             </LinearLayout>
 
                             <View
+                                android:id="@+id/v_line"
                                 android:layout_alignParentBottom="true"
                                 android:background="#f9f9f9"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/dp_10"/>
                         </RelativeLayout>
-
-
 
                     </com.google.android.material.appbar.AppBarLayout>
 
@@ -423,7 +533,6 @@
                         boy:layout_scrollFlags="scroll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
 
                         <LinearLayout
                             android:orientation="vertical"
@@ -457,6 +566,7 @@
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
             </LinearLayout>
+
         </LinearLayout>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -285,7 +285,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             startActivity(intent);
                             finish();
                         } else if(hylLoginModel.code==100004) {
-                            LoginDialog loginDialog = new LoginDialog(mActivity,hylLoginModel.extData);
+                            LoginDialog loginDialog = new LoginDialog(mActivity,hylLoginModel.extData,etAccount,etPassword);
                             loginDialog.show();
 
                         }else {

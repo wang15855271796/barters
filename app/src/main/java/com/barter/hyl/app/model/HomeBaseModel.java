@@ -86,6 +86,51 @@ public class HomeBaseModel {
         private List<BannersBean> banners;
         private List<NoticeListBean> noticeList;
         private List<ClassifiesBean> classifies;
+        private int showCompanyFLag;
+        private String companyPhone;
+        private String companyAddress;
+        private String companyDesc;
+        private int companyEnabled;
+
+        public int getCompanyEnabled() {
+            return companyEnabled;
+        }
+
+        public void setCompanyEnabled(int companyEnabled) {
+            this.companyEnabled = companyEnabled;
+        }
+
+        public String getCompanyDesc() {
+            return companyDesc;
+        }
+
+        public void setCompanyDesc(String companyDesc) {
+            this.companyDesc = companyDesc;
+        }
+
+        public String getCompanyAddress() {
+            return companyAddress;
+        }
+
+        public void setCompanyAddress(String companyAddress) {
+            this.companyAddress = companyAddress;
+        }
+
+        public String getCompanyPhone() {
+            return companyPhone;
+        }
+
+        public void setCompanyPhone(String companyPhone) {
+            this.companyPhone = companyPhone;
+        }
+
+        public int getShowCompanyFLag() {
+            return showCompanyFLag;
+        }
+
+        public void setShowCompanyFLag(int showCompanyFLag) {
+            this.showCompanyFLag = showCompanyFLag;
+        }
 
         public String getCompanyName() {
             return companyName;

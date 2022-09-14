@@ -36,6 +36,20 @@ public class LoginAPI {
         return loginModelObservable;
     }
 
+    //登录-添加企业
+    public interface LoginAddressService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.LOGIN_Address)
+        Observable<HylLoginModel> setParams(@Field("phone") String phone,
+                                            @Field("authCode") String authCode);
+    }
+
+    public static Observable<HylLoginModel> loginAddress(Context context, String phone, String authCode) {
+        Observable<HylLoginModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(LoginAddressService.class).setParams(phone, authCode);
+        return loginModelObservable;
+    }
+
+
     //登出
     public interface LogoutService {
         @POST(AppInterfaceAddress.LOGOUT)

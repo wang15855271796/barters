@@ -17,7 +17,7 @@
         android:paddingTop="10dp">
 
         <ImageView
-            android:visibility=""
+            android:visibility="gone"
             android:id="@+id/iv_home_un"
             android:layout_width="20dp"
             android:layout_height="20dp"

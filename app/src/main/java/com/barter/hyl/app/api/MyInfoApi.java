@@ -11,6 +11,7 @@ import com.barter.hyl.app.model.CouponListsModel;
 import com.barter.hyl.app.model.FullActiveCouponListModel;
 import com.barter.hyl.app.model.FullActiveDetailModel;
 import com.barter.hyl.app.model.HylMyCollectionModel;
+import com.barter.hyl.app.model.HylMyCouponDetailModel;
 import com.barter.hyl.app.model.HylMyCouponModel;
 import com.barter.hyl.app.model.HylOneRegisterModel;
 import com.barter.hyl.app.model.MyJifenModel;
@@ -84,6 +85,22 @@ public class MyInfoApi {
         Observable<HylMyCouponModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(MyCouponService.class).setParams(pageNum,pageSize,state);
         return myModelObservable;
     }
+
+    //优惠券详情
+    public interface MyCouponDetailService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.My_Coupon_List)
+        Observable<HylMyCouponDetailModel> setParams(@Field("searchKey") String searchKey,
+                                                     @Field("poolNo") String poolNo,
+                                                     @Field("pageNum") int pageNum,
+                                                     @Field("pageSize") int pageSize);
+    }
+
+    public static Observable<HylMyCouponDetailModel> getMyCouponDetail(Context context, String searchKey, String poolNo, int pageNum, int pageSize) {
+        Observable<HylMyCouponDetailModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(MyCouponDetailService.class).setParams(searchKey,poolNo,pageNum,pageSize);
+        return myModelObservable;
+    }
+
 
     //添加企业-新接口
     public interface AddCompanyService {

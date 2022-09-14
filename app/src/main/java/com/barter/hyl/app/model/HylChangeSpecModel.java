@@ -81,6 +81,42 @@ public class HylChangeSpecModel {
         private String invent;
         private int inventFlag;
         private List<PricesBean> prices;
+        private List<String> topPics;
+        private List<String> detailPics;
+        private List<String> quarantines;
+        private String videoUrl;
+
+        public List<String> getTopPics() {
+            return topPics;
+        }
+
+        public void setTopPics(List<String> topPics) {
+            this.topPics = topPics;
+        }
+
+        public List<String> getDetailPics() {
+            return detailPics;
+        }
+
+        public void setDetailPics(List<String> detailPics) {
+            this.detailPics = detailPics;
+        }
+
+        public List<String> getQuarantines() {
+            return quarantines;
+        }
+
+        public void setQuarantines(List<String> quarantines) {
+            this.quarantines = quarantines;
+        }
+
+        public String getVideoUrl() {
+            return videoUrl;
+        }
+
+        public void setVideoUrl(String videoUrl) {
+            this.videoUrl = videoUrl;
+        }
 
         public int getProductId() {
             return productId;

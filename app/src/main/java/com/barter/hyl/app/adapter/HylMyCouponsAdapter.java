@@ -1,6 +1,7 @@
 package com.barter.hyl.app.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
@@ -10,10 +11,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.CouponDetailActivity;
+import com.barter.hyl.app.activity.MainActivity;
+import com.barter.hyl.app.event.GoToMarketHylEvent;
 import com.barter.hyl.app.model.HylMyCouponModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -32,7 +38,7 @@ public class HylMyCouponsAdapter extends BaseQuickAdapter<HylMyCouponModel.DataB
     RelativeLayout rl_grey;
     TextView tv_tip;
     TextView tv_use;
-
+    TextView tv_look;
     public HylMyCouponsAdapter(int layoutResId, @Nullable List<HylMyCouponModel.DataBean.ListBean> data, Context context) {
         super(layoutResId, data);
         list=data;
@@ -51,6 +57,7 @@ public class HylMyCouponsAdapter extends BaseQuickAdapter<HylMyCouponModel.DataB
         iv_status=helper.getView(R.id.iv_status);
         rl_grey = helper.getView(R.id.rl_grey);
         tv_role.setText(item.getRole().get(0));
+        tv_look = helper.getView(R.id.tv_look);
 
         if(!TextUtils.isEmpty(item.getUseDesc())) {
             tv_user_factor.setText(item.getUseDesc());
@@ -63,7 +70,21 @@ public class HylMyCouponsAdapter extends BaseQuickAdapter<HylMyCouponModel.DataB
         tv_time.setText(item.getDateTime());
         tv_amount.setText(item.getAmount());
 
-
+        tv_look.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(item.getUseProd()==0) {
+                    //分类
+                    context.startActivity(new Intent(context, MainActivity.class));
+                    EventBus.getDefault().post(new GoToMarketHylEvent());
+                }else {
+                    Intent intent = new Intent(mContext, CouponDetailActivity.class);
+                    intent.putExtra("poolNo",item.getPoolNo());
+                    intent.putExtra("giftName",item.getGiftName());
+                    mContext.startActivity(intent);
+                }
+            }
+        });
 
         if(item.getState().equals("ENABLED")){  // State== ENABLED   可用使用的优惠卷
             iv_status.setVisibility(View.GONE);

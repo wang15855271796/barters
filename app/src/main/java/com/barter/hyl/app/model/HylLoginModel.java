@@ -20,6 +20,15 @@ public class HylLoginModel extends BaseModel{
     public static class ExtDataBean {
         public String companyName;
         public String contactPhone;
+        public String desc;
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
 
         public String getCompanyName() {
             return companyName;

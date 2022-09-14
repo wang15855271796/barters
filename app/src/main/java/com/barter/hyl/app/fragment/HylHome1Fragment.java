@@ -7,12 +7,15 @@ import androidx.annotation.NonNull;
 
 import com.barter.hyl.app.activity.HylMessageCenterActivity;
 import com.barter.hyl.app.activity.TestActivity;
+import com.barter.hyl.app.view.MyCompanyScrollView;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -148,7 +151,16 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     MarqueeView marqueeView;
     @BindView(R.id.iv_location)
     ImageView iv_location;
-
+    @BindView(R.id.tv_call)
+    TextView tv_call;
+    @BindView(R.id.my_scroll)
+    MyCompanyScrollView my_scroll;
+    @BindView(R.id.tv_phone_num)
+    TextView tv_phone_num;
+    @BindView(R.id.tv_address)
+    TextView tv_address;
+    @BindView(R.id.tv_introduce)
+    TextView tv_introduce;
     public AppBarLayoutState state;
     public enum AppBarLayoutState {
         EXPANDED,
@@ -162,7 +174,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     public int setLayoutId() {
         return R.layout.home_fragment;
     }
-
 
     HylSkillAdapter hylSkillAdapter;
     HylTeamAdapter hylTeamAdapter;
@@ -188,22 +199,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
             }
         });
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
         searchLayoutParams = (ViewGroup.MarginLayoutParams) ll_search.getLayoutParams();
         titleLayoutParams = (ViewGroup.MarginLayoutParams) tv_company.getLayoutParams();
         LL_SEARCH_MIN_TOP_MARGIN = AbScreenUtils.dp2px(mActivity, 4.5f);//布局关闭时顶部距离
@@ -327,6 +322,23 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                                 ll_icon.setVisibility(View.VISIBLE);
                             }else {
                                 ll_icon.setVisibility(View.GONE);
+                            }
+
+                            if(data.getShowCompanyFLag()==1) {
+                                my_scroll.setVisibility(View.VISIBLE);
+                            }else {
+                                my_scroll.setVisibility(View.VISIBLE);
+                            }
+
+                            if(data.getCompanyPhone()!=null) {
+                                tv_phone_num.setText(data.getCompanyPhone());
+                            }
+                            if(data.getCompanyAddress()!=null) {
+                                tv_address.setText(data.getCompanyAddress());
+                            }
+
+                            if(data.getCompanyDesc()!=null) {
+                                tv_introduce.setText(data.getCompanyDesc());
                             }
 
                             //秒杀
@@ -573,11 +585,11 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
 
     @Override
     public void setClickListener() {
-        tv_notice_desc.setOnClickListener(this);
         ll_search.setOnClickListener(this);
         rl_message.setOnClickListener(this);
         tv_company.setOnClickListener(this);
         iv_location.setOnClickListener(this);
+        tv_call.setOnClickListener(this);
     }
 
     /**
@@ -634,20 +646,13 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
 
             case R.id.rl_message:
                 Intent messageIntent = new Intent(mActivity, HylMessageCenterActivity.class);
-//                messageIntent.putExtra("test1",1);
-//                Intent messageIntent = new Intent(mActivity,HylTestActivity.class);
                 startActivity(messageIntent);
-//                Intent intent1 = new Intent(mActivity, TestActivity.class);
-//                startActivity(intent1);
+
                 break;
-            case R.id.tv_notice_desc:
-                String titleInsert  = "请输入想输入的内容";
-//                DialogFragmentHelper.showInsertDialog(getFragmentManager(), titleInsert, new IDialogResultListener<String>() {
-//                    @Override
-//                    public void onDataResult(String result) {
-//
-//                    }
-//                }, true);
+            case R.id.tv_call:
+                Intent intentCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + 1875741454));
+                intentCall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intentCall);
                 break;
 
             case R.id.ll_search:
