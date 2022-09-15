@@ -87,14 +87,15 @@
 
                 </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/iv_add"
-                    android:layout_width="@dimen/size_20dp"
-                    android:layout_height="@dimen/size_20dp"
+                <TextView
+                    android:id="@+id/tv_add"
+                    android:layout_width="@dimen/size_70dp"
+                    android:layout_height="@dimen/size_25dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="5dp"
+                    android:background="@drawable/shape_add_car_red"
                     android:gravity="center"
-                    android:src="@mipmap/icon_add"
+                    android:text="选规格"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 

@@ -86,7 +86,7 @@ public class HylSettleModel {
         private String giftNo;
         private String totalAmount;
         private List<ProdsBean> prods;
-
+        private List<AdditionsBean> additions;
         @Override
         public String toString() {
             return "DataBean{" +
@@ -181,6 +181,14 @@ public class HylSettleModel {
 
         public void setProds(List<ProdsBean> prods) {
             this.prods = prods;
+        }
+
+        public List<AdditionsBean> getAdditions() {
+            return additions;
+        }
+
+        public void setAdditions(List<AdditionsBean> additions) {
+            this.additions = additions;
         }
 
         public static class AddressVOBean implements Serializable{
@@ -338,6 +346,81 @@ public class HylSettleModel {
             }
         }
 
+        public static class AdditionsBean implements Serializable{
+            /**
+             * type : 1
+             * defaultPic : null
+             * prodName : 1元优惠券
+             * spec : null
+             * additionFlag : https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/image/229bf97481604d8db98e3e898e156016.png
+             * sendNum : 1张
+             */
+
+            private int type;
+            private String defaultPic;
+            private String prodName;
+            private Object spec;
+            private String additionFlag;
+            private String sendNum;
+            int sendFlag;
+
+            public int getSendFlag() {
+                return sendFlag;
+            }
+
+            public void setSendFlag(int sendFlag) {
+                this.sendFlag = sendFlag;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
+            }
+
+            public String getDefaultPic() {
+                return defaultPic;
+            }
+
+            public void setDefaultPic(String defaultPic) {
+                this.defaultPic = defaultPic;
+            }
+
+            public String getProdName() {
+                return prodName;
+            }
+
+            public void setProdName(String prodName) {
+                this.prodName = prodName;
+            }
+
+            public Object getSpec() {
+                return spec;
+            }
+
+            public void setSpec(Object spec) {
+                this.spec = spec;
+            }
+
+            public String getAdditionFlag() {
+                return additionFlag;
+            }
+
+            public void setAdditionFlag(String additionFlag) {
+                this.additionFlag = additionFlag;
+            }
+
+            public String getSendNum() {
+                return sendNum;
+            }
+
+            public void setSendNum(String sendNum) {
+                this.sendNum = sendNum;
+            }
+        }
+
         public static class ProdsBean implements Serializable{
             /**
              * businessId : 8664
@@ -361,7 +444,8 @@ public class HylSettleModel {
             private String totalPrice;
             private int additionNum;
             private List<String> prices;
-            private List<AdditionsBean> additions;
+            int sendFlag;
+//            private List<AdditionsBean> additions;
 
             @Override
             public String toString() {
@@ -375,8 +459,16 @@ public class HylSettleModel {
                         ", totalPrice='" + totalPrice + '\'' +
                         ", additionNum=" + additionNum +
                         ", prices=" + prices +
-                        ", additions=" + additions +
+                        ", additions=" +  +
                         '}';
+            }
+
+            public int getSendFlag() {
+                return sendFlag;
+            }
+
+            public void setSendFlag(int sendFlag) {
+                this.sendFlag = sendFlag;
             }
 
             public int getBusinessId() {
@@ -451,79 +543,13 @@ public class HylSettleModel {
                 this.prices = prices;
             }
 
-            public List<AdditionsBean> getAdditions() {
-                return additions;
-            }
-
-            public void setAdditions(List<AdditionsBean> additions) {
-                this.additions = additions;
-            }
-
-            public static class AdditionsBean implements Serializable{
-                /**
-                 * type : 1
-                 * defaultPic : null
-                 * prodName : 1元优惠券
-                 * spec : null
-                 * additionFlag : https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/image/229bf97481604d8db98e3e898e156016.png
-                 * sendNum : 1张
-                 */
-
-                private int type;
-                private Object defaultPic;
-                private String prodName;
-                private Object spec;
-                private String additionFlag;
-                private String sendNum;
-
-                public int getType() {
-                    return type;
-                }
-
-                public void setType(int type) {
-                    this.type = type;
-                }
-
-                public Object getDefaultPic() {
-                    return defaultPic;
-                }
-
-                public void setDefaultPic(Object defaultPic) {
-                    this.defaultPic = defaultPic;
-                }
-
-                public String getProdName() {
-                    return prodName;
-                }
-
-                public void setProdName(String prodName) {
-                    this.prodName = prodName;
-                }
-
-                public Object getSpec() {
-                    return spec;
-                }
-
-                public void setSpec(Object spec) {
-                    this.spec = spec;
-                }
-
-                public String getAdditionFlag() {
-                    return additionFlag;
-                }
-
-                public void setAdditionFlag(String additionFlag) {
-                    this.additionFlag = additionFlag;
-                }
-
-                public String getSendNum() {
-                    return sendNum;
-                }
-
-                public void setSendNum(String sendNum) {
-                    this.sendNum = sendNum;
-                }
-            }
+//            public List<AdditionsBean> getAdditions() {
+//                return additions;
+//            }
+//
+//            public void setAdditions(List<AdditionsBean> additions) {
+//                this.additions = additions;
+//            }
         }
 
 

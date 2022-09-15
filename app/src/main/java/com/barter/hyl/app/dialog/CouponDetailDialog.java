@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.MainActivity;
 import com.barter.hyl.app.adapter.HylChooseDialogSpecAdapter;
 import com.barter.hyl.app.adapter.HylChoosePriceAdapter;
 import com.barter.hyl.app.api.DetailApi;
@@ -52,7 +53,7 @@ import rx.schedulers.Schedulers;
 
 public class CouponDetailDialog extends Dialog implements View.OnClickListener {
 
-    Context context;
+    Activity context;
     public View view;
     public Unbinder binder;
 
@@ -85,7 +86,7 @@ public class CouponDetailDialog extends Dialog implements View.OnClickListener {
     ImageView iv_cart;
 
     HylMyCouponDetailModel.DataBean.ListBean listBean;
-    public CouponDetailDialog(Context mActivity, HylMyCouponDetailModel.DataBean.ListBean listBean) {
+    public CouponDetailDialog(Activity mActivity, HylMyCouponDetailModel.DataBean.ListBean listBean) {
         super(mActivity, R.style.dialog);
         this.context = mActivity;
         this.listBean = listBean;
@@ -234,6 +235,9 @@ public class CouponDetailDialog extends Dialog implements View.OnClickListener {
                 break;
 
             case R.id.iv_cart:
+                context.finish();
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                getContext().startActivity(intent);
                 EventBus.getDefault().post(new JumpCartHylEvent());
                 dismiss();
                 break;

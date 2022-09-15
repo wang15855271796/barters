@@ -17,14 +17,14 @@ import java.util.List;
 /**
  * Created by ${王涛} on 2021/8/24
  */
-public class HylGivenAdapter extends BaseQuickAdapter<HylSettleModel.DataBean.ProdsBean.AdditionsBean,BaseViewHolder> {
+public class HylGivenAdapter extends BaseQuickAdapter<HylSettleModel.DataBean.AdditionsBean,BaseViewHolder> {
 
-    public HylGivenAdapter(int layoutResId, @Nullable List<HylSettleModel.DataBean.ProdsBean.AdditionsBean> data) {
+    public HylGivenAdapter(int layoutResId, @Nullable List<HylSettleModel.DataBean.AdditionsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HylSettleModel.DataBean.ProdsBean.AdditionsBean item) {
+    protected void convert(BaseViewHolder helper, HylSettleModel.DataBean.AdditionsBean item) {
         RoundImageView iv_icon = helper.getView(R.id.iv_icon);
         Glide.with(mContext).load(item.getDefaultPic()).into(iv_icon);
         ImageView iv_finish = helper.getView(R.id.iv_finish);

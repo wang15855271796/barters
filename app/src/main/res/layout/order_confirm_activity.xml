@@ -216,19 +216,103 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_marginTop="@dimen/size_11dp"
+                <LinearLayout
                     android:background="@drawable/shape_white1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_coupon"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_marginTop="@dimen/size_11dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:visibility="gone"
+                        android:id="@+id/rv_given"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:visibility="gone"
+                        android:layout_marginLeft="@dimen/size_11dp"
+                        android:id="@+id/rv_coupon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_white1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    <TextView
+                        android:textColor="#FF2925"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="当前地址，以下商品暂不销售"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_unSale"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_20dp">
+
+                        <TextView
+                            android:text="展开"
+                            android:textSize="11sp"
+                            android:id="@+id/tv_open"
+                            android:layout_centerVertical="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/size_3dp"
+                            android:layout_toRightOf="@+id/tv_open"
+                            android:src="@mipmap/icon_arrow_downs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_white1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="#FF2925"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="当前地址，不在赠品的配送范围"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_unGiven"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_unCoupon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_marginTop="@dimen/size_11dp"
                     android:background="@drawable/shape_white1"

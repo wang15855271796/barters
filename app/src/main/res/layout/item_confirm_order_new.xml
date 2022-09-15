@@ -83,6 +83,7 @@
 
     <!--&lt;!&ndash;满赠商品赠品&ndash;&gt;-->
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rv_given"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
@@ -91,6 +92,7 @@
     </androidx.recyclerview.widget.RecyclerView>
     <!--赠优惠券-->
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rv_coupon"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_width="match_parent"

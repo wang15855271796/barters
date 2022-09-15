@@ -89,7 +89,7 @@ public class MyInfoApi {
     //优惠券详情
     public interface MyCouponDetailService {
         @FormUrlEncoded
-        @POST(AppInterfaceAddress.My_Coupon_List)
+        @POST(AppInterfaceAddress.My_Coupon_Detail)
         Observable<HylMyCouponDetailModel> setParams(@Field("searchKey") String searchKey,
                                                      @Field("poolNo") String poolNo,
                                                      @Field("pageNum") int pageNum,

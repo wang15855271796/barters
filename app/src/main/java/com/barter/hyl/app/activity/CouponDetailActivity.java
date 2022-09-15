@@ -18,6 +18,7 @@ import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.dialog.CouponDetailDialog;
 import com.barter.hyl.app.model.HylMyCouponDetailModel;
 import com.barter.hyl.app.model.HylMyCouponModel;
+import com.barter.hyl.app.utils.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -95,19 +96,22 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
-        couponDetailAdapter = new CouponDetailAdapter(R.layout.item_search_hyl, list, new CouponDetailAdapter.OnAddClickListener() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        couponDetailAdapter = new CouponDetailAdapter(R.layout.item_search_hyl1, list, new CouponDetailAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(HylMyCouponDetailModel.DataBean.ListBean item) {
-                CouponDetailDialog couponDetailDialog = new CouponDetailDialog(mContext,item);
+                CouponDetailDialog couponDetailDialog = new CouponDetailDialog(CouponDetailActivity.this,item);
                 couponDetailDialog.show();
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.setAdapter(couponDetailAdapter);
+
     }
 
     @Override
     public void setClickListener() {
         iv_back.setOnClickListener(this);
+        tv_search.setOnClickListener(this);
     }
 
     @Override
@@ -116,12 +120,24 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
             case R.id.iv_back:
                 finish();
                 break;
+
+            case R.id.tv_search:
+                if(et_search.getText().toString().trim().equals("")) {
+                    ToastUtil.showSuccessMsg(mContext,"请输入搜索商品");
+                    return;
+                }
+                list.clear();
+                pageNum = 1;
+                searchKey = et_search.getText().toString();
+                getCouponDetail();
+                break;
         }
     }
 
+    String searchKey = "";
     HylMyCouponDetailModel.DataBean data;
     private void getCouponDetail() {
-        MyInfoApi.getMyCouponDetail(mActivity, et_search.getText().toString(), poolNo,pageNum,pageSize)
+        MyInfoApi.getMyCouponDetail(mActivity,searchKey,poolNo,pageNum,pageSize)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylMyCouponDetailModel>() {

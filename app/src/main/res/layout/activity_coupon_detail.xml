@@ -53,6 +53,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/dp_10"
         android:paddingLeft="@dimen/size_7dp"
+        android:layout_marginLeft="@dimen/size_8dp"
         android:paddingTop="@dimen/size_7dp"
         android:paddingRight="@dimen/size_7dp"
         android:paddingBottom="@dimen/size_7dp"

@@ -16,14 +16,14 @@ import java.util.List;
 /**
  * Created by ${王涛} on 2021/9/27
  */
-public class HylGivenOrderGoodsAdapter extends BaseQuickAdapter<HylSettleModel.DataBean.ProdsBean.AdditionsBean,BaseViewHolder> {
+public class HylGivenOrderGoodsAdapter extends BaseQuickAdapter<HylSettleModel.DataBean.AdditionsBean,BaseViewHolder> {
 
-    public HylGivenOrderGoodsAdapter(int layoutResId, @Nullable List<HylSettleModel.DataBean.ProdsBean.AdditionsBean> data) {
+    public HylGivenOrderGoodsAdapter(int layoutResId, @Nullable List<HylSettleModel.DataBean.AdditionsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HylSettleModel.DataBean.ProdsBean.AdditionsBean item) {
+    protected void convert(BaseViewHolder helper, HylSettleModel.DataBean.AdditionsBean item) {
         helper.setIsRecyclable(false);
         ImageView iv_icon = helper.getView(R.id.iv_icon);
         Glide.with(mContext).load(item.getDefaultPic()).into(iv_icon);

@@ -17,14 +17,14 @@ import java.util.List;
 /**
  * Created by ${王涛} on 2021/8/24
  */
-class HylOrderCouponAdapter extends BaseQuickAdapter<HylSettleModel.DataBean.ProdsBean.AdditionsBean,BaseViewHolder> {
+public class HylOrderCouponAdapter extends BaseQuickAdapter<HylSettleModel.DataBean.AdditionsBean,BaseViewHolder> {
 
-    public HylOrderCouponAdapter(int layoutResId, @Nullable List<HylSettleModel.DataBean.ProdsBean.AdditionsBean> data) {
+    public HylOrderCouponAdapter(int layoutResId, @Nullable List<HylSettleModel.DataBean.AdditionsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HylSettleModel.DataBean.ProdsBean.AdditionsBean item) {
+    protected void convert(BaseViewHolder helper, HylSettleModel.DataBean.AdditionsBean item) {
         LinearLayout rl_root = helper.getView(R.id.rl_root);
         ImageView iv_head = helper.getView(R.id.iv_head);
         TextView tv_desc = helper.getView(R.id.tv_desc);
