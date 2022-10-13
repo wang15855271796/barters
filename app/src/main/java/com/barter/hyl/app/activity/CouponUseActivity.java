@@ -68,13 +68,7 @@ public class CouponUseActivity extends BaseActivity implements View.OnClickListe
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         couponUseAdapter = new CouponUseAdapter(R.layout.item_coupon_use,list);
         recyclerView.setAdapter(couponUseAdapter);
-
-        if(type.equals("1")) {
-            tv_desc.setText("以下商品可使用"+name);
-        }else if(type.equals("2")) {
-            tv_desc.setText("以下商品不可使用"+name);
-        }
-
+        tv_desc.setText("以下商品可使用"+name);
         getFullList(poolNo);
 
         couponUseAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

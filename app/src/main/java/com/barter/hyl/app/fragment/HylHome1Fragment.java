@@ -98,8 +98,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     SlidingTabLayout tab_layout;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
-    @BindView(R.id.tv_notice_desc)
-    TextView tv_notice_desc;
     HylViewPagerAdapter adapter;
     @BindView(R.id.banner)
     Banner banner;
@@ -161,6 +159,8 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     TextView tv_address;
     @BindView(R.id.tv_introduce)
     TextView tv_introduce;
+    @BindView(R.id.tv_stop)
+    TextView tv_stop;
     public AppBarLayoutState state;
     public enum AppBarLayoutState {
         EXPANDED,
@@ -273,6 +273,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     List<HomeBaseModel.DataBean.TeamBean.ActiveListBeanX> teamList = new ArrayList<>();
     List<HomeBaseModel.DataBean.FullActiveBean.ActiveListBeanXX> fullList = new ArrayList<>();
 
+    HomeBaseModel.DataBean data;
     private void getBaseData() {
         HomeApi.getBaseData(mActivity)
                 .subscribeOn(Schedulers.io())
@@ -291,7 +292,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                     @Override
                     public void onNext(HomeBaseModel baseModel) {
                         if (baseModel.getCode()==1) {
-                            HomeBaseModel.DataBean data = baseModel.getData();
+                            data = baseModel.getData();
                             tv_company.setText(data.getCompanyName());
 
                             //banner模块
@@ -324,21 +325,35 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                                 ll_icon.setVisibility(View.GONE);
                             }
 
+                            //是否展示公司信息
                             if(data.getShowCompanyFLag()==1) {
                                 my_scroll.setVisibility(View.VISIBLE);
+                                //公司是否停业
+                                if(data.getCompanyEnabled()==0) {
+                                    tv_stop.setVisibility(View.VISIBLE);
+                                }else {
+                                    tv_stop.setVisibility(View.GONE);
+                                }
                             }else {
-                                my_scroll.setVisibility(View.VISIBLE);
+                                if(data.getCompanyEnabled()==0) {
+                                    tv_stop.setVisibility(View.VISIBLE);
+                                }else {
+                                    tv_stop.setVisibility(View.GONE);
+                                }
+                                my_scroll.setVisibility(View.GONE);
                             }
+
 
                             if(data.getCompanyPhone()!=null) {
                                 tv_phone_num.setText(data.getCompanyPhone());
                             }
+
                             if(data.getCompanyAddress()!=null) {
                                 tv_address.setText(data.getCompanyAddress());
                             }
 
                             if(data.getCompanyDesc()!=null) {
-                                tv_introduce.setText(data.getCompanyDesc());
+                                tv_introduce.setText("公司介绍:"+data.getCompanyDesc());
                             }
 
                             //秒杀
@@ -383,7 +398,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                             }else {
                                 ll_skill.setVisibility(View.GONE);
                             }
-
 
                             //组合
                             if(data.getTeam()!=null) {
@@ -466,7 +480,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                                     Glide.with(mActivity).load(baseModel.getData().getFullActive().getPic()).into(iv_full);
                                 }
                             }
-
 
                             //是否展示弹窗
                             if(data.getPopUpsFlag()==1) {
@@ -590,6 +603,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
         tv_company.setOnClickListener(this);
         iv_location.setOnClickListener(this);
         tv_call.setOnClickListener(this);
+        tv_stop.setOnClickListener(this);
     }
 
     /**
@@ -647,12 +661,21 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
             case R.id.rl_message:
                 Intent messageIntent = new Intent(mActivity, HylMessageCenterActivity.class);
                 startActivity(messageIntent);
-
                 break;
             case R.id.tv_call:
-                Intent intentCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + 1875741454));
-                intentCall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intentCall);
+                if(data!=null && data.getCompanyPhone()!=null || !data.getCompanyPhone().equals("")) {
+                    Intent intentCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + data.getCompanyPhone()));
+                    intentCall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intentCall);
+                }
+                break;
+
+            case R.id.tv_stop:
+                if(data!=null && data.getCompanyPhone()!=null || !data.getCompanyPhone().equals("")) {
+                    Intent intentCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + data.getCompanyPhone()));
+                    intentCall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intentCall);
+                }
                 break;
 
             case R.id.ll_search:

@@ -16,7 +16,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 8
-        versionName "1.0.7"
+        versionName "1.0.8"
         multiDexEnabled true
         packagingOptions {
             exclude 'META-INF/rxjava.properties'

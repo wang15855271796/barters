@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/tv_amount"
                     android:layout_alignBottom="@+id/tv_amount"
-                    android:layout_marginLeft="@dimen/size_18dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
                     android:layout_marginTop="@dimen/size_20dp"
                     android:text="￥"
                     android:textColor="#F54022" />
@@ -76,7 +76,7 @@
                     android:layout_marginTop="@dimen/size_20dp"
                     android:layout_toRightOf="@+id/tv_tip"
                     android:textColor="#F54022"
-                    android:textSize="@dimen/size_30dp"
+                    android:textSize="@dimen/size_25dp"
                     android:textStyle="bold"
                     tools:text="12" />
 
@@ -84,7 +84,7 @@
                     android:id="@+id/ll"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/size_23dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
                     android:layout_toRightOf="@+id/tv_amount"
                     android:orientation="vertical">
 
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/size_15dp"
-                    android:layout_marginRight="@dimen/size_20dp"
+                    android:layout_marginRight="@dimen/size_10dp"
                     android:background="@drawable/shape_add_car_red"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingTop="@dimen/dp_4"
@@ -151,9 +151,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_3dp"
                     android:layout_below="@+id/ll"
-                    android:layout_marginLeft="@dimen/size_18dp"
+                    android:layout_marginLeft="@dimen/size_10dp"
                     android:layout_marginTop="@dimen/size_8dp"
-                    android:layout_marginRight="@dimen/size_18dp"
+                    android:layout_marginRight="@dimen/size_10dp"
                     android:background="@drawable/app_my_coupons" />
 
             </RelativeLayout>
@@ -164,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/rl"
-                android:layout_marginLeft="@dimen/sp_16"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/size_7dp"
                 android:textColor="#999999"
                 android:textSize="10dp"

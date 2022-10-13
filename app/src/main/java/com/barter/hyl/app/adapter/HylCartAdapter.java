@@ -53,7 +53,6 @@ public class HylCartAdapter extends BaseQuickAdapter<HylCartListModel.DataBean.P
     @Override
     protected void convert(BaseViewHolder helper, final HylCartListModel.DataBean.ProdsBeanX item) {
         TextView tv_tip = helper.getView(R.id.tv_tip);
-//        TextView tv_delete = helper.getView(R.id.tv_delete);
         RelativeLayout rl_tip = helper.getView(R.id.rl_tip);
         RecyclerView rv_goods = helper.getView(R.id.rv_goods);
         RecyclerView rv_coupon = helper.getView(R.id.rv_coupon);

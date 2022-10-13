@@ -165,24 +165,15 @@
 
                                 <com.barter.hyl.app.view.MyCompanyScrollView
                                     android:id="@+id/my_scroll"
+                                    android:visibility="gone"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/public_space_value_120"
                                     android:background="@drawable/shape_white5">
 
                                     <RelativeLayout
+                                        android:id="@+id/rl_company_desc"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
-
-                                        <TextView
-                                            android:layout_width="match_parent"
-                                            android:layout_height="@dimen/size_20dp"
-                                            android:layout_below="@+id/ll_desc"
-                                            android:layout_alignParentBottom="true"
-                                            android:background="@drawable/shape_blue"
-                                            android:gravity="center"
-                                            android:text="本企业已停业，如需与企业联系，可拨打上方电话"
-                                            android:textColor="#1890FF"
-                                            android:textSize="@dimen/sp_12" />
 
                                         <LinearLayout
                                             android:id="@+id/ll_phone"
@@ -207,9 +198,9 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginLeft="@dimen/size_5dp"
                                                 android:layout_marginTop="@dimen/dp_10"
-                                                android:text="18757144843"
                                                 android:textColor="#FF2925"
-                                                android:textSize="11sp" />
+                                                android:textSize="11sp"
+                                                tools:text="18757144843" />
 
                                             <TextView
                                                 android:id="@+id/tv_call"
@@ -262,7 +253,7 @@
                                             <ImageView
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:layout_marginLeft="@dimen/size_17dp"
+                                                android:layout_marginLeft="@dimen/size_18dp"
                                                 android:layout_marginTop="@dimen/size_2dp"
                                                 android:src="@mipmap/icon_desc" />
 
@@ -272,14 +263,29 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginLeft="@dimen/size_8dp"
                                                 android:ellipsize="end"
-                                                android:text="西湖杭州西湖杭州西湖杭州西湖湖杭州西湖杭好背景"
+                                                android:layout_marginRight="@dimen/size_5dp"
+                                                tools:text="西湖杭州西湖杭州西湖杭州西湖湖杭州西湖杭好背景西湖杭州西湖杭州西湖杭州西湖湖杭州西湖杭好背景"
                                                 android:textColor="#999999"
                                                 android:textSize="11sp" />
 
                                         </LinearLayout>
 
                                     </RelativeLayout>
+
                                 </com.barter.hyl.app.view.MyCompanyScrollView>
+
+                                <TextView
+                                    android:visibility="gone"
+                                    android:id="@+id/tv_stop"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/size_25dp"
+                                    android:layout_below="@+id/ll_desc"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="@drawable/shape_blue"
+                                    android:gravity="center"
+                                    android:text="本企业已停业，如需与企业联系，点击可拨打电话"
+                                    android:textColor="#1890FF"
+                                    android:textSize="@dimen/sp_12" />
 
                                 <com.barter.hyl.app.banner.Banner
                                     android:id="@+id/banner"
@@ -289,32 +295,6 @@
                                     android:layout_marginTop="@dimen/dp_10"
                                     android:layout_marginRight="@dimen/dp_10"
                                     app:image_scale_type="fit_xy" />
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/size_40dp"
-                                    android:background="@color/white"
-                                    android:gravity="center_vertical"
-                                    android:paddingLeft="@dimen/size_20dp"
-                                    android:paddingRight="@dimen/size_20dp"
-                                    android:visibility="gone">
-
-                                    <TextView
-                                        android:id="@+id/tv_notice_desc"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="系统维护停服升级公告"
-                                        android:textColor="#FF0000" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentRight="true"
-                                        android:text="07.25"
-                                        android:textColor="#FF0000" />
-
-
-                                </RelativeLayout>
 
                                 <com.frankfancode.marqueeview.MarqueeView
                                     android:id="@+id/marqueeView"
@@ -453,9 +433,8 @@
                                     <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/rv_team"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent">
+                                        android:layout_height="match_parent"/>
 
-                                    </androidx.recyclerview.widget.RecyclerView>
                                 </LinearLayout>
                                 <!--满赠-->
                                 <LinearLayout

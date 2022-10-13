@@ -1,5 +1,6 @@
 package com.barter.hyl.app.fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
@@ -301,19 +302,8 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
                 break;
 
             case R.id.rl_version:
-                if(data!=null) {
-                    if(data.getDownLoadUrl()!=null) {
-                        try {
-                            Intent intent = new Intent();
-                            intent.setAction("android.intent.action.VIEW");
-                            Uri content_url = Uri.parse(data.getDownLoadUrl());
-                            intent.setData(content_url);
-                            startActivity(intent);
-                        } catch (Exception e) {
+                showUpdateDialog();
 
-                        }
-                    }
-                }
 
                 break;
 
@@ -334,6 +324,46 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
                 startActivity(intent);
                 break;
         }
+    }
+
+    /**
+     * 更新弹窗
+     */
+    private void showUpdateDialog() {
+        final AlertDialog mDialog = new AlertDialog.Builder(getContext()).create();
+        mDialog.show();
+        mDialog.getWindow().setContentView(R.layout.update_dialog);
+        ImageView iv_cancel = (ImageView) mDialog.getWindow().findViewById(R.id.iv_cancel);
+        TextView tv_update = (TextView) mDialog.getWindow().findViewById(R.id.tv_update);
+        TextView tv_content = (TextView) mDialog.getWindow().findViewById(R.id.tv_content);
+
+        tv_content.setText("立即升级，体验全新界面，享受更优服务");
+        iv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+            }
+        });
+
+        tv_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(data!=null) {
+                    if(data.getDownLoadUrl()!=null) {
+                        try {
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            Uri content_url = Uri.parse(data.getDownLoadUrl());
+                            intent.setData(content_url);
+                            startActivity(intent);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+                mDialog.dismiss();
+            }
+        });
     }
 
     /**

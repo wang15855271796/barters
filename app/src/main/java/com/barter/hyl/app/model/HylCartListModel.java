@@ -258,7 +258,7 @@ public class HylCartListModel {
                 private int type;
                 private String productId;
                 private String productMainId;
-                private Object giftPoolNo;
+                private String giftPoolNo;
                 private Object warehouseId;
                 private Object productUnit;
                 private String name;
@@ -297,11 +297,11 @@ public class HylCartListModel {
                     this.productMainId = productMainId;
                 }
 
-                public Object getGiftPoolNo() {
+                public String getGiftPoolNo() {
                     return giftPoolNo;
                 }
 
-                public void setGiftPoolNo(Object giftPoolNo) {
+                public void setGiftPoolNo(String giftPoolNo) {
                     this.giftPoolNo = giftPoolNo;
                 }
 

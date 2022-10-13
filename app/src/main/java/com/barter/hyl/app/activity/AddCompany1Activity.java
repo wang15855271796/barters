@@ -52,8 +52,6 @@ public class AddCompany1Activity extends BaseActivity implements View.OnClickLis
             password = getIntent().getStringExtra("password");
         }
 
-
-        Log.d("wfasfsda.....",phone+"----"+password);
         return false;
     }
 
@@ -114,7 +112,6 @@ public class AddCompany1Activity extends BaseActivity implements View.OnClickLis
                     public void onNext(HylOneRegisterModel hylOneRegisterModel) {
                         if(hylOneRegisterModel.code==1) {
                             tv_company.setText(hylOneRegisterModel.data);
-//                            ToastUtil.showSuccessMsg(mContext,hylOneRegisterModel.message);
                         }else {
                             ToastUtil.showSuccessMsg(mContext,hylOneRegisterModel.message);
                         }

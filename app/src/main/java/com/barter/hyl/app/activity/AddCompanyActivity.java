@@ -117,7 +117,6 @@ public class AddCompanyActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onNext(BaseModel baseModel) {
                         if(baseModel.code==1) {
-                            ToastUtil.showSuccessMsg(mContext,baseModel.message);
                             //刷新公司列表
                             EventBus.getDefault().post(new CompanyEvent());
                             finish();

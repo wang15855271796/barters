@@ -1,7 +1,10 @@
 package com.barter.hyl.app.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import com.barter.hyl.app.dialog.CouponDetailDialog;
 import com.barter.hyl.app.model.HylMyCouponDetailModel;
 import com.barter.hyl.app.model.HylMyCouponModel;
 import com.barter.hyl.app.utils.ToastUtil;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -77,7 +81,6 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
                 list.clear();
                 getCouponDetail();
                 smart.finishRefresh();
-                getCouponDetail();
             }
         });
 
@@ -102,6 +105,15 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
             public void onAddClick(HylMyCouponDetailModel.DataBean.ListBean item) {
                 CouponDetailDialog couponDetailDialog = new CouponDetailDialog(CouponDetailActivity.this,item);
                 couponDetailDialog.show();
+            }
+        });
+
+        couponDetailAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mActivity,HylCommonGoodsActivity.class);
+                intent.putExtra("mainId",list.get(position).getMainId());
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(couponDetailAdapter);
@@ -130,7 +142,18 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
                 pageNum = 1;
                 searchKey = et_search.getText().toString();
                 getCouponDetail();
+                hintKbTwo();
                 break;
+        }
+    }
+
+    //隐藏软键盘
+    private void hintKbTwo() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm.isActive() && getCurrentFocus() != null) {
+            if (getCurrentFocus().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
         }
     }
 

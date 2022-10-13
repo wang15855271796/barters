@@ -81,7 +81,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="已禁用"
-                android:layout_marginRight="@dimen/size_20dp"
+                android:layout_marginRight="@dimen/size_25dp"
                 android:textColor="#999999"
                 android:textSize="@dimen/sp_14"
                 android:visibility="gone" />

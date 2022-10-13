@@ -131,7 +131,6 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
             public void onRefreshBegin(PtrFrameLayout frame) {
                 pageNum = 1;
                 getRecommend(searchWord);
-//                ptr_layout.autoRefresh();
             }
         });
 

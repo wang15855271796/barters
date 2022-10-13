@@ -1,23 +1,29 @@
 package com.barter.hyl.app.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.HylConfirmOrderAdapter;
 import com.barter.hyl.app.adapter.HylGivenOrderGoodsAdapter;
 import com.barter.hyl.app.adapter.HylOrderCouponAdapter;
+import com.barter.hyl.app.adapter.HylOrderPriceAdapter;
 import com.barter.hyl.app.adapter.HylUnSaleAdapter;
 import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.api.OrderApi;
@@ -35,6 +41,11 @@ import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylSettleModel;
 import com.barter.hyl.app.model.HylStatModel;
 import com.barter.hyl.app.utils.ToastUtil;
+import com.barter.hyl.app.view.FlowLayout;
+import com.barter.hyl.app.view.RoundImageView;
+import com.barter.hyl.app.view.TagAdapter;
+import com.barter.hyl.app.view.TagFlowLayout;
+import com.bumptech.glide.Glide;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,6 +57,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import kotlin.text.Regex;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -68,6 +80,8 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
     TextView tv_peisong;
     @BindView(R.id.tv_coupon)
     TextView tv_coupon;
+    @BindView(R.id.iv_coupon)
+    ImageView iv_coupon;
     @BindView(R.id.tv_beizhu)
     TextView tv_beizhu;
     @BindView(R.id.rl_beizhu)
@@ -88,8 +102,8 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
     TextView tv_address;
     @BindView(R.id.iv_change_address)
     ImageView iv_change_address;
-    @BindView(R.id.ll_coupon)
-    LinearLayout ll_coupon;
+    @BindView(R.id.rl_coupon)
+    RelativeLayout rl_coupon;
     @BindView(R.id.btn_sure)
     Button btn_sure;
     @BindView(R.id.av_loading)
@@ -99,11 +113,25 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
     @BindView(R.id.rv_given)
     RecyclerView rv_given;
     @BindView(R.id.rv_unSale)
-    RecyclerView rv_unSale;
+    TagFlowLayout rv_unSale;
     @BindView(R.id.rv_unGiven)
     RecyclerView rv_unGiven;
     @BindView(R.id.rv_unCoupon)
     RecyclerView rv_unCoupon;
+    @BindView(R.id.rl_arrow)
+    RelativeLayout rl_arrow;
+    @BindView(R.id.tv_open)
+    TextView tv_open;
+    @BindView(R.id.iv_open)
+    ImageView iv_open;
+    @BindView(R.id.ll_unSale)
+    LinearLayout ll_unSale;
+    @BindView(R.id.ll_unGiven)
+    LinearLayout ll_unGiven;
+    @BindView(R.id.scroll)
+    ScrollView scroll;
+    @BindView(R.id.ll_root)
+    LinearLayout ll_root;
     HylStatModel hylStatModel;
     HylSettleModel.DataBean orderData;
     ArrayList<String> cartIds;
@@ -128,7 +156,7 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
     }
 
     HylConfirmOrderAdapter hylConfirmOrderAdapter;
-    HylUnSaleAdapter unSaleAdapter;
+    TagAdapter unSaleAdapter;
     HylGivenOrderGoodsAdapter givenGoodsAdapter;
     HylOrderCouponAdapter hylOrderCouponAdapter;
     @Override
@@ -140,8 +168,40 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
         hylConfirmOrderAdapter = new HylConfirmOrderAdapter(R.layout.item_confirm_order_new,prods1);
         recyclerView.setAdapter(hylConfirmOrderAdapter);
 
-        rv_unSale.setLayoutManager(new LinearLayoutManager(mContext));
-        unSaleAdapter = new HylUnSaleAdapter(R.layout.item_confirm_order_new,prods2);
+//        scroll.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, -400);
+//                translateAnimation.setRepeatMode(1);
+//                translateAnimation.setDuration(1000);
+//                translateAnimation.setFillAfter(true);
+//                recyclerView.startAnimation(translateAnimation);
+//            }
+//        });
+
+        unSaleAdapter = new TagAdapter<HylSettleModel.DataBean.ProdsBean>(prods2){
+            @Override
+            public View getView(FlowLayout parent, int position, HylSettleModel.DataBean.ProdsBean prodsBean) {
+                View view = LayoutInflater.from(mActivity).inflate(R.layout.item_confirm_order_new,rv_unSale, false);
+                TextView tv_title = view.findViewById(R.id.tv_title);
+                TextView tv_spec = view.findViewById(R.id.tv_spec);
+                TextView tv_total_price = view.findViewById(R.id.tv_total_price);
+                RoundImageView iv_pic = view.findViewById(R.id.iv_pic);
+                RecyclerView rv_price = view.findViewById(R.id.rv_price);
+                tv_title.setText(prodsBean.getProductName());
+                tv_spec.setText("规格："+prodsBean.getSpec());
+                tv_total_price.setText("￥"+prodsBean.getTotalPrice());
+                Glide.with(mContext).load(prodsBean.getDefaultPic()).into(iv_pic);
+
+                HylOrderPriceAdapter hylOrderPriceAdapter = new HylOrderPriceAdapter(R.layout.item_price_hyl,prodsBean.getPrices());
+                rv_price.setLayoutManager(new LinearLayoutManager(mContext));
+                rv_price.setAdapter(hylOrderPriceAdapter);
+
+                return view;
+            }
+        };
+
+        rl_arrow.setOnClickListener(this);
         rv_unSale.setAdapter(unSaleAdapter);
 
 
@@ -166,25 +226,6 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
         hylOrderCouponAdapter = new HylOrderCouponAdapter(R.layout.item_order_coupon_hyl,additionVOList4);
         rv_unCoupon.setAdapter(hylOrderCouponAdapter);
 
-        tv_num.setText(orderData.getProdNum()+"");
-        tv_amount.setText("￥"+orderData.getProdAmount());
-        tv_peisong.setText("￥"+orderData.getDeliverFee());
-        tv_coupon.setText(orderData.getGiftInfo());
-        tv_total_price.setText("￥"+orderData.getTotalAmount());
-
-
-        if(orderData.getAddressVO()!=null) {
-            rl_choose_address.setVisibility(View.VISIBLE);
-            ll_unDispose.setVisibility(View.GONE);
-            tv_user.setText(orderData.getAddressVO().getUserName());
-            tv_phone.setText(orderData.getAddressVO().getContactPhone());
-            tv_address.setText(orderData.getAddressVO().getDetailAddress());
-        }else {
-            ll_unDispose.setVisibility(View.VISIBLE);
-            rl_choose_address.setVisibility(View.GONE);
-        }
-
-
     }
 
     @Override
@@ -192,11 +233,12 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
         ll_back.setOnClickListener(this);
         rl_beizhu.setOnClickListener(this);
         ll_choose_address.setOnClickListener(this);
-        ll_coupon.setOnClickListener(this);
+        rl_coupon.setOnClickListener(this);
         btn_sure.setOnClickListener(this);
         rl_choose_address.setOnClickListener(this);
     }
 
+    boolean isOpen;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -207,17 +249,39 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
 
             case R.id.btn_sure:
                 av_loading.show();
+                if(prods1.size()==0) {
+                    ToastUtil.showSuccessMsg(mContext,"无可结算商品");
+                    av_loading.hide();
+                    return;
+                }
                 orderPay();
                 break;
+
             case R.id.ll_back:
                 finish();
                 break;
-            case R.id.ll_coupon:
+
+            case R.id.rl_arrow:
+                if(!isOpen) {
+                    rv_unSale.setLimit(false);
+                    tv_open.setText("收起");
+                    iv_open.setImageResource(R.mipmap.icon_arrow_up);
+                }else {
+                    tv_open.setText("展开");
+                    rv_unSale.setLimit(true);
+                    iv_open.setImageResource(R.mipmap.icon_arrow_down);
+                }
+                unSaleAdapter.notifyDataChanged();
+                isOpen = !isOpen;
+                break;
+
+            case R.id.rl_coupon:
                 Intent couponIntent = new Intent(mContext,HylCouponActivity.class);
                 couponIntent.putExtra("cartIds", (Serializable) cartIds);
                 couponIntent.putExtra("giftDetailNo",orderData.getGiftNo());
                 startActivity(couponIntent);
                 break;
+
             case R.id.rl_beizhu:
                 Intent intent = new Intent(mContext,HylBeizhuActivity.class);
                 intent.putExtra("beizhu",tv_beizhu.getText().toString()+"");
@@ -308,11 +372,9 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
                             if(hylSettleModel.getData()!=null) {
                                 data = hylSettleModel.getData();
                                 totalAmount = data.getTotalAmount();
-                                tv_user.setText(data.getAddressVO().getUserName());
                                 tv_coupon.setText(data.getGiftInfo());
                                 tv_total_price.setText(data.getTotalAmount());
-                                tv_address.setText(data.getAddressVO().getDetailAddress());
-                                tv_phone.setText(data.getAddressVO().getContactPhone());
+
                                 prods1.clear();
                                 prods2.clear();
                                 additionVOList1.clear();
@@ -334,8 +396,15 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
                                 }
 
                                 if(prods2.size()>0) {
+                                    if(prods2.size()>3) {
+                                        rl_arrow.setVisibility(View.VISIBLE);
+                                    }else {
+                                        rl_arrow.setVisibility(View.GONE);
+                                    }
+                                    ll_unSale.setVisibility(View.VISIBLE);
                                     rv_unSale.setVisibility(View.VISIBLE);
                                 }else {
+                                    ll_unSale.setVisibility(View.GONE);
                                     rv_unSale.setVisibility(View.GONE);
                                 }
 
@@ -364,20 +433,63 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
                                     }
                                 }
 
+                                tv_num.setText(data.getProdNum()+"");
+                                tv_amount.setText("￥"+data.getProdAmount());
+                                tv_peisong.setText("￥"+data.getDeliverFee());
+
+                                tv_coupon.setText(data.getGiftInfo());
+
+                                tv_total_price.setText("￥"+data.getTotalAmount());
+
+                                if(data.getAddressVO()!=null) {
+                                    rl_choose_address.setVisibility(View.VISIBLE);
+                                    ll_unDispose.setVisibility(View.GONE);
+                                    tv_user.setText(data.getAddressVO().getUserName());
+                                    tv_phone.setText(data.getAddressVO().getContactPhone());
+                                    tv_address.setText(data.getAddressVO().getDetailAddress());
+
+                                }else {
+                                    ll_unDispose.setVisibility(View.VISIBLE);
+                                    rl_choose_address.setVisibility(View.GONE);
+                                }
+
+
+                                if(!data.getGiftInfo().equals("暂无可用优惠券")) {
+                                    rl_coupon.setEnabled(true);
+                                    iv_coupon.setVisibility(View.VISIBLE);
+                                }else {
+                                    iv_coupon.setVisibility(View.GONE);
+                                    rl_coupon.setEnabled(false);
+                                }
+
                                 if(additionVOList1.size()>0) {
+//                                    ll_unGiven.setVisibility(View.VISIBLE);
                                     rv_given.setVisibility(View.VISIBLE);
                                 }else {
+//                                    ll_unGiven.setVisibility(View.GONE);
                                     rv_given.setVisibility(View.GONE);
                                 }
 //
                                 if(additionVOList2.size()>0) {
+//                                    ll_unGiven.setVisibility(View.VISIBLE);
                                     rv_coupon.setVisibility(View.VISIBLE);
                                 }else {
+//                                    ll_unGiven.setVisibility(View.GONE);
                                     rv_coupon.setVisibility(View.GONE);
                                 }
 
+                                if(additionVOList3.size()>0) {
+                                    ll_unGiven.setVisibility(View.VISIBLE);
+                                    rv_unCoupon.setVisibility(View.VISIBLE);
+                                    rv_unGiven.setVisibility(View.VISIBLE);
+                                }else {
+                                    ll_unGiven.setVisibility(View.GONE);
+                                    rv_unCoupon.setVisibility(View.GONE);
+                                    rv_unGiven.setVisibility(View.GONE);
+                                }
+
                                 hylConfirmOrderAdapter.notifyDataSetChanged();
-                                unSaleAdapter.notifyDataSetChanged();
+                                unSaleAdapter.notifyDataChanged();
 
                                 givenGoodsAdapter.notifyDataSetChanged();
                                 hylOrderCouponAdapter.notifyDataSetChanged();
@@ -432,8 +544,8 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setSetDefaultAddress(SetDefaultHylEvent setDefaultHylEvent) {
+        giftNo = "";
         settle(cartIds.toString(),giftNo);
-
     }
 
     /**
@@ -446,21 +558,4 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
         rl_choose_address.setVisibility(View.VISIBLE);
         ll_unDispose.setVisibility(View.GONE);
     }
-
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        EventBus.getDefault().unregister(this);
-//        if(paymentOrderFragment!=null) {
-//            paymentOrderFragment.dismiss();
-//        }
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        if(paymentOrderFragment!=null) {
-//            paymentOrderFragment.dismiss();
-//        }
-//    }
 }

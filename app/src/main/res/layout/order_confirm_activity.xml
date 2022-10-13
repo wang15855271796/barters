@@ -11,7 +11,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:background="#FF312D"
@@ -51,18 +51,18 @@
             <LinearLayout
                 android:gravity="center"
                 android:layout_width="@dimen/size_60dp"
-                android:layout_height="match_parent">
-
-            </LinearLayout>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
         <ScrollView
+            android:id="@+id/scroll"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/ll_root"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/size_11dp"
                 android:paddingRight="@dimen/size_11dp"
@@ -220,11 +220,11 @@
                     android:background="@drawable/shape_white1"
                     android:layout_width="match_parent"
                     android:orientation="vertical"
+                    android:layout_marginTop="@dimen/size_11dp"
                     android:layout_height="wrap_content">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
-                        android:layout_marginTop="@dimen/size_11dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -245,6 +245,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_unSale"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:orientation="vertical"
                     android:background="@drawable/shape_white1"
                     android:layout_width="match_parent"
@@ -258,12 +261,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <androidx.recyclerview.widget.RecyclerView
+                    <com.barter.hyl.app.view.TagFlowLayout
                         android:id="@+id/rv_unSale"
+                        android:layout_marginRight="@dimen/size_8dp"
+                        android:layout_marginLeft="@dimen/size_8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8dp"
+                        app:is_limit="true"
+                        app:limit_line_count="3"
+                        app:max_select="1"/>
+
 
                     <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/rl_arrow"
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/size_20dp">
@@ -277,6 +289,7 @@
                             android:layout_height="wrap_content"/>
 
                         <ImageView
+                            android:id="@+id/iv_open"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/size_3dp"
                             android:layout_toRightOf="@+id/tv_open"
@@ -289,6 +302,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_unGiven"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:orientation="vertical"
                     android:background="@drawable/shape_white1"
                     android:layout_width="match_parent"
@@ -311,6 +327,7 @@
                         android:id="@+id/rv_unCoupon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -400,10 +417,10 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_marginTop="@dimen/dp_10"
                     android:background="@drawable/shape_white1"
-                    android:id="@+id/ll_coupon"
+                    android:id="@+id/rl_coupon"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_45dp"
@@ -414,6 +431,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/size_13dp"
                         android:text="@string/textCoupons"
+                        android:layout_centerVertical="true"
                         android:textColor="@color/app_black"
                         android:textSize="@dimen/size_12dp" />
 
@@ -421,15 +439,24 @@
                         android:id="@+id/tv_coupon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/size_5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/size_15dp"
                         android:drawablePadding="@dimen/size_11dp"
-                        tools:text="sssssssssssssss"
-                        android:textColor="#999999"
-                        android:drawableRight="@mipmap/ic_address_icon"
                         android:gravity="right"
-                        android:textSize="@dimen/size_12dp" />
+                        android:textColor="#999999"
+                        android:textSize="@dimen/size_12dp"
+                        tools:text="sssssssssssssss" />
 
-                </LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_coupon"
+                        android:layout_marginRight="@dimen/size_5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_address_icon" />
+
+                </RelativeLayout>
                 <!--备注-->
                 <RelativeLayout
                     android:id="@+id/rl_beizhu"
@@ -450,18 +477,18 @@
                         android:textSize="@dimen/size_12dp" />
 
                     <TextView
-                        android:layout_alignParentRight="true"
                         android:id="@+id/tv_beizhu"
                         android:layout_width="215dp"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/size_5dp"
-                        android:drawablePadding="@dimen/size_11dp"
                         android:drawableRight="@mipmap/ic_address_icon"
+                        android:drawablePadding="@dimen/size_11dp"
+                        android:ellipsize="end"
+                        android:gravity="right"
                         android:hint="请输入你的备注"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:gravity="right"
-                        android:ellipsize="end"
                         android:textColor="#999999"
                         android:textSize="@dimen/size_12dp" />
 

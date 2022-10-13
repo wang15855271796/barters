@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by ${王涛} on 2021/8/24
  */
-class HylOrderPriceAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
+public class HylOrderPriceAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
 
     public HylOrderPriceAdapter(int layoutResId, @Nullable List<String> data) {
         super(layoutResId, data);

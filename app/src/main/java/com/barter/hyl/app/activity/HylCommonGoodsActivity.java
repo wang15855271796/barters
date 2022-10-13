@@ -545,7 +545,7 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                 }
 
                                 if(data.getVideoUrl()!=null&&!data.getVideoUrl().equals("")) {
-                                    topPics.add(0, HylCommonGoodsActivity.this.data.getVideoUrl());
+                                    topPics.add(0,data.getVideoUrl());
                                     iv_sound.setVisibility(View.VISIBLE);
                                 }else {
                                     iv_sound.setVisibility(View.GONE);
@@ -662,10 +662,11 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
 
         hylChooseSpecAdapter = new HylChooseSpecAdapter(mContext,specs, new HylChooseSpecAdapter.Onclick() {
             @Override
-            public void addDialog(int position) {
+            public void addDialog(int position,int productId) {
+                hylChooseSpecAdapter.selectPosition(position);
                 CommonDetailDialog commonDialog = new CommonDetailDialog(mActivity,data,position);
                 commonDialog.show();
-                exchangeList(Integer.parseInt(mainId),HylCommonGoodsActivity.this);
+                exchangeList(productId,HylCommonGoodsActivity.this);
             }
         });
         fl_container.setAdapter(hylChooseSpecAdapter);

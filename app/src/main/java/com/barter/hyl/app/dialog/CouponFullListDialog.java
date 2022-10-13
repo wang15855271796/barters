@@ -3,6 +3,7 @@ package com.barter.hyl.app.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,16 +55,17 @@ public class CouponFullListDialog extends Dialog implements View.OnClickListener
     @BindView(R.id.tv_detail)
     TextView tv_detail;
     String poolNo;
+    String getType;
     String giftProdUseType;
     String name;
-    public CouponFullListDialog(Context mContext, String poolNo, String giftProdUseType, String name) {
+    public CouponFullListDialog(Context mContext, String poolNo, String getType, String name) {
         super(mContext, R.style.dialog);
         this.context = mContext;
         this.poolNo = poolNo;
-        this.giftProdUseType = giftProdUseType;
+        this.getType = getType;
         this.name = name;
         init();
-        getFullList();
+
     }
 
 
@@ -79,13 +81,9 @@ public class CouponFullListDialog extends Dialog implements View.OnClickListener
         iv_close.setOnClickListener(this);
         tv_detail.setOnClickListener(this);
 
-        if(giftProdUseType.equals("1")) {
-            tv_detail.setVisibility(View.VISIBLE);
-        }else if(giftProdUseType.equals("2")) {
-            tv_detail.setVisibility(View.VISIBLE);
-        }else {
-            tv_detail.setVisibility(View.GONE);
-        }
+        getFullList();
+
+
     }
 
 
@@ -146,6 +144,16 @@ public class CouponFullListDialog extends Dialog implements View.OnClickListener
                                 tv_amount.setText(data.getAmountStr());
                                 tv_role.setText(data.getRole().get(0));
                                 tv_user_factor.setText(data.getUseInfo());
+                                giftProdUseType = data.getGiftProdUseType();
+
+                                if(giftProdUseType.equals("1")) {
+                                    tv_detail.setVisibility(View.VISIBLE);
+                                }else if(giftProdUseType.equals("2")) {
+                                    tv_detail.setVisibility(View.VISIBLE);
+                                }else {
+                                    tv_detail.setVisibility(View.GONE);
+                                }
+
                             }
                         }else {
                             ToastUtil.showSuccessMsg(getContext(),fullCouponListModel.getMessage());

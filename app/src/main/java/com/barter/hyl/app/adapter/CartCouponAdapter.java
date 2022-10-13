@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.dialog.CouponFullListDialog;
 import com.barter.hyl.app.model.HylCartListModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -45,7 +46,15 @@ public class CartCouponAdapter extends BaseQuickAdapter<HylCartListModel.DataBea
             tv_num.setTextColor(Color.parseColor("#FF0026"));
             tv_desc.setVisibility(View.GONE);
         }
+
+        rl_root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CouponFullListDialog couponFullListDialog = new CouponFullListDialog(mContext,
+                        item.getGiftPoolNo(),item.getType()+"",item.getName());
+                couponFullListDialog.show();
+
+            }
+        });
     }
-
-
 }

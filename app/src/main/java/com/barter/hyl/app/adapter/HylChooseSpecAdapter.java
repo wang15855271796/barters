@@ -74,7 +74,7 @@ public class HylChooseSpecAdapter extends BaseAdapter {
         holder.tv_spec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onclick.addDialog(position);
+                onclick.addDialog(position,prodSpecs.get(position).getProductId());
             }
         });
         return convertView;
@@ -92,6 +92,6 @@ public class HylChooseSpecAdapter extends BaseAdapter {
     }
 
     public interface Onclick {
-        void addDialog(int position);
+        void addDialog(int position,int productId);
     }
 }

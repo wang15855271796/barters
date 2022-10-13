@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -186,10 +188,13 @@ public class ChooseCompanyActivity extends BaseActivity implements View.OnClickL
                                             }else {
                                                 tv_phone.setVisibility(View.GONE);
                                             }
-
-                                            tv_desc.setText("当前企业(已禁用)");
                                         }else {
                                             tv_phone.setVisibility(View.GONE);
+                                        }
+
+                                        if(data.get(i).getCompanyEnabled()==0) {
+                                            tv_desc.setText("当前企业(企业已停用)");
+                                        }else {
                                             tv_desc.setText("当前企业");
                                         }
                                     }else {

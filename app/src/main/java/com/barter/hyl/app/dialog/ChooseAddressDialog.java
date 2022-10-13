@@ -122,6 +122,7 @@ public class ChooseAddressDialog extends Dialog {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 getDefaultAddress(list.get(position).getAddressId());
+                dismiss();
             }
         });
 

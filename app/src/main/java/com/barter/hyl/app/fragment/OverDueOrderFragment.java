@@ -355,7 +355,7 @@ public class OverDueOrderFragment extends BaseFragment implements View.OnClickLi
      * 删除订单
      */
     private void showDeleteDialog(final String orderId) {
-        final AlertDialog mDialog = new AlertDialog.Builder(mActivity).create();
+        AlertDialog mDialog = new AlertDialog.Builder(getActivity(), R.style.DialogStyle).create();
         mDialog.show();
         mDialog.getWindow().setContentView(R.layout.dialog_delete_order_hyl);
         TextView mBtnCancel = (TextView) mDialog.getWindow().findViewById(R.id.btnCancel);
@@ -383,7 +383,7 @@ public class OverDueOrderFragment extends BaseFragment implements View.OnClickLi
      * 取消订单
      */
     private void showCancelDialog(final String orderId) {
-        final AlertDialog mDialog = new AlertDialog.Builder(mActivity).create();
+        AlertDialog mDialog = new AlertDialog.Builder(getActivity(), R.style.DialogStyle).create();
         mDialog.show();
         mDialog.getWindow().setContentView(R.layout.dailog_cancel_hyl);
         TextView mBtnCancel = (TextView) mDialog.getWindow().findViewById(R.id.btnCancel);
