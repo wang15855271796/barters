@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.barter.hyl.app.MApplication;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.HylCommonH5Activity;
@@ -53,7 +52,7 @@ public class PrivacysDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.saveString(mContext,"once","0");
-                SDKInitializer.initialize(MApplication.getContext());
+//                SDKInitializer.initialize(MApplication.getContext());
 
                 new Handler().postDelayed(new Runnable() {
                     @Override

@@ -39,11 +39,11 @@ public class HylCommentActivity extends BaseActivity implements View.OnClickList
     RecyclerView recyclerView;
     @BindView(R.id.smart)
     SmartRefreshLayout smart;
-    int mainId;
+    String mainId;
     HylCommentAdapter hylCommentAdapter;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
-        mainId = getIntent().getIntExtra("mainId",0);
+        mainId = getIntent().getStringExtra("mainId");
         return false;
     }
 
@@ -97,7 +97,7 @@ public class HylCommentActivity extends BaseActivity implements View.OnClickList
     HylCommentModel hylCommentModels;
     List<HylCommentModel.DataBean.ListBean> list = new ArrayList<>();
     private void getComment() {
-        DetailApi.commentList(mActivity,pageNum,pageSize,mainId)
+        DetailApi.commentList(mActivity,pageNum,pageSize, Integer.parseInt(mainId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylCommentModel>() {

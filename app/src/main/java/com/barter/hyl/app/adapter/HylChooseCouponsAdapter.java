@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +28,6 @@ public class HylChooseCouponsAdapter extends BaseQuickAdapter<HylChooseCouponMod
     private  TextView tv_time;
     private  TextView tv_role;
     private  TextView tv_amount;
-    private Context context;
     TextView tv_desc;
     List<HylChooseCouponModel.DataBean> list;
     TextView tv_tip;
@@ -36,7 +36,6 @@ public class HylChooseCouponsAdapter extends BaseQuickAdapter<HylChooseCouponMod
     public HylChooseCouponsAdapter(int layoutResId, @Nullable List<HylChooseCouponModel.DataBean> data, ImageOnclick imageOnclick) {
         super(layoutResId, data);
         list=data;
-        this.context=context;
         this.imageOnclick = imageOnclick;
     }
 

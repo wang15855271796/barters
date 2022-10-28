@@ -159,25 +159,28 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
     TagAdapter unSaleAdapter;
     HylGivenOrderGoodsAdapter givenGoodsAdapter;
     HylOrderCouponAdapter hylOrderCouponAdapter;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Override
     public void setViewData() {
         tv_title.setText("确认订单");
         settle(cartIds.toString(),"");
-        EventBus.getDefault().register(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         hylConfirmOrderAdapter = new HylConfirmOrderAdapter(R.layout.item_confirm_order_new,prods1);
         recyclerView.setAdapter(hylConfirmOrderAdapter);
-
-//        scroll.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 0, -400);
-//                translateAnimation.setRepeatMode(1);
-//                translateAnimation.setDuration(1000);
-//                translateAnimation.setFillAfter(true);
-//                recyclerView.startAnimation(translateAnimation);
-//            }
-//        });
 
         unSaleAdapter = new TagAdapter<HylSettleModel.DataBean.ProdsBean>(prods2){
             @Override
@@ -278,7 +281,7 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
             case R.id.rl_coupon:
                 Intent couponIntent = new Intent(mContext,HylCouponActivity.class);
                 couponIntent.putExtra("cartIds", (Serializable) cartIds);
-                couponIntent.putExtra("giftDetailNo",orderData.getGiftNo());
+                couponIntent.putExtra("giftDetailNo",giftNo);
                 startActivity(couponIntent);
                 break;
 

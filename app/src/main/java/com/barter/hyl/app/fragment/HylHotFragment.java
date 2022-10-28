@@ -86,7 +86,6 @@ public class HylHotFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mActivity,HylCommonGoodsActivity.class);
                 intent.putExtra("mainId",list.get(position).getMaidId());
-                Log.d("cdfesfdsfsd...","sdsds");
                 startActivity(intent);
             }
         });

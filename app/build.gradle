@@ -15,8 +15,8 @@ android {
         applicationId "com.barter.hyl.app"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 8
-        versionName "1.0.8"
+        versionCode 9
+        versionName "1.0.9"
         multiDexEnabled true
         packagingOptions {
             exclude 'META-INF/rxjava.properties'
@@ -140,7 +140,6 @@ dependencies {
 
     //退货图片上传espresso
     implementation'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
-    implementation files('libs/BaiduLBS_Android.jar')
 
     //分类下滑
     implementation project(':xrecyclerview')

@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Bar/app/src/main/res/drawable/app_dialog_background.xml" value="0.284" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/app_my_coupons.xml" value="0.275" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_add_car_red.xml" value="0.2395" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_blue.xml" value="0.23" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_camera.xml" value="0.23" />
@@ -38,6 +39,7 @@
         <entry key="..\:/Bar/app/src/main/res/layout/activity_shop_detail.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_test.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/add_company_activity.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/app_detail_evaluation_hyl.xml" value="0.3494791666666667" />
         <entry key="..\:/Bar/app/src/main/res/layout/banner_image.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/banner_video.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/cart_fragment_hyl.xml" value="0.3536458333333333" />
@@ -57,6 +59,7 @@
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_logout_hyl.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_privacy_dialog.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_privacy_hyl.xml" value="0.3500905797101449" />
+        <entry key="..\:/Bar/app/src/main/res/layout/fragment_choose_coupons_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/fragment_cupons_overdue_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/fragment_info.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/fragment_keep_my_order.xml" value="0.3536458333333333" />
@@ -67,6 +70,7 @@
         <entry key="..\:/Bar/app/src/main/res/layout/head_view.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/home_fragment.xml" value="0.33" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_cart_hyl.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/item_choose_copons.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_common_hyl.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_company.xml" value="0.33" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_company_info.xml" value="0.3500905797101449" />

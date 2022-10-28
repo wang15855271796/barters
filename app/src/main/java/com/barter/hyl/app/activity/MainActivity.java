@@ -13,11 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.SDKInitializer;
 import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
@@ -95,7 +90,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAB_Info = "tab_info";
     private static final String TAB_MINE = "tab_mine";
 //    private MyLocationListener myListener = new MyLocationListener();
-    public LocationClient mLocationClient = null;
+//    public LocationClient mLocationClient = null;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -126,7 +121,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void setViewData() {
-        SDKInitializer.initialize(getApplicationContext());
+//        SDKInitializer.initialize(getApplicationContext());
         EventBus.getDefault().register(this);
 
 //        mLocationClient = new LocationClient(getApplicationContext());

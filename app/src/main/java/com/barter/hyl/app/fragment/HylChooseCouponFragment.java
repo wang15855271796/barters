@@ -4,6 +4,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -38,9 +40,10 @@ public class HylChooseCouponFragment extends BaseFragment {
     RecyclerView recyclerView;
     @BindView(R.id.iv_select_all)
     ImageView iv_select_all;
-    public static HylChooseCouponFragment newInstance(List<Integer> cartIds) {
+    public static HylChooseCouponFragment newInstance(List<Integer> cartIds, String giftDetailNo) {
         Bundle args = new Bundle();
         args.putSerializable("cartIds", (Serializable) cartIds);
+        args.putString("giftDetailNo", giftDetailNo);
         HylChooseCouponFragment fragment = new HylChooseCouponFragment();
         fragment.setArguments(args);
         return fragment;
@@ -68,7 +71,7 @@ public class HylChooseCouponFragment extends BaseFragment {
     public void setViewData() {
 
         cartIds = (List<Integer>) getArguments().getSerializable("cartIds");
-
+        giftDetailNo = getArguments().getString("giftDetailNo");
         userChooseDeduct();
 
         adapter = new HylChooseCouponsAdapter(R.layout.item_choose_copons, list, new HylChooseCouponsAdapter.ImageOnclick() {

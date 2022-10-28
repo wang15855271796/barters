@@ -24,6 +24,7 @@ public class HylMyCouponsOverAdapter extends BaseQuickAdapter<HylMyCouponModel.D
     private  TextView tv_role;
     private  TextView tv_amount;
     private ImageView iv_status;
+    private TextView tv_look;
     private Context context;
     List<HylMyCouponModel.DataBean.ListBean> list;
     TextView tv_tip;
@@ -37,6 +38,7 @@ public class HylMyCouponsOverAdapter extends BaseQuickAdapter<HylMyCouponModel.D
     @Override
     protected void convert(final BaseViewHolder helper, HylMyCouponModel.DataBean.ListBean item) {
         tv_tip=helper.getView(R.id.tv_tip);
+        tv_look = helper.getView(R.id.tv_look);
         tv_style=helper.getView(R.id.tv_style);
         tv_user_factor=helper.getView(R.id.tv_user_factor);
         tv_time=helper.getView(R.id.tv_time);
@@ -49,6 +51,8 @@ public class HylMyCouponsOverAdapter extends BaseQuickAdapter<HylMyCouponModel.D
         }else {
             tv_user_factor.setVisibility(View.GONE);
         }
+
+        tv_look.setVisibility(View.GONE);
         tv_style.setText(item.getGiftName());
         tv_time.setText(item.getDateTime());
         tv_amount.setText(item.getAmount());

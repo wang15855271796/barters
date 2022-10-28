@@ -10,8 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.MenuItemAdapter;
 import com.barter.hyl.app.adapter.MenuItemsAdapter;

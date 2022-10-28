@@ -29,13 +29,13 @@
             android:textSize="@dimen/size_16dp" />
 
         <TextView
-            android:text="查看全部"
-            android:textColor="#B5B5B5"
-            android:drawablePadding="@dimen/dp_10"
-            android:drawableRight="@mipmap/ic_mine_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:drawableRight="@mipmap/ic_mine_arrow"
+            android:drawablePadding="@dimen/dp_10"
+            android:text="查看全部"
+            android:textColor="#B5B5B5" />
 
     </RelativeLayout>
 

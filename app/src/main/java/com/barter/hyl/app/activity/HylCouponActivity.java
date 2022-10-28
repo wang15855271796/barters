@@ -53,6 +53,7 @@ public class HylCouponActivity extends BaseActivity implements View.OnClickListe
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         cartIds = (List<Integer>) getIntent().getSerializableExtra("cartIds");
+        giftDetailNo =  getIntent().getStringExtra("giftDetailNo");
         return false;
     }
 
@@ -67,7 +68,7 @@ public class HylCouponActivity extends BaseActivity implements View.OnClickListe
         stringList.add("可使用");
         stringList.add("不可使用");
         //可使用
-        list_fragment.add(HylChooseCouponFragment.newInstance(cartIds));
+        list_fragment.add(HylChooseCouponFragment.newInstance(cartIds,giftDetailNo));
         //不可使用
         list_fragment.add(HylCouponsUnUseFragment.newInstance(cartIds));
 
@@ -93,7 +94,7 @@ public class HylCouponActivity extends BaseActivity implements View.OnClickListe
         });
 
         userChooseDeduct(0);
-        setRecyclerView();
+//        setRecyclerView();
     }
 
     private void setRecyclerView() {

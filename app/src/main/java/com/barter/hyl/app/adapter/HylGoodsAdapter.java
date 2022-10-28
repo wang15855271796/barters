@@ -49,6 +49,7 @@ public class HylGoodsAdapter extends BaseQuickAdapter<HylGoodListModel.DataBean.
 
         if(item.getInventFlag()==0) {
             iv_sold.setVisibility(View.GONE);
+            iv_add.setVisibility(View.VISIBLE);
             iv_add.setImageResource(R.mipmap.icon_add);
             iv_add.setEnabled(true);
         }else {

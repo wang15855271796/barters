@@ -125,7 +125,6 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
                 dialog.show();
                 selectIdPosition = position;
                 scrollPosition = 0;
-//                Log.d("xswdsdsa........",scrollPosition+"aa");
                 getCategories();
             }
         });
