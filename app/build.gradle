@@ -47,11 +47,11 @@ android {
 }
 
 
-repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}
+//repositories {
+//    flatDir {
+//        dirs 'libs'
+//    }
+//}
 
 dependencies {
     implementation fileTree(include: ['*.aar', '*.jar'], dir: 'libs')

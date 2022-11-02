@@ -203,8 +203,9 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
                             if(data.isAndAppUpdate()) {
                                 iv_update.setVisibility(View.VISIBLE);
                                 tv_version.setText(verName);
-
+                                rl_version.setEnabled(true);
                             }else {
+                                rl_version.setEnabled(false);
                                 iv_update.setVisibility(View.GONE);
                                 tv_version.setText(verName+"(已是最新版本"+")");
                             }
