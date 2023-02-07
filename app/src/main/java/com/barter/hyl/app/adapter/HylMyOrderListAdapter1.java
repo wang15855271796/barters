@@ -1,9 +1,6 @@
 package com.barter.hyl.app.adapter;
 
 import android.content.Intent;
-import androidx.annotation.Nullable;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -11,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.HylOrderDetailActivity;
 import com.barter.hyl.app.activity.HylReturnGoodDetailActivity;
@@ -29,12 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Administrator on 2018/4/10.
- */
-
-public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.DataBean.ListBean, BaseViewHolder> {
-
+public class HylMyOrderListAdapter1 extends BaseQuickAdapter<HylMyOrderListModel.DataBean.ListBean, BaseViewHolder> {
     private int orderState;
     private ImageView commodityOne;
     private ImageView commodityTwo;
@@ -42,7 +37,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
     private ImageView commodityFour;
     private ImageView commodityMore;
     private TextView tv_status;
-    private OnClick onClick;
+    private HylMyOrderListAdapter.OnClick onClick;
     private LinearLayout linearLayoutItem;
 
     int orderDeliveryType;
@@ -53,7 +48,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
     Map<Integer, Boolean> isCheck;
     List<HylMyOrderListModel.DataBean.ListBean> data;
     List<String> ids = new ArrayList<>();
-    public HylMyOrderListAdapter(int layoutResId, @Nullable List<HylMyOrderListModel.DataBean.ListBean> data, Map<Integer, Boolean> isCheck, int orderState, int orderDeliveryType, OnClick onClick) {
+    public HylMyOrderListAdapter1(int layoutResId, @Nullable List<HylMyOrderListModel.DataBean.ListBean> data, Map<Integer, Boolean> isCheck, int orderState, int orderDeliveryType, HylMyOrderListAdapter.OnClick onClick) {
         super(layoutResId, data);
         this.orderState = orderState;
         this.onClick = onClick;
@@ -63,11 +58,12 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, final HylMyOrderListModel.DataBean.ListBean item) {
+    protected void convert(BaseViewHolder helper, HylMyOrderListModel.DataBean.ListBean item) {
         helper.setIsRecyclable(false);
         TextView tv_keep = helper.getView(R.id.tv_keep);
+        LinearLayout ll_return = helper.getView(R.id.ll_return);
         RelativeLayout rl_canceled =  helper.getView(R.id.rl_canceled);
-        TextView tv_delete_order = helper.getView(R.id.tv_delete_order);
+        TextView tv_delete_order =  helper.getView(R.id.tv_delete_order);
         TextView tv_buy_again =  helper.getView(R.id.tv_buy_again);
         RelativeLayout rl_wait_pay = helper.getView(R.id.rl_wait_pay);
         TextView tv_sure_receive = helper.getView(R.id.tv_sure_receive);
@@ -85,6 +81,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         RelativeLayout rl_wait_eval= helper.getView(R.id.rl_wait_eval);
         RelativeLayout rl_wait_check= helper.getView(R.id.rl_wait_check);
         RelativeLayout rl_wait_dispatch= helper.getView(R.id.rl_wait_dispatch);
+        TextView tv_return = helper.getView(R.id.tv_return);
         ll_choose = helper.getView(R.id.ll_choose);
         CheckBox cb_choose = helper.getView(R.id.cb_choose);
         tv_time = helper.getView(R.id.tv_time);
@@ -100,7 +97,13 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         tv_product_name.setText(item.getName());
         tv_time.setText(item.getDateTime());
 
-
+        if(!item.isBankReturnFlag()) {
+            ll_return.setVisibility(View.VISIBLE);
+            tv_return.setText("退款成功"+item.getTotalAmount());
+        }else {
+            ll_return.setVisibility(View.GONE);
+        }
+        helper.setText(R.id.tv_item_my_order_all_price, item.getTotalAmount());//总价
         if(isShow) {
             if(item.isOfflinePay()) {
                 ll_choose.setVisibility(View.GONE);
@@ -113,7 +116,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         if(isCheck!=null&&isCheck.size()>0) {
             helper.setChecked(R.id.cb_choose, isCheck.get(helper.getAdapterPosition()));
         }
-        helper.setText(R.id.tv_item_my_order_all_price, item.getTotalAmount());//总价
+
 
         if(item.getOrderStateStr()!=null) {
             tv_state.setVisibility(View.VISIBLE);
@@ -410,12 +413,12 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
             @Override
             public void onClick(View v) {
                 if(orderState==11) {
-                    Intent intent =new Intent(mContext,HylReturnGoodDetailActivity.class);
+                    Intent intent =new Intent(mContext, HylReturnGoodDetailActivity.class);
                     intent.putExtra("returnMainId" ,item.getReturnMainId());
                     intent.putExtra("orderId" ,item.getOrderId());
                     mContext.startActivity(intent);
                 }else {
-                    Intent intent =new Intent(mContext,HylOrderDetailActivity.class);
+                    Intent intent =new Intent(mContext, HylOrderDetailActivity.class);
                     intent.putExtra("returnMainId" ,item.getReturnMainId());
                     intent.putExtra("orderId" ,item.getOrderId());
                     intent.putExtra("status" ,item.getOrderStatus());
@@ -487,5 +490,4 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
 
         void onEventClick(int position,String totalAmount,List<String> ids);
     }
-
 }

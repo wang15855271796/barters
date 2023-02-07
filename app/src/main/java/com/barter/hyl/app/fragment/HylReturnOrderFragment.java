@@ -14,6 +14,7 @@ import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.HylOrderDetailActivity;
 import com.barter.hyl.app.activity.JudgeActivity;
 import com.barter.hyl.app.adapter.HylMyOrderListAdapter;
+import com.barter.hyl.app.adapter.HylMyOrderListAdapter1;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.UserInfoHelper;
@@ -58,7 +59,7 @@ public class HylReturnOrderFragment extends BaseFragment {
     int pageSize = 10;
     int orderDeliveryType;
     String orderState = "11";
-    HylMyOrderListAdapter hylMyOrderListAdapter;
+    HylMyOrderListAdapter1 hylMyOrderListAdapter;
 
     private Map<Integer, Boolean> isCheck = new HashMap<>();//存储选择状态
 
@@ -105,7 +106,7 @@ public class HylReturnOrderFragment extends BaseFragment {
             }
         });
 
-        hylMyOrderListAdapter = new HylMyOrderListAdapter(R.layout.item_my_order_hyl, list, isCheck,11, orderDeliveryType, new HylMyOrderListAdapter.OnClick() {
+        hylMyOrderListAdapter = new HylMyOrderListAdapter1(R.layout.item_my_order_hyl1, list, isCheck,11, orderDeliveryType, new HylMyOrderListAdapter.OnClick() {
             @Override
             public void evaluateNowOnclick(int position, String orderId) {
                 //立即评价
@@ -166,25 +167,6 @@ public class HylReturnOrderFragment extends BaseFragment {
 
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (getUserVisibleHint()) {
-//            getMyOrderList();
-//        }
-//    }
-//
-//    //重新进来的时候自动刷新fragment
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if ((isVisibleToUser && isResumed())) {
-//            onResume();
-//        } else if (!isVisibleToUser) {
-//            onPause();
-//
-//        }
-//    }
 
     private void showConfirmOrderDialog(final String orderId) {
         final AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.DialogStyle).create();

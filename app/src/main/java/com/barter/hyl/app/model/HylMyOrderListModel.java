@@ -172,6 +172,15 @@ public class HylMyOrderListModel {
             private String id;
             private boolean payFlag;
             private boolean offlinePay;
+            boolean bankReturnFlag;
+
+            public boolean isBankReturnFlag() {
+                return bankReturnFlag;
+            }
+
+            public void setBankReturnFlag(boolean bankReturnFlag) {
+                this.bankReturnFlag = bankReturnFlag;
+            }
 
             public boolean isOfflinePay() {
                 return offlinePay;
