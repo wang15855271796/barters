@@ -134,6 +134,8 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
     TextView tv_amount_spec;
     @BindView(R.id.tv1)
     TextView tv1;
+    @BindView(R.id.ll_root)
+    LinearLayout ll_root;
     HylOrderDetailsAdapter adapter;
     String returnMainId;
     String orderId = "";
@@ -282,12 +284,14 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
             tv_cancel_return.setVisibility(View.VISIBLE);
             tvOrderContent1.setVisibility(View.GONE);
             tvOrderContent2.setVisibility(View.GONE);
-            if(data.getTitle().equals("") || TextUtils.isEmpty(data.getTitle())) {
-                tvOrderContent3.setVisibility(View.GONE);
-            }else {
-                tvOrderContent3.setVisibility(View.VISIBLE);
-                tvOrderContent3.setText(data.getTitle());
-            }
+            tvOrderContent3.setVisibility(View.GONE);
+//            if(data.getTitle().equals("")) {
+//                tvOrderContent3.setVisibility(View.GONE);
+//            }else {
+//                tvOrderContent3.setVisibility(View.VISIBLE);
+//                tvOrderContent3.setText(data.getTitle());
+//            }
+            ll_root.setBackgroundResource(R.mipmap.bg_return4);
             tv_apply_time4.setText(data.getApplyTime());
             rl_return_success1.setVisibility(View.GONE);
             rl_return_success2.setVisibility(View.GONE);
@@ -324,7 +328,7 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
                 ll_progress.setVisibility(View.VISIBLE);
                 ll_progress2.setVisibility(View.GONE);
                 ll_progress3.setVisibility(View.GONE);
-
+                ll_root.setBackgroundResource(R.mipmap.bg_return1);
             }else {
                 rl_return_success1.setVisibility(View.GONE);
                 rl_return_success2.setVisibility(View.VISIBLE);
@@ -337,7 +341,9 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
                 ll_progress.setVisibility(View.GONE);
                 ll_progress2.setVisibility(View.VISIBLE);
                 ll_progress3.setVisibility(View.GONE);
+                ll_root.setBackgroundResource(R.mipmap.bg_return2);
             }
+
         } else if (data.getCheckStatus() == 2) {
             //失败
             tv_cancel_return.setVisibility(View.GONE);
@@ -362,6 +368,7 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
             ll_progress3.setVisibility(View.VISIBLE);
             tv1.setText("预计售后金额");
             tv_amount_spec.setVisibility(View.VISIBLE);
+            ll_root.setBackgroundResource(R.mipmap.bg_return3);
         } else if (data.getCheckStatus() == 4) {
             //已撤销
             ll_progress4.setVisibility(View.VISIBLE);
@@ -391,6 +398,7 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
             }
 
             tv_cancel_return.setVisibility(View.GONE);
+            ll_root.setBackgroundResource(R.mipmap.bg_return5);
         }
 
         tv_return_title.setText(data.getOrderStatusStr());
