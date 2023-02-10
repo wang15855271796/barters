@@ -305,13 +305,13 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
             tv_amount_spec.setVisibility(View.VISIBLE);
         } else if (data.getCheckStatus() == 1) {
             //成功
-            tvOrderContent3.setVisibility(View.GONE);
             tvOrderContent2.setVisibility(View.GONE);
+            tvOrderContent1.setVisibility(View.GONE);
             if(data.getTitle().equals("") || TextUtils.isEmpty(data.getTitle())) {
-                tvOrderContent1.setVisibility(View.GONE);
+                tvOrderContent3.setVisibility(View.GONE);
             }else {
-                tvOrderContent1.setVisibility(View.VISIBLE);
-                tvOrderContent1.setText(data.getTitle());
+                tvOrderContent3.setVisibility(View.VISIBLE);
+                tvOrderContent3.setText(data.getTitle());
             }
             tv_cancel_return.setVisibility(View.GONE);
             tv1.setText("售后金额");
@@ -329,6 +329,13 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
                 ll_progress2.setVisibility(View.GONE);
                 ll_progress3.setVisibility(View.GONE);
                 ll_root.setBackgroundResource(R.mipmap.bg_return1);
+
+                if(data.getTitle().equals("") || TextUtils.isEmpty(data.getTitle())) {
+                    tvOrderContent1.setVisibility(View.GONE);
+                }else {
+                    tvOrderContent1.setVisibility(View.VISIBLE);
+                    tvOrderContent1.setText(data.getTitle());
+                }
             }else {
                 rl_return_success1.setVisibility(View.GONE);
                 rl_return_success2.setVisibility(View.VISIBLE);
@@ -342,6 +349,13 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
                 ll_progress2.setVisibility(View.VISIBLE);
                 ll_progress3.setVisibility(View.GONE);
                 ll_root.setBackgroundResource(R.mipmap.bg_return2);
+
+                if(data.getTitle().equals("") || TextUtils.isEmpty(data.getTitle())) {
+                    tvOrderContent3.setVisibility(View.GONE);
+                }else {
+                    tvOrderContent3.setVisibility(View.VISIBLE);
+                    tvOrderContent3.setText(data.getTitle());
+                }
             }
 
         } else if (data.getCheckStatus() == 2) {

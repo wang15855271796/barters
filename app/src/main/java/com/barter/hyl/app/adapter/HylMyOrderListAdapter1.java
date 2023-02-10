@@ -1,6 +1,7 @@
 package com.barter.hyl.app.adapter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -96,13 +97,13 @@ public class HylMyOrderListAdapter1 extends BaseQuickAdapter<HylMyOrderListModel
         linearLayoutItem = helper.getView(R.id.linearLayoutItem);
         tv_product_name.setText(item.getName());
         tv_time.setText(item.getDateTime());
-
-        if(!item.isBankReturnFlag()) {
+        if(item.isBankReturnFlag()) {
             ll_return.setVisibility(View.VISIBLE);
             tv_return.setText("退款成功"+item.getTotalAmount());
         }else {
             ll_return.setVisibility(View.GONE);
         }
+
         helper.setText(R.id.tv_item_my_order_all_price, item.getTotalAmount());//总价
         if(isShow) {
             if(item.isOfflinePay()) {

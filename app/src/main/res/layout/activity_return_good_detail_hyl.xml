@@ -115,6 +115,8 @@
         android:layout_width="match_parent"
         android:layout_marginTop="-20dp"
         android:paddingBottom="@dimen/size_5dp"
+        android:layout_marginLeft="@dimen/size_15dp"
+        android:layout_marginRight="@dimen/size_15dp"
         android:layout_height="wrap_content">
         <!--路线1-->
         <LinearLayout
@@ -577,6 +579,7 @@
         android:background="@color/color_F6F6F6">
 
         <LinearLayout
+            android:layout_marginTop="@dimen/dp_10"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
