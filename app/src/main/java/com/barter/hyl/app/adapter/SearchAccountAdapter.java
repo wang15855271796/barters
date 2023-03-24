@@ -19,8 +19,6 @@ import java.util.List;
 public class SearchAccountAdapter extends BaseQuickAdapter<HylSearchBillModel.DataBean.List1Bean,BaseViewHolder> {
 
     private TextView mTvContent;
-    private ImageView iv_select;
-
     private int selectPosition = -1;
     public SearchAccountAdapter(int layoutResId, @Nullable List<HylSearchBillModel.DataBean.List1Bean> data) {
         super(layoutResId, data);
@@ -29,18 +27,13 @@ public class SearchAccountAdapter extends BaseQuickAdapter<HylSearchBillModel.Da
     @Override
     protected void convert(BaseViewHolder helper, HylSearchBillModel.DataBean.List1Bean item) {
         mTvContent = helper.getView(R.id.tv_content);
-        iv_select = helper.getView(R.id.iv_select);
-
         mTvContent.setText(item.getValue());
-
         if (selectPosition == helper.getLayoutPosition()) {
             mTvContent.setBackgroundResource(R.drawable.shape_grey6);
             mTvContent.setTextColor(Color.parseColor("#FF2925"));
-            iv_select.setVisibility(View.GONE);
         } else {
             mTvContent.setBackgroundResource(R.drawable.shape_grey5);
             mTvContent.setTextColor(Color.parseColor("#333333"));
-            iv_select.setVisibility(View.GONE);
         }
 
     }

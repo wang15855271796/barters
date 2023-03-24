@@ -14,10 +14,10 @@ import butterknife.BindView;
  * Created by ${王涛} on 2021/9/29
  */
 public class Test2Activity extends BaseActivity {
-    @BindView(R.id.ll1)
-    LinearLayout ll1;
-    @BindView(R.id.ll2)
-    LinearLayout ll2;
+//    @BindView(R.id.ll1)
+//    LinearLayout ll1;
+//    @BindView(R.id.ll2)
+//    LinearLayout ll2;
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -30,19 +30,19 @@ public class Test2Activity extends BaseActivity {
 
     @Override
     public void setViewData() {
-        ll1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showSuccessMsg(mContext,"111");
-            }
-        });
-
-        ll2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ToastUtil.showSuccessMsg(mContext,"222");
-            }
-        });
+//        ll1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ToastUtil.showSuccessMsg(mContext,"111");
+//            }
+//        });
+//
+//        ll2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ToastUtil.showSuccessMsg(mContext,"222");
+//            }
+//        });
     }
 
     @Override

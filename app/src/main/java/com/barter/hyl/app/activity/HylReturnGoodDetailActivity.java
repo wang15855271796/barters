@@ -26,6 +26,7 @@ import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylOrderDetailModel;
 import com.barter.hyl.app.model.HylReturnGoodModel;
 import com.barter.hyl.app.utils.ToastUtil;
+import com.luck.picture.lib.tools.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -304,6 +305,7 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
             tv1.setText("预计售后金额");
             tv_amount_spec.setVisibility(View.VISIBLE);
         } else if (data.getCheckStatus() == 1) {
+
             //成功
             tvOrderContent2.setVisibility(View.GONE);
             tvOrderContent1.setVisibility(View.GONE);
@@ -317,19 +319,19 @@ public class HylReturnGoodDetailActivity extends BaseActivity implements View.On
             tv1.setText("售后金额");
             tv_amount_spec.setVisibility(View.GONE);
             if(data.isBankReturnFlag()) {
-                tv_return_time.setText(data.getBankReturnDate());
+                tv_return_time.setText(data.getBankReturnTime());
                 tv_apply_time.setText(data.getApplyTime());
                 tv_check_time.setText(data.getCheckTime());
                 rl_return_success1.setVisibility(View.VISIBLE);
+
                 rl_return_success2.setVisibility(View.GONE);
                 rl_return_success3.setVisibility(View.GONE);
                 rl_apply_time4.setVisibility(View.GONE);
-
+                rl_return_time.setVisibility(View.VISIBLE);
                 ll_progress.setVisibility(View.VISIBLE);
                 ll_progress2.setVisibility(View.GONE);
                 ll_progress3.setVisibility(View.GONE);
                 ll_root.setBackgroundResource(R.mipmap.bg_return1);
-
                 if(data.getTitle().equals("") || TextUtils.isEmpty(data.getTitle())) {
                     tvOrderContent1.setVisibility(View.GONE);
                 }else {

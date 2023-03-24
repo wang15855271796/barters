@@ -464,6 +464,7 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
 
                     @Override
                     public void onError(Throwable e) {
+
                     }
 
                     @Override
@@ -471,6 +472,7 @@ public class HylMyPaymentDialogFragment extends DialogFragment {
                         if(hylPayInfoModel.getCode()==1) {
                             if(hylPayInfoModel.getData()!=null) {
                                 outTradeNo = hylPayInfoModel.getData().getOutTradeNo();
+
                                 if (payChannel == 2&& hylPayInfoModel.getData().getPayType()==2) {
                                     //支付宝支付 已经改好了
                                     SharedPreferencesUtil.saveString(getContext(),"payKey","2");

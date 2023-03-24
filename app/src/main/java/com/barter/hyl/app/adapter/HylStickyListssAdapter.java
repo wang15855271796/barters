@@ -35,7 +35,6 @@ public class HylStickyListssAdapter extends BaseAdapter implements StickyListHea
 		View headView = LayoutInflater.from(mActivity).inflate(R.layout.item_bill_header, null);
 		HylMyBillModel.DataBean.ListBean listBean = list.get(position);
 		tv_month_select = headView.findViewById(R.id.tv_month_select);
-		RelativeLayout rl_root = headView.findViewById(R.id.rl_root);
 		TextView tv_expenditure = headView.findViewById(R.id.tv_expenditure);
 		TextView tv_income = headView.findViewById(R.id.tv_income);
 		tv_income.setText(list.get(position).getInAmt());
@@ -111,19 +110,6 @@ public class HylStickyListssAdapter extends BaseAdapter implements StickyListHea
 	public interface OnclickListener {
 		void headClick();
 	}
-
-	public void setLoadingListener(OnclickListener listener) {
-		this.onclickListener = listener;
-	}
-//	@Subscribe(threadMode = ThreadMode.MAIN)
-//	public void goHead(HeadEvent headEvent) {
-//		tv_month_select.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View view) {
-//				onclickListener.headClick();
-//			}
-//		});
-//	}
 }
 
 

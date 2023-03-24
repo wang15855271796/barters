@@ -132,8 +132,8 @@ public class HylOrderDetailModel {
         private boolean offlinePay;
         private String offlinePayAmt;
         private String offlineRemainAmt;
-        private boolean isBankReturnFlag;
-        private String bankReturnDate;
+        private boolean bankReturnFlag;
+        private String bankReturnTime;
         @Override
         public String toString() {
             return "DataBean{" +
@@ -175,19 +175,19 @@ public class HylOrderDetailModel {
         }
 
         public boolean isBankReturnFlag() {
-            return isBankReturnFlag;
+            return bankReturnFlag;
         }
 
         public void setBankReturnFlag(boolean bankReturnFlag) {
-            isBankReturnFlag = bankReturnFlag;
+            this.bankReturnFlag = bankReturnFlag;
         }
 
-        public String getBankReturnDate() {
-            return bankReturnDate;
+        public String getBankReturnTime() {
+            return bankReturnTime;
         }
 
-        public void setBankReturnDate(String bankReturnDate) {
-            this.bankReturnDate = bankReturnDate;
+        public void setBankReturnDate(String bankReturnTime) {
+            this.bankReturnTime = bankReturnTime;
         }
 
         public boolean getOfflinePay() {

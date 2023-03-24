@@ -46,10 +46,10 @@ public class StickyListAdapter extends BaseQuickAdapter<HylMyBillModel.DataBean.
         if(item.getRecordType()==2) {
             //支出
             tv_price.setText(item.getAmount());
-            tv_price.setTextColor(Color.parseColor("#20A852"));
+            tv_price.setTextColor(Color.parseColor("#414141"));
         }else {
             tv_price.setText(item.getAmount());
-            tv_price.setTextColor(Color.parseColor("#FF2925"));
+            tv_price.setTextColor(Color.parseColor("#FF2E00"));
         }
     }
 }

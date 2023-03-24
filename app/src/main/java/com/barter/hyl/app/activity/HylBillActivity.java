@@ -5,11 +5,14 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -52,8 +55,6 @@ import rx.schedulers.Schedulers;
 public class HylBillActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.iv_back)
     ImageView iv_back;
-    @BindView(R.id.tv_title)
-    TextView tv_title;
     @BindView(R.id.sticky)
     StickyListHeadersListView sticky;
     @BindView(R.id.smart)
@@ -66,8 +67,6 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
     TextView tv_detail_select;
     @BindView(R.id.ll_activity_wallet_time)
     LinearLayout ll_activity_wallet_time;
-    @BindView(R.id.tv_month_select)
-    TextView tv_month_select;
     @BindView(R.id.noData)
     LinearLayout noData;
     @BindView(R.id.rl_default)
@@ -76,6 +75,8 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
     TextView tv_month;
     @BindView(R.id.ll_test)
     LinearLayout ll_test;
+    @BindView(R.id.iv_select)
+    ImageView iv_select;
     int pageNum = 1;
     int pageSize = 6;
     String payChannel = "";
@@ -94,7 +95,6 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void setViewData() {
-        tv_title.setText("我的账单");
         getSearch();
 
         stickyListAdapter = new HylStickyListssAdapter(this, list, new HylStickyListssAdapter.OnclickListener() {
@@ -318,54 +318,44 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
     PopupWindow mPopupWindowOne;
     private void showDetailPup() {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View vPopupWindow = inflater.inflate(R.layout.popup_select, null, false);//引入弹窗布局
+        View vPopupWindow = inflater.inflate(R.layout.popup_select_detail, null, false);//引入弹窗布局
         mPopupWindowOne = new PopupWindow(vPopupWindow, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
-
+        bgAlpha(0.3f);
         //设置进出动画
         mPopupWindowOne.setAnimationStyle(R.style.PopupWindowAnimation);
+        View parentView = LayoutInflater.from(mContext).inflate(R.layout.bill_activity_hyl, null);
+        mPopupWindowOne.showAtLocation(parentView, Gravity.BOTTOM, 0, 0);
 
-
-        RecyclerView rl_select = vPopupWindow.findViewById(R.id.rl_select);
-        TextView tv_cancel = vPopupWindow.findViewById(R.id.tv_cancel);
-        TextView tv_ok = vPopupWindow.findViewById(R.id.tv_ok);
-        final AccountSelectAdapter madater;
-        tv_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPopupWindowOne.dismiss();
-            }
-        });
-
-        rl_select.setLayoutManager(new GridLayoutManager(mContext, 3));
-        madater = new AccountSelectAdapter(R.layout.search_list, mList2);
-        rl_select.setAdapter(madater);
-
-        mPopupWindowOne.showAsDropDown(ll_account, 0, 0);
+        RecyclerView rl_select_two = vPopupWindow.findViewById(R.id.rl_select_two);
+        rl_select_two.setLayoutManager(new LinearLayoutManager(mContext));
+        AccountSelectAdapter madater = new AccountSelectAdapter(R.layout.search_list_detail, mList2);
+        rl_select_two.setAdapter(madater);
 
         madater.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                madater.selectPosition(position);
-                isSelected = true;
+//                isSelected = true;
                 payChannel = mList2.get(position).getKey();
-
+                mPopupWindowOne.dismiss();
+                smart.autoRefresh();
+                tv_detail_select.setText(mList2.get(position).getValue());
             }
         });
 
 
-        tv_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isSelected) {
-                    isSelected = false;
-                    mPopupWindowOne.dismiss();
-                    smart.autoRefresh();
-
-                } else {
-                    AppHelper.showMsg(mContext, "请选择筛选类型");
-                }
-            }
-        });
+//        tv_ok.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (isSelected) {
+//                    isSelected = false;
+//                    mPopupWindowOne.dismiss();
+//                    smart.autoRefresh();
+//
+//                } else {
+//                    AppHelper.showMsg(mContext, "请选择筛选类型");
+//                }
+//            }
+//        });
         mPopupWindowOne.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -381,49 +371,42 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
     private boolean isSelected;
     private void showSelectPup() {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View vPopupWindow = inflater.inflate(R.layout.popup_select, null, false);//引入弹窗布局
+        View vPopupWindow = inflater.inflate(R.layout.popup_select, null, false);
         popupWindow = new PopupWindow(vPopupWindow, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
-
+//        bgAlpha(0.3f);
         //设置进出动画
+        FrameLayout fl_mark = vPopupWindow.findViewById(R.id.fl_mark);
+        ll_account.setBackgroundResource(R.drawable.shape_white1);
         popupWindow.setAnimationStyle(R.style.PopupWindowAnimation);
-
-
         RecyclerView rl_select = vPopupWindow.findViewById(R.id.rl_select);
-        TextView tv_cancel = vPopupWindow.findViewById(R.id.tv_cancel);
         TextView tv_ok = vPopupWindow.findViewById(R.id.tv_ok);
-        final SearchAccountAdapter madater;
-        tv_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
-            }
-        });
-
+        SearchAccountAdapter madater;
         rl_select.setLayoutManager(new GridLayoutManager(mContext, 3));
         madater = new SearchAccountAdapter(R.layout.search_list, mList1);
-
         rl_select.setAdapter(madater);
-        popupWindow.showAsDropDown(ll_account, 0, 0);
-
-
+        iv_select.setImageResource(R.mipmap.ic_up);
+        tv_detail_select.setVisibility(View.GONE);
+        popupWindow.showAsDropDown(tv_select, 0, 0);
         madater.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 madater.selectPosition(position);
                 isSelected = true;
                 recordType = mList1.get(position).getKey();
+                smart.autoRefresh();
+                tv_select.setText(mList1.get(position).getValue());
             }
         });
-
-
+        fl_mark.setVisibility(View.VISIBLE);
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fl_mark.setVisibility(View.GONE);
                 if (isSelected) {
                     isSelected = false;
                     popupWindow.dismiss();
                     smart.autoRefresh();
-
+                    tv_detail_select.setVisibility(View.VISIBLE);
                 } else {
                     AppHelper.showMsg(mContext, "请选择筛选类型");
                 }
@@ -432,6 +415,10 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
+                ll_account.setBackgroundResource(R.mipmap.bg_bill);
+                tv_detail_select.setVisibility(View.VISIBLE);
+                fl_mark.setVisibility(View.GONE);
+                iv_select.setImageResource(R.mipmap.ic_down);
                 bgAlpha(1f);
             }
         });
@@ -458,7 +445,6 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
                 selectDate = time.split(" ")[0];
                 year = selectDate.split("-")[0];
                 month = selectDate.split("-")[1];
-                tv_month_select.setText(year + "-" + month);
                 tv_month.setText(year + "-" + month);
                 ll_activity_wallet_time.setVisibility(View.GONE);
                 smart.autoRefresh();
