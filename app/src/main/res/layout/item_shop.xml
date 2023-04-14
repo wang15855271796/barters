@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:background="@drawable/shape_white1"
         android:layout_width="wrap_content"
-        android:layout_height="290dp">
+        android:layout_height="270dp">
 
         <RelativeLayout
             android:id="@+id/rl_pic"
@@ -21,34 +21,42 @@
 
             <com.barter.hyl.app.view.RoundImageView
                 android:id="@+id/iv_pic"
-                android:scaleType="fitXY"
-                android:src="@mipmap/icon_empty"
-                android:layout_centerHorizontal="true"
                 android:layout_width="match_parent"
-                android:layout_height="171dp" />
+                android:layout_height="171dp"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_empty" />
+
+            <ImageView
+                android:id="@+id/iv_player"
+                android:visibility="gone"
+                android:src="@mipmap/icon_player"
+                android:layout_centerInParent="true"
+                android:layout_width="@dimen/size_35dp"
+                android:layout_height="@dimen/size_35dp"/>
+
+            <TextView
+                android:id="@+id/tv_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/shape_jianbian20"
+                android:padding="@dimen/size_2dp"
+                android:text="其他信息"
+                android:textColor="#ffffff"
+                android:textSize="10sp" />
 
         </RelativeLayout>
 
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/tv_style"
-            android:text="其他信息"
-            android:padding="@dimen/public_space_value_2"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/rl_pic"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:textColor="#FFAF49"
-            android:textSize="10sp"
-            android:background="@drawable/shape_yellow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
 
         <LinearLayout
             android:id="@+id/ll_title"
             android:orientation="vertical"
             android:layout_below="@+id/rl_pic"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_45dp">
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_toRightOf="@+id/tv_style"
@@ -69,17 +77,9 @@
             android:id="@+id/ll_desc"
             android:layout_below="@+id/ll_title"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/size_20dp">
-
-            <TextView
-                android:textColor="#999999"
-                android:id="@+id/tv_time"
-                android:textSize="@dimen/size_10dp"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:text="2020.12.10发布"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <TextView
                 android:textColor="#FF2925"
@@ -90,54 +90,36 @@
                 android:layout_marginRight="@dimen/dp_10"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_below="@+id/ll_title"
-                android:text="12656"
+                tools:text="12656"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/v_view"
-            android:layout_below="@+id/ll_desc"
-            android:background="#f4f4f4"
-            android:layout_marginTop="@dimen/size_8dp"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/public_space_value_0.5"/>
-
-        <ImageView
-            android:id="@+id/iv_head"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginTop="@dimen/size_10dp"
-            android:src="@mipmap/info_head"
-            android:layout_below="@+id/v_view"
-            android:layout_width="@dimen/size_26dp"
-            android:layout_height="@dimen/size_26dp"/>
 
         <TextView
-            android:id="@+id/tv_phone"
-            android:layout_toRightOf="@+id/iv_head"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_below="@+id/v_view"
-            tools:text="18757104840"
-            android:textSize="12sp"
-            android:textColor="#999999"
-            android:layout_marginTop="@dimen/size_5dp"
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_title"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:layout_toRightOf="@+id/iv_head"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            tools:text="18757104840" />
 
         <TextView
             android:id="@+id/tv_address"
-            android:layout_toRightOf="@+id/iv_head"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_below="@+id/tv_phone"
-            android:text="地址：浙江省杭州市"
-            android:textSize="12sp"
-            android:textColor="#999999"
-            android:layout_marginTop="@dimen/size_5dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/size_5dp"
+            android:layout_toRightOf="@+id/iv_head"
+            android:text="地址：浙江省杭州市"
+            android:textColor="#999999"
+            android:textSize="12sp" />
 
     </RelativeLayout>
 

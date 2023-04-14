@@ -193,6 +193,21 @@
                 android:layout_height="@dimen/size_35dp">
 
                 <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_delete_order2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/size_8dp"
+                    android:background="@drawable/shape_order_reds"
+                    android:paddingLeft="@dimen/sp_14"
+                    android:paddingTop="@dimen/size_7dp"
+                    android:paddingRight="@dimen/sp_14"
+                    android:paddingBottom="@dimen/size_7dp"
+                    android:text="删除订单"
+                    android:textColor="#ffffff" />
+
+                <TextView
                     android:text="再次购买"
                     android:textColor="#333333"
                     android:layout_centerVertical="true"
@@ -203,6 +218,7 @@
                     android:layout_marginRight="@dimen/size_8dp"
                     android:background="@drawable/shape_order_grey"
                     android:id="@+id/tv_again_buy1"
+                    android:layout_toRightOf="@+id/tv_delete_order2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -221,7 +237,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
-
             <!--待审核-->
             <RelativeLayout
                 android:layout_marginRight="@dimen/size_8dp"
@@ -256,6 +271,20 @@
                 android:layout_height="@dimen/size_35dp">
 
                 <TextView
+                    android:id="@+id/tv_delete_order1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/size_8dp"
+                    android:background="@drawable/shape_order_reds"
+                    android:paddingLeft="@dimen/sp_14"
+                    android:paddingTop="@dimen/size_7dp"
+                    android:paddingRight="@dimen/sp_14"
+                    android:paddingBottom="@dimen/size_7dp"
+                    android:text="删除订单"
+                    android:textColor="#ffffff" />
+
+                <TextView
                     android:id="@+id/tv_now_eval"
                     android:text="立即评价"
                     android:textColor="#333333"
@@ -264,9 +293,9 @@
                     android:paddingRight="@dimen/sp_14"
                     android:paddingTop="@dimen/size_7dp"
                     android:paddingBottom="@dimen/size_7dp"
+                    android:layout_toRightOf="@+id/tv_delete_order1"
                     android:layout_marginRight="@dimen/size_8dp"
                     android:background="@drawable/shape_order_grey"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -299,6 +328,8 @@
                     android:id="@+id/tv_now_pay2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+
             </RelativeLayout>
 
             <!--待收货-->

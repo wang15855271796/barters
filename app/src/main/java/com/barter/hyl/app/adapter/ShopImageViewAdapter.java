@@ -15,6 +15,7 @@ import com.barter.hyl.app.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import java.io.File;
@@ -67,9 +68,10 @@ public class ShopImageViewAdapter extends RecyclerView.Adapter<ShopImageViewAdap
         ImageView mImg;
         LinearLayout ll_del;
         TextView tv_duration;
-
+        ImageView iv_player;
         public ViewHolder(View view) {
             super(view);
+            iv_player = view.findViewById(R.id.iv_player);
             mImg = (ImageView) view.findViewById(R.id.fiv);
             ll_del = (LinearLayout) view.findViewById(R.id.ll_del);
             tv_duration = (TextView) view.findViewById(R.id.tv_duration);
@@ -143,6 +145,7 @@ public class ShopImageViewAdapter extends RecyclerView.Adapter<ShopImageViewAdap
                 }
             });
             LocalMedia media = list.get(position);
+            viewHolder.iv_player.setVisibility(PictureMimeType.isHasVideo(media.getMimeType()) ? View.VISIBLE : View.GONE);
             String path = "";
             if (media.isCut() && !media.isCompressed()) {
                 // 裁剪过

@@ -5,10 +5,12 @@ import android.content.Context;
 import com.barter.hyl.app.constant.AppInterfaceAddress;
 import com.barter.hyl.app.constant.RestHelper;
 import com.barter.hyl.app.model.BaseModel;
+import com.barter.hyl.app.model.HomeStyleTabModel;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.InfoDetailIssueModel;
 import com.barter.hyl.app.model.InfoDetailModel;
 import com.barter.hyl.app.model.InfoListModel;
+import com.barter.hyl.app.model.InfoPubModel;
 import com.barter.hyl.app.model.RecommendModel;
 
 import retrofit2.http.Field;
@@ -72,12 +74,16 @@ public class InfoListAPI {
     private interface InfoIssue {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Info_Issue)
-        Observable<BaseModel> getData(@Field("msgType") int msgType, @Field("content") String content, @Field("pictureJson") String pictureJson, @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode, @Field("detailAddress") String detailAddress, @Field("phone") String phone);
+        Observable<InfoPubModel> getData(@Field("msgType") int msgType, @Field("content") String content,
+                                         @Field("pictureJson") String pictureJson, @Field("provinceCode") String provinceCode,
+                                         @Field("cityCode") String cityCode, @Field("detailAddress") String detailAddress,
+                                         @Field("phone") String phone,@Field("videoUrl") String videoUrl,@Field("videoCoverUrl") String videoCoverUrl);
     }
 
-    public static Observable<BaseModel> InfoIssue(Context context,int msgType,String content,String pictureJson,String provinceCode,String cityCode,String detailAddress,String phone) {
+    public static Observable<InfoPubModel> InfoIssue(Context context,int msgType,String content,String pictureJson,String provinceCode,
+                                                     String cityCode,String detailAddress,String phone,String videoUrl,String videoCoverUrl) {
         InfoIssue service = RestHelper.getBaseRetrofit(context).create(InfoIssue.class);
-        return service.getData(msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone);
+        return service.getData(msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone,videoUrl,videoCoverUrl);
     }
 
     /**
@@ -101,12 +107,18 @@ public class InfoListAPI {
     private interface InfoClassifyIssue {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Info_Classify)
-        Observable<BaseModel> getData(@Field("msgId") String msgId, @Field("msgType") int msgType, @Field("content") String content, @Field("pictureJson") String pictureJson, @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode, @Field("detailAddress") String detailAddress, @Field("phone") String phone);
+        Observable<BaseModel> getData(@Field("msgId") String msgId, @Field("msgType") int msgType,
+                                      @Field("content") String content, @Field("pictureJson") String pictureJson,
+                                      @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode,
+                                      @Field("detailAddress") String detailAddress, @Field("phone") String phone,
+                                      @Field("videoUrl") String videoUrl,@Field("videoCoverUrl") String videoCoverUrl);
     }
 
-    public static Observable<BaseModel> EditInfo(Context context,String msgId,int msgType,String content,String pictureJson,String provinceCode,String cityCode,String detailAddress,String phone) {
+    public static Observable<BaseModel> EditInfo(Context context,String msgId,int msgType,String content,String pictureJson,
+                                                 String provinceCode,String cityCode,String detailAddress,String phone,
+                                                 String videoUrl,String videoCoverUrl) {
         InfoClassifyIssue service = RestHelper.getBaseRetrofit(context).create(InfoClassifyIssue.class);
-        return service.getData(msgId,msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone);
+        return service.getData(msgId,msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone,videoUrl,videoCoverUrl);
     }
 
     /**
@@ -136,4 +148,17 @@ public class InfoListAPI {
         return service.getData(keyword);
     }
 
+
+    /**
+     * 编辑咨询名称
+     */
+    public interface HomeTabStyleService{
+        @POST(AppInterfaceAddress.Get_Style_Tab)
+        Observable<HomeStyleTabModel> getData();
+    }
+
+    public static Observable<HomeStyleTabModel> getTabStyle(Context context) {
+        HomeTabStyleService service = RestHelper.getBaseRetrofit(context).create(HomeTabStyleService.class);
+        return service.getData();
+    }
 }

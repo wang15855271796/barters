@@ -2,11 +2,14 @@ package com.barter.hyl.app.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -55,6 +58,8 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.listener.OnItemClickListener;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -96,6 +101,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.tv_sure)
     TextView tv_sure;
     String msgId;
+    ProgressDialog progressDialog;
     ShopImageViewssAdapter shopImageViewAdapter;
     private List<String> picList = new ArrayList();
     String returnPic;
@@ -117,6 +123,10 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
         EventBus.getDefault().register(this);
         getCityList(msgId);
         getCityList();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(null);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("视频上传中......");
 
     }
 
@@ -139,7 +149,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     private void IssueInfo(String msgIds,String returnPic,String content,String address,String phone) {
-        InfoListAPI.EditInfo(mContext,msgIds,position,content,returnPic,provinceCode,cityCode,address,phone)
+        InfoListAPI.EditInfo(mContext,msgIds,position,content,returnPic,provinceCode,cityCode,address,phone,videoUrl,videoCoverUrl)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseModel>() {
@@ -183,13 +193,13 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onNext(UpdateImageModel baseModel) {
-
-                        if (baseModel.code==1) {
+                        if (baseModel.success) {
                             returnPic = "";
                             if (baseModel.data != null) {
                                 Gson gson = new Gson();
+                                picsList.addAll(baseModel.data);
                                 pictureLists.addAll(baseModel.data);
-                                returnPic = gson.toJson(pictureLists);
+                                returnPic = gson.toJson(picsList);
                                 shopImageViewAdapter.notifyDataSetChanged();
                             }
                         } else {
@@ -270,6 +280,10 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                             tv_address.setText(data.getDetailAddress());
                             Gson gson = new Gson();
                             pictureLists.addAll(data.getPictureList());
+                            if(data.getVideoCoverUrl()!=null) {
+                                videoCoverUrl = data.getVideoCoverUrl();
+                                pictureLists.add(videoCoverUrl);
+                            }
                             returnPic = gson.toJson(pictureLists);
                             GridLayoutManager manager = new GridLayoutManager(mContext,3);
 
@@ -282,7 +296,23 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
                                 @Override
                                 public void deletPic(int pos) {
+                                    Gson gson1 = new Gson();
+                                    if(pictureLists.size()>0) {
+                                        String url = pictureLists.get(pos);
 
+                                        if(url.endsWith(".mp4")) {
+                                            //删除的是视频
+                                            pictureLists.remove(pos);
+                                            returnPic = gson1.toJson(pictureLists);
+                                            videoCoverUrl = "";
+                                            videoUrl = "";
+                                        }else {
+                                            //删除的是图片
+                                            pictureLists.remove(pos);
+                                            picsList.remove(pos);
+                                            returnPic = gson1.toJson(picsList);
+                                        }
+                                    }
                                 }
                             });
 
@@ -293,7 +323,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                                 @Override
                                 public void onItemClick(int position, View v) {
                                     if (pictureLists.size() > 0) {
-                                        AppHelper.showPhotoDetailssDialog(mContext,position,pictureLists,shopImageViewAdapter);
+                                        AppHelper.showIssueDetailDialog(mActivity, pictureLists, position);
                                     }
                                 }
 
@@ -341,12 +371,24 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                 switch (view.getId()) {
                     case R.id.tv_album:
                         //相册
+//                        PictureSelector.create(IssueEditInfoActivity.this)
+//                                .openGallery(PictureMimeType.ofAll())
+//                                .maxSelectNum(6-pictureLists.size())
+//                                .minSelectNum(1)
+//                                .imageSpanCount(4)
+//                                .compress(true)
+//                                .isCamera(false)
+//                                .loadImageEngine(GlideEngine.createGlideEngine())
+//                                .selectionMode(PictureConfig.MULTIPLE)
+//                                .forResult(PictureConfig.CHOOSE_REQUEST);
                         PictureSelector.create(IssueEditInfoActivity.this)
-                                .openGallery(PictureMimeType.ofImage())
-                                .maxSelectNum(6-pictureLists.size())
-                                .minSelectNum(1)
+                                .openGallery(PictureMimeType.ofAll())
+                                .maxSelectNum(1)
+                                .maxVideoSelectNum(1)
+//                                .minSelectNum(1)
+                                .queryMaxFileSize(55)
                                 .imageSpanCount(4)
-                                .compress(true)
+                                .isCompress(true)
                                 .isCamera(false)
                                 .loadImageEngine(GlideEngine.createGlideEngine())
                                 .selectionMode(PictureConfig.MULTIPLE)
@@ -384,24 +426,108 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-         if(requestCode== PictureConfig.CHOOSE_REQUEST&&resultCode==Activity.RESULT_OK){
+        if(requestCode==PictureConfig.CHOOSE_REQUEST&&resultCode==Activity.RESULT_OK){
             handleImgeOnKitKat(data);
+        }else {
+            progressDialog.dismiss();
         }
     }
 
-    List<LocalMedia> images;
+    String path;
+    List<LocalMedia> images = new ArrayList<>();
+    private List<String> coverList = new ArrayList();
+    private List<LocalMedia> selectList = new ArrayList<>();
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void handleImgeOnKitKat(Intent data) {
         images = PictureSelector.obtainMultipleResult(data);
         picList.clear();
-        for (int i = 0; i < images.size(); i++) {
-            picList.add(images.get(i).getCompressPath());
+        coverList.clear();
+        progressDialog.show();
+        for (LocalMedia media : images) {
+            path = media.getPath();
+            picList.add(media.getRealPath());
+
+            for (String picUrl: pictureLists) {
+                if(picUrl.contains(".mp4")) {
+                    for (LocalMedia url: images) {
+                        if(url.getRealPath().contains(".mp4")) {
+                            progressDialog.dismiss();
+                            ToastUtil.showSuccessMsg(mContext,"只能上传一个视频");
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if(media.getMimeType().equals("image/jpeg")) {
+                //图片
+                upImage(filesToMultipartBodyParts(picList));
+                progressDialog.dismiss();
+            }else {
+                //视频
+                coverList.add(media.getRealPath());
+                upCover(filesToMultipartBodyParts(coverList));
+
+            }
+            selectList.addAll(images);
+            shopImageViewAdapter.setList(selectList);
+
         }
-
-
-        List<MultipartBody.Part> parts = filesToMultipartBodyParts(picList);
-        upImage(parts);
     }
+
+    String videoCoverUrl ="";
+    String videoUrl;
+    List<String> picsList = new ArrayList<>();
+    private void upCover(List<MultipartBody.Part> filesToMultipartBodyParts) {
+        OrderApi.requestImgsDetail(mContext, filesToMultipartBodyParts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<UpdateImageModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(UpdateImageModel baseModel) {
+                        if (baseModel.success) {
+                            videoCoverUrl = "";
+                            Gson gson = new Gson();
+                            if (baseModel.data != null) {
+                                pictureLists.addAll(baseModel.data);
+                                for(String url: baseModel.data) {
+                                    videoCoverUrl = url;
+                                    videoUrl = url;
+                                }
+                                returnPic = gson.toJson(picsList);
+                                shopImageViewAdapter.notifyDataSetChanged();
+                                progressDialog.dismiss();
+                            }
+
+                        } else {
+                            AppHelper.showMsg(mContext, baseModel.message);
+                        }
+                    }
+                });
+    }
+
+//    List<LocalMedia> images;
+//    @TargetApi(Build.VERSION_CODES.KITKAT)
+//    private void handleImgeOnKitKat(Intent data) {
+//        images = PictureSelector.obtainMultipleResult(data);
+//        picList.clear();
+//        for (int i = 0; i < images.size(); i++) {
+//            picList.add(images.get(i).getCompressPath());
+//        }
+//
+//
+//        List<MultipartBody.Part> parts = filesToMultipartBodyParts(picList);
+//        upImage(parts);
+//    }
 
 
     private void closePopupWindow() {
@@ -545,4 +671,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+
 }

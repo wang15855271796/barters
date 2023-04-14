@@ -15,6 +15,7 @@ import com.barter.hyl.app.model.HylPayInfoModel;
 import com.barter.hyl.app.model.HylPayListModel;
 import com.barter.hyl.app.model.HylReturnGoodModel;
 import com.barter.hyl.app.model.HylReturnOrderDetailModel;
+import com.barter.hyl.app.model.InfoIsPayModel;
 import com.barter.hyl.app.model.JudgeModel;
 import com.barter.hyl.app.model.HylMyBillModel;
 import com.barter.hyl.app.model.HylMyOrderListModel;
@@ -23,6 +24,8 @@ import com.barter.hyl.app.model.HylPayResultModel;
 import com.barter.hyl.app.model.HylReturnNumModel;
 import com.barter.hyl.app.model.HylSearchBillModel;
 import com.barter.hyl.app.model.HylSendImageModel;
+import com.barter.hyl.app.model.PayInfoListModel;
+import com.barter.hyl.app.model.PayInfoModel;
 import com.barter.hyl.app.model.UpdateImageModel;
 
 import org.json.JSONArray;
@@ -115,6 +118,18 @@ public class OrderApi {
 
     public static Observable<BaseModel> deleteOrder(Context context,String orderId) {
         Observable<BaseModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(DeleteOrderService.class).setParams(orderId);
+        return loginModelObservable;
+    }
+
+    //删除订单2
+    public interface Delete1OrderService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Delete2_Order)
+        Observable<BaseModel> setParams(@Field("orderId") String orderId);
+    }
+
+    public static Observable<BaseModel> deleteOrder1(Context context,String orderId) {
+        Observable<BaseModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(Delete1OrderService.class).setParams(orderId);
         return loginModelObservable;
     }
 
@@ -340,15 +355,52 @@ public class OrderApi {
         return loginModelObservable;
     }
 
+    private interface PayInfoListService {
+        @POST(AppInterfaceAddress.Pay_Info_List)
+        Observable<PayInfoListModel> setParams();
+    }
+
+    public static Observable<PayInfoListModel> getPayList(Context context) {
+        PayInfoListService service = RestHelper.getBaseRetrofit(context).create(PayInfoListService.class);
+        return service.setParams();
+    }
+
+    //判断是否需要支付
+    private interface PointIsPayService {
+        @POST(AppInterfaceAddress.Info_Is_Pay)
+        Observable<InfoIsPayModel> getData();
+    }
+
+    public static Observable<InfoIsPayModel> getIsPay(Context context) {
+        PointIsPayService service = RestHelper.getBaseRetrofit(context).create(PointIsPayService.class);
+        return service.getData();
+    }
+
+    //行业资讯 生成支付信息
+    private interface InfoPayService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Get_Pay_Info)
+        Observable<HylPayInfoModel> getData(@Field("payChannel") int payChannel,
+                                         @Field("payAmount") String payAmount,
+                                         @Field("msgId") String msgId);
+    }
+
+    public static Observable<HylPayInfoModel> getInfoPay(Context context, int payChannel, String payAmount, String msgId) {
+        InfoPayService service = RestHelper.getBaseRetrofit(context).create(InfoPayService.class);
+        return service.getData( payChannel, payAmount, msgId);
+    }
+
     //一般订单支付信息
     public interface PayInfoService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Pay_Info)
-        Observable<HylPayInfoModel> setParams(@Field("orderId") String orderId, @Field("payChannel") int payChannel);
+        Observable<HylPayInfoModel> setParams(@Field("orderId") String orderId,
+                                              @Field("payChannel") int payChannel,
+                                              @Field("errorFlag") int errorFlag);
     }
 
-    public static Observable<HylPayInfoModel> getPayInfo(Context context, String orderId, int payChannel) {
-        Observable<HylPayInfoModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(PayInfoService.class).setParams(orderId,payChannel);
+    public static Observable<HylPayInfoModel> getPayInfo(Context context, String orderId, int payChannel,int errorFlag) {
+        Observable<HylPayInfoModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(PayInfoService.class).setParams(orderId,payChannel,errorFlag);
         return loginModelObservable;
     }
 
@@ -376,6 +428,18 @@ public class OrderApi {
         return loginModelObservable;
     }
 
+    //支付结果页2
+    public interface PayInfoResultService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Pay_Info_Result)
+        Observable<HylPayResultModel> setParams(@Field("outTradeNo") String outTradeNo);
+    }
+
+    public static Observable<HylPayResultModel> getPayInfoResult(Context context, String outTradeNo) {
+        Observable<HylPayResultModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(PayInfoResultService.class).setParams(outTradeNo);
+        return loginModelObservable;
+    }
+
     //我的账单
     public interface MyBillService {
         @FormUrlEncoded
@@ -396,22 +460,16 @@ public class OrderApi {
         return loginModelObservable;
     }
 
-    public interface MyBillsService {
+    //删除账单条目
+    public interface DeleteBillService {
         @FormUrlEncoded
-        @POST(AppInterfaceAddress.My_Bill)
-        Observable<HylGetWallertRecordByPageModel> setParams(
-                @Field("pageNum") int pageNum,
-                @Field("pageSize") int pageSize,
-                @Field("payChannel") String payChannel,
-                @Field("recordType") String recordType,
-                @Field("year") String year,
-                @Field("month") String month);
+        @POST(AppInterfaceAddress.Delete_Bill)
+        Observable<BaseModel> setParams(
+                @Field("recordId") String recordId);
     }
 
-    public static Observable<HylGetWallertRecordByPageModel> getMyBills(Context context, int pageNum, int pageSize,
-                                                                        String payChannel, String recordType, String year, String month) {
-        Observable<HylGetWallertRecordByPageModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(MyBillsService.class).setParams(pageNum,pageSize,payChannel,
-                recordType,year,month);
+    public static Observable<BaseModel> deleteItem(Context context,String recordId) {
+        Observable<BaseModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(DeleteBillService.class).setParams(recordId);
         return loginModelObservable;
     }
     //我的账单

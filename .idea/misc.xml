@@ -5,17 +5,26 @@
       <map>
         <entry key="..\:/Bar/app/src/main/res/drawable/app_dialog_background.xml" value="0.284" />
         <entry key="..\:/Bar/app/src/main/res/drawable/app_my_coupons.xml" value="0.275" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/app_my_dash.xml" value="0.2485" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/icon_info_search.xml" value="0.2665" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_add_car_red.xml" value="0.2395" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_blue.xml" value="0.23" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_camera.xml" value="0.23" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_car_num.xml" value="0.2025" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/shape_jianbian1.xml" value="0.2485" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/shape_jianbian2.xml" value="0.2665" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/shape_jianbian20.xml" value="0.2535" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_jianbian3.xml" value="0.248" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/shape_jianbian5.xml" value="0.2665" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/shape_jianbian8.xml" value="0.2535" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/shape_orange13.xml" value="0.2485" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_pink.xml" value="0.315" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_pink1.xml" value="0.315" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_red.xml" value="0.315" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_red2.xml" value="0.3105" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_red3.xml" value="0.2395" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_red4.xml" value="0.3105" />
+        <entry key="..\:/Bar/app/src/main/res/drawable/shape_red5.xml" value="0.2665" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_red_order.xml" value="0.2395" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_white1.xml" value="0.284" />
         <entry key="..\:/Bar/app/src/main/res/drawable/shape_white5.xml" value="0.2565" />
@@ -24,6 +33,7 @@
         <entry key="..\:/Bar/app/src/main/res/layout/activity_address_list_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_comment_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_commont_no_data_layout_hyl.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/activity_confirm_address.xml" value="0.35260416666666666" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_coupon_detail.xml" value="0.35260416666666666" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_delay_pay_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_edit_address_hyl.xml" value="0.17198581560283688" />
@@ -31,6 +41,8 @@
         <entry key="..\:/Bar/app/src/main/res/layout/activity_full_list_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_full_lists.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_info.xml" value="0.3500905797101449" />
+        <entry key="..\:/Bar/app/src/main/res/layout/activity_issue.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/activity_issue_edit.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_issue_info.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_jifen.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_main.xml" value="0.3500905797101449" />
@@ -38,6 +50,7 @@
         <entry key="..\:/Bar/app/src/main/res/layout/activity_order_detail_hyl.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_order_foot_hyl.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_order_head_hyl.xml" value="0.3500905797101449" />
+        <entry key="..\:/Bar/app/src/main/res/layout/activity_pay_info_result.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_pay_result_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_privacy.xml" value="0.17198581560283688" />
         <entry key="..\:/Bar/app/src/main/res/layout/activity_return_good_detail_hyl.xml" value="0.3536458333333333" />
@@ -50,6 +63,7 @@
         <entry key="..\:/Bar/app/src/main/res/layout/banner_image.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/banner_video.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/bill_activity_hyl.xml" value="0.3538301198540907" />
+        <entry key="..\:/Bar/app/src/main/res/layout/bill_detail_activity.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/cart_fragment_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/cate_list_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/choose_company_activity.xml" value="0.22" />
@@ -61,13 +75,20 @@
         <entry key="..\:/Bar/app/src/main/res/layout/dailog_cancel_hyl.xml" value="0.33" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_cart_num_set_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_choose_addresss_hyl.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/dialog_delete_account.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_delete_collection_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_delete_order_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_full_list.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_login.xml" value="0.25" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_logout_hyl.xml" value="0.3500905797101449" />
+        <entry key="..\:/Bar/app/src/main/res/layout/dialog_order_delete.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/dialog_pay.xml" value="0.3392210144927536" />
+        <entry key="..\:/Bar/app/src/main/res/layout/dialog_pay_error.xml" value="0.35260416666666666" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_privacy_dialog.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/dialog_privacy_hyl.xml" value="0.3500905797101449" />
+        <entry key="..\:/Bar/app/src/main/res/layout/dialog_shop_style.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/dialog_shop_type.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/dialog_show_photo2.xml" value="0.35260416666666666" />
         <entry key="..\:/Bar/app/src/main/res/layout/fragment_choose_coupons_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/fragment_cupons_overdue_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/fragment_info.xml" value="0.3536458333333333" />
@@ -77,7 +98,8 @@
         <entry key="..\:/Bar/app/src/main/res/layout/fragment_pay_detail_hyl.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/fragment_pay_detail_hyl1.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/head_view.xml" value="0.3536458333333333" />
-        <entry key="..\:/Bar/app/src/main/res/layout/home_fragment.xml" value="0.33" />
+        <entry key="..\:/Bar/app/src/main/res/layout/home_fragment.xml" value="0.272294887039239" />
+        <entry key="..\:/Bar/app/src/main/res/layout/item_bill.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_bill_content_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_bill_header.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_cart_hyl.xml" value="0.3536458333333333" />
@@ -89,9 +111,12 @@
         <entry key="..\:/Bar/app/src/main/res/layout/item_coupon_use.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_coupons.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_dialog_address_hyl.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/item_filter_image.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_given_coupon_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_goods.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_icon_hyl.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/item_image.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/item_issue.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_jifen.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_left_classify_hyl.xml" value="0.3500905797101449" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_market.xml" value="0.3500905797101449" />
@@ -100,6 +125,8 @@
         <entry key="..\:/Bar/app/src/main/res/layout/item_my_coupons_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_my_order_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_my_order_hyl1.xml" value="0.33" />
+        <entry key="..\:/Bar/app/src/main/res/layout/item_order_desc_hyl.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/item_pay_info_list.xml" value="0.35260416666666666" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_price_hyl.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_quar.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/item_return_goods.xml" value="0.3536458333333333" />
@@ -127,7 +154,11 @@
         <entry key="..\:/Bar/app/src/main/res/layout/search_list.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/search_list_detail.xml" value="0.35260416666666666" />
         <entry key="..\:/Bar/app/src/main/res/layout/search_result_activity.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/test.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/test1.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/test2.xml" value="0.3536458333333333" />
+        <entry key="..\:/Bar/app/src/main/res/layout/test_video.xml" value="0.35260416666666666" />
+        <entry key="..\:/Bar/app/src/main/res/layout/text_expand.xml" value="0.623789764868603" />
         <entry key="..\:/Bar/app/src/main/res/layout/update_dialog.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/view_regionss.xml" value="0.3536458333333333" />
         <entry key="..\:/Bar/app/src/main/res/layout/view_tab_bar_hyl.xml" value="0.3500905797101449" />

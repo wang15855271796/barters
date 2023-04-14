@@ -246,8 +246,10 @@ public class HylOrderConfirmActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_choose_address:
-                ChooseAddressDialog chooseAddressDialog = new ChooseAddressDialog(mActivity);
-                chooseAddressDialog.show();
+//                ChooseAddressDialog chooseAddressDialog = new ChooseAddressDialog(mActivity);
+//                chooseAddressDialog.show();
+                Intent chooseConfirmActivity = new Intent(mActivity,ChooseConfirmActivity.class);
+                startActivity(chooseConfirmActivity);
                 break;
 
             case R.id.btn_sure:

@@ -78,12 +78,13 @@ public class AddressApi {
     public interface AddressListService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Address_List)
-        Observable<HylAddressListModel> setParams(@Field("pageNum") int pageNum, @Field("pageSize") int pageSize);
+        Observable<HylAddressListModel> setParams(@Field("pageNum") int pageNum, @Field("pageSize") int pageSize,
+                                                  @Field("checkFlag") int checkFlag, @Field("searchKey") String searchKey);
     }
 
-    public static Observable<HylAddressListModel> AddressList(Context context, int pageNum, int pageSize) {
+    public static Observable<HylAddressListModel> AddressList(Context context, int pageNum, int pageSize,int checkFlag,String searchKey) {
         Observable<HylAddressListModel> cartListModelObservable = RestHelper.getBaseRetrofit(context).create(AddressListService.class)
-                .setParams(pageNum,pageSize);
+                .setParams(pageNum,pageSize,checkFlag,searchKey);
         return cartListModelObservable;
     }
 

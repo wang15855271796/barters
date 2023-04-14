@@ -4,6 +4,7 @@ import android.app.Activity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.model.HylMyBillModel;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.emilsjolander.components.stickylistheaders.StickyListHeadersAdapter;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class HylStickyListssAdapter extends BaseAdapter implements StickyListHea
 	List<HylMyBillModel.DataBean.ListBean> list;
 	OnclickListener onclickListener;
 	TextView tv_month_select;
+	OnItemDelete1Listener onItemDeleteListener;
 	public HylStickyListssAdapter(Activity mActivity, List<HylMyBillModel.DataBean.ListBean> list,OnclickListener onclickListener) {
 		this.mActivity = mActivity;
 		this.list = list;
@@ -91,6 +94,31 @@ public class HylStickyListssAdapter extends BaseAdapter implements StickyListHea
 		stickyListAdapter = new StickyListAdapter(R.layout.item_sticky, list.get(position).getRecords());
 		holder.recyclerView.setAdapter(stickyListAdapter);
 
+//		stickyListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//			@Override
+//			public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//				if(onItemDeleteListener!=null) {
+//					onItemDeleteListener.onItemDelete1();
+//					stickyListAdapter.setOnItemDeleteListener(new StickyListAdapter.OnItemDeleteListener() {
+//						@Override
+//						public void onItemDelete(int pos, String id) {
+//
+//						}
+//					});
+//				}
+//			}
+//		});
+		stickyListAdapter.setOnItemDeleteListener(new StickyListAdapter.OnItemDeleteListener() {
+			@Override
+			public void onItemDelete(int pos, String id) {
+				if(onItemDeleteListener!=null) {
+					onItemDeleteListener.onItemDelete1(pos,id);
+				}
+			}
+		});
+
+
+
 		holder.recyclerView.setHasFixedSize(true);
 		holder.recyclerView.setNestedScrollingEnabled(false);
 		return view;
@@ -110,6 +138,15 @@ public class HylStickyListssAdapter extends BaseAdapter implements StickyListHea
 	public interface OnclickListener {
 		void headClick();
 	}
+
+	public interface OnItemDelete1Listener {
+		void onItemDelete1(int pos,String id);
+	}
+
+	public void setOnItemDeleteListener(OnItemDelete1Listener onItemDeleteListener) {
+		this.onItemDeleteListener = onItemDeleteListener;
+	}
+
 }
 
 

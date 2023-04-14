@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/ll_content"
+    >
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#414141"
+        android:textSize="11sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@drawable/app_my_dash"
+        android:layout_height="2dp"/>
+
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_open"
+            android:textColor="#FF2D2A"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="展开"
+            />
+
+        <ImageView
+            android:id="@+id/iv_open"
+            android:layout_marginLeft="@dimen/size_3dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_open"
+            android:src="@mipmap/icon_open1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</LinearLayout>

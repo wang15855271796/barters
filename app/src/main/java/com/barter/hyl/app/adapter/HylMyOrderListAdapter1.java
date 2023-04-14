@@ -143,7 +143,7 @@ public class HylMyOrderListAdapter1 extends BaseQuickAdapter<HylMyOrderListModel
         tv_delete_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClick.deleteOnclick(item.getOrderId());
+                onClick.deleteOnclick(item.getOrderId(),item.getOrderStatus());
             }
         });
 
@@ -483,7 +483,7 @@ public class HylMyOrderListAdapter1 extends BaseQuickAdapter<HylMyOrderListModel
 
         void cancelOnclick(String orderId);
 
-        void deleteOnclick(String orderId);
+        void deleteOnclick(String orderId,int orderStatus);
 
         void imageGo(String orderId, String totalAmount,int orderType,String id);
 

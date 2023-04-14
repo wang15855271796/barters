@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.barter.hyl.app.activity.HylMessageCenterActivity;
 import com.barter.hyl.app.activity.TestActivity;
+import com.barter.hyl.app.view.ExpandTabTextView;
 import com.barter.hyl.app.view.MyCompanyScrollView;
 import com.google.android.material.appbar.AppBarLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -158,9 +159,11 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     @BindView(R.id.tv_address)
     TextView tv_address;
     @BindView(R.id.tv_introduce)
-    TextView tv_introduce;
+    ExpandTabTextView tv_introduce;
     @BindView(R.id.tv_stop)
     TextView tv_stop;
+    @BindView(R.id.rl_desc_content)
+    RelativeLayout rl_desc_content;
     public AppBarLayoutState state;
     public enum AppBarLayoutState {
         EXPANDED,
@@ -327,7 +330,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
 
                             //是否展示公司信息
                             if(data.getShowCompanyFLag()==1) {
-                                my_scroll.setVisibility(View.VISIBLE);
+                                rl_desc_content.setVisibility(View.VISIBLE);
                                 //公司是否停业
                                 if(data.getCompanyEnabled()==0) {
                                     tv_stop.setVisibility(View.VISIBLE);
@@ -340,7 +343,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                                 }else {
                                     tv_stop.setVisibility(View.GONE);
                                 }
-                                my_scroll.setVisibility(View.GONE);
+                                rl_desc_content.setVisibility(View.GONE);
                             }
 
 
@@ -353,7 +356,8 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                             }
 
                             if(data.getCompanyDesc()!=null) {
-                                tv_introduce.setText("公司介绍:"+data.getCompanyDesc());
+                                tv_introduce.setText("公司介绍："+data.getCompanyDesc());
+
                             }
 
                             //秒杀

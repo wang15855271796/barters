@@ -51,15 +51,15 @@
         android:layout_height="@dimen/dp_40">
 
         <TextView
-            android:text="新增收货地址"
-            android:textSize="@dimen/sp_16"
-            android:textColor="#FFFFFF"
-            android:drawablePadding="@dimen/size_8dp"
-            android:drawableLeft="@mipmap/icon_add_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:drawableLeft="@mipmap/icon_add_address"
+            android:drawablePadding="@dimen/size_8dp"
+            android:text="新增收货地址"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/sp_16" />
 
     </RelativeLayout>
 

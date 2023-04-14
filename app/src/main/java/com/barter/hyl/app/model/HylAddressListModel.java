@@ -160,6 +160,15 @@ public class HylAddressListModel {
             private String contactPhone;
             private String detailAddress;
             public int isDefault;
+            private int sendType;
+
+            public int getSendType() {
+                return sendType;
+            }
+
+            public void setSendType(int sendType) {
+                this.sendType = sendType;
+            }
 
             public int getAddressId() {
                 return addressId;

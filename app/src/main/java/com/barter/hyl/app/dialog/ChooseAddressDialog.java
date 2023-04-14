@@ -131,7 +131,7 @@ public class ChooseAddressDialog extends Dialog {
     List<HylAddressListModel.DataBean.ListBean> list = new ArrayList<>();
     HylAddressListModel hylAddressListModels;
     private void getAddressList() {
-        AddressApi.AddressList(mContext,1,100)
+        AddressApi.AddressList(mContext,1,100,0,"")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylAddressListModel>() {

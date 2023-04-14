@@ -35,6 +35,7 @@ import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.constant.AppConstant;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.PayErrorDialog;
 import com.barter.hyl.app.event.WeChatPayEvent;
 import com.barter.hyl.app.event.WeChatUnPayEvent;
 import com.barter.hyl.app.model.HylPayInfoModel;
@@ -439,8 +440,9 @@ public class HylMyOrderDetailPaymentDialogFragment extends DialogFragment {
      */
     int jumpWx = 0;
     HylPayListModel.DataBean dataBean;
+    int errorFlag = 0;
     private void getPayInfo() {
-        OrderApi.getPayInfo(getContext(),orderId,payChannel)
+        OrderApi.getPayInfo(getContext(),orderId,payChannel,errorFlag)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylPayInfoModel>() {
@@ -490,7 +492,21 @@ public class HylMyOrderDetailPaymentDialogFragment extends DialogFragment {
                                     payDeliverPay();
                                 }
                             }
-                        }else {
+                        }if(hylPayInfoModel.getCode()==100006) {
+                            PayErrorDialog payErrorDialog = new PayErrorDialog(getContext(), hylPayInfoModel.getMessage()) {
+                                @Override
+                                public void Confirm() {
+                                    errorFlag = 1;
+                                    getPayInfo();
+                                }
+
+                                @Override
+                                public void Cancel() {
+                                    dismiss();
+                                }
+                            };
+                            payErrorDialog.show();
+                        } else {
                             ToastUtil.showSuccessMsg(getActivity(), hylPayInfoModel.getMessage());
                         }
                     }

@@ -1,6 +1,8 @@
 package com.barter.hyl.app.adapter;
 
 import androidx.annotation.Nullable;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -63,12 +65,11 @@ public class HylChooseAddresssAdapter extends BaseQuickAdapter<HylAddressListMod
             }
         });
 
-
-
         //切换默认地址
         helper.getView(R.id.rl_item_address).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("efsfes.......",item.getAddressId()+"--");
                 mOnEventClickListener.onEventClick(view, helper.getAdapterPosition(), "default");
             }
         });

@@ -28,11 +28,13 @@ import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.event.ChangeInfoNameEvent;
 import com.barter.hyl.app.event.CityEvent;
 import com.barter.hyl.app.event.SearchShopEvent;
 import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
 import com.barter.hyl.app.listener.PopWindowListener;
 import com.barter.hyl.app.model.CityChangeModel;
+import com.barter.hyl.app.model.HomeStyleTabModel;
 import com.barter.hyl.app.model.HylAreaModel;
 import com.barter.hyl.app.model.HylAreaModel1;
 import com.barter.hyl.app.model.HylLoginModel;
@@ -93,6 +95,8 @@ public class InfoFragment extends BaseFragment {
     ImageView iv_downs;
     @BindView(R.id.iv_area)
     ImageView iv_area;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     List<InfoListModel.DataBean.ListBean> list = new ArrayList<>();
     int pageNum = 1;
     int pageSize = 10;
@@ -119,6 +123,7 @@ public class InfoFragment extends BaseFragment {
         recyclerView.setAdapter(marketsAdapter);
         List<String> strings = Arrays.asList(data);
         getCityChoose();
+        getHomeTabStyle();
         search = tv_search.getText().toString();
         tv_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,17 +175,17 @@ public class InfoFragment extends BaseFragment {
 
                     }
                 });
-                tv_address.setTextColor(Color.parseColor("#333333"));
-                iv_area.setImageResource(R.mipmap.icon_downs);
+//                tv_address.setTextColor(Color.parseColor("#333333"));
+//                iv_area.setImageResource(R.mipmap.icon_downs);
                 if(catePopWindow.isShowing()) {
                     catePopWindow.dismiss();
-                    iv_downs.setImageResource(R.mipmap.icon_downs);
+//                    iv_downs.setImageResource(R.mipmap.icon_downs);
                     mask.setVisibility(View.GONE);
-                    tv_cate.setTextColor(Color.parseColor("#333333"));
+//                    tv_cate.setTextColor(Color.parseColor("#333333"));
                 }else {
-                    iv_downs.setImageResource(R.mipmap.icon_ups);
+//                    iv_downs.setImageResource(R.mipmap.icon_ups);
                     catePopWindow.showAsDropDown(ll_cate,0,0);
-                    tv_cate.setTextColor(Color.parseColor("#FF2925"));
+//                    tv_cate.setTextColor(Color.parseColor("#FF2925"));
                 }
             }
         });
@@ -203,16 +208,16 @@ public class InfoFragment extends BaseFragment {
                 cascadingMenuPopWindow.setMenuViewOnSelectListener(new NMCascadingMenuViewOnSelectListener());
                 cascadingMenuPopWindow.setOnDismissListener(new popupDismissListener());
 
-                iv_downs.setImageResource(R.mipmap.icon_downs);
-                tv_cate.setTextColor(Color.parseColor("#333333"));
+//                iv_downs.setImageResource(R.mipmap.icon_downs);
+//                tv_cate.setTextColor(Color.parseColor("#333333"));
                 if(cascadingMenuPopWindow.isShowing()) {
                     cascadingMenuPopWindow.dismiss();
-                    iv_area.setImageResource(R.mipmap.icon_downs);
+//                    iv_area.setImageResource(R.mipmap.icon_downs);
                     mask.setVisibility(View.GONE);
-                    tv_address.setTextColor(Color.parseColor("#333333"));
+//                    tv_address.setTextColor(Color.parseColor("#333333"));
                 }else {
-                    tv_address.setTextColor(Color.parseColor("#FF2925"));
-                    iv_area.setImageResource(R.mipmap.icon_ups);
+//                    tv_address.setTextColor(Color.parseColor("#FF2925"));
+//                    iv_area.setImageResource(R.mipmap.icon_ups);
                     cascadingMenuPopWindow.showAsDropDown(ll_cate,0,0);
                 }
 
@@ -239,6 +244,7 @@ public class InfoFragment extends BaseFragment {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 list.clear();
                 pageNum=1;
+                getHomeTabStyle();
                 if(pos==0) {
                     getCityList(search,"",cityCode,provinceCode);
                 }else if(pos==1) {
@@ -286,6 +292,42 @@ public class InfoFragment extends BaseFragment {
     @Override
     public void setClickListener() {
 
+    }
+
+    HomeStyleTabModel.DataBean homeTabData;
+    String rentName;
+    private void getHomeTabStyle() {
+        InfoListAPI.getTabStyle(mActivity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<HomeStyleTabModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(HomeStyleTabModel homeStyleTabModel) {
+                        if(homeStyleTabModel.getCode()==1) {
+                            if(homeStyleTabModel.getData()!=null) {
+                                homeTabData = homeStyleTabModel.getData();
+                                if(!homeTabData.getRentName().equals("") && homeTabData.getRentName()!=null) {
+                                    rentName = homeTabData.getRentName();
+                                    EventBus.getDefault().post(new ChangeInfoNameEvent(rentName));
+                                    tv_title.setText(rentName);
+                                }
+                            }
+
+                        }else {
+                            ToastUtil.showSuccessMsg(mActivity,homeStyleTabModel.getMessage());
+                        }
+                    }
+                });
     }
 
 

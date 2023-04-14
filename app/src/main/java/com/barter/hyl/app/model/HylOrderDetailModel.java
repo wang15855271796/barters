@@ -134,6 +134,10 @@ public class HylOrderDetailModel {
         private String offlineRemainAmt;
         private boolean bankReturnFlag;
         private String bankReturnTime;
+        private boolean canReturnGoods;
+        private String cannotReturnGoodsMsg;
+
+
         @Override
         public String toString() {
             return "DataBean{" +
@@ -172,6 +176,23 @@ public class HylOrderDetailModel {
                     ", startTime=" + startTime +
                     ", nowTime=" + nowTime +
                     '}';
+        }
+
+
+        public boolean isCanReturnGoods() {
+            return canReturnGoods;
+        }
+
+        public void setCanReturnGoods(boolean canReturnGoods) {
+            this.canReturnGoods = canReturnGoods;
+        }
+
+        public String getCannotReturnGoodsMsg() {
+            return cannotReturnGoodsMsg;
+        }
+
+        public void setCannotReturnGoodsMsg(String cannotReturnGoodsMsg) {
+            this.cannotReturnGoodsMsg = cannotReturnGoodsMsg;
         }
 
         public boolean isBankReturnFlag() {

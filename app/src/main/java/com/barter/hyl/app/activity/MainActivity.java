@@ -14,12 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.barter.hyl.app.api.DetailApi;
+import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
+import com.barter.hyl.app.event.ChangeInfoNameEvent;
 import com.barter.hyl.app.event.ChangeIvEvent;
 import com.barter.hyl.app.event.ChangeNumHylEvent;
 import com.barter.hyl.app.event.GoToMarketHylEvent;
@@ -33,6 +35,7 @@ import com.barter.hyl.app.fragment.HylHome1Fragment;
 import com.barter.hyl.app.fragment.HylMarketsFragment;
 import com.barter.hyl.app.fragment.HylMineFragment;
 import com.barter.hyl.app.fragment.InfoFragment;
+import com.barter.hyl.app.model.HomeStyleTabModel;
 import com.barter.hyl.app.model.HylCartNumModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.R;
@@ -153,6 +156,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         iv_home_un.setVisibility(View.GONE);
         iv_home.setVisibility(View.VISIBLE);
         switchTab(TAB_HOME);
+        getHomeTabStyle();
         getCartNum();
     }
 
@@ -376,6 +380,50 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void goMarket(JumpMarketEvent jumpMarketEvent) {
         switchTab(TAB_MARKET);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void goMarket(ChangeInfoNameEvent changeInfoNameEvent) {
+        tv_info.setText(changeInfoNameEvent.getRentName());
+    }
+
+    HomeStyleTabModel.DataBean homeTabData;
+    String rentName;
+    private void getHomeTabStyle() {
+        InfoListAPI.getTabStyle(mActivity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<HomeStyleTabModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(HomeStyleTabModel homeStyleTabModel) {
+                        if(homeStyleTabModel.getCode()==1) {
+                            if(homeStyleTabModel.getData()!=null) {
+                                homeTabData = homeStyleTabModel.getData();
+
+                                if(!homeTabData.getRentName().equals("") && homeTabData.getRentName()!=null) {
+                                    rentName = homeTabData.getRentName();
+                                    tv_info.setText(rentName);
+                                }else {
+                                    tv_info.setText("行业信息");
+                                }
+                            }
+
+                        }else {
+                            ToastUtil.showSuccessMsg(mActivity,homeStyleTabModel.getMessage());
+                        }
+                    }
+                });
+    }
+
     /**
      * 购物车数量
      */

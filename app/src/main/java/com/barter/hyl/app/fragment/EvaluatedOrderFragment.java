@@ -17,6 +17,7 @@ import com.barter.hyl.app.adapter.HylMyOrderListAdapter;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.OrderErrorDialog;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.model.BaseModel;
@@ -122,9 +123,9 @@ public class EvaluatedOrderFragment extends BaseFragment {
             }
 
             @Override
-            public void deleteOnclick(String orderId) {
+            public void deleteOnclick(String orderId,int orderStatus) {
                 //删除订单
-                showDeleteDialog(orderId);
+                showDeleteDialog(orderId,orderStatus);
             }
 
             @Override
@@ -242,7 +243,7 @@ public class EvaluatedOrderFragment extends BaseFragment {
     /**
      * 删除订单
      */
-    private void showDeleteDialog(final String orderId) {
+    private void showDeleteDialog(final String orderId,int orderStatus) {
         AlertDialog mDialog = new AlertDialog.Builder(getActivity(), R.style.DialogStyle).create();
         mDialog.show();
         mDialog.getWindow().setContentView(R.layout.dialog_delete_order_hyl);
@@ -261,7 +262,11 @@ public class EvaluatedOrderFragment extends BaseFragment {
             public void onClick(View v) {
                 mDialog.dismiss();
                 //删除订单
-                deleteOrder(orderId);
+                if(orderStatus == 5 || orderStatus == 6 || orderStatus == 11) {
+                    deleteOrder1(orderId);
+                }else {
+                    deleteOrder(orderId);
+                }
             }
         });
     }
@@ -270,8 +275,9 @@ public class EvaluatedOrderFragment extends BaseFragment {
     /**
      * 取消订单
      */
+    AlertDialog mDialog;
     private void showCancelDialog(final String orderId) {
-        AlertDialog mDialog = new AlertDialog.Builder(getActivity(), R.style.DialogStyle).create();
+        mDialog = new AlertDialog.Builder(getActivity(), R.style.DialogStyle).create();
         mDialog.show();
         mDialog.getWindow().setContentView(R.layout.dailog_cancel_hyl);
         TextView mBtnCancel = (TextView) mDialog.getWindow().findViewById(R.id.btnCancel);
@@ -293,7 +299,40 @@ public class EvaluatedOrderFragment extends BaseFragment {
                 cancelOrder(orderId);
             }
         });
+    }
 
+    private void deleteOrder1(String orderId) {
+        OrderApi.deleteOrder1(mActivity,orderId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel.code==1) {
+                            mPtr.autoRefresh(true);
+                            ToastUtil.showSuccessMsg(mActivity,baseModel.message);
+                        }else {
+                            OrderErrorDialog orderErrorDialog = new OrderErrorDialog(mActivity, baseModel.message) {
+                                @Override
+                                public void Confirm() {
+                                    dismiss();
+                                }
+                            };
+                            mDialog.dismiss();
+                            orderErrorDialog.show();
+                        }
+                    }
+                });
     }
 
     /**

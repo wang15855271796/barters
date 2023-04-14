@@ -65,6 +65,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
     @Override
     protected void convert(final BaseViewHolder helper, final HylMyOrderListModel.DataBean.ListBean item) {
         helper.setIsRecyclable(false);
+        Log.d("wdfadawd....","111");
         TextView tv_keep = helper.getView(R.id.tv_keep);
         RelativeLayout rl_canceled =  helper.getView(R.id.rl_canceled);
         TextView tv_delete_order = helper.getView(R.id.tv_delete_order);
@@ -81,10 +82,13 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         TextView tv_again_buy2 = helper.getView(R.id.tv_again_buy2);
         TextView tv_again_buy3 = helper.getView(R.id.tv_again_buy3);
         TextView tv_now_eval = helper.getView(R.id.tv_now_eval);
+        TextView tv_delete_order2 = helper.getView(R.id.tv_delete_order2);
+        TextView tv_delete_order1 = helper.getView(R.id.tv_delete_order1);
         RelativeLayout rl_receive_goods = helper.getView(R.id.rl_receive_goods);
         RelativeLayout rl_wait_eval= helper.getView(R.id.rl_wait_eval);
         RelativeLayout rl_wait_check= helper.getView(R.id.rl_wait_check);
         RelativeLayout rl_wait_dispatch= helper.getView(R.id.rl_wait_dispatch);
+        Log.d("wdfadawd....","222");
         ll_choose = helper.getView(R.id.ll_choose);
         CheckBox cb_choose = helper.getView(R.id.cb_choose);
         tv_time = helper.getView(R.id.tv_time);
@@ -99,7 +103,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         linearLayoutItem = helper.getView(R.id.linearLayoutItem);
         tv_product_name.setText(item.getName());
         tv_time.setText(item.getDateTime());
-
+        Log.d("wdfadawd....","333");
 
         if(isShow) {
             if(item.isOfflinePay()) {
@@ -139,7 +143,23 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         tv_delete_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClick.deleteOnclick(item.getOrderId());
+                onClick.deleteOnclick(item.getOrderId(),item.getOrderStatus());
+            }
+        });
+
+        //删除订单
+        tv_delete_order1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClick.deleteOnclick(item.getOrderId(),item.getOrderStatus());
+            }
+        });
+
+        //删除订单
+        tv_delete_order2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClick.deleteOnclick(item.getOrderId(),item.getOrderStatus());
             }
         });
 
@@ -272,8 +292,15 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         }
                     }
 
-                    if (item.getOrderStatusStr().equals("待发货-待接收")||item.getOrderStatusStr().equals("待发货-已接收")||item.getOrderStatusStr().equals("已评价")
+                    if (item.getOrderStatusStr().equals("待发货-待接收")||item.getOrderStatusStr().equals("待发货-已接收")
+                            ||item.getOrderStatusStr().equals("已评价")
                             ||item.getOrderStatusStr().equals("已退货")) { // 待收货显示 确认收货 和再次购买
+                        if(item.getOrderStatus()==6) {
+                            tv_delete_order2.setVisibility(View.VISIBLE);
+                        }else {
+                            tv_delete_order2.setVisibility(View.GONE);
+                        }
+                        tv_delete_order1.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.GONE);
@@ -281,6 +308,8 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         rl_wait_dispatch.setVisibility(View.VISIBLE);
                         rl_canceled.setVisibility(View.GONE);
                     } else if (item.getOrderStatusStr().equals("待收货")) { // 待收货显示 确认收货 和再次购买
+                        tv_delete_order1.setVisibility(View.GONE);
+                        tv_delete_order2.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.VISIBLE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.GONE);
@@ -288,6 +317,8 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         rl_wait_dispatch.setVisibility(View.GONE);
                         rl_canceled.setVisibility(View.GONE);
                     }else if(item.getOrderStatusStr().equals("待审核")) {
+                        tv_delete_order1.setVisibility(View.GONE);
+                        tv_delete_order2.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.VISIBLE);
@@ -295,6 +326,8 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         rl_wait_dispatch.setVisibility(View.GONE);
                         rl_canceled.setVisibility(View.GONE);
                     }else if (item.getOrderStatusStr().equals("待评价")) {   // 立即评价 再次购买 立即付款
+                        tv_delete_order1.setVisibility(View.VISIBLE);
+                        tv_delete_order2.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.VISIBLE);
                         rl_wait_check.setVisibility(View.GONE);
@@ -303,6 +336,8 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         rl_canceled.setVisibility(View.GONE);
                     }else {
                         //已取消
+                        tv_delete_order1.setVisibility(View.GONE);
+                        tv_delete_order2.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.GONE);
@@ -311,32 +346,47 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         rl_canceled.setVisibility(View.VISIBLE);
                     }
                 }else {
-                    if (item.getOrderStatusStr().equals("待发货-待接收")||item.getOrderStatusStr().equals("待发货-已接收")||item.getOrderStatusStr().equals("已评价")
+                    if (item.getOrderStatusStr().equals("待发货-待接收")||item.getOrderStatusStr().equals("待发货-已接收")
+                            ||item.getOrderStatusStr().equals("已评价")
                             ||item.getOrderStatusStr().equals("已退货")) { // 待收货显示 确认收货 和再次购买
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.GONE);
                         rl_wait_dispatch.setVisibility(View.VISIBLE);
                         rl_wait_pay.setVisibility(View.GONE);
+                        tv_delete_order1.setVisibility(View.GONE);
+                        if(item.getOrderStatus()==6) {
+                            tv_delete_order2.setVisibility(View.VISIBLE);
+                        }else {
+                            tv_delete_order2.setVisibility(View.GONE);
+                        }
                     } else if (item.getOrderStatusStr().equals("待收货")) { // 待收货显示 确认收货 和再次购买
                         rl_receive_goods.setVisibility(View.VISIBLE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.GONE);
                         rl_wait_dispatch.setVisibility(View.GONE);
                         rl_wait_pay.setVisibility(View.GONE);
+                        tv_delete_order1.setVisibility(View.GONE);
+                        tv_delete_order2.setVisibility(View.GONE);
                     }else if(item.getOrderStatusStr().equals("待审核")) {
+                        tv_delete_order1.setVisibility(View.GONE);
+                        tv_delete_order2.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.VISIBLE);
                         rl_wait_dispatch.setVisibility(View.GONE);
                         rl_wait_pay.setVisibility(View.GONE);
                     }else if (item.getOrderStatusStr().equals("待评价")) {   // 立即评价 再次购买 立即付款
+                        tv_delete_order1.setVisibility(View.VISIBLE);
+                        tv_delete_order2.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.VISIBLE);
                         rl_wait_check.setVisibility(View.GONE);
                         rl_wait_dispatch.setVisibility(View.GONE);
                         rl_wait_pay.setVisibility(View.GONE);
                     }else if(item.getOrderStatusStr().equals("已取消")) {
+                        tv_delete_order1.setVisibility(View.GONE);
+                        tv_delete_order2.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.GONE);
@@ -345,6 +395,8 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                         rl_canceled.setVisibility(View.VISIBLE);
                     } else {
                         //待付款
+                        tv_delete_order2.setVisibility(View.GONE);
+                        tv_delete_order1.setVisibility(View.GONE);
                         rl_receive_goods.setVisibility(View.GONE);
                         rl_wait_eval.setVisibility(View.GONE);
                         rl_wait_check.setVisibility(View.GONE);
@@ -353,6 +405,18 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                     }
                 }
             }
+        }
+
+        if(!item.canDelete) {
+            //不可删除
+            tv_delete_order.setVisibility(View.GONE);
+            tv_delete_order1.setVisibility(View.GONE);
+            tv_delete_order2.setVisibility(View.GONE);
+        }else {
+            //可删除
+            tv_delete_order.setVisibility(View.VISIBLE);
+            tv_delete_order1.setVisibility(View.VISIBLE);
+            tv_delete_order2.setVisibility(View.VISIBLE);
         }
 
 
@@ -479,7 +543,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
 
         void cancelOnclick(String orderId);
 
-        void deleteOnclick(String orderId);
+        void deleteOnclick(String orderId,int orderStatus);
 
         void imageGo(String orderId, String totalAmount,int orderType,String id);
 

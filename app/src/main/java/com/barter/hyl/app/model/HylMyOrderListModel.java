@@ -173,9 +173,17 @@ public class HylMyOrderListModel {
             private boolean payFlag;
             private boolean offlinePay;
             boolean bankReturnFlag;
-
             public boolean isBankReturnFlag() {
                 return bankReturnFlag;
+            }
+            public boolean canDelete;
+
+            public boolean isCanDelete() {
+                return canDelete;
+            }
+
+            public void setCanDelete(boolean canDelete) {
+                this.canDelete = canDelete;
             }
 
             public void setBankReturnFlag(boolean bankReturnFlag) {

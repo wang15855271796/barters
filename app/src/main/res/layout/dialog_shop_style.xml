@@ -9,9 +9,9 @@
     <TextView
         android:textStyle="bold"
         android:text="请选择消息类型"
-        android:textColor="#333333"
+        android:textColor="#000000"
         android:textSize="@dimen/sp_16"
-        android:layout_marginLeft="@dimen/size_18dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/size_21dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

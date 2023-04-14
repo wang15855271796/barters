@@ -35,35 +35,35 @@ public class MarketsAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
     protected void convert(BaseViewHolder helper, InfoListModel.DataBean.ListBean item) {
         try {
             helper.setIsRecyclable(false);
-            String phoneNum = item.getPhone().substring(0, 3) + "****" + item.getPhone().substring(7, 11);
-            helper.setText(R.id.tv_phone,phoneNum);
-            ImageView iv_head = helper.getView(R.id.iv_head);
-            if(item.getHeadImage()!=null && !item.getHeadImage().equals("")) {
-                Glide.with(mContext).load(item.getHeadImage()).into(iv_head);
+//            String phoneNum = item.getPhone().substring(0, 3) + "****" + item.getPhone().substring(7, 11);
+//            helper.setText(R.id.tv_phone,phoneNum);
+            ImageView iv_player = helper.getView(R.id.iv_player);
+            RoundImageView iv_pic = helper.getView(R.id.iv_pic);
+            if(item.getVideoCoverUrl()!=null) {
+                iv_player.setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(item.getVideoCoverUrl()).into(iv_pic);
+            }else {
+                if(item.getPictureList()!=null&&item.getPictureList().size()>0) {
+                    iv_player.setVisibility(View.GONE);
+                    Glide.with(mContext).load(item.getPictureList().get(0)).into(iv_pic);
+                }
             }
-            if(item.getPictureList()!=null&&item.getPictureList().size()>0) {
-                RoundImageView iv_pic = helper.getView(R.id.iv_pic);
-                Glide.with(mContext).load(item.getPictureList().get(0)).into(iv_pic);
-            }
+
             if(item.getMsgType().equals("1")) {
                 helper.setText(R.id.tv_style,"店铺转让");
-                imageSpan = new ImageSpan(mContext,R.mipmap.icon_shop);
             }else if(item.getMsgType().equals("2")) {
                 helper.setText(R.id.tv_style,"器具转让");
-                imageSpan = new ImageSpan(mContext,R.mipmap.icon_appli);
             }else if(item.getMsgType().equals("3")) {
                 helper.setText(R.id.tv_style, "厨师招聘");
-                imageSpan = new ImageSpan(mContext,R.mipmap.icon_chef);
             }else {
                 helper.setText(R.id.tv_style, "其他信息");
-                imageSpan = new ImageSpan(mContext,R.mipmap.icon_other);
             }
 
             TextView tv_title = helper.getView(R.id.tv_title);
             SpannableString spannableString = new SpannableString("a "+item.getContent());
             spannableString.setSpan(imageSpan, 0, 1,  Spanned.SPAN_INCLUSIVE_INCLUSIVE);
             tv_title.setText(spannableString);
-            helper.setText(R.id.tv_time,item.getCreateTime());
+            helper.setText(R.id.tv_time,item.getCreateTime()+"发布");
             helper.setText(R.id.tv_num,item.getBrowseNum()+"人看过");
             helper.setText(R.id.tv_address,"地址:"+item.getAreaName());
             helper.getView(R.id.rl_group).setOnClickListener(new View.OnClickListener() {

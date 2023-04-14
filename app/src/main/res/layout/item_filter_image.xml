@@ -16,7 +16,7 @@
             android:layout_marginTop="10dp"
             android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@mipmap/iv_post_camera_return"/>
+            android:src="@mipmap/iv_post_camera_return" />
 
         <LinearLayout
             android:visibility="gone"
@@ -51,6 +51,14 @@
             android:textColor="@color/white"
             android:textSize="12sp"
             android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/iv_player"
+            android:visibility="gone"
+            android:src="@mipmap/icon_player"
+            android:layout_width="34dp"
+            android:layout_centerInParent="true"
+            android:layout_height="34dp"/>
 
     </RelativeLayout>
 

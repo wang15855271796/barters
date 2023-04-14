@@ -1,6 +1,7 @@
 package com.barter.hyl.app.adapter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.barter.hyl.app.R;
 import com.bumptech.glide.Glide;
+import com.luck.picture.lib.entity.LocalMedia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +24,7 @@ public class ShopImageViewssAdapter extends RecyclerView.Adapter<ShopImageViewss
     Onclick onclick;
     List<String> pictureList;
     Activity mActivity;
+    private List<LocalMedia> list = new ArrayList<>();
     public ShopImageViewssAdapter(Activity mActivity, List<String> pictureList, Onclick onclick) {
         this.onclick  = onclick;
         this.pictureList = pictureList;
@@ -65,12 +69,23 @@ public class ShopImageViewssAdapter extends RecyclerView.Adapter<ShopImageViewss
                 });
             }
 
+            if(pictureList.get(position).contains(".mp4")) {
+                viewHolder.iv_player.setVisibility(View.VISIBLE);
+            }else {
+                viewHolder.iv_player.setVisibility(View.GONE);
+            }
+
+
             viewHolder.ll_del.setVisibility(View.GONE);
         }
     }
 
     public static final int TYPE_CAMERA = 1;
     public static final int TYPE_PICTURE = 2;
+
+    public List<LocalMedia> getData() {
+        return list == null ? new ArrayList<>() : list;
+    }
 
     private boolean isShowAddItem(int position) {
         int size = pictureList.size() == 0 ? 0 : pictureList.size();
@@ -96,15 +111,22 @@ public class ShopImageViewssAdapter extends RecyclerView.Adapter<ShopImageViewss
                 return pictureList.size();
             }
         }
+        Log.d("fedwqd.....",pictureList.size()+"--");
       return 1;
+    }
+
+    public void setList(List<LocalMedia> selectList) {
+        this.list = selectList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_pic;
         LinearLayout ll_del;
+        ImageView iv_player;
         public ViewHolder(View view) {
             super(view);
+            iv_player = (ImageView) view.findViewById(R.id.iv_player);
             iv_pic = (ImageView) view.findViewById(R.id.iv_pic);
             ll_del = (LinearLayout) view.findViewById(R.id.ll_del);
         }

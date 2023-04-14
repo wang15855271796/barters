@@ -240,7 +240,7 @@ public class HylAddressListsActivity extends BaseActivity implements View.OnClic
     List<HylAddressListModel.DataBean.ListBean> list = new ArrayList<>();
     HylAddressListModel hylAddressListModels;
     private void getAddressList() {
-        AddressApi.AddressList(mContext,pageNum,pageSize)
+        AddressApi.AddressList(mContext,pageNum,pageSize,0,"")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylAddressListModel>() {

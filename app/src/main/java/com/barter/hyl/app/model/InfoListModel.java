@@ -173,6 +173,42 @@ public class InfoListModel {
             private String areaName;
             private List<String> pictureList;
             private String msgTypeName;
+            private String msgTypeStr;
+            private String videoUrl;
+            private String videoCoverUrl;
+            private boolean deleteFlag;
+
+            public boolean isDeleteFlag() {
+                return deleteFlag;
+            }
+
+            public void setDeleteFlag(boolean deleteFlag) {
+                this.deleteFlag = deleteFlag;
+            }
+
+            public String getMsgTypeStr() {
+                return msgTypeStr;
+            }
+
+            public void setMsgTypeStr(String msgTypeStr) {
+                this.msgTypeStr = msgTypeStr;
+            }
+
+            public String getVideoUrl() {
+                return videoUrl;
+            }
+
+            public void setVideoUrl(String videoUrl) {
+                this.videoUrl = videoUrl;
+            }
+
+            public String getVideoCoverUrl() {
+                return videoCoverUrl;
+            }
+
+            public void setVideoCoverUrl(String videoCoverUrl) {
+                this.videoCoverUrl = videoCoverUrl;
+            }
 
             public String getHeadImage() {
                 return headImage;

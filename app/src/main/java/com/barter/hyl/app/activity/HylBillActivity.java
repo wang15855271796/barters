@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ import com.barter.hyl.app.adapter.SearchAccountAdapter;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.dialog.DeleteAccountDialog;
+import com.barter.hyl.app.model.BaseModel;
 import com.barter.hyl.app.model.HylMyBillModel;
 import com.barter.hyl.app.model.HylSearchBillModel;
 import com.barter.hyl.app.utils.ToastUtil;
@@ -96,7 +99,6 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void setViewData() {
         getSearch();
-
         stickyListAdapter = new HylStickyListssAdapter(this, list, new HylStickyListssAdapter.OnclickListener() {
             @Override
             public void headClick() {
@@ -136,6 +138,26 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
 
 
         sticky.setAdapter(stickyListAdapter);
+
+        stickyListAdapter.setOnItemDeleteListener(new HylStickyListssAdapter.OnItemDelete1Listener() {
+            @Override
+            public void onItemDelete1(int pos,String id) {
+                DeleteAccountDialog deleteAccountDialog = new DeleteAccountDialog(mActivity) {
+                    @Override
+                    public void Confirm() {
+                        deleteItem(id);
+                        dismiss();
+                    }
+
+                    @Override
+                    public void Cancel() {
+                        dismiss();
+                    }
+                };
+                deleteAccountDialog.show();
+            }
+        });
+
         setTime();
 
 
@@ -148,6 +170,39 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
+
+    /**
+     * 删除条目
+     */
+    private void deleteItem(String recordId) {
+        OrderApi.deleteItem(mContext, recordId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if(baseModel.code == 1) {
+                            pageNum = 1;
+                            list.clear();
+                            getMyBill();
+                            ToastUtil.showSuccessMsg(mContext,baseModel.message);
+                        }else {
+                            ToastUtil.showSuccessMsg(mContext,baseModel.message);
+                        }
+                    }
+                });
+
+
+    }
 
     private List<HylSearchBillModel.DataBean.List1Bean> mList1 = new ArrayList<>();//筛选
     private List<HylSearchBillModel.DataBean.List2Bean> mList2 = new ArrayList<>();//账户
@@ -247,8 +302,6 @@ public class HylBillActivity extends BaseActivity implements View.OnClickListene
                                     rl_default.setVisibility(View.VISIBLE);
                                 }
                             }
-
-
                             stickyListAdapter.notifyDataSetChanged();
                         }else {
                             ToastUtil.showSuccessMsg(mContext,billModel.getMessage());

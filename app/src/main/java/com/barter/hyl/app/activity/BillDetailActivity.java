@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +18,7 @@ import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.model.BillDetailModel;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,22 @@ public class BillDetailActivity extends BaseActivity implements View.OnClickList
     TextView tv_title;
     @BindView(R.id.iv_back)
     ImageView iv_back;
+    @BindView(R.id.iv_flag)
+    ImageView iv_flag;
+    @BindView(R.id.ll_rent)
+    LinearLayout ll_rent;
+    @BindView(R.id.ll_pay)
+    LinearLayout ll_pay;
+    @BindView(R.id.ll_order)
+    LinearLayout ll_order;
+    @BindView(R.id.tv_style)
+    TextView tv_style;
+    @BindView(R.id.tv_style_desc)
+    TextView tv_style_desc;
+    @BindView(R.id.tv_time1)
+    TextView tv_time1;
+    @BindView(R.id.tv_time_desc)
+    TextView tv_time_desc;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
@@ -64,7 +84,6 @@ public class BillDetailActivity extends BaseActivity implements View.OnClickList
     BillConnectionAdapter billConnectionAdapter;
     @Override
     public void setViewData() {
-        tv_title.setText("账单详情");
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         billConnectionAdapter = new BillConnectionAdapter(R.layout.item_bill,orders);
         recyclerView.setAdapter(billConnectionAdapter);
@@ -111,13 +130,36 @@ public class BillDetailActivity extends BaseActivity implements View.OnClickList
                                 tv_pay.setText(data.getPayChannel());
                                 tv_jifen.setText(data.getPoint()+"");
                                 tv_time.setText(data.getDateTime());
+
+                                Glide.with(mContext).load(data.getIconUrl()).into(iv_flag);
+                                if(billDetailModel.getData().getRecordType()==13) {
+                                    tv_style_desc.setText("支付方式");
+                                    tv_time_desc.setText("支付时间");
+                                    ll_rent.setVisibility(View.VISIBLE);
+                                    ll_pay.setVisibility(View.GONE);
+                                    tv_style.setText(data.getPayChannel());
+                                    tv_time1.setText(data.getDateTime());
+                                    ll_order.setVisibility(View.GONE);
+                                }else if(billDetailModel.getData().getRecordType()==14) {
+                                    //转让招租 退款
+                                    tv_style_desc.setText("退款方式");
+                                    tv_time_desc.setText("退款时间");
+                                    ll_order.setVisibility(View.GONE);
+                                    ll_rent.setVisibility(View.VISIBLE);
+                                    ll_pay.setVisibility(View.GONE);
+                                    tv_style.setText(data.getPayChannel());
+                                    tv_time1.setText(data.getDateTime());
+                                }else {
+                                    ll_order.setVisibility(View.VISIBLE);
+                                    ll_rent.setVisibility(View.GONE);
+                                    ll_pay.setVisibility(View.VISIBLE);
+                                }
                                 if(data.getReturnMainId()!=null&&data.getReturnMainId()!="") {
                                     tv_order.setText(data.getReturnMainId());
                                     rl_order.setVisibility(View.VISIBLE);
                                 }else {
                                     rl_order.setVisibility(View.GONE);
                                 }
-
                                 orders.addAll(data.getOrders());
                                 billConnectionAdapter.notifyDataSetChanged();
                             }

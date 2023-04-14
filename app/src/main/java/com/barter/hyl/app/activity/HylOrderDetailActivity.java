@@ -648,11 +648,16 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
         switch (v.getId()) {
 
             case R.id.tv_after_serve:
-                Intent intent2 = new Intent(mContext, HylReturnGoodActivity.class);
-                intent2.putExtra("orderStatus", orderStatusRequest + "");
-                intent2.putExtra("orderId", orderId);
-                intent2.putExtra("orderDeliveryType", 0);
-                startActivity(intent2);
+                if(data.isCanReturnGoods()) {
+                    Intent intent2 = new Intent(mContext, HylReturnGoodActivity.class);
+                    intent2.putExtra("orderStatus", orderStatusRequest + "");
+                    intent2.putExtra("orderId", orderId);
+                    intent2.putExtra("orderDeliveryType", 0);
+                    startActivity(intent2);
+                }else {
+                    ToastUtil.showSuccessMsg(mContext,data.getCannotReturnGoodsMsg());
+                }
+
                 break;
 
             case R.id.tv_copy3:
@@ -699,29 +704,40 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.buttonReturnGood_two:
-                Intent intent1 = new Intent(mContext, HylReturnGoodActivity.class);
-                intent1.putExtra("orderStatus", orderStatusRequest + "");
-                intent1.putExtra("orderId", orderId);
-                intent1.putExtra("orderDeliveryType", 0);
-                startActivity(intent1);
+                if(data.isCanReturnGoods()) {
+                    Intent intent1 = new Intent(mContext, HylReturnGoodActivity.class);
+                    intent1.putExtra("orderStatus", orderStatusRequest + "");
+                    intent1.putExtra("orderId", orderId);
+                    intent1.putExtra("orderDeliveryType", 0);
+                    startActivity(intent1);
+                }else {
+                    ToastUtil.showSuccessMsg(mContext,data.getCannotReturnGoodsMsg());
+                }
+
 
                 break;
             case R.id.buttonReturnGoods: //退货
-
-                Intent intent3 = new Intent(mContext, HylReturnGoodActivity.class);
-                intent3.putExtra("orderStatus", orderStatusRequest + "");
-                intent3.putExtra("orderId", orderId);
-                intent3.putExtra("orderDeliveryType", 0);
-                startActivity(intent3);
-
+                if(data.isCanReturnGoods()) {
+                    Intent intent3 = new Intent(mContext, HylReturnGoodActivity.class);
+                    intent3.putExtra("orderStatus", orderStatusRequest + "");
+                    intent3.putExtra("orderId", orderId);
+                    intent3.putExtra("orderDeliveryType", 0);
+                    startActivity(intent3);
+                }else {
+                    ToastUtil.showSuccessMsg(mContext,data.getCannotReturnGoodsMsg());
+                }
                 break;
 
             case R.id.tv_order_return:
-                Intent intent4 = new Intent(mContext, HylReturnGoodActivity.class);
-                intent4.putExtra("orderStatus", orderStatusRequest + "");
-                intent4.putExtra("orderId", orderId);
-                intent4.putExtra("orderDeliveryType", 0);
-                startActivity(intent4);
+                if(data.isCanReturnGoods()) {
+                    Intent intent4 = new Intent(mContext, HylReturnGoodActivity.class);
+                    intent4.putExtra("orderStatus", orderStatusRequest + "");
+                    intent4.putExtra("orderId", orderId);
+                    intent4.putExtra("orderDeliveryType", 0);
+                    startActivity(intent4);
+                }else {
+                    ToastUtil.showSuccessMsg(mContext,data.getCannotReturnGoodsMsg());
+                }
 
                 break;
 
@@ -838,6 +854,7 @@ public class HylOrderDetailActivity extends BaseActivity implements View.OnClick
                     }
                 });
     }
+
 
     /**
      * 再次购买

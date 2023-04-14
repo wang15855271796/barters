@@ -35,6 +35,7 @@
         android:name=".MApplication"
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/logo"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         tools:replace="android:theme"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -129,6 +130,10 @@
         <activity android:name=".activity.FullActiveActivity"
             android:screenOrientation="portrait"
             />
+
+            <activity android:name=".activity.InfoPayResultActivity"
+                android:screenOrientation="portrait"
+                />
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
@@ -224,6 +229,10 @@
             />
 
         <activity android:name=".activity.HylOrderConfirmActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".activity.ChooseConfirmActivity"
             android:screenOrientation="portrait"
             />
 

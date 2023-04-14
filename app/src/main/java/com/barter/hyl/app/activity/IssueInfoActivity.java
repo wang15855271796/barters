@@ -1,5 +1,6 @@
 package com.barter.hyl.app.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.tu.loadingdialog.LoadingDailog;
 import com.barter.app.model.SendImageModel;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.ShopImageViewAdapter;
@@ -30,15 +32,22 @@ import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.dialog.InfoPayDialog;
 import com.barter.hyl.app.dialog.ShopStyleDialog;
 import com.barter.hyl.app.event.DeletePicEvent;
+import com.barter.hyl.app.event.InfoPayEvent;
 import com.barter.hyl.app.event.MyShopEvent;
 import com.barter.hyl.app.event.ShopStyleEvent;
+import com.barter.hyl.app.event.WeChatPayEvent;
+import com.barter.hyl.app.event.WeChatUnPayEvent;
 import com.barter.hyl.app.listener.CascadingMenuViewOnSelectListener;
 import com.barter.hyl.app.model.BaseModel;
 import com.barter.hyl.app.model.CityChangeModel;
 import com.barter.hyl.app.model.HylAreaModel;
+import com.barter.hyl.app.model.HylPayInfoModel;
 import com.barter.hyl.app.model.HylSendImageModel;
+import com.barter.hyl.app.model.InfoIsPayModel;
+import com.barter.hyl.app.model.InfoPubModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.CascadingMenuPopWindow;
 import com.barter.hyl.app.view.FullyGridLayoutManager;
@@ -46,15 +55,21 @@ import com.barter.hyl.app.view.GlideEngine;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.chinaums.pppay.unify.UnifyPayPlugin;
+import com.chinaums.pppay.unify.UnifyPayRequest;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -91,17 +106,20 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
     TextView tv_area;
     @BindView(R.id.iv_back)
     ImageView iv_back;
+    @BindView(R.id.tv_money)
+    TextView tv_money;
     PopupWindow pop;
     private int maxSelectNum = 6;
     private List<String> picList = new ArrayList();
     private List<LocalMedia> selectList = new ArrayList<>();
     private ShopImageViewAdapter shopImageViewAdapter;
     String returnPic = "";
-    CascadingMenuPopWindow cascadingMenuPopWindow;
     String provinceCode;
-    String provinceName;
-    String cityName;
     String cityCode;
+    String videoUrl = "";
+    String videoCoverUrl = "";
+    List<String> test = new ArrayList<>();
+    List<String> test1 = new ArrayList<>();
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -126,33 +144,54 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         shopImageViewAdapter.setOnItemClickListener(new ShopImageViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-
-                if (selectList.size() > 0) {
-                    LocalMedia media = selectList.get(position);
-                    String pictureType = media.getMimeType();
-                    int mediaType = PictureMimeType.getMimeType(pictureType);
-
-                    switch (mediaType) {
-                        case 1:
-                            // 预览图片 可自定长按保存路径
-                            //PictureSelector.create(MainActivity.this).externalPicturePreview(position, "/custom_file", selectList);
-//                            PictureSelector.create(mActivity).externalPicturePreview(position, selectList,position);
-                            AppHelper.showPhotoDetailsDialog(mContext,picList,position,selectList,shopImageViewAdapter);
-                            break;
-                    }
+//                if (selectList.size() > 0) {
+//                    LocalMedia media = selectList.get(position);
+//                    String pictureType = media.getMimeType();
+//                    int mediaType = PictureMimeType.getMimeType(pictureType);
+//
+//                    switch (mediaType) {
+//                        case 1:
+//                            // 预览图片 可自定长按保存路径
+//                            //PictureSelector.create(MainActivity.this).externalPicturePreview(position, "/custom_file", selectList);
+////                            PictureSelector.create(mActivity).externalPicturePreview(position, selectList,position);
+//                            AppHelper.showPhotoDetailsDialog(mContext,picList,position,selectList,shopImageViewAdapter);
+//                            break;
+//                    }
+//                }
+                if(picsList.size()>0) {
+                    AppHelper.showIssueDetailDialog(mActivity, picsList, position);
                 }
             }
 
             @Override
             public void deletPic(int position) {
-                picList.remove(position);
-                upImage(filesToMultipartBodyParts(picList));
+                String url = picsList.get(position);
+                Gson gson1 = new Gson();
+                if(url.contains(".mp4")) {
+                    //删除的是视频
+                    picsList.remove(position);
+                    videoCoverUrl = "";
+                    videoUrl = "";
+                    returnPic = gson1.toJson(picsList);
+                }else {
+                    picsList.remove(position);
+                    for (int i = 0; i < picsList.size(); i++) {
+                        if(!picsList.get(i).contains(".mp4")) {
+                            test.add(picsList.get(i));
+                        }
+                    }
+
+                    returnPic = gson1.toJson(test);
+                }
+
+//                picList.remove(position);
+//                upImage(filesToMultipartBodyParts(picList));
             }
         });
+
         tv_area.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 hintKbTwo();
                 if(isLoaded) {
                     showPickerView();
@@ -173,12 +212,17 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                     Toast.makeText(getApplicationContext(), "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    IssueInfo(et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
+                    getIsPay();
+//                    IssueInfo(et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
                 }
 
             }
         });
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(null);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("上传中......");
 
         rl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +232,43 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
             }
         });
         getCityList();
+    }
+
+    /**
+     * 判断是否需要支付
+     */
+    String amount;
+    InfoPayDialog infoPayDialog;
+    private void getIsPay() {
+        OrderApi.getIsPay(mContext)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<InfoIsPayModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(InfoIsPayModel infoIsPayModel) {
+                        if(infoIsPayModel.getCode()==1) {
+                            if(infoIsPayModel.getData().getPayFlag()==1) {
+                                //是
+                                tv_money.setVisibility(View.VISIBLE);
+                                amount = infoIsPayModel.getData().getShouldPayAmt();
+                                infoPayDialog = new InfoPayDialog(mContext,amount);
+                                infoPayDialog.show();
+                            }else {
+                                //否
+                                IssueInfo(et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
+                            }
+                        }
+                    }
+                });
     }
 
     //此方法只是关闭软键盘
@@ -213,11 +294,6 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         }else {
             return 0;
         }
-    }
-    public void backgroundAlpha(float bgAlpha) {
-        WindowManager.LayoutParams lp = mActivity.getWindow().getAttributes();
-        lp.alpha = bgAlpha; //0.0-1.0
-        mActivity.getWindow().setAttributes(lp);
     }
 
     @Override
@@ -301,14 +377,28 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                 switch (view.getId()) {
                     case R.id.tv_album:
                         //相册
+//                        PictureSelector.create(IssueInfoActivity.this)
+//                                .openGallery(PictureMimeType.ofAll())
+//                                .maxSelectNum(maxSelectNum - selectList.size())
+//                                .minSelectNum(1)
+//                                .imageSpanCount(4)
+//                                .queryMaxFileSize(55)
+//                                .loadImageEngine(GlideEngine.createGlideEngine())
+//                                .compress(true)
+//                                .isCamera(false)
+//                                .selectionMode(PictureConfig.MULTIPLE)
+//                                .forResult(PictureConfig.CHOOSE_REQUEST);
                         PictureSelector.create(IssueInfoActivity.this)
-                                .openGallery(PictureMimeType.ofImage())
+                                .openGallery(PictureMimeType.ofAll())
                                 .maxSelectNum(maxSelectNum - selectList.size())
                                 .minSelectNum(1)
+                                .maxVideoSelectNum(1)
                                 .imageSpanCount(4)
+                                .queryMaxFileSize(55)
                                 .loadImageEngine(GlideEngine.createGlideEngine())
                                 .compress(true)
                                 .isCamera(false)
+                                .recordVideoSecond(30)
                                 .selectionMode(PictureConfig.MULTIPLE)
                                 .forResult(PictureConfig.CHOOSE_REQUEST);
                         break;
@@ -343,26 +433,101 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    List<String> picsList = new ArrayList<>();
+    //记录所有的选中视频和图片
+    List<String> picsAllList = new ArrayList<>();
+    //图片集合
+    List<String> listPic = new ArrayList<>();
+    //视频集合
+    List<String> listVideo = new ArrayList<>();
+    private ProgressDialog progressDialog;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<LocalMedia> images;
+        listVideo.clear();
+        listPic.clear();
+        progressDialog.show();
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
                     // 图片选择结果回调
                     images = PictureSelector.obtainMultipleResult(data);
-                    selectList.addAll(images);
                     for (int i = 0; i < images.size(); i++) {
-                        picList.add(images.get(i).getCompressPath());
+                        if(images.get(i).getRealPath().contains(".mp4")) {
+                            if(videoUrl!=null&& !videoUrl.equals("")) {
+                                progressDialog.dismiss();
+                                ToastUtil.showSuccessMsg(mContext,"只能上传一个视频");
+                                return;
+                            }else {
+                                picsAllList.add(images.get(i).getRealPath());
+                            }
+                        }else {
+                            picsAllList.add(images.get(i).getRealPath());
+                        }
                     }
+
+                    for (LocalMedia media : images) {
+                        if(media.getRealPath().contains(".mp4")) {
+                            listVideo.add(media.getRealPath());
+                        }else {
+                            listPic.add(media.getRealPath());
+                        }
+                    }
+
+                    selectList.addAll(images);
                     shopImageViewAdapter.setList(selectList);
-                    shopImageViewAdapter.notifyDataSetChanged();
-                    upImage(filesToMultipartBodyParts(picList));
+
+
+                    if(listPic.size()>0) {
+                        upImage(filesToMultipartBodyParts(listPic));
+                        shopImageViewAdapter.notifyDataSetChanged();
+                        progressDialog.dismiss();
+                    }
+
+                    if(listVideo.size()>0) {
+                        upCover(filesToMultipartBodyParts(listVideo));
+                    }
 
                     break;
             }
         }
+    }
+
+    private void upCover(List<MultipartBody.Part> filesToMultipartBodyParts) {
+        OrderApi.requestImgDetail(mContext, filesToMultipartBodyParts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<HylSendImageModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(HylSendImageModel baseModel) {
+                        if (baseModel.success) {
+                            videoCoverUrl = "";
+                            if (baseModel.data != null) {
+                                for(String url: baseModel.data) {
+                                    videoCoverUrl = url;
+                                    videoUrl = url;
+                                    picsList.add(url);
+                                }
+                            }
+                            shopImageViewAdapter.notifyDataSetChanged();
+                            progressDialog.dismiss();
+
+                        } else {
+                            AppHelper.showMsg(mContext, baseModel.message);
+                        }
+                    }
+                });
     }
 
     private void upImage(List<MultipartBody.Part> parts) {
@@ -384,12 +549,24 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                     public void onNext(HylSendImageModel baseModel) {
                         if (baseModel.success) {
                             returnPic = "";
+                            test1.clear();
                             if (baseModel.data != null) {
-                                String[] data = baseModel.data;
                                 Gson gson = new Gson();
-                                returnPic = gson.toJson(data);
+                                for(String datas : baseModel.data) {
+                                    picsList.add(datas);
+                                }
+
+                                for (int i = 0; i < picsList.size(); i++) {
+                                    if(picsList.get(i).contains(".mp4")) {
+
+                                    }else {
+                                        test1.add(picsList.get(i));
+                                    }
+                                }
+                                returnPic = gson.toJson(test1);
+                                Log.d("wdasdwdsd.......",returnPic+"b");
                             }
-                            //  sendMgs();
+
                         } else {
                             AppHelper.showMsg(mContext, baseModel.message);
                         }
@@ -419,6 +596,21 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         datum = shopStyleEvent.getDatum();
         position = shopStyleEvent.getPosition();
         tv_message_style.setText(shopStyleEvent.getDatum());
+    }
+
+    int flag;
+    LoadingDailog dialog;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMainThread(InfoPayEvent infoPayEvent) {
+        flag = infoPayEvent.getS();
+        LoadingDailog.Builder loadBuilder = new LoadingDailog.Builder(mContext)
+                .setMessage("加载中......")
+                .setCancelable(false)
+                .setCancelOutside(true);
+        dialog = loadBuilder.create();
+        dialog.show();
+        dialog.setCanceledOnTouchOutside(false);
+        IssueInfo1(et.getText().toString(),tv_address.getText().toString(),et_phone.getText().toString());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -512,10 +704,10 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void IssueInfo(String content,String address,String phone) {
-        InfoListAPI.InfoIssue(mContext,position,content,returnPic,provinceCode,cityCode,address,phone)
+        InfoListAPI.InfoIssue(mContext,position,content,returnPic,provinceCode,cityCode,address,phone,videoUrl,videoCoverUrl)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<BaseModel>() {
+                .subscribe(new Subscriber<InfoPubModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -526,15 +718,156 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                     }
 
                     @Override
-                    public void onNext(BaseModel infoListModel) {
-                        if (infoListModel.code==1) {
-                            ToastUtil.showSuccessMsg(mContext,infoListModel.message);
+                    public void onNext(InfoPubModel infoPubModel) {
+                        if (infoPubModel.getCode()==1) {
+                            ToastUtil.showSuccessMsg(mContext,infoPubModel.getMessage());
                             finish();
                             EventBus.getDefault().post(new MyShopEvent());
                         } else {
-                            AppHelper.showMsg(mContext, infoListModel.message);
+                            AppHelper.showMsg(mContext, infoPubModel.getMessage());
                         }
                     }
                 });
+    }
+
+    String msgId;
+    private void IssueInfo1(String content,String address,String phone) {
+        InfoListAPI.InfoIssue(mContext,position,content,returnPic,provinceCode,cityCode,address,phone,videoUrl,videoCoverUrl)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<InfoPubModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(InfoPubModel infoPubModel) {
+                        if (infoPubModel.getCode()==1) {
+                            ToastUtil.showSuccessMsg(mContext,infoPubModel.getMessage());
+                            finish();
+                            EventBus.getDefault().post(new MyShopEvent());
+
+                            msgId = infoPubModel.getData();
+                            EventBus.getDefault().post(new MyShopEvent());
+                            getPayInfo(flag,amount,msgId);
+
+                        } else {
+                            AppHelper.showMsg(mContext, infoPubModel.getMessage());
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 生成订单信息
+     * @param flag
+     * @param amount
+     * @param msgId
+     */
+    String payToken;
+    String outTradeNo;
+    private void getPayInfo(int flag, String amount, String msgId) {
+        OrderApi.getInfoPay(mContext,flag,amount,msgId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<HylPayInfoModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(HylPayInfoModel payInfoModel) {
+                        if (payInfoModel.getCode()==1) {
+                            dialog.dismiss();
+                            payToken = payInfoModel.getData().getPayToken();
+                            outTradeNo = payInfoModel.getData().getOutTradeNo();
+                            if(flag==14) {
+                                payAliPay(payInfoModel.getData().getPayToken());
+                            }else {
+                                //微信 官方
+                                weChatPay2(payInfoModel.getData().getPayToken());
+                            }
+                        } else {
+                            dialog.dismiss();
+                            AppHelper.showMsg(mContext, payInfoModel.getMessage());
+                        }
+                    }
+                });
+    }
+
+
+    private void weChatPay2(String json) {
+        try {
+            IWXAPI api = WXAPIFactory.createWXAPI(mContext, "wxbc18d7b8fee86977");
+            JSONObject obj = new JSONObject(json);
+            PayReq request = new PayReq();
+            request.appId = obj.optString("appId");
+            request.partnerId = obj.optString("mchID");
+            request.prepayId = obj.optString("prepayId");
+            request.packageValue = obj.optString("pkg");
+            request.nonceStr = obj.optString("nonceStr");
+            request.timeStamp = obj.optString("timeStamp");
+            request.sign = obj.optString("paySign");
+            api.sendReq(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void payAliPay(String parms) {
+        UnifyPayRequest msg = new UnifyPayRequest();
+        msg.payChannel = UnifyPayRequest.CHANNEL_ALIPAY;
+        msg.payData = parms;
+        UnifyPayPlugin.getInstance(mContext).sendPayRequest(msg);
+    }
+
+    /**
+     * 微信支付的回调,使用的eventBus.......((‵□′))
+     **/
+    @Subscribe
+    public void onEventMainThread(WeChatPayEvent event) {
+        Intent intent = new Intent(mContext, InfoPayResultActivity.class);
+        intent.putExtra("payChannel", flag);
+        intent.putExtra("outTradeNo", outTradeNo);
+        startActivity(intent);
+        if(event.getCode().equals("1")) {
+            //支付成功
+            finish();
+        }
+        infoPayDialog.dismiss();
+        tv_address.clearFocus();
+    }
+
+    /**
+     * 微信支付的回调,使用的eventBus.......取消支付
+     **/
+    @Subscribe
+    public void onEventMainThread(WeChatUnPayEvent event) {
+        Intent intent = new Intent(mContext, InfoPayResultActivity.class);
+        intent.putExtra("payChannel", flag);
+        intent.putExtra("outTradeNo", outTradeNo);
+        startActivity(intent);
+//        finish();
+        infoPayDialog.dismiss();
+        tv_address.clearFocus();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if( EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
     }
 }

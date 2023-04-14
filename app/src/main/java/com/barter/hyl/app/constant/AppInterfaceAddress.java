@@ -7,7 +7,7 @@ public class AppInterfaceAddress {
 //    https://apis.huoyl.cn/qiaoge/正式
     // http://192.168.2.188:8082/qiaoge/
     //http://116.62.67.230:8082/qiaoge/   测试http://120.55.55.99:8082/qiaoge/
-    public static final String BASE_URL = "https://apis.huoyl.cn/qiaoge/";
+    public static final String BASE_URL = " http://192.168.2.188:8082/qiaoge/";
     // 正式https://shaokao.qoger.com/qiaoge/
     //http://192.168.1.45/   本地192.168.101.69:8088
     //http://qg.zhiyun88u.com/shen
@@ -16,8 +16,9 @@ public class AppInterfaceAddress {
     //http://192.168.101.41:8088/
 //    queryReturnProdIsContainFullGift
     /**
-     * hyl/prod/getSearchProd
+     *切换首页tab
      */
+    public static final String Get_Style_Tab = "common/initAppBottomModule";
     /**
      * 企业信息-new
      */
@@ -119,13 +120,27 @@ public class AppInterfaceAddress {
      */
     public static final String Pay_Result = "hyl/order/getOrderPayBack";
     /**
+     *查询支付结果页2
+     */
+    public static final String Pay_Info_Result = "common/getMsgPayResult";
+    /**
      *生成支付信息
      */
     public static final String Pay_Info = "hyl/order/orderPay";
     /**
+     *转让招租生成支付信息
+     */
+    public static final String Get_Pay_Info = "hyl/message/getPayInfo";
+    /**
      * 获取支付方式
      */
     public static final String Pay_List = "hyl/order/getPayChannels";
+    /**
+     *
+     * 获取支付方式2
+     */
+    public static final String Pay_Info_List = "common/getMsgPayChannel";
+
     /**
      * 待履约订单数量金额
      */
@@ -151,6 +166,10 @@ public class AppInterfaceAddress {
      *账单查询条件获取
      */
     public static final String My_Search_Bill = "hyl/myBillSearchInfo";
+    /**
+     *删除账单条目
+     */
+    public static final String Delete_Bill = "hyl/removeMyBill";
     /**
      *获取订单评价商品
      */
@@ -196,6 +215,11 @@ public class AppInterfaceAddress {
      *删除订单
      */
     public static final String Delete_Order = "hyl/order/removeOrder";
+
+    /**
+     * 删除订单2
+     */
+    public static final String Delete2_Order = "hyl/order/removeHylUserFinishOrder";
 
     /**
      *取消订单
@@ -454,6 +478,8 @@ public class AppInterfaceAddress {
     public static final String REGISTER = "auth/hyl/register";
 
 
-
-
+    /**
+     * 判断是否需要支付
+     */
+    public static final String Info_Is_Pay = "common/getMsgShouldPay";
 }

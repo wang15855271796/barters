@@ -381,6 +381,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
         tv_total_price.setText(totalAmountHylEvent.getAllPrice()+"元");
         Double allPrice = Double.valueOf(totalAmountHylEvent.getAllPrice());
 
+
         if(sendAmount> allPrice) {
             double diff = sendAmount - allPrice;
             double result = Double.parseDouble(String.format("%.2f", diff));
@@ -428,7 +429,6 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
 
             double allprices = allprice.doubleValue();
             tv_total_price.setText("￥"+allprice);
-
             if(sendAmount> allprices) {
                 double diff = sendAmount - allprices;
                 double result = Double.parseDouble(String.format("%.2f", diff));
