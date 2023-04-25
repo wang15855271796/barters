@@ -619,9 +619,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:drawablePadding="@dimen/size_5dp"
                             android:layout_marginRight="@dimen/size_18dp"
                             android:drawableLeft="@mipmap/ic_address_red"
+                            android:drawablePadding="@dimen/size_5dp"
                             android:padding="@dimen/size_5dp" />
 
                     </RelativeLayout>
@@ -647,15 +647,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/size_18dp"
                             android:layout_marginRight="@dimen/size_18dp"
                             android:background="@null"
                             android:gravity="right"
+                            android:hint="请输入详细地址"
+                            android:maxLength="20"
                             android:paddingTop="@dimen/size_5dp"
                             android:paddingBottom="@dimen/size_5dp"
-                            android:layout_centerVertical="true"
-                            android:hint="请输入详细地址"
-                            android:maxLength="15"
                             android:singleLine="true"
                             android:textColor="#414141"
                             android:textSize="@dimen/sp_12" />

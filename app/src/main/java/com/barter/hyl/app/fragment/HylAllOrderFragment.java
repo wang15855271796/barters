@@ -508,7 +508,6 @@ public class HylAllOrderFragment extends BaseFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("wdfadawd....",e.getMessage()+"000");
                     }
 
                     @Override

@@ -13,6 +13,7 @@ import com.barter.hyl.app.R;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.model.HylPayInfoResultModel;
 import com.barter.hyl.app.model.HylPayResultModel;
 
 import java.util.Timer;
@@ -98,7 +99,7 @@ public class InfoPayResultActivity extends BaseActivity implements View.OnClickL
         OrderApi.getPayInfoResult(mContext, outTradeNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<HylPayResultModel>() {
+                .subscribe(new Subscriber<HylPayInfoResultModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -110,17 +111,18 @@ public class InfoPayResultActivity extends BaseActivity implements View.OnClickL
                     }
 
                     @Override
-                    public void onNext(HylPayResultModel hylPayResultModel) {
+                    public void onNext(HylPayInfoResultModel hylPayResultModel) {
                         if (hylPayResultModel.getCode()==1) {
                             if(hylPayResultModel.getData()!=null) {
-                                HylPayResultModel.DataBean data = hylPayResultModel.getData();
-                                if(data.getState().equals("success")) {
-                                    tv_state.setText("成功");
-                                }else if(data.getState().equals("fail")) {
-                                    tv_state.setText("失败");
-                                }else {
-                                    tv_state.setText("支付中");
-                                }
+                                HylPayInfoResultModel.DataBean data = hylPayResultModel.getData();
+                                tv_state.setText(data.getMessage());
+//                                if(data.getState().equals("success")) {
+//                                    tv_state.setText("成功");
+//                                }else if(data.getState().equals("fail")) {
+//                                    tv_state.setText("失败");
+//                                }else {
+//                                    tv_state.setText("支付中");
+//                                }
                             }
                         } else {
                             AppHelper.showMsg(mContext, hylPayResultModel.getMessage());

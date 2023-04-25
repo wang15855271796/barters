@@ -49,7 +49,7 @@ public class ShopImageViewssAdapter extends RecyclerView.Adapter<ShopImageViewss
                     onclick.addDialog();
                 }
             });
-            viewHolder.ll_del.setVisibility(View.GONE);
+            viewHolder.ll_del.setVisibility(View.INVISIBLE);
         }else {
             Glide.with(mActivity).load(pictureList.get(position)).into(viewHolder.iv_pic);
             viewHolder.ll_del.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class ShopImageViewssAdapter extends RecyclerView.Adapter<ShopImageViewss
             }
 
 
-            viewHolder.ll_del.setVisibility(View.GONE);
+            viewHolder.ll_del.setVisibility(View.VISIBLE);
         }
     }
 
@@ -111,7 +111,6 @@ public class ShopImageViewssAdapter extends RecyclerView.Adapter<ShopImageViewss
                 return pictureList.size();
             }
         }
-        Log.d("fedwqd.....",pictureList.size()+"--");
       return 1;
     }
 

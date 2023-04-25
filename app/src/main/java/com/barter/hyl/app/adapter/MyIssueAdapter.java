@@ -3,6 +3,7 @@ package com.barter.hyl.app.adapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -71,15 +72,11 @@ public class MyIssueAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
                 for (int i = 0; i < item.getPictureList().size(); i++) {
                     Glide.with(mContext).load(item.getPictureList().get(i)).into(iv_pic);
                 }
+            }else {
+                iv_pic.setImageResource(R.mipmap.icon_empty);
             }
         }
 
-
-        if(item.getPictureList().size()>0) {
-            for (int i = 0; i < item.getPictureList().size(); i++) {
-                Glide.with(mContext).load(item.getPictureList().get(i)).into(iv_pic);
-            }
-        }
 
         TextView tv_deleted = helper.getView(R.id.tv_deleted);
         if(item.getMsgType().equals("1")) {

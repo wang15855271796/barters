@@ -12,6 +12,7 @@ import com.barter.hyl.app.model.HylEvalGoodsModel;
 import com.barter.hyl.app.model.HylGetWallertRecordByPageModel;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylPayInfoModel;
+import com.barter.hyl.app.model.HylPayInfoResultModel;
 import com.barter.hyl.app.model.HylPayListModel;
 import com.barter.hyl.app.model.HylReturnGoodModel;
 import com.barter.hyl.app.model.HylReturnOrderDetailModel;
@@ -432,11 +433,11 @@ public class OrderApi {
     public interface PayInfoResultService {
         @FormUrlEncoded
         @POST(AppInterfaceAddress.Pay_Info_Result)
-        Observable<HylPayResultModel> setParams(@Field("outTradeNo") String outTradeNo);
+        Observable<HylPayInfoResultModel> setParams(@Field("outTradeNo") String outTradeNo);
     }
 
-    public static Observable<HylPayResultModel> getPayInfoResult(Context context, String outTradeNo) {
-        Observable<HylPayResultModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(PayInfoResultService.class).setParams(outTradeNo);
+    public static Observable<HylPayInfoResultModel> getPayInfoResult(Context context, String outTradeNo) {
+        Observable<HylPayInfoResultModel> loginModelObservable = RestHelper.getBaseRetrofit(context).create(PayInfoResultService.class).setParams(outTradeNo);
         return loginModelObservable;
     }
 

@@ -20,13 +20,15 @@
             android:layout_height="115dp">
 
             <RelativeLayout
-                android:layout_marginRight="@dimen/size_18dp"
-                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/size_13dp"
+                android:layout_marginRight="@dimen/size_13dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_pic"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -34,17 +36,16 @@
                         android:id="@+id/iv_pic"
                         android:layout_width="91dp"
                         android:layout_height="91dp"
-                        android:layout_marginLeft="@dimen/size_12dp"
                         android:scaleType="fitXY"
                         android:src="@mipmap/icon_empty" />
 
                     <ImageView
                         android:id="@+id/iv_player"
-                        android:visibility="gone"
+                        android:layout_width="@dimen/size_30dp"
+                        android:layout_height="@dimen/size_30dp"
                         android:layout_centerInParent="true"
                         android:src="@mipmap/icon_player"
-                        android:layout_width="@dimen/size_30dp"
-                        android:layout_height="@dimen/size_30dp"/>
+                        android:visibility="gone" />
                 </RelativeLayout>
 
 
@@ -54,45 +55,45 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_12dp"
                     android:layout_toEndOf="@+id/rl_pic"
-                    android:text="店铺转让"
                     android:background="@drawable/shape_jianbian8"
+                    android:text="店铺转让"
                     android:textColor="#ffffff"
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
-                    android:text="店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/sp_12"
-                    android:layout_below="@+id/tv_title"
                     android:id="@+id/tv_desc"
-                    android:ellipsize="end"
-                    android:maxLines="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
                     android:layout_marginLeft="@dimen/size_12dp"
                     android:layout_marginTop="@dimen/size_5dp"
                     android:layout_toEndOf="@+id/rl_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让店铺转让"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/sp_12" />
 
                 <TextView
-                    tools:text="12.00"
-                    android:layout_below="@+id/tv_desc"
-                    android:textColor="#999999"
-                    android:textSize="@dimen/dp_10"
                     android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_desc"
                     android:layout_marginLeft="@dimen/size_12dp"
                     android:layout_toRightOf="@+id/rl_pic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textColor="#999999"
+                    android:textSize="@dimen/dp_10"
+                    tools:text="12.00" />
 
                 <TextView
                     android:id="@+id/tv_num"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_desc"
-                    android:text="1586人看过"
-                    android:textSize="10sp"
-                    android:textColor="#FF5C00"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_desc"
+                    android:layout_alignParentRight="true"
+                    android:text="1586人看过"
+                    android:textColor="#FF5C00"
+                    android:textSize="10sp" />
 
             </RelativeLayout>
 
@@ -105,10 +106,10 @@
                 tools:src="@mipmap/ic_verify" />
 
             <View
-                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
-                android:background="#F1F1F1"
-                android:layout_height="@dimen/public_space_value_1"/>
+                android:layout_height="@dimen/public_space_value_1"
+                android:layout_alignParentBottom="true"
+                android:background="#F1F1F1" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -130,13 +131,12 @@
 
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_status2"
-                android:layout_toRightOf="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/size_5dp"
+                android:layout_toRightOf="@+id/tv_status"
                 android:background="@drawable/shape_grey5"
                 android:paddingLeft="@dimen/size_6dp"
                 android:paddingTop="@dimen/size_3dp"
@@ -144,7 +144,8 @@
                 android:paddingBottom="@dimen/size_3dp"
                 android:text="已删除"
                 android:textColor="#414141"
-                android:textSize="8sp" />
+                android:textSize="8sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_reason"

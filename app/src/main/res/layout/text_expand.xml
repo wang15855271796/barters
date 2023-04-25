@@ -20,15 +20,15 @@
     <RelativeLayout
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="25dp">
 
         <TextView
             android:id="@+id/tv_open"
-            android:textColor="#FF2D2A"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="展开"
-            />
+            android:textColor="#FF2D2A" />
 
         <ImageView
             android:id="@+id/iv_open"

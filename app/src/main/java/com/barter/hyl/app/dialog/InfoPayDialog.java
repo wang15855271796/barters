@@ -45,6 +45,7 @@ public class InfoPayDialog extends Dialog {
     RecyclerView recyclerView;
     Integer flag;
     String amount;
+    int pos = -1;
     public InfoPayDialog(Context context, String amount) {
         super(context, R.style.dialog);
         this.context = context;
@@ -74,6 +75,10 @@ public class InfoPayDialog extends Dialog {
         tv_pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(pos == -1) {
+                    ToastUtil.showSuccessMsg(context,"请选择支付方式");
+                    return;
+                }
                 EventBus.getDefault().post(new InfoPayEvent(flag));
             }
         });
@@ -85,6 +90,7 @@ public class InfoPayDialog extends Dialog {
         payListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                pos = position;
                 payListAdapter.selectionPosition(position);
                 flag = list.get(position).getFlag();
             }

@@ -69,7 +69,6 @@ public class HylChooseAddresssAdapter extends BaseQuickAdapter<HylAddressListMod
         helper.getView(R.id.rl_item_address).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("efsfes.......",item.getAddressId()+"--");
                 mOnEventClickListener.onEventClick(view, helper.getAdapterPosition(), "default");
             }
         });

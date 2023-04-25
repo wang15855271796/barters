@@ -65,7 +65,6 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
     @Override
     protected void convert(final BaseViewHolder helper, final HylMyOrderListModel.DataBean.ListBean item) {
         helper.setIsRecyclable(false);
-        Log.d("wdfadawd....","111");
         TextView tv_keep = helper.getView(R.id.tv_keep);
         RelativeLayout rl_canceled =  helper.getView(R.id.rl_canceled);
         TextView tv_delete_order = helper.getView(R.id.tv_delete_order);
@@ -88,7 +87,6 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         RelativeLayout rl_wait_eval= helper.getView(R.id.rl_wait_eval);
         RelativeLayout rl_wait_check= helper.getView(R.id.rl_wait_check);
         RelativeLayout rl_wait_dispatch= helper.getView(R.id.rl_wait_dispatch);
-        Log.d("wdfadawd....","222");
         ll_choose = helper.getView(R.id.ll_choose);
         CheckBox cb_choose = helper.getView(R.id.cb_choose);
         tv_time = helper.getView(R.id.tv_time);
@@ -103,7 +101,6 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
         linearLayoutItem = helper.getView(R.id.linearLayoutItem);
         tv_product_name.setText(item.getName());
         tv_time.setText(item.getDateTime());
-        Log.d("wdfadawd....","333");
 
         if(isShow) {
             if(item.isOfflinePay()) {

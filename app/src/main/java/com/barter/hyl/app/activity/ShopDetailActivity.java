@@ -3,6 +3,7 @@ package com.barter.hyl.app.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -120,13 +121,18 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                                 ImageViewAdapter imageViewAdapter = new ImageViewAdapter(R.layout.item_image,pictureList);
                                 recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
                                 recyclerView.setAdapter(imageViewAdapter);
-
                                 if(lists.getPayFlag() ==0) {
                                     ll_info.setVisibility(View.GONE);
                                 }else if(lists.getPayFlag() ==1) {
                                     ll_info.setVisibility(View.VISIBLE);
-                                    rl_pay.setVisibility(View.VISIBLE);
-                                    rl_pay_time.setVisibility(View.VISIBLE);
+                                    if(lists.getPayAmt()!=null && !lists.getPayAmt().equals("")) {
+                                        rl_pay.setVisibility(View.VISIBLE);
+                                        rl_pay_time.setVisibility(View.VISIBLE);
+                                    }else {
+                                        rl_pay.setVisibility(View.GONE);
+                                        rl_pay_time.setVisibility(View.GONE);
+                                    }
+
                                     rl_return_account.setVisibility(View.GONE);
                                     rl_return_time.setVisibility(View.GONE);
                                     tv_pay.setText(lists.getPayAmt());
@@ -135,8 +141,14 @@ public class ShopDetailActivity extends BaseActivity implements View.OnClickList
                                     ll_info.setVisibility(View.VISIBLE);
                                     rl_pay.setVisibility(View.GONE);
                                     rl_pay_time.setVisibility(View.GONE);
-                                    rl_return_account.setVisibility(View.VISIBLE);
-                                    rl_return_time.setVisibility(View.VISIBLE);
+                                    if(lists.getReturnAmt()!=null && !lists.getReturnAmt().equals("")) {
+                                        rl_return_account.setVisibility(View.VISIBLE);
+                                        rl_return_time.setVisibility(View.VISIBLE);
+                                    }else {
+                                        rl_return_account.setVisibility(View.GONE);
+                                        rl_return_time.setVisibility(View.GONE);
+                                    }
+
                                     tv_return_time.setText(lists.getReturnTime());
                                     tv_return_account.setText(lists.getReturnAmt());
                                 }

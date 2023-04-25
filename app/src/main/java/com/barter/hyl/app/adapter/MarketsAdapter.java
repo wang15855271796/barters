@@ -60,7 +60,7 @@ public class MarketsAdapter extends BaseQuickAdapter<InfoListModel.DataBean.List
             }
 
             TextView tv_title = helper.getView(R.id.tv_title);
-            SpannableString spannableString = new SpannableString("a "+item.getContent());
+            SpannableString spannableString = new SpannableString(""+item.getContent());
             spannableString.setSpan(imageSpan, 0, 1,  Spanned.SPAN_INCLUSIVE_INCLUSIVE);
             tv_title.setText(spannableString);
             helper.setText(R.id.tv_time,item.getCreateTime()+"发布");

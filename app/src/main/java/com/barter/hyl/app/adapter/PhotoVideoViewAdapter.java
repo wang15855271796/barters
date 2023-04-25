@@ -1,6 +1,7 @@
 package com.barter.hyl.app.adapter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -43,6 +44,7 @@ public class PhotoVideoViewAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
+
         return (imagesUrl == null || imagesUrl.size() == 0) ? 0 : imagesUrl.size();
     }
 
@@ -51,6 +53,14 @@ public class PhotoVideoViewAdapter extends PagerAdapter {
         String url = imagesUrl.get(position);
         PhotoView photoView = new PhotoView(context);
         MyStandardGSYVideoPlayer myStandardGSYVideoPlayer = new MyStandardGSYVideoPlayer(context);
+        myStandardGSYVideoPlayer.getFullscreenButton().setVisibility(View.GONE);
+//        myStandardGSYVideoPlayer.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                myStandardGSYVideoPlayer.startWindowFullscreen(context,false,false);
+//                myStandardGSYVideoPlayer.getFullscreenButton().setVisibility(View.GONE);
+//            }
+//        });
         if(url.contains(".mp4")) {
             myStandardGSYVideoPlayer.setUp(url,false,"");
             myStandardGSYVideoPlayer.startPlayLogic();

@@ -56,12 +56,12 @@
             android:layout_below="@+id/rl_pic"
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
-            android:layout_height="wrap_content">
+            android:layout_height="32dp">
 
             <TextView
                 android:layout_toRightOf="@+id/tv_style"
                 android:id="@+id/tv_title"
-                android:textSize="@dimen/sp_12"
+                android:textSize="11sp"
                 android:textColor="#333333"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -75,24 +75,25 @@
 
         <LinearLayout
             android:id="@+id/ll_desc"
-            android:layout_below="@+id/ll_title"
-            android:orientation="horizontal"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_20dp">
+            android:layout_height="@dimen/size_25dp"
+            android:layout_below="@+id/ll_title"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
 
             <TextView
-                android:textColor="#FF2925"
                 android:id="@+id/tv_num"
-                android:layout_toRightOf="@+id/tv_time"
-                android:textSize="@dimen/size_14dp"
-                android:gravity="right"
-                android:layout_marginRight="@dimen/dp_10"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_below="@+id/ll_title"
-                tools:text="12656"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_title"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_toRightOf="@+id/tv_time"
+                android:gravity="right"
+                android:textColor="#FF2925"
+                android:textSize="12sp"
+                tools:text="12656" />
 
         </LinearLayout>
 
@@ -103,7 +104,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_title"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="@dimen/size_5dp"
             android:layout_toRightOf="@+id/iv_head"
             android:textColor="#999999"
             android:textSize="12sp"

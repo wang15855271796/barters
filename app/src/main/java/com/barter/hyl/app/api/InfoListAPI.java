@@ -76,14 +76,14 @@ public class InfoListAPI {
         @POST(AppInterfaceAddress.Info_Issue)
         Observable<InfoPubModel> getData(@Field("msgType") int msgType, @Field("content") String content,
                                          @Field("pictureJson") String pictureJson, @Field("provinceCode") String provinceCode,
-                                         @Field("cityCode") String cityCode, @Field("detailAddress") String detailAddress,
+                                         @Field("cityCode") String cityCode,@Field("areaCode") String areaCode, @Field("detailAddress") String detailAddress,
                                          @Field("phone") String phone,@Field("videoUrl") String videoUrl,@Field("videoCoverUrl") String videoCoverUrl);
     }
 
     public static Observable<InfoPubModel> InfoIssue(Context context,int msgType,String content,String pictureJson,String provinceCode,
-                                                     String cityCode,String detailAddress,String phone,String videoUrl,String videoCoverUrl) {
+                                                     String cityCode,String areaCode,String detailAddress,String phone,String videoUrl,String videoCoverUrl) {
         InfoIssue service = RestHelper.getBaseRetrofit(context).create(InfoIssue.class);
-        return service.getData(msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone,videoUrl,videoCoverUrl);
+        return service.getData(msgType,content,pictureJson,provinceCode,cityCode,areaCode,detailAddress,phone,videoUrl,videoCoverUrl);
     }
 
     /**
@@ -110,15 +110,16 @@ public class InfoListAPI {
         Observable<BaseModel> getData(@Field("msgId") String msgId, @Field("msgType") int msgType,
                                       @Field("content") String content, @Field("pictureJson") String pictureJson,
                                       @Field("provinceCode") String provinceCode, @Field("cityCode") String cityCode,
+                                      @Field("areaCode") String areaCode,
                                       @Field("detailAddress") String detailAddress, @Field("phone") String phone,
                                       @Field("videoUrl") String videoUrl,@Field("videoCoverUrl") String videoCoverUrl);
     }
 
     public static Observable<BaseModel> EditInfo(Context context,String msgId,int msgType,String content,String pictureJson,
-                                                 String provinceCode,String cityCode,String detailAddress,String phone,
+                                                 String provinceCode,String cityCode,String areaCode,String detailAddress,String phone,
                                                  String videoUrl,String videoCoverUrl) {
         InfoClassifyIssue service = RestHelper.getBaseRetrofit(context).create(InfoClassifyIssue.class);
-        return service.getData(msgId,msgType,content,pictureJson,provinceCode,cityCode,detailAddress,phone,videoUrl,videoCoverUrl);
+        return service.getData(msgId,msgType,content,pictureJson,provinceCode,cityCode,areaCode,detailAddress,phone,videoUrl,videoCoverUrl);
     }
 
     /**

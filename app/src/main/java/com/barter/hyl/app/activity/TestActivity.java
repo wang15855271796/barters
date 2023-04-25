@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.TestAdapter;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.view.MyStandardGSYVideoPlayer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,15 +23,15 @@ import java.util.List;
 import butterknife.BindView;
 
 public class TestActivity extends BaseActivity {
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-    @BindView(R.id.scroll)
-    ScrollView scroll;
-    @BindView(R.id.ll_scroll)
-    LinearLayout ll_scroll;
-    List<String> quarantines = new ArrayList<>();
+//    @BindView(R.id.recyclerView)
+//    RecyclerView recyclerView;
+//    @BindView(R.id.tv_title)
+//    TextView tv_title;
+//    @BindView(R.id.scroll)
+//    ScrollView scroll;
+    @BindView(R.id.video)
+MyStandardGSYVideoPlayer video;
+//    List<String> quarantines = new ArrayList<>();
     @Override
     public boolean handleExtra(Bundle savedInstanceState) {
         return false;
@@ -38,33 +39,35 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public void setContentView() {
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.test2);
     }
 
 
     @Override
     public void setViewData() {
-        tv_title.setText("检疫证明");
-        for (int i = 0; i < 50; i++) {
-            quarantines.add(i+"s");
-        }
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        TestAdapter testAdapter = new TestAdapter(R.layout.item_test1,quarantines);
-        recyclerView.setAdapter(testAdapter);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-//                @Override
-//                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-//                    Log.d("efesfewsf.....",i1+"-----");
-//                }
-//            });
+//        tv_title.setText("检疫证明");
+        video.setUp("https://barbecue-img.oss-cn-hangzhou.aliyuncs.com/video/d081c72295a142f9a15bf2b60919e0c9.mp4",true,"");
+//                video.startPlayLogic();
+//        for (int i = 0; i < 50; i++) {
+//            quarantines.add(i+"s");
 //        }
-        scroll.post(new Runnable() {
-            @Override
-            public void run() {
-                scroll.scrollTo(0,500);
-            }
-        });
+//        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+//        TestAdapter testAdapter = new TestAdapter(R.layout.item_test1,quarantines);
+//        recyclerView.setAdapter(testAdapter);
+////        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+////            scroll.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+////                @Override
+////                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+////                    Log.d("efesfewsf.....",i1+"-----");
+////                }
+////            });
+////        }
+//        scroll.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                scroll.scrollTo(0,500);
+//            }
+//        });
 
     }
 

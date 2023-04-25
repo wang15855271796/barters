@@ -149,7 +149,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     private void IssueInfo(String msgIds,String returnPic,String content,String address,String phone) {
-        InfoListAPI.EditInfo(mContext,msgIds,position,content,returnPic,provinceCode,cityCode,address,phone,videoUrl,videoCoverUrl)
+        InfoListAPI.EditInfo(mContext,msgIds,position,content,returnPic,proviceCode,cityCode,areaCode,address,phone,videoUrl,videoCoverUrl)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<BaseModel>() {
@@ -200,6 +200,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                                 picsList.addAll(baseModel.data);
                                 pictureLists.addAll(baseModel.data);
                                 returnPic = gson.toJson(picsList);
+
                                 shopImageViewAdapter.notifyDataSetChanged();
                             }
                         } else {
@@ -251,6 +252,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
 
 
     List<String> pictureLists = new ArrayList<>();
+    List<String> test = new ArrayList<>();
     InfoDetailIssueModel.DataBean data;
     private void getCityList(String msgId) {
         InfoListAPI.InfoDetailIssue(mContext,msgId)
@@ -273,8 +275,9 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                             et.setText(data.getContent());
 
                             cityCode = data.getCityCode();
-                            provinceCode = data.getProvinceCode();
-                            tv_area.setText(data.getAreaName()+data.getCityName());
+                            proviceCode = data.getProvinceCode();
+                            areaCode = data.getAreaCode();
+                            tv_area.setText(data.getProvinceName()+data.getCityName()+data.getAreaName());
                             tv_message_style.setText(data.getMsgTypeName()+"");
                             et_phone.setText(data.getContactPhone());
                             tv_address.setText(data.getDetailAddress());
@@ -282,9 +285,11 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                             pictureLists.addAll(data.getPictureList());
                             if(data.getVideoCoverUrl()!=null) {
                                 videoCoverUrl = data.getVideoCoverUrl();
+                                videoUrl = data.getVideoUrl();
                                 pictureLists.add(videoCoverUrl);
                             }
-                            returnPic = gson.toJson(pictureLists);
+                            picsList.addAll(data.getPictureList());
+                            returnPic = gson.toJson(picsList);
                             GridLayoutManager manager = new GridLayoutManager(mContext,3);
 
                             shopImageViewAdapter = new ShopImageViewssAdapter(mActivity,pictureLists, new ShopImageViewssAdapter.Onclick() {
@@ -303,15 +308,16 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                                         if(url.endsWith(".mp4")) {
                                             //删除的是视频
                                             pictureLists.remove(pos);
-                                            returnPic = gson1.toJson(pictureLists);
                                             videoCoverUrl = "";
                                             videoUrl = "";
+                                            returnPic = gson1.toJson(pictureLists);
                                         }else {
                                             //删除的是图片
-                                            pictureLists.remove(pos);
-                                            picsList.remove(pos);
+                                            String pic = pictureLists.remove(pos);
+                                            picsList.remove(pic);
                                             returnPic = gson1.toJson(picsList);
                                         }
+                                        shopImageViewAdapter.notifyDataSetChanged();
                                     }
                                 }
                             });
@@ -371,16 +377,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                 switch (view.getId()) {
                     case R.id.tv_album:
                         //相册
-//                        PictureSelector.create(IssueEditInfoActivity.this)
-//                                .openGallery(PictureMimeType.ofAll())
-//                                .maxSelectNum(6-pictureLists.size())
-//                                .minSelectNum(1)
-//                                .imageSpanCount(4)
-//                                .compress(true)
-//                                .isCamera(false)
-//                                .loadImageEngine(GlideEngine.createGlideEngine())
-//                                .selectionMode(PictureConfig.MULTIPLE)
-//                                .forResult(PictureConfig.CHOOSE_REQUEST);
                         PictureSelector.create(IssueEditInfoActivity.this)
                                 .openGallery(PictureMimeType.ofAll())
                                 .maxSelectNum(1)
@@ -476,7 +472,7 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
     }
 
     String videoCoverUrl ="";
-    String videoUrl;
+    String videoUrl = "";
     List<String> picsList = new ArrayList<>();
     private void upCover(List<MultipartBody.Part> filesToMultipartBodyParts) {
         OrderApi.requestImgsDetail(mContext, filesToMultipartBodyParts)
@@ -497,13 +493,14 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                         if (baseModel.success) {
                             videoCoverUrl = "";
                             Gson gson = new Gson();
+
                             if (baseModel.data != null) {
                                 pictureLists.addAll(baseModel.data);
                                 for(String url: baseModel.data) {
                                     videoCoverUrl = url;
                                     videoUrl = url;
                                 }
-                                returnPic = gson.toJson(picsList);
+
                                 shopImageViewAdapter.notifyDataSetChanged();
                                 progressDialog.dismiss();
                             }
@@ -514,21 +511,6 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                     }
                 });
     }
-
-//    List<LocalMedia> images;
-//    @TargetApi(Build.VERSION_CODES.KITKAT)
-//    private void handleImgeOnKitKat(Intent data) {
-//        images = PictureSelector.obtainMultipleResult(data);
-//        picList.clear();
-//        for (int i = 0; i < images.size(); i++) {
-//            picList.add(images.get(i).getCompressPath());
-//        }
-//
-//
-//        List<MultipartBody.Part> parts = filesToMultipartBodyParts(picList);
-//        upImage(parts);
-//    }
-
 
     private void closePopupWindow() {
         if (pop != null && pop.isShowing()) {
@@ -586,8 +568,8 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    String proviceCode;
-    String areaCode;
+    String areaCode = "";
+    String proviceCode = "";
     private void showPickerView() {
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
