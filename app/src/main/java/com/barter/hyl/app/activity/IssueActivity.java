@@ -16,6 +16,8 @@ import com.barter.hyl.app.adapter.MyIssueAdapter;
 import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.DeletedShopEvent;
 import com.barter.hyl.app.event.MyShopEvent;
 import com.barter.hyl.app.model.InfoListModel;
@@ -175,8 +177,13 @@ public class IssueActivity extends BaseActivity implements View.OnClickListener 
                 break;
 
             case R.id.tv_issue:
-                Intent intent = new Intent(mContext,IssueInfoActivity.class);
-                startActivity(intent);
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
+                    Intent intent = new Intent(mActivity, IssueInfoActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

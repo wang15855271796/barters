@@ -17,6 +17,8 @@ import com.barter.hyl.app.adapter.FullActiveAdapter;
 import com.barter.hyl.app.adapter.FullGivenAdapter;
 import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.dialog.CouponFullListDialog;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
@@ -270,9 +272,16 @@ public class FullActiveActivity extends BaseActivity implements View.OnClickList
         switch (v.getId()) {
 
             case R.id.tv_buy:
-                mContext.startActivity(new Intent(mContext, MainActivity.class));
-                EventBus.getDefault().post(new JumpCartHylEvent());
-                finish();
+
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    mContext.startActivity(new Intent(mContext, MainActivity.class));
+                    EventBus.getDefault().post(new JumpCartHylEvent());
+                    finish();
+                }else {
+                    Intent intent = new Intent(mContext,LoginActivity.class);
+                    startActivity(intent);
+                }
+              
                 break;
 
             case R.id.iv_back:

@@ -12,6 +12,7 @@ import com.barter.hyl.app.api.LoginAPI;
 import com.barter.hyl.app.api.SettingApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.HotHylEvent;
 import com.barter.hyl.app.model.BaseModel;
 import com.barter.hyl.app.model.HylSettingModel;
@@ -166,6 +167,7 @@ public class HylSettingActivity extends BaseActivity implements View.OnClickList
                             EventBus.getDefault().post(new HotHylEvent());
                             UserInfoHelper.saveUserId(mContext,"");
                             Intent intent = new Intent(mActivity,LoginActivity.class);
+                            EventBus.getDefault().post(new ChangeAccountHylEvent());
                             startActivity(intent);
                             finish();
                         } else {

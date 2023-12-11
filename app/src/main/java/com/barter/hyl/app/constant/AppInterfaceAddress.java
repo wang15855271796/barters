@@ -16,6 +16,10 @@ public class AppInterfaceAddress {
     //http://192.168.101.41:8088/
 //    queryReturnProdIsContainFullGift
     /**
+     * 首页-获取优惠券数量
+     */
+    public static final String Get_Coupon_Num = "hyl/home/getHylUserEnableGiftNum";
+    /**
      *切换首页tab
      */
     public static final String Get_Style_Tab = "common/initAppBottomModule";

@@ -16,6 +16,7 @@ import com.barter.hyl.app.dialog.CommonDialog;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.GoTopEvent;
 import com.barter.hyl.app.event.HotHylEvent;
+import com.barter.hyl.app.event.RefreshListEvent;
 import com.barter.hyl.app.model.HylActiviteModel;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -176,6 +177,11 @@ public class HylCommonFragment extends BaseFragment {
     public void getCommons(HotHylEvent hotHylEvent) {
         list.clear();
         hylHotAdapter.notifyDataSetChanged();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getScrolls(RefreshListEvent event) {
+        smart.autoRefresh();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

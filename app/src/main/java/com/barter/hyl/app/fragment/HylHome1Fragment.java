@@ -5,8 +5,18 @@ import android.graphics.Color;
 
 import androidx.annotation.NonNull;
 
+import com.barter.hyl.app.activity.CouponUseActivity;
 import com.barter.hyl.app.activity.HylMessageCenterActivity;
-import com.barter.hyl.app.activity.TestActivity;
+import com.barter.hyl.app.activity.HylMyCouponActivity;
+import com.barter.hyl.app.api.MyInfoApi;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.event.HomeScrollEvent;
+import com.barter.hyl.app.event.HotHylEvent;
+import com.barter.hyl.app.event.RefreshListEvent;
+import com.barter.hyl.app.model.CompanyInfoModel;
+import com.barter.hyl.app.model.HylCollectionModel;
+import com.barter.hyl.app.model.HylReturnNumModel;
 import com.barter.hyl.app.view.ExpandTabTextView;
 import com.barter.hyl.app.view.MyCompanyScrollView;
 import com.google.android.material.appbar.AppBarLayout;
@@ -16,6 +26,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.net.Uri;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -164,6 +176,20 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     TextView tv_stop;
     @BindView(R.id.rl_desc_content)
     RelativeLayout rl_desc_content;
+    @BindView(R.id.iv_coupon)
+    ImageView iv_coupon;
+    @BindView(R.id.iv_half_coupon)
+    ImageView iv_half_coupon;
+    @BindView(R.id.tv_coupon_num)
+    TextView tv_coupon_num;
+    @BindView(R.id.ll_coupon_num)
+    LinearLayout ll_coupon_num;
+    @BindView(R.id.ll_coupon)
+    LinearLayout ll_coupon;
+    @BindView(R.id.rl_coupon)
+    RelativeLayout rl_coupon;
+    @BindView(R.id.iv_enter)
+    ImageView iv_enter;
     public AppBarLayoutState state;
     public enum AppBarLayoutState {
         EXPANDED,
@@ -181,6 +207,16 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     HylSkillAdapter hylSkillAdapter;
     HylTeamAdapter hylTeamAdapter;
     HylFullAdapter hylFullAdapter;
+    //静止状态
+    private final static int SCROLL_STATE_IDLE = 1;
+    //拖动或者惯性滑动状态
+    private final static int SCROLL_STATE_SCROLL = 2;
+
+    //判断是否是拖动状态
+    boolean isDragState = false;
+    int scroll = 0;
+    int currentState = SCROLL_STATE_IDLE;
+    int couponNum;
     @Override
     public void setViewData() {
         EventBus.getDefault().register(this);
@@ -198,6 +234,10 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 getBaseData();
+                getCouponNum();
+                //刷新购物车数量
+                EventBus.getDefault().post(new HotHylEvent());
+                EventBus.getDefault().post(new RefreshListEvent());
                 smart.finishRefresh();
             }
         });
@@ -213,6 +253,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
         appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int dy) {
+                int abs = Math.abs(dy);
                 if(dy==0) {
                     if(state!=AppBarLayoutState.EXPANDED) {
                         //展开
@@ -231,15 +272,15 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                         EventBus.getDefault().post(new ChangeIvEvent(state));
                     }
                 }
-                float abs = Math.abs(dy*0.50f);
-                float searchLayoutNewTopMargin = LL_SEARCH_MAX_TOP_MARGIN - abs;
+                float abs1 = Math.abs(dy*0.50f);
+                float searchLayoutNewTopMargin = LL_SEARCH_MAX_TOP_MARGIN - abs1;
 
                 //安居客效果
-                float searchLayoutNewWidth = LL_SEARCH_MAX_WIDTH - abs * 1.7f;//此处 * 1.3f 可以设置搜索框宽度缩放的速率
+                float searchLayoutNewWidth = LL_SEARCH_MAX_WIDTH - abs1 * 1.7f;//此处 * 1.3f 可以设置搜索框宽度缩放的速率
                 //京东效果
 //              float searchLayoutNewWidth = LL_SEARCH_MAX_WIDTH - abs * 3.0f;//此处 * 1.3f 可以设置搜索框宽度缩放的速率
 
-                float titleNewTopMargin = (float) (TV_TITLE_MAX_TOP_MARGIN - abs * 0.5);
+                float titleNewTopMargin = (float) (TV_TITLE_MAX_TOP_MARGIN - abs1 * 0.5);
 
                 //处理布局的边界问题
                 searchLayoutNewWidth = searchLayoutNewWidth < LL_SEARCH_MIN_WIDTH ? LL_SEARCH_MIN_WIDTH : searchLayoutNewWidth;
@@ -264,8 +305,56 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                 searchLayoutParams.topMargin = (int) searchLayoutNewTopMargin;
                 searchLayoutParams.width = (int) searchLayoutNewWidth;
                 ll_search.setLayoutParams(searchLayoutParams);
+
+                if(scroll != abs) {
+                    if (isDragState) {//拖动状态单独处理不再进行滚动状态监测
+                        return;
+                    }
+
+                    //滑动时先取消倒计时，设置滑动状态
+                    scrollCountTimer.cancel();
+
+                    if(currentState != SCROLL_STATE_SCROLL) {
+
+                        setScrollState(SCROLL_STATE_SCROLL);
+                    }
+                    scrollCountTimer.start();
+                }
+                scroll = abs;
             }
         });
+
+        getCouponNum();
+
+    }
+
+    private CountDownTimer scrollCountTimer = new CountDownTimer(2000, 2000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            setScrollState(SCROLL_STATE_SCROLL);
+        }
+
+        @Override
+        public void onFinish() {
+            setScrollState(SCROLL_STATE_IDLE);
+        }
+    };
+
+    private void setScrollState(int scrollStateScroll) {
+        if(couponNum>0) {
+            ll_coupon_num.setVisibility(View.VISIBLE);
+            rl_coupon.setVisibility(View.VISIBLE);
+            if(scrollStateScroll == 1) {
+                iv_half_coupon.setVisibility(View.GONE);
+                ll_coupon.setVisibility(View.VISIBLE);
+            }else {
+                ll_coupon.setVisibility(View.GONE);
+                iv_half_coupon.setVisibility(View.VISIBLE);
+                ll_coupon_num.setVisibility(View.GONE);
+            }
+        }else {
+            rl_coupon.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -506,9 +595,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                                 }
                             }
 
-                        }else if(baseModel.getCode()==-10001) {
-                            Intent intent = new Intent(mActivity,LoginActivity.class);
-                            startActivity(intent);
                         }else {
                             ToastUtil.showSuccessMsg(mActivity, baseModel.getMessage());
                         }
@@ -608,6 +694,46 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
         iv_location.setOnClickListener(this);
         tv_call.setOnClickListener(this);
         tv_stop.setOnClickListener(this);
+        rl_coupon.setOnClickListener(this);
+        iv_enter.setOnClickListener(this);
+        ll_coupon.setOnClickListener(this);
+        iv_half_coupon.setOnClickListener(this);
+    }
+
+    /**
+     * 获取优惠券数量
+     */
+    private void getCouponNum() {
+        MyInfoApi.getCouponNum(mActivity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<HylReturnNumModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(HylReturnNumModel hylCollectionModel) {
+                        if(hylCollectionModel.code==1) {
+                            if(hylCollectionModel.getData()>0) {
+                                rl_coupon.setVisibility(View.VISIBLE);
+                            }else {
+                                rl_coupon.setVisibility(View.GONE);
+                            }
+                            couponNum = hylCollectionModel.getData();
+                            tv_coupon_num.setText(couponNum+"");
+
+                            setScrollState(SCROLL_STATE_IDLE);
+                        }else {
+                            ToastUtil.showSuccessMsg(mActivity,hylCollectionModel.message);
+                        }
+                    }
+                });
     }
 
     /**
@@ -639,8 +765,6 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                             }
 
                         }else if(messageModel.code==-10001) {
-//                            Intent intent = new Intent(mActivity,LoginActivity.class);
-//                            startActivity(intent);
                         } else {
 
                             ToastUtil.showSuccessMsg(mActivity, messageModel.message);
@@ -653,18 +777,40 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_company:
-                Intent intent = new Intent(mActivity, ChooseCompanyActivity.class);
-                startActivity(intent);
+            case R.id.iv_location:
+
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
+                    Intent intent = new Intent(mActivity, ChooseCompanyActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
 
-            case R.id.iv_location:
-                Intent intent1 = new Intent(mActivity, ChooseCompanyActivity.class);
-                startActivity(intent1);
+            case R.id.iv_half_coupon:
+                ll_coupon_num.setVisibility(View.VISIBLE);
+                ll_coupon.setVisibility(View.VISIBLE);
+                iv_half_coupon.setVisibility(View.VISIBLE);
                 break;
+
+            case R.id.iv_enter:
+                ll_coupon_num.setVisibility(View.GONE);
+                ll_coupon.setVisibility(View.GONE);
+                iv_half_coupon.setVisibility(View.VISIBLE);
+                break;
+
 
             case R.id.rl_message:
-                Intent messageIntent = new Intent(mActivity, HylMessageCenterActivity.class);
-                startActivity(messageIntent);
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
+                    Intent messageIntent = new Intent(mActivity, HylMessageCenterActivity.class);
+                    startActivity(messageIntent);
+                }else {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.tv_call:
                 if(data!=null && data.getCompanyPhone()!=null || !data.getCompanyPhone().equals("")) {
@@ -686,6 +832,11 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                 Intent intents = new Intent(mActivity,HylSearchStartActivity.class);
                 intents.putExtra("test1",2);
                 startActivity(intents);
+                break;
+
+            case R.id.ll_coupon:
+                Intent intent3 = new Intent(mActivity, HylMyCouponActivity.class);
+                startActivity(intent3);
                 break;
         }
     }
@@ -715,13 +866,20 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getCategory(HotHylEvent hotHylEvent) {
+        smart.autoRefresh();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void goTop(GoTopEvent goTopEvent) {
         appbar.setExpanded(true);
     }
 
-
-
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getScroll(HomeScrollEvent homeScrollEvent) {
+        if(Math.abs(homeScrollEvent.getLength())>25) {
+            scrollCountTimer.start();
+        }
+    }
 
     public static Date getNowDate() {
         Date currentTimes = new Date();

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,8 @@ import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.HylSearchResultAdapter;
 import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.dialog.SearchDialog;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
@@ -103,8 +106,13 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
         hylSearchResultAdapter = new HylSearchResultAdapter(R.layout.item_search_hyl, list, new HylSearchResultAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(String mainId,int position) {
-                SearchDialog searchDialog = new SearchDialog(mActivity,list.get(position));
-                searchDialog.show();
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    SearchDialog searchDialog = new SearchDialog(mActivity,list.get(position));
+                    searchDialog.show();
+                }else {
+                    Intent intent = new Intent(mContext,LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -248,8 +256,14 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
                 break;
 
             case R.id.rl_num:
-                EventBus.getDefault().post(new JumpCartHylEvent());
-                finish();
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    EventBus.getDefault().post(new JumpCartHylEvent());
+                    finish();
+                }else {
+                    Intent intent1 = new Intent(mContext,LoginActivity.class);
+                    startActivity(intent1);
+                }
+
                 break;
         }
     }

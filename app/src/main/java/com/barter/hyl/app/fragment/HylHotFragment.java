@@ -5,20 +5,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.HylCommonGoodsActivity;
+import com.barter.hyl.app.activity.LoginActivity;
 import com.barter.hyl.app.adapter.HylHotAdapter;
 import com.barter.hyl.app.api.HomeApi;
 import com.barter.hyl.app.base.BaseFragment;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.dialog.CommonDialog;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.GoTopEvent;
+import com.barter.hyl.app.event.HomeScrollEvent;
 import com.barter.hyl.app.event.HotHylEvent;
+import com.barter.hyl.app.event.RefreshListEvent;
 import com.barter.hyl.app.model.HylActiviteModel;
 import com.barter.hyl.app.utils.ToastUtil;
+import com.barter.hyl.app.view.MyScrollView2;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -49,6 +57,8 @@ public class HylHotFragment extends BaseFragment {
     RecyclerView recyclerView;
     @BindView(R.id.smart)
     SmartRefreshLayout smart;
+    @BindView(R.id.my_scroll)
+    MyScrollView2 my_scroll;
     int pageNum = 1;
     int pageSize = 10;
     View emptyView;
@@ -75,8 +85,13 @@ public class HylHotFragment extends BaseFragment {
         hylHotAdapter = new HylHotAdapter(R.layout.item_common_hyl, list, new HylHotAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(int position) {
-                CommonDialog commonDialog = new CommonDialog(mActivity,list.get(position));
-                commonDialog.show();
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
+                    CommonDialog commonDialog = new CommonDialog(mActivity,list.get(position));
+                    commonDialog.show();
+                }else {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         recyclerView.setAdapter(hylHotAdapter);
@@ -90,7 +105,17 @@ public class HylHotFragment extends BaseFragment {
             }
         });
 
+        my_scroll.setOnScrollStatusListener(new MyScrollView2.OnScrollStatusListener() {
+            @Override
+            public void onScrollStop() {
 
+            }
+
+            @Override
+            public void onScrolling(int length) {
+                EventBus.getDefault().post(new HomeScrollEvent(length));
+            }
+        });
 
 
         smart.setOnRefreshListener(new OnRefreshListener() {
@@ -120,7 +145,6 @@ public class HylHotFragment extends BaseFragment {
                 }
             }
         });
-
     }
 
     HylActiviteModel hylActiviteModels;
@@ -196,7 +220,10 @@ public class HylHotFragment extends BaseFragment {
     }
 
 
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getScrolls(RefreshListEvent event) {
+        smart.autoRefresh();
+    }
 
     public static Date getNowDate() {
         Date currentTimes = new Date();

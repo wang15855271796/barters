@@ -31,10 +31,13 @@ import com.barter.hyl.app.banner.GlideImageLoader;
 import com.barter.hyl.app.banner.Transformer;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.dialog.CommonDetailDialog;
 import com.barter.hyl.app.dialog.FullDetailDialog;
 import com.barter.hyl.app.dialog.FullDetailsDialog;
 import com.barter.hyl.app.dialog.ProductDescDialog;
+import com.barter.hyl.app.dialog.SearchDialog;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.event.RefreshVideoEvent;
@@ -245,10 +248,12 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                             }else {
                                 iv_collection.setImageResource(R.mipmap.ic_love);
                             }
-
                             ToastUtil.showSuccessMsg(mActivity, hylCollectionModel.message);
-                        } else {
-                            ToastUtil.showSuccessMsg(mContext, hylCollectionModel.message);
+                        }else if(hylCollectionModel.code == -10001) {
+                            Intent intent = new Intent(mContext, LoginActivity.class);
+                            mContext.startActivity(intent);
+                        }else {
+                            ToastUtil.showSuccessMsg(mActivity, hylCollectionModel.message);
                         }
                     }
                 });
@@ -330,7 +335,6 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                 ll_eval.setVisibility(View.GONE);
                                 ll_no_eval.setVisibility(View.VISIBLE);
                             }
-
                             if(data.getActives()!=null&&data.getActives().size()>0) {
                                 List<HylCommonDetailModel.DataBean.ActivesBean> actives = data.getActives();
                                 for (int i = 0; i < actives.size(); i++) {
@@ -350,8 +354,10 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                 }
                             }
 
+                            if(data.getTopPics()!=null) {
+                                topPics.addAll(data.getTopPics());
+                            }
 
-                            topPics.addAll(data.getTopPics());
                             //banner设置点击监听
                             banner.setOnBannerListener(new OnBannerListener() {
                                 @Override
@@ -359,9 +365,11 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                                     showPhotoDetailDialog(mContext, topPics, position);
                                 }
                             });
+
                             //规格
                             specs.clear();
                             specs.addAll(data.getSpecs());
+
                             getSpec(specs);
 
                             if(data.getVideoUrl()!=null&&!data.getVideoUrl().equals("")) {
@@ -658,15 +666,18 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
 
     HylChooseSpecAdapter hylChooseSpecAdapter;
     private void getSpec(List<HylCommonDetailModel.DataBean.SpecsBean> specs) {
-
-
         hylChooseSpecAdapter = new HylChooseSpecAdapter(mContext,specs, new HylChooseSpecAdapter.Onclick() {
             @Override
             public void addDialog(int position,int productId) {
                 hylChooseSpecAdapter.selectPosition(position);
-                CommonDetailDialog commonDialog = new CommonDetailDialog(mActivity,data,position);
-                commonDialog.show();
-                exchangeList(productId,HylCommonGoodsActivity.this);
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
+                    CommonDetailDialog commonDialog = new CommonDetailDialog(mActivity,data,position);
+                    commonDialog.show();
+                    exchangeList(productId,HylCommonGoodsActivity.this);
+                }else {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         fl_container.setAdapter(hylChooseSpecAdapter);
@@ -706,15 +717,26 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.ll_car:
-//                finish();
-                Intent intents = new Intent(mContext,MainActivity.class);
-                startActivity(intents);
-                EventBus.getDefault().post(new JumpCartHylEvent());
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    Intent intents = new Intent(mContext,MainActivity.class);
+                    startActivity(intents);
+                    EventBus.getDefault().post(new JumpCartHylEvent());
+                }else {
+                    Intent intent1 = new Intent(mContext,LoginActivity.class);
+                    startActivity(intent1);
+                }
+
                 break;
 
             case R.id.tv_add_car:
-                CommonDetailDialog commonDetailDialog = new CommonDetailDialog(mActivity,data,0);
-                commonDetailDialog.show();
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    CommonDetailDialog commonDetailDialog = new CommonDetailDialog(mActivity,data,0);
+                    commonDetailDialog.show();
+                }else {
+                    Intent intent = new Intent(mContext,LoginActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
 
             case R.id.iv_collection:

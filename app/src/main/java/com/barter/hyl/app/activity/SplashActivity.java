@@ -54,21 +54,24 @@ public class SplashActivity extends BaseActivity {
         if (!SharedPreferencesUtil.getString(mActivity, "once").equals("0")) {
             privacyDialog.show();
         } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    String userId = UserInfoHelper.getUserId(mContext);
-                    if(StringHelper.notEmptyAndNull(userId)) {
-                        Intent intent = new Intent(mActivity,MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else {
-                        Intent intent = new Intent(mActivity,LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            },1000);
+            Intent intent = new Intent(mActivity,MainActivity.class);
+            startActivity(intent);
+            finish();
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    String userId = UserInfoHelper.getUserId(mContext);
+//                    if(StringHelper.notEmptyAndNull(userId)) {
+//                        Intent intent = new Intent(mActivity,MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }else {
+//                        Intent intent = new Intent(mActivity,LoginActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }
+//            },1000);
             privacyDialog.dismiss();
         }
     }

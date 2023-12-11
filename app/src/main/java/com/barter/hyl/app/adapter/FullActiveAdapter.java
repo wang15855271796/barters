@@ -1,6 +1,7 @@
 package com.barter.hyl.app.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.LoginActivity;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.dialog.FullDetailDialog;
 import com.barter.hyl.app.model.FullActiveDetailModel;
 import com.barter.hyl.app.view.RoundImageView;
@@ -49,8 +53,14 @@ public class FullActiveAdapter extends BaseQuickAdapter<FullActiveDetailModel.Da
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FullDetailDialog fullDialog = new FullDetailDialog(activity, item.getProductMainId());
-                fullDialog.show();
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    FullDetailDialog fullDialog = new FullDetailDialog(activity, item.getProductMainId());
+                    fullDialog.show();
+                }else {
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    mContext.startActivity(intent);
+                }
+
             }
         });
     }

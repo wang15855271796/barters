@@ -22,6 +22,8 @@ import com.barter.hyl.app.banner.BannerConfig;
 import com.barter.hyl.app.banner.GlideImageLoader;
 import com.barter.hyl.app.banner.Transformer;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.model.HylActiveDetailModel;
@@ -367,9 +369,14 @@ public class HylActiveDetailActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.ll_car:
                 //跳转到购物车界面
-                Intent intents = new Intent(mContext,MainActivity.class);
-                startActivity(intents);
-                EventBus.getDefault().post(new JumpCartHylEvent());
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    Intent intents = new Intent(mContext,MainActivity.class);
+                    startActivity(intents);
+                    EventBus.getDefault().post(new JumpCartHylEvent());
+                }else {
+                    Intent intent = new Intent(mContext,LoginActivity.class);
+                    startActivity(intent);
+                }
 
                 break;
 

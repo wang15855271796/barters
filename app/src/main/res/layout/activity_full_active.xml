@@ -135,16 +135,16 @@
 
             <TextView
                 android:id="@+id/tv_buy"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/size_10dp"
-                android:layout_centerVertical="true"
-                android:text="去购物车"
-                android:gravity="center"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/sp_16"
-                android:background="#FF2925"
                 android:layout_width="@dimen/public_space_value_120"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/size_10dp"
+                android:background="#FF2925"
+                android:gravity="center"
+                android:text="去购物车"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/sp_16" />
 
         </RelativeLayout>
 

@@ -57,16 +57,9 @@ public class PrivacysDialog extends Dialog {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        String userId = UserInfoHelper.getUserId(mContext);
-                        if(StringHelper.notEmptyAndNull(userId)) {
-                            Intent intent = new Intent(mContext,MainActivity.class);
-                            mContext.startActivity(intent);
-                            mContext.finish();
-                        }else {
-                            Intent intent = new Intent(mContext,LoginActivity.class);
-                            mContext.startActivity(intent);
-                            mContext.finish();
-                        }
+                        Intent intent = new Intent(mContext,MainActivity.class);
+                        mContext.startActivity(intent);
+                        mContext.finish();
                     }
                 },1000);
                 dismiss();

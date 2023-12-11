@@ -97,11 +97,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_centerHorizontal="true"
             android:id="@+id/tv_add_car"
-            android:padding="@dimen/size_3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/size_3dp"
             android:text="加入购物车"
             android:textColor="@color/app_color_white"
             android:textSize="14dp" />

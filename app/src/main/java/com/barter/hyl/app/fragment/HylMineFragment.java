@@ -219,8 +219,8 @@ public class HylMineFragment extends BaseFragment implements View.OnClickListene
                             }
 
                         }else if(hylMyModel.getCode()==-10001) {
-                            Intent intent = new Intent(mActivity,LoginActivity.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(mActivity,LoginActivity.class);
+//                            startActivity(intent);
                         }else {
                             ToastUtil.showSuccessMsg(mActivity, hylMyModel.getMessage());
                         }

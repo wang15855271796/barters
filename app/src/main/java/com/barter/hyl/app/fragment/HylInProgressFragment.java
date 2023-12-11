@@ -2,9 +2,12 @@ package com.barter.hyl.app.fragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.view.View;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.activity.LoginActivity;
 import com.barter.hyl.app.adapter.HylInProgressAdapter;
 import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.api.HomeApi;
@@ -140,7 +143,10 @@ public class HylInProgressFragment extends BaseFragment {
                             EventBus.getDefault().post(new CartListHylEvent());
                             EventBus.getDefault().post(new CartNumHylEvent());
                             ToastUtil.showSuccessMsg(mActivity, hylLoginModel.message);
-                        } else {
+                        }else if(hylLoginModel.code == -10001) {
+                            Intent intent = new Intent(mActivity, LoginActivity.class);
+                            startActivity(intent);
+                        }else {
                             ToastUtil.showSuccessMsg(mActivity, hylLoginModel.message);
                         }
                     }

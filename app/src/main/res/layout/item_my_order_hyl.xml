@@ -14,11 +14,12 @@
         android:id="@+id/ll_choose"
         android:layout_width="34dp"
         android:gravity="center"
+        android:paddingTop="10dp"
         android:layout_height="match_parent">
 
         <CheckBox
             android:id="@+id/cb_choose"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="@dimen/dp_10"

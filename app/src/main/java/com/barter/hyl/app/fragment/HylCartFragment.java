@@ -466,6 +466,7 @@ public class HylCartFragment extends BaseFragment implements View.OnClickListene
                             }
                         }
                     }
+
                     if(cartIdList.size()==0) {
                         ToastUtil.showSuccessMsg(getActivity(),"请选择要删除的商品");
                     }else {

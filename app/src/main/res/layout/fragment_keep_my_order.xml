@@ -175,11 +175,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="3dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/shape_red_orders"
             android:gravity="center"
             android:padding="10dp"
-            android:background="@drawable/shape_red_orders"
             android:text="立即付款"
             android:textColor="#ffffff"
             android:textSize="15dp" />

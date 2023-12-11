@@ -10,10 +10,12 @@ import com.barter.hyl.app.model.CompanyInfoModel;
 import com.barter.hyl.app.model.CouponListsModel;
 import com.barter.hyl.app.model.FullActiveCouponListModel;
 import com.barter.hyl.app.model.FullActiveDetailModel;
+import com.barter.hyl.app.model.HylCollectionModel;
 import com.barter.hyl.app.model.HylMyCollectionModel;
 import com.barter.hyl.app.model.HylMyCouponDetailModel;
 import com.barter.hyl.app.model.HylMyCouponModel;
 import com.barter.hyl.app.model.HylOneRegisterModel;
+import com.barter.hyl.app.model.HylReturnNumModel;
 import com.barter.hyl.app.model.MyJifenModel;
 import com.barter.hyl.app.model.HylMyModel;
 import com.barter.hyl.app.model.TipsModel;
@@ -233,4 +235,16 @@ public class MyInfoApi {
         Observable<CompanyInfoModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(CompanyInfoService.class).setParams();
         return myModelObservable;
     }
+
+    //获取优惠券数量
+    public interface CouponNumService {
+        @POST(AppInterfaceAddress.Get_Coupon_Num)
+        Observable<HylReturnNumModel> setParams();
+    }
+
+    public static Observable<HylReturnNumModel>getCouponNum(Context context) {
+        Observable<HylReturnNumModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(CouponNumService.class).setParams();
+        return myModelObservable;
+    }
+
 }

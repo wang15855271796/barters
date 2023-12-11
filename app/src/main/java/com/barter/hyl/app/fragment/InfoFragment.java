@@ -22,11 +22,13 @@ import com.barter.hyl.app.activity.InfoSearchActivity;
 import com.barter.hyl.app.activity.IssueActivity;
 import com.barter.hyl.app.activity.IssueEditInfoActivity;
 import com.barter.hyl.app.activity.IssueInfoActivity;
+import com.barter.hyl.app.activity.LoginActivity;
 import com.barter.hyl.app.adapter.MarketsAdapter;
 import com.barter.hyl.app.api.AddressApi;
 import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.ChangeInfoNameEvent;
 import com.barter.hyl.app.event.CityEvent;
@@ -226,8 +228,14 @@ public class InfoFragment extends BaseFragment {
         iv_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, IssueInfoActivity.class);
-                startActivity(intent);
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
+                    Intent intent = new Intent(mActivity, IssueInfoActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 

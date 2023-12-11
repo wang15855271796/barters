@@ -16,13 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_marginRight="@dimen/dp_10"
+        <com.barter.hyl.app.view.MyScrollView2
+            android:id="@+id/my_scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.barter.hyl.app.view.MyScrollView2>
+
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"

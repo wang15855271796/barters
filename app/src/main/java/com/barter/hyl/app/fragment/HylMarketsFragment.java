@@ -31,9 +31,13 @@ import com.barter.hyl.app.adapter.HylSecondAdapter;
 import com.barter.hyl.app.api.CategoriApi;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.dialog.MarketDialog;
+import com.barter.hyl.app.dialog.SearchDialog;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.GoTopHylEvent;
+import com.barter.hyl.app.event.HotHylEvent;
+import com.barter.hyl.app.event.RefreshListEvent;
 import com.barter.hyl.app.model.HylGoodCateModel;
 import com.barter.hyl.app.model.HylGoodListModel;
 import com.barter.hyl.app.model.GoodNameModel;
@@ -150,10 +154,16 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
         hylGoodsAdapter = new HylGoodsAdapter(R.layout.item_market_goods, cate_list, new HylGoodsAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(String mainId) {
-                MarketDialog marketDialog = new MarketDialog(mActivity,mainId);
-                marketDialog.show();
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
+                    MarketDialog marketDialog = new MarketDialog(mActivity,mainId);
+                    marketDialog.show();
+                }else {
+                    Intent intent = new Intent(mActivity,LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
+
         hylGoodsAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -162,11 +172,14 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
                 startActivity(intent);
             }
         });
+
         x_rv.setLayoutManager(new LinearLayoutManager(mActivity));
         x_rv.setAdapter(hylGoodsAdapter);
         x_rv.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
+                //刷新购物车数量
+                EventBus.getDefault().post(new HotHylEvent());
                 getGoodList();
             }
 
@@ -405,8 +418,6 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
                             x_rv.refreshComplete();
                         } else if(hylGoodListModel.getCode()==-10001) {
                             dialog.dismiss();
-                            Intent intent = new Intent(mActivity,LoginActivity.class);
-                            startActivity(intent);
                         }else {
                             ToastUtil.showSuccessMsg(mActivity, hylGoodListModel.getMessage());
                             dialog.dismiss();
@@ -590,7 +601,7 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
                             mRyGetGoodName.setLayoutManager(new GridLayoutManager(mActivity, 3));
                             mRyGetGoodName.setAdapter(brandAdapter);
                             brandAdapter.notifyDataSetChanged();
-//                            brandList.clear();
+
                             brandAdapter.setOnItemClickListener(new HylBrandsAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(List<HylMarketBeanModel> list) {
@@ -702,6 +713,17 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
         hylSecondAdapter.selectPosition(0);
         getCategori();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getScrolls(RefreshListEvent event) {
+        pageNum = 1;
+        scrollPosition = 0;
+        selectIdPosition = 0;
+        rv_cate.smoothScrollToPosition(selectIdPosition);
+        hylSecondAdapter.selectPosition(0);
+        getCategori();
+    }
+
 
     @Override
     public void onDestroy() {

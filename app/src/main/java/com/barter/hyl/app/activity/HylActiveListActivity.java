@@ -17,6 +17,8 @@ import com.barter.hyl.app.adapter.HylSkillTimeAdapter;
 import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.api.HomeApi;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.model.HylCartNumModel;
@@ -178,8 +180,9 @@ public class HylActiveListActivity extends BaseActivity implements View.OnClickL
                             EventBus.getDefault().post(new CartListHylEvent());
                             getCartNum();
                             ToastUtil.showSuccessMsg(mContext, hylLoginModel.message);
-                        } else {
-                            ToastUtil.showSuccessMsg(mContext, hylLoginModel.message);
+                        }else if(hylLoginModel.code==-10001) {
+                            Intent intent = new Intent(mContext,LoginActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });
@@ -196,8 +199,14 @@ public class HylActiveListActivity extends BaseActivity implements View.OnClickL
                 //跳转到购物车界面
 //                Intent intent = new Intent(mActivity,MainActivity.class);
 //                startActivity(intent);
-                EventBus.getDefault().post(new JumpCartHylEvent());
-                finish();
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    EventBus.getDefault().post(new JumpCartHylEvent());
+                    finish();
+                }else{
+                     Intent intent = new Intent(mContext,LoginActivity.class);
+                     startActivity(intent);
+                }
+
                 break;
         }
     }

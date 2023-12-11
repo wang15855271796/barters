@@ -157,14 +157,12 @@ public class RestHelper {
 
                         int code = jsonObject.getInt("code");
                         if(code==-10001) {
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            context.startActivity(intent);
+                            UserInfoHelper.saveUserId(context,"");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-
 
                 if (NetWorkHelper.isNetworkAvailable(context)) {
                     int maxAge = 0 * 60;

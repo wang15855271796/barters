@@ -91,7 +91,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             String userPhone = SharedPreferencesUtil.getString(mContext, "userPhone");
             et_account.setText(userPhone);
         }
-        iv_back.setVisibility(View.GONE);
         tv_secret.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         tv_agreement.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 
@@ -109,6 +108,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tv_agreement.setOnClickListener(this);
         tv_secret.setOnClickListener(this);
         tv_apply.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
     }
 
     String etAccount;
@@ -120,6 +120,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_apply:
                 Intent intent = new Intent(mContext,ApplyTryActivity.class);
                 startActivity(intent);
+                break;
+
+            case R.id.iv_back:
+                finish();
                 break;
 
             case R.id.tv_secret:
@@ -332,14 +336,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     //禁用返回键
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK ) {
-            //do something.
-            return true;
-        } else {
-            return super.dispatchKeyEvent(event);
-        }
-    }
+//    @Override
+//    public boolean dispatchKeyEvent(KeyEvent event) {
+//        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK ) {
+//            //do something.
+//            return true;
+//        } else {
+//            return super.dispatchKeyEvent(event);
+//        }
+//    }
 
 }

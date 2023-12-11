@@ -27,9 +27,11 @@ import com.barter.hyl.app.event.ChangeNumHylEvent;
 import com.barter.hyl.app.event.GoToMarketHylEvent;
 import com.barter.hyl.app.event.GoTopEvent;
 import com.barter.hyl.app.event.GoTopHylEvent;
+import com.barter.hyl.app.event.HotHylEvent;
 import com.barter.hyl.app.event.InitEventBus;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.event.JumpMarketEvent;
+import com.barter.hyl.app.event.RefreshListEvent;
 import com.barter.hyl.app.fragment.HylCartFragment;
 import com.barter.hyl.app.fragment.HylHome1Fragment;
 import com.barter.hyl.app.fragment.HylMarketsFragment;
@@ -174,23 +176,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_home:
-                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
-                    switchTab(TAB_HOME);
-                    EventBus.getDefault().post(new GoTopEvent());
-                }else {
-                    goLogin();
-                }
+                switchTab(TAB_HOME);
+                EventBus.getDefault().post(new GoTopEvent());
                 tv_home_un.setVisibility(View.GONE);
                 iv_home_un.setVisibility(View.GONE);
                 iv_home.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ll_goods:
-                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
-                    switchTab(TAB_MARKET);
-                }else {
-                    goLogin();
-                }
+                switchTab(TAB_MARKET);
                 tv_home_un.setVisibility(View.VISIBLE);
                 iv_home_un.setVisibility(View.VISIBLE);
                 iv_home.setVisibility(View.GONE);
@@ -208,11 +202,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
 
             case R.id.ll_info:
-                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
-                    switchTab(TAB_Info);
-                }else {
-                    goLogin();
-                }
+                switchTab(TAB_Info);
                 tv_home_un.setVisibility(View.VISIBLE);
                 iv_home_un.setVisibility(View.VISIBLE);
                 iv_home.setVisibility(View.GONE);
@@ -374,6 +364,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void logined(ChangeAccountHylEvent changeAccountHylEvent) {
         getCartNum();
+        switchTab(TAB_HOME);
+    }
+
+    //退出登录 刷新购物车数量
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getCartNum2(HotHylEvent hotHylEvent) {
+        getCartNum();
+    }
+
+    //退出登录 刷新购物车数量
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getCartNum1(RefreshListEvent refreshListEvent) {
+        getCartNum();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -453,7 +456,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 tv_number.setVisibility(View.GONE);
 
                             }
-                        } else {
+                        }else if(hylCartNumModel.getCode()==-10001) {
+                            tv_number.setVisibility(View.GONE);
+                        }else {
                             ToastUtil.showSuccessMsg(mActivity, hylCartNumModel.getMessage());
                         }
                     }

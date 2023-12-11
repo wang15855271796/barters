@@ -224,6 +224,7 @@ public class HylMyOrderListAdapter extends BaseQuickAdapter<HylMyOrderListModel.
                 onClick.imageGo(item.getOrderId(),item.getTotalAmount(),item.getOrderType(),item.getId());
             }
         });
+
         //立即付款
         tv_now_pay1.setOnClickListener(new View.OnClickListener() {
             @Override

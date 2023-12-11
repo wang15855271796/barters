@@ -1,5 +1,6 @@
 package com.barter.hyl.app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.viewpager.widget.ViewPager;
 import android.view.View;
@@ -11,6 +12,8 @@ import com.barter.hyl.app.R;
 import com.barter.hyl.app.adapter.HylViewPagerAdapter;
 import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.base.BaseActivity;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.fragment.HylImmedFragment;
@@ -86,8 +89,14 @@ public class HylTeamActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case R.id.rl_cart:
-                EventBus.getDefault().post(new JumpCartHylEvent());
-                finish();
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
+                    EventBus.getDefault().post(new JumpCartHylEvent());
+                    finish();
+                }else {
+                    Intent intent = new Intent(mContext,LoginActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
         }
     }
