@@ -27,6 +27,7 @@ import com.barter.hyl.app.event.ChangeNumHylEvent;
 import com.barter.hyl.app.event.GoToMarketHylEvent;
 import com.barter.hyl.app.event.GoTopEvent;
 import com.barter.hyl.app.event.GoTopHylEvent;
+import com.barter.hyl.app.event.HotHyl1Event;
 import com.barter.hyl.app.event.HotHylEvent;
 import com.barter.hyl.app.event.InitEventBus;
 import com.barter.hyl.app.event.JumpCartHylEvent;
@@ -372,6 +373,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void getCartNum2(HotHylEvent hotHylEvent) {
         getCartNum();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getCategory(HotHyl1Event hotHylEvent) {
+        getCartNum();
+    }
+
 
     //退出登录 刷新购物车数量
     @Subscribe(threadMode = ThreadMode.MAIN)

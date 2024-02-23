@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:drawablePadding="@dimen/size_15dp"
-                android:hint="请输入授权码"
+                android:hint="请输入授权码(选填)"
                 android:maxLength="6"
                 android:textColor="#232131"
                 android:textColorHint="#cccccc"
@@ -117,12 +117,14 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rl_company_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/size_25dp">
 
             <TextView
+
                 android:id="@+id/tv_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

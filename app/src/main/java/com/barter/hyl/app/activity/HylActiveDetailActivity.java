@@ -24,11 +24,13 @@ import com.barter.hyl.app.banner.Transformer;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.model.HylActiveDetailModel;
 import com.barter.hyl.app.model.HylAddToCartModel;
 import com.barter.hyl.app.model.HylCartNumModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.Snap;
 
@@ -396,11 +398,18 @@ public class HylActiveDetailActivity extends BaseActivity implements View.OnClic
                 break;
 
             case R.id.tv_add_car:
-                if(tv_num.getText().toString().equals("0")) {
-                    ToastUtil.showSuccessMsg(mContext,"请添加商品数量");
-                }else{
-                    addCartNum(data.getActiveType(),-100,data.getActiveId(),Integer.parseInt(tv_num.getText().toString()));
+                String authorFlag = SharedPreferencesUtil.getString(mContext, "authorFlag");
+                if(authorFlag.equals("1")) {
+                    if(tv_num.getText().toString().equals("0")) {
+                        ToastUtil.showSuccessMsg(mContext,"请添加商品数量");
+                    }else{
+                        addCartNum(data.getActiveType(),-100,data.getActiveId(),Integer.parseInt(tv_num.getText().toString()));
+                    }
+                }else {
+                    AuthDialog authDialog = new AuthDialog(mContext);
+                    authDialog.show();
                 }
+
 
                 break;
         }

@@ -32,16 +32,20 @@ import com.barter.hyl.app.api.CategoriApi;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.dialog.MarketDialog;
 import com.barter.hyl.app.dialog.SearchDialog;
+import com.barter.hyl.app.event.AuthEvent;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.GoTopHylEvent;
+import com.barter.hyl.app.event.HotHyl1Event;
 import com.barter.hyl.app.event.HotHylEvent;
 import com.barter.hyl.app.event.RefreshListEvent;
 import com.barter.hyl.app.model.HylGoodCateModel;
 import com.barter.hyl.app.model.HylGoodListModel;
 import com.barter.hyl.app.model.GoodNameModel;
 import com.barter.hyl.app.model.HylMarketBeanModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.CustomPopWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -154,9 +158,16 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
         hylGoodsAdapter = new HylGoodsAdapter(R.layout.item_market_goods, cate_list, new HylGoodsAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(String mainId) {
+                String authorFlag = SharedPreferencesUtil.getString(mActivity, "authorFlag");
                 if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
-                    MarketDialog marketDialog = new MarketDialog(mActivity,mainId);
-                    marketDialog.show();
+                    if(authorFlag.equals("1")) {
+                        MarketDialog marketDialog = new MarketDialog(mActivity,mainId);
+                        marketDialog.show();
+                    }else {
+                        AuthDialog authDialog = new AuthDialog(mActivity);
+                        authDialog.show();
+                    }
+
                 }else {
                     Intent intent = new Intent(mActivity,LoginActivity.class);
                     startActivity(intent);
@@ -179,7 +190,7 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onRefresh() {
                 //刷新购物车数量
-                EventBus.getDefault().post(new HotHylEvent());
+                EventBus.getDefault().post(new HotHyl1Event());
                 getGoodList();
             }
 
@@ -776,4 +787,15 @@ public class HylMarketsFragment extends BaseFragment implements View.OnClickList
         String dateStrings = formatters.format(currentTimes);
         return dateStrings;
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void refreshList(AuthEvent authEvent) {
+        pageNum = 1;
+        scrollPosition = 0;
+        selectIdPosition = 0;
+        rv_cate.smoothScrollToPosition(selectIdPosition);
+        hylSecondAdapter.selectPosition(0);
+        getCategori();
+    }
+
 }

@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.barter.hyl.app.R;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.model.HylTeamListModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -41,7 +43,14 @@ public class HylInProgressAdapter extends BaseQuickAdapter<HylTeamListModel.Data
         HylInInnerProgressAdapter hylInInnerProgressAdapter = new HylInInnerProgressAdapter(R.layout.item_inner_progress_hyl,item.getActives(), new HylInInnerProgressAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(int activeType,int activeId,int num) {
-                onAddClickListener.onAddClick(activeType,activeId,num);
+                String authorFlag = SharedPreferencesUtil.getString(mContext, "authorFlag");
+                if(authorFlag.equals("1")) {
+                    onAddClickListener.onAddClick(activeType,activeId,num);
+                }else {
+                    AuthDialog authDialog = new AuthDialog(mContext);
+                    authDialog.show();
+                }
+
             }
         });
         recyclerView.setAdapter(hylInInnerProgressAdapter);

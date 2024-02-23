@@ -7,14 +7,19 @@ public class AppInterfaceAddress {
 //    https://apis.huoyl.cn/qiaoge/正式
     // http://192.168.2.188:8082/qiaoge/
     //http://116.62.67.230:8082/qiaoge/   测试http://120.55.55.99:8082/qiaoge/
-    public static final String BASE_URL = "https://apis.huoyl.cn/qiaoge/";
+    public static final String BASE_URL = "http://192.168.2.188:8082/qiaoge/";
     // 正式https://shaokao.qoger.com/qiaoge/
     //http://192.168.1.45/   本地192.168.101.69:8088
     //http://qg.zhiyun88u.com/shen
     //http://192.168.101.17/
 
-    //http://192.168.101.41:8088/
+    //http://192.168.101.41:8088/；
 //    queryReturnProdIsContainFullGift
+
+    /**
+     *授权
+     */
+    public static final String Get_Auth = "hyl/home/hylUserAuthor";
     /**
      * 首页-获取优惠券数量
      */

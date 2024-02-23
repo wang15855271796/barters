@@ -76,6 +76,7 @@ public class HomeBaseModel {
          * popUps : {"id":0,"type":1,"url":"https://shaokao.qoger.com/apph5/html/yszc.html","jumpType":"disable","detailUrl":null,"gifts":null,"title":""}
          */
 
+        private String authorFlag;
         private String companyName;
         private String noticeNum;
         private SpikeBean spike;
@@ -91,6 +92,14 @@ public class HomeBaseModel {
         private String companyAddress;
         private String companyDesc;
         private int companyEnabled;
+
+        public String getAuthorFlag() {
+            return authorFlag;
+        }
+
+        public void setAuthorFlag(String authorFlag) {
+            this.authorFlag = authorFlag;
+        }
 
         public int getCompanyEnabled() {
             return companyEnabled;

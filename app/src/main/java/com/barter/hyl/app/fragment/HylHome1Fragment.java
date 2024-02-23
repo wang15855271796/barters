@@ -11,12 +11,14 @@ import com.barter.hyl.app.activity.HylMyCouponActivity;
 import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.event.AuthEvent;
 import com.barter.hyl.app.event.HomeScrollEvent;
 import com.barter.hyl.app.event.HotHylEvent;
 import com.barter.hyl.app.event.RefreshListEvent;
 import com.barter.hyl.app.model.CompanyInfoModel;
 import com.barter.hyl.app.model.HylCollectionModel;
 import com.barter.hyl.app.model.HylReturnNumModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.view.ExpandTabTextView;
 import com.barter.hyl.app.view.MyCompanyScrollView;
 import com.google.android.material.appbar.AppBarLayout;
@@ -386,7 +388,8 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
                         if (baseModel.getCode()==1) {
                             data = baseModel.getData();
                             tv_company.setText(data.getCompanyName());
-
+                            String authorFlag = data.getAuthorFlag();
+                            SharedPreferencesUtil.saveString(mActivity,"authorFlag",authorFlag);
                             //banner模块
                             if(data.getBanners()!=null&&data.getBanners().size()>0) {
                                 List<HomeBaseModel.DataBean.BannersBean> banners = data.getBanners();
@@ -869,6 +872,7 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
     public void getCategory(HotHylEvent hotHylEvent) {
         smart.autoRefresh();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void goTop(GoTopEvent goTopEvent) {
         appbar.setExpanded(true);
@@ -879,6 +883,11 @@ public class HylHome1Fragment extends BasesFragment implements View.OnClickListe
         if(Math.abs(homeScrollEvent.getLength())>25) {
             scrollCountTimer.start();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void refresh(AuthEvent authEvent) {
+        smart.autoRefresh();
     }
 
     public static Date getNowDate() {

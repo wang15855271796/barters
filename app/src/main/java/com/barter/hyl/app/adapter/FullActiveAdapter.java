@@ -12,8 +12,10 @@ import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.LoginActivity;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.dialog.FullDetailDialog;
 import com.barter.hyl.app.model.FullActiveDetailModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.view.RoundImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -53,9 +55,17 @@ public class FullActiveAdapter extends BaseQuickAdapter<FullActiveDetailModel.Da
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String authorFlag = SharedPreferencesUtil.getString(mContext, "authorFlag");
+
                 if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
-                    FullDetailDialog fullDialog = new FullDetailDialog(activity, item.getProductMainId());
-                    fullDialog.show();
+                    if(authorFlag.equals("1")) {
+                        FullDetailDialog fullDialog = new FullDetailDialog(activity, item.getProductMainId());
+                        fullDialog.show();
+                    }else {
+                        AuthDialog authDialog = new AuthDialog(mContext);
+                        authDialog.show();
+                    }
+
                 }else {
                     Intent intent = new Intent(mContext, LoginActivity.class);
                     mContext.startActivity(intent);

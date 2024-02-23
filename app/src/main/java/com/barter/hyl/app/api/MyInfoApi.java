@@ -247,4 +247,17 @@ public class MyInfoApi {
         return myModelObservable;
     }
 
+    //获取授权
+    public interface GetAuthService {
+        @FormUrlEncoded
+        @POST(AppInterfaceAddress.Get_Auth)
+        Observable<BaseModel> setParams(@Field("saleCode") String saleCode);
+    }
+
+    public static Observable<BaseModel>getAuth(Context context,String saleCode) {
+        Observable<BaseModel> myModelObservable = RestHelper.getBaseRetrofit(context).create(GetAuthService.class).setParams(saleCode);
+        return myModelObservable;
+    }
+
+
 }

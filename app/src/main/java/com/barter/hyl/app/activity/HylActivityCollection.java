@@ -19,12 +19,14 @@ import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.dialog.CollectionDialog;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.model.BaseModel;
 import com.barter.hyl.app.model.HylCartNumModel;
 import com.barter.hyl.app.model.HylMyCollectionModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -98,8 +100,15 @@ public class HylActivityCollection extends BaseActivity implements View.OnClickL
         hylMyCollectionAdapter = new HylMyCollectionAdapter(R.layout.item_collection_hyl,list,isCheck, new HylMyCollectionAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(int position) {
-                CollectionDialog collectionDialog = new CollectionDialog(mActivity,list.get(position));
-                collectionDialog.show();
+                String authorFlag = SharedPreferencesUtil.getString(mContext, "authorFlag");
+                if(authorFlag.equals("1")) {
+                    CollectionDialog collectionDialog = new CollectionDialog(mActivity,list.get(position));
+                    collectionDialog.show();
+                }else {
+                    AuthDialog authDialog = new AuthDialog(mContext);
+                    authDialog.show();
+                }
+
             }
         });
 

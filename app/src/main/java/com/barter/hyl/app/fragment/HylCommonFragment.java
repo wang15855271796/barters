@@ -9,15 +9,21 @@ import android.view.View;
 
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.activity.HylCommonGoodsActivity;
+import com.barter.hyl.app.activity.LoginActivity;
 import com.barter.hyl.app.adapter.HylHotAdapter;
 import com.barter.hyl.app.api.HomeApi;
 import com.barter.hyl.app.base.BaseFragment;
+import com.barter.hyl.app.constant.StringHelper;
+import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.dialog.CommonDialog;
+import com.barter.hyl.app.event.AuthEvent;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.GoTopEvent;
 import com.barter.hyl.app.event.HotHylEvent;
 import com.barter.hyl.app.event.RefreshListEvent;
 import com.barter.hyl.app.model.HylActiviteModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -73,8 +79,22 @@ public class HylCommonFragment extends BaseFragment {
         hylHotAdapter = new HylHotAdapter(R.layout.item_common_hyl, list, new HylHotAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(int position) {
-                CommonDialog commonDialog = new CommonDialog(mActivity,list.get(position));
-                commonDialog.show();
+                String authorFlag = SharedPreferencesUtil.getString(mActivity, "authorFlag");
+                if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
+                    if(authorFlag.equals("1")) {
+                        CommonDialog commonDialog = new CommonDialog(mActivity,list.get(position));
+                        commonDialog.show();
+                    }else {
+                        AuthDialog authDialog = new AuthDialog(mActivity);
+                        authDialog.show();
+                    }
+
+                }else {
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivity(intent);
+                }
+
+
             }
         });
         recyclerView.setAdapter(hylHotAdapter);
@@ -166,6 +186,15 @@ public class HylCommonFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getCommon(ChangeAccountHylEvent changeAccountHylEvent) {
         list.clear();
+        smart.autoRefresh();
+    }
+
+    /**
+     * 授权通知
+     * @param authEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void refreshList(AuthEvent authEvent) {
         smart.autoRefresh();
     }
 

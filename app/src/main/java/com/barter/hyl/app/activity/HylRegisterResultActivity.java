@@ -134,9 +134,14 @@ public class HylRegisterResultActivity extends BaseActivity implements View.OnCl
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().length()==6) {
-                    String authCode = s.toString();
-                    getAuthCompany(authCode);
+                if(s.toString().length()!=0) {
+                    rl_company_name.setVisibility(View.VISIBLE);
+                    if(s.toString().length()==6) {
+                        String authCode = s.toString();
+                        getAuthCompany(authCode);
+                    }
+                }else {
+                    rl_company_name.setVisibility(View.GONE);
                 }
 
             }
@@ -233,13 +238,14 @@ public class HylRegisterResultActivity extends BaseActivity implements View.OnCl
                 if(password.equals(passwordSure)) {
                     if(password.length()>6&& passwordSure.length()>6) {
                         if (StringHelper.isLetterDigit(et_password.getText().toString())) {
-                            if(!etAuthor.equals("")) {
-                                //registerType 0短信验证码
-//                                register(phone,passwordSure,et_yzm,etAuthor,"0");
-                                registers();
-                            }else {
-                                AppHelper.showMsg(mContext, "授权码不能为空");
-                            }
+                            registers();
+//                            if(!etAuthor.equals("")) {
+//                                //registerType 0短信验证码
+////                                register(phone,passwordSure,et_yzm,etAuthor,"0");
+//                                registers();
+//                            }else {
+//                                AppHelper.showMsg(mContext, "授权码不能为空");
+//                            }
                         } else {
                             AppHelper.showMsg(mContext, "密码由8-16位数字与字母组成");
                         }

@@ -18,13 +18,16 @@ import com.barter.hyl.app.api.HomeApi;
 import com.barter.hyl.app.base.BaseFragment;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.dialog.CommonDialog;
+import com.barter.hyl.app.event.AuthEvent;
 import com.barter.hyl.app.event.ChangeAccountHylEvent;
 import com.barter.hyl.app.event.GoTopEvent;
 import com.barter.hyl.app.event.HomeScrollEvent;
 import com.barter.hyl.app.event.HotHylEvent;
 import com.barter.hyl.app.event.RefreshListEvent;
 import com.barter.hyl.app.model.HylActiviteModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.MyScrollView2;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -85,9 +88,16 @@ public class HylHotFragment extends BaseFragment {
         hylHotAdapter = new HylHotAdapter(R.layout.item_common_hyl, list, new HylHotAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(int position) {
+                String authorFlag = SharedPreferencesUtil.getString(mActivity, "authorFlag");
                 if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
-                    CommonDialog commonDialog = new CommonDialog(mActivity,list.get(position));
-                    commonDialog.show();
+                    if(authorFlag.equals("1")) {
+                        CommonDialog commonDialog = new CommonDialog(mActivity,list.get(position));
+                        commonDialog.show();
+                    }else {
+                        AuthDialog authDialog = new AuthDialog(mActivity);
+                        authDialog.show();
+                    }
+
                 }else {
                     Intent intent = new Intent(mActivity, LoginActivity.class);
                     startActivity(intent);
@@ -201,6 +211,15 @@ public class HylHotFragment extends BaseFragment {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getHot(ChangeAccountHylEvent changeAccountHylEvent) {
+        smart.autoRefresh();
+    }
+
+    /**
+     * 授权通知
+     * @param authEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    public void refreshList(AuthEvent authEvent) {
         smart.autoRefresh();
     }
 

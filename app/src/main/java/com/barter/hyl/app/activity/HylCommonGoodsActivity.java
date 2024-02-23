@@ -33,6 +33,7 @@ import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.dialog.CommonDetailDialog;
 import com.barter.hyl.app.dialog.FullDetailDialog;
 import com.barter.hyl.app.dialog.FullDetailsDialog;
@@ -48,6 +49,7 @@ import com.barter.hyl.app.model.HylCommonDetailModel;
 import com.barter.hyl.app.model.PicVideoModel;
 import com.barter.hyl.app.model.TipsModel;
 import com.barter.hyl.app.model.VideoHolder;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.barter.hyl.app.view.DetailFlowLayout;
 import com.barter.hyl.app.view.FingerFrameLayout;
@@ -670,10 +672,17 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
             @Override
             public void addDialog(int position,int productId) {
                 hylChooseSpecAdapter.selectPosition(position);
+                String authorFlag = SharedPreferencesUtil.getString(mContext, "authorFlag");
                 if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mActivity))) {
-                    CommonDetailDialog commonDialog = new CommonDetailDialog(mActivity,data,position);
-                    commonDialog.show();
-                    exchangeList(productId,HylCommonGoodsActivity.this);
+                    if(authorFlag.equals("1")) {
+                        CommonDetailDialog commonDialog = new CommonDetailDialog(mActivity,data,position);
+                        commonDialog.show();
+                        exchangeList(productId,HylCommonGoodsActivity.this);
+                    }else {
+                        AuthDialog authDialog = new AuthDialog(mContext);
+                        authDialog.show();
+                    }
+
                 }else {
                     Intent intent = new Intent(mActivity, LoginActivity.class);
                     startActivity(intent);
@@ -729,9 +738,16 @@ public class HylCommonGoodsActivity extends BaseActivity implements View.OnClick
                 break;
 
             case R.id.tv_add_car:
+                String authorFlag = SharedPreferencesUtil.getString(mContext, "authorFlag");
                 if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
-                    CommonDetailDialog commonDetailDialog = new CommonDetailDialog(mActivity,data,0);
-                    commonDetailDialog.show();
+                    if(authorFlag.equals("1")) {
+                        CommonDetailDialog commonDetailDialog = new CommonDetailDialog(mActivity,data,0);
+                        commonDetailDialog.show();
+                    }else {
+                        AuthDialog authDialog = new AuthDialog(mContext);
+                        authDialog.show();
+                    }
+
                 }else {
                     Intent intent = new Intent(mContext,LoginActivity.class);
                     startActivity(intent);

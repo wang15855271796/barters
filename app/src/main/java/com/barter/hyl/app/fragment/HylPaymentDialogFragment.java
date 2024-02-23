@@ -503,7 +503,11 @@ public class HylPaymentDialogFragment extends DialogFragment {
                                     //银联
                                     SharedPreferencesUtil.saveString(getContext(),"payKey","4");
                                     payAliPay(hylPayInfoModel.getData().getPayToken());
-                                }else {
+                                }else if(hylPayInfoModel.getData().getPayType()==22&&payChannel == 2) {
+                                    //支付宝跳转小程序
+                                    SharedPreferencesUtil.saveString(getContext(),"payKey","5");
+                                    zhiFuBaoPay(hylPayInfoModel.getData().getPayToken());
+                                } else {
                                      //货到付款
                                      SharedPreferencesUtil.saveString(getContext(),"payKey","17");
                                      payDeliverPay();
@@ -530,6 +534,20 @@ public class HylPaymentDialogFragment extends DialogFragment {
                         }
                     }
                 });
+    }
+
+    /**
+     * 支付宝支付（小程序）
+     */
+    private void zhiFuBaoPay(String json) {
+        try {
+            String uri = json;
+            Intent intent = Intent.parseUri(uri, Intent.URI_INTENT_SCHEME);
+            startActivity(intent);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

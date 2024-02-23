@@ -20,11 +20,13 @@ import com.barter.hyl.app.api.DetailApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.dialog.SearchDialog;
 import com.barter.hyl.app.event.CartNumHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.model.HylCartNumModel;
 import com.barter.hyl.app.model.HylSearchResultModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -106,9 +108,16 @@ public class HylSearchResultActivity extends BaseActivity implements View.OnClic
         hylSearchResultAdapter = new HylSearchResultAdapter(R.layout.item_search_hyl, list, new HylSearchResultAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(String mainId,int position) {
+                String authorFlag = SharedPreferencesUtil.getString(mActivity, "authorFlag");
                 if(StringHelper.notEmptyAndNull(UserInfoHelper.getUserId(mContext))) {
-                    SearchDialog searchDialog = new SearchDialog(mActivity,list.get(position));
-                    searchDialog.show();
+                    if(authorFlag.equals("1")) {
+                        SearchDialog searchDialog = new SearchDialog(mActivity,list.get(position));
+                        searchDialog.show();
+                    }else {
+                        AuthDialog authDialog = new AuthDialog(mContext);
+                        authDialog.show();
+                    }
+
                 }else {
                     Intent intent = new Intent(mContext,LoginActivity.class);
                     startActivity(intent);

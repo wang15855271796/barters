@@ -19,11 +19,13 @@ import com.barter.hyl.app.api.HomeApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.StringHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
+import com.barter.hyl.app.dialog.AuthDialog;
 import com.barter.hyl.app.event.CartListHylEvent;
 import com.barter.hyl.app.event.JumpCartHylEvent;
 import com.barter.hyl.app.model.HylCartNumModel;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylSkillListModel;
+import com.barter.hyl.app.utils.SharedPreferencesUtil;
 import com.barter.hyl.app.utils.ToastUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -94,7 +96,14 @@ public class HylActiveListActivity extends BaseActivity implements View.OnClickL
         hylSkillListAdapter = new HylSkillListAdapter(R.layout.item_skill_hyl, list,skillList, new HylSkillListAdapter.OnAddClickListener() {
             @Override
             public void onAddClick(int activeType, int activeId, int num) {
-                addCartNum(activeType,-100,activeId,1);
+                String authorFlag = SharedPreferencesUtil.getString(mContext, "authorFlag");
+                if(authorFlag.equals("1")) {
+                    addCartNum(activeType,-100,activeId,1);
+                }else {
+                    AuthDialog authDialog = new AuthDialog(mContext);
+                    authDialog.show();
+                }
+
             }
         });
 
