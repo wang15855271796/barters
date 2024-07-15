@@ -92,7 +92,7 @@
                     android:paddingTop="@dimen/size_10dp"
                     android:paddingRight="@dimen/size_20dp"
                     android:paddingBottom="@dimen/size_10dp"
-                    android:text="售         后"
+                    android:text="售后"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size_15dp" />
 

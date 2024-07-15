@@ -77,6 +77,7 @@ public class HylAllOrderFragment extends BaseFragment {
             pageNum = 1;
             getMyOrderList();
         }
+
     }
 
     @Override
@@ -117,6 +118,7 @@ public class HylAllOrderFragment extends BaseFragment {
 
                 @Override
                 public void againBayOnclick(int position) {
+
                     getBuyAgain(position);
                 }
 
@@ -450,7 +452,7 @@ public class HylAllOrderFragment extends BaseFragment {
      * 再次购买
      */
     private void getBuyAgain(int position) {
-        OrderApi.getAgainBuy(mActivity, hylMyOrderListModels.getData().getList().get(position).getOrderId())
+        OrderApi.getAgainBuy(mActivity, list.get(position).getOrderId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylLoginModel>() {

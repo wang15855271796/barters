@@ -235,6 +235,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        dismiss();
     }
 
     /**
@@ -452,6 +453,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                                     SharedPreferencesUtil.saveString(getActivity(),"payKey","2");
                                     aliPay(hylPayInfoModel.getData().getPayToken());
                                 } else if (payChannel == 3 && jumpWx==1) {
+
                                     //微信支付(小程序)1
                                     if(DateUtil.isWeixin(getActivity())) {
                                         SharedPreferencesUtil.saveString(getActivity(),"payKey","3");
@@ -462,6 +464,7 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                                         t2.setComponent(lan.getComponent());
                                         startActivity(t2);
                                         weChatPay2(dataBean);
+                                        dismiss();
                                     }
                                 }else if(payChannel == 3 && jumpWx==0) {
                                     //微信支付
@@ -473,7 +476,13 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                                     //银联
                                     SharedPreferencesUtil.saveString(getActivity(),"payKey","4");
                                     payAliPay(hylPayInfoModel.getData().getPayToken());
-                                }else {
+                                }else if(hylPayInfoModel.getData().getPayType()==22&&payChannel == 2) {
+                                    //支付宝跳转小程序
+                                    SharedPreferencesUtil.saveString(getActivity(),"payKey","5");
+                                    zhiFuBaoPay(hylPayInfoModel.getData().getPayToken());
+                                }
+
+                                else {
                                     //货到付款
                                     SharedPreferencesUtil.saveString(getActivity(),"payKey","17");
                                     payDeliverPay();
@@ -485,6 +494,21 @@ public class HylDelayPayDialogFragment extends DialogFragment {
                     }
                 });
     }
+
+    /**
+     * 支付宝支付（小程序）
+     */
+    private void zhiFuBaoPay(String json) {
+        try {
+            String uri = json;
+            Intent intent = Intent.parseUri(uri, Intent.URI_INTENT_SCHEME);
+            startActivity(intent);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 货到付款
      * @param

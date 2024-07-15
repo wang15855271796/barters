@@ -99,6 +99,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
         }
     }
 
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -180,7 +181,24 @@ public class HylPaymentDialogFragment extends DialogFragment {
                 case R.id.btn_confirm_pay:
                     //调支付接口
                     av_loading.show();
-                    getPayInfo();
+                    if (payChannel == 3 && jumpWx==1) {
+                        //微信支付(小程序)1
+                        if (DateUtil.isWeixin(getActivity())) {
+                            SharedPreferencesUtil.saveString(getContext(), "payKey", "3");
+                            Intent lan = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+                            Intent t2 = new Intent(Intent.ACTION_MAIN);
+                            t2.addCategory(Intent.CATEGORY_LAUNCHER);
+                            t2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            t2.setComponent(lan.getComponent());
+                            startActivity(t2);
+                            weChatPay2(dataBean);
+                            av_loading.hide();
+//                            dismiss();
+                        }
+                    }else {
+                        getPayInfo();
+                    }
+
                     break;
 
                 case R.id.iv_closes:
@@ -213,12 +231,13 @@ public class HylPaymentDialogFragment extends DialogFragment {
             getActivity().finish();
         }
 
-//        if(outTradeNo!=null) {
-//            Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
-//            intent.putExtra(AppConstant.ORDERID,orderId);
-//            startActivity(intent);
-//            getActivity().finish();
-//        }
+        if(payChannel == 3 && jumpWx!=-1) {
+            Intent intent = new Intent(getActivity(), HylOrderDetailActivity.class);
+            intent.putExtra(AppConstant.ORDERID,orderId);
+            startActivity(intent);
+            getActivity().finish();
+            dismiss();
+        }
     }
 
     @Override
@@ -261,6 +280,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        dismiss();
     }
 
     /**
@@ -452,7 +472,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
     /**
      *获取支付信息
      */
-    int jumpWx = 0;
+    int jumpWx = -1;
     int errorFlag = 0;
     HylPayInfoModel.DataBean data;
     private void getPayInfo() {
@@ -480,18 +500,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
                                     //支付宝支付 已经改好了
                                     SharedPreferencesUtil.saveString(getContext(),"payKey","2");
                                     aliPay(hylPayInfoModel.getData().getPayToken());
-                                } else if (payChannel == 3 && jumpWx==1) {
-                                     //微信支付(小程序)1
-                                     if(DateUtil.isWeixin(getActivity())) {
-                                         SharedPreferencesUtil.saveString(getContext(),"payKey","3");
-                                         Intent lan = getActivity().getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
-                                         Intent t2 = new Intent(Intent.ACTION_MAIN);
-                                         t2.addCategory(Intent.CATEGORY_LAUNCHER);
-                                         t2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                         t2.setComponent(lan.getComponent());
-                                         startActivity(t2);
-                                         weChatPay2(dataBean);
-                                     }
+                                }  if (payChannel == 3 && jumpWx==1) {
 
                                 }else if(payChannel == 3 && jumpWx==0) {
                                      //微信支付
@@ -520,6 +529,7 @@ public class HylPaymentDialogFragment extends DialogFragment {
                                 public void Confirm() {
                                     errorFlag = 1;
                                     getPayInfo();
+                                    dismiss();
                                 }
 
                                 @Override

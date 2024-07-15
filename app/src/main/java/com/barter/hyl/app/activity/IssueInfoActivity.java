@@ -3,6 +3,7 @@ package com.barter.hyl.app.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -20,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +36,7 @@ import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
 import com.barter.hyl.app.constant.UserInfoHelper;
 import com.barter.hyl.app.dialog.InfoPayDialog;
+import com.barter.hyl.app.dialog.PermissionDialog;
 import com.barter.hyl.app.dialog.ShopStyleDialog;
 import com.barter.hyl.app.event.DeletePicEvent;
 import com.barter.hyl.app.event.InfoPayEvent;
@@ -415,30 +418,59 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
                 switch (view.getId()) {
                     case R.id.tv_album:
                         //相册
+
 //                        PictureSelector.create(IssueInfoActivity.this)
 //                                .openGallery(PictureMimeType.ofAll())
 //                                .maxSelectNum(maxSelectNum - selectList.size())
 //                                .minSelectNum(1)
+//                                .maxVideoSelectNum(1)
 //                                .imageSpanCount(4)
 //                                .queryMaxFileSize(55)
 //                                .loadImageEngine(GlideEngine.createGlideEngine())
 //                                .compress(true)
 //                                .isCamera(false)
+//                                .recordVideoSecond(30)
 //                                .selectionMode(PictureConfig.MULTIPLE)
 //                                .forResult(PictureConfig.CHOOSE_REQUEST);
-                        PictureSelector.create(IssueInfoActivity.this)
-                                .openGallery(PictureMimeType.ofAll())
-                                .maxSelectNum(maxSelectNum - selectList.size())
-                                .minSelectNum(1)
-                                .maxVideoSelectNum(1)
-                                .imageSpanCount(4)
-                                .queryMaxFileSize(55)
-                                .loadImageEngine(GlideEngine.createGlideEngine())
-                                .compress(true)
-                                .isCamera(false)
-                                .recordVideoSecond(30)
-                                .selectionMode(PictureConfig.MULTIPLE)
-                                .forResult(PictureConfig.CHOOSE_REQUEST);
+
+                        if(ContextCompat.checkSelfPermission(IssueInfoActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            PictureSelector.create(mActivity)
+                                    .openGallery(PictureMimeType.ofAll())
+                                    .maxSelectNum(1)
+                                    .maxVideoSelectNum(1)
+                                    .minSelectNum(1)
+                                    .queryMaxFileSize(55)
+                                    .imageSpanCount(4)
+                                    .recordVideoSecond(30)
+                                    .isCompress(true)
+                                    .loadImageEngine(GlideEngine.createGlideEngine())
+                                    .isCamera(false)
+                                    .selectionMode(PictureConfig.MULTIPLE)
+                                    .forResult(PictureConfig.CHOOSE_REQUEST);
+                        }else {
+                            PermissionDialog permissionDialog = new PermissionDialog(mContext) {
+                                @Override
+                                public void Confirm() {
+                                    dismiss();
+                                    PictureSelector.create(mActivity)
+                                            .openGallery(PictureMimeType.ofImage())
+                                            .maxSelectNum(1)
+                                            .maxVideoSelectNum(1)
+                                            .minSelectNum(1)
+                                            .queryMaxFileSize(55)
+                                            .recordVideoSecond(30)
+                                            .imageSpanCount(4)
+                                            .isCompress(true)
+                                            .loadImageEngine(GlideEngine.createGlideEngine())
+                                            .isCamera(false)
+                                            .selectionMode(PictureConfig.MULTIPLE)
+                                            .forResult(PictureConfig.CHOOSE_REQUEST);
+                                }
+                            };
+                            permissionDialog.show();
+                        }
+
+
                         break;
                     case R.id.tv_camera:
                         //拍照
@@ -486,6 +518,7 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
         listVideo.clear();
         listPic.clear();
         progressDialog.show();
+
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
@@ -529,6 +562,8 @@ public class IssueInfoActivity extends BaseActivity implements View.OnClickListe
 
                     break;
             }
+        }else {
+            progressDialog.dismiss();
         }
     }
 

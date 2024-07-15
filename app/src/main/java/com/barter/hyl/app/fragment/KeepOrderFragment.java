@@ -518,7 +518,7 @@ public class KeepOrderFragment extends BaseFragment implements View.OnClickListe
      * 再次购买
      */
     private void getBuyAgain(int position) {
-        OrderApi.getAgainBuy(mActivity, hylMyOrderListModels.getData().getList().get(position).getOrderId())
+        OrderApi.getAgainBuy(mActivity, list.get(position).getOrderId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<HylLoginModel>() {

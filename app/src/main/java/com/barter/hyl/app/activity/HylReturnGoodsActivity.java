@@ -2,9 +2,12 @@ package com.barter.hyl.app.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +30,7 @@ import com.barter.hyl.app.adapter.HylReturnMoneyAdapter;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.dialog.PermissionDialog;
 import com.barter.hyl.app.event.ReturnUnitHylEvent;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylReturnGoodModel;
@@ -463,16 +467,46 @@ public class HylReturnGoodsActivity extends BaseActivity implements View.OnClick
                 switch (view.getId()) {
                     case R.id.tv_album:
                         //相册
-                        PictureSelector.create(HylReturnGoodsActivity.this)
-                                .openGallery(PictureMimeType.ofImage())
-                                .maxSelectNum(maxSelectNum - selectList.size())
-                                .minSelectNum(1)
-                                .loadImageEngine(GlideEngine.createGlideEngine())
-                                .imageSpanCount(4)
-                                .compress(true)
-                                .isCamera(false)
-                                .selectionMode(PictureConfig.MULTIPLE)
-                                .forResult(PictureConfig.CHOOSE_REQUEST);
+//                        PictureSelector.create(HylReturnGoodsActivity.this)
+//                                .openGallery(PictureMimeType.ofImage())
+//                                .maxSelectNum(maxSelectNum - selectList.size())
+//                                .minSelectNum(1)
+//                                .loadImageEngine(GlideEngine.createGlideEngine())
+//                                .imageSpanCount(4)
+//                                .compress(true)
+//                                .isCamera(false)
+//                                .selectionMode(PictureConfig.MULTIPLE)
+//                                .forResult(PictureConfig.CHOOSE_REQUEST);
+                        if(ContextCompat.checkSelfPermission(HylReturnGoodsActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            PictureSelector.create(mActivity)
+                                    .openGallery(PictureMimeType.ofImage())
+                                    .maxSelectNum(maxSelectNum - selectList.size())
+                                    .minSelectNum(1)
+                                    .imageSpanCount(4)
+                                    .compress(true)
+                                    .loadImageEngine(GlideEngine.createGlideEngine())
+                                    .isCamera(false)
+                                    .selectionMode(PictureConfig.MULTIPLE)
+                                    .forResult(PictureConfig.CHOOSE_REQUEST);
+                        }else {
+                            PermissionDialog permissionDialog = new PermissionDialog(mContext) {
+                                @Override
+                                public void Confirm() {
+                                    dismiss();
+                                    PictureSelector.create(mActivity)
+                                            .openGallery(PictureMimeType.ofImage())
+                                            .maxSelectNum(maxSelectNum - selectList.size())
+                                            .minSelectNum(1)
+                                            .imageSpanCount(4)
+                                            .compress(true)
+                                            .loadImageEngine(GlideEngine.createGlideEngine())
+                                            .isCamera(false)
+                                            .selectionMode(PictureConfig.MULTIPLE)
+                                            .forResult(PictureConfig.CHOOSE_REQUEST);
+                                }
+                            };
+                            permissionDialog.show();
+                        }
                         break;
                     case R.id.tv_camera:
 

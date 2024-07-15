@@ -1,6 +1,7 @@
 package com.barter.hyl.app.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,12 +15,15 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.barter.app.model.SendImageModel;
 import com.barter.hyl.app.R;
 import com.barter.hyl.app.api.MyInfoApi;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.dialog.PermissionDialog;
 import com.barter.hyl.app.model.BaseModel;
 import com.barter.hyl.app.model.HylSendImageModel;
 import com.barter.hyl.app.utils.ToastUtil;
@@ -196,16 +200,47 @@ public class ApplyActivity extends BaseActivity implements View.OnClickListener 
                 switch (view.getId()) {
                     case R.id.tv_album:
                         //相册
-                        PictureSelector.create(mActivity)
-                                .openGallery(PictureMimeType.ofImage())
-                                .maxSelectNum(1)
-                                .minSelectNum(1)
-                                .imageSpanCount(4)
-                                .compress(true)
-                                .loadImageEngine(GlideEngine.createGlideEngine())
-                                .isCamera(false)
-                                .selectionMode(PictureConfig.MULTIPLE)
-                                .forResult(requestCode);
+//                        PictureSelector.create(mActivity)
+//                                .openGallery(PictureMimeType.ofImage())
+//                                .maxSelectNum(1)
+//                                .minSelectNum(1)
+//                                .imageSpanCount(4)
+//                                .compress(true)
+//                                .loadImageEngine(GlideEngine.createGlideEngine())
+//                                .isCamera(false)
+//                                .selectionMode(PictureConfig.MULTIPLE)
+//                                .forResult(requestCode);
+                        if(ContextCompat.checkSelfPermission(ApplyActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            PictureSelector.create(mActivity)
+                                    .openGallery(PictureMimeType.ofImage())
+                                    .maxSelectNum(1)
+                                    .minSelectNum(1)
+                                    .imageSpanCount(4)
+                                    .compress(true)
+                                    .loadImageEngine(GlideEngine.createGlideEngine())
+                                    .isCamera(false)
+                                    .selectionMode(PictureConfig.MULTIPLE)
+                                    .forResult(requestCode);
+                        }else {
+                            PermissionDialog permissionDialog = new PermissionDialog(mContext) {
+                                @Override
+                                public void Confirm() {
+                                    dismiss();
+                                    PictureSelector.create(mActivity)
+                                            .openGallery(PictureMimeType.ofImage())
+                                            .maxSelectNum(1)
+                                            .minSelectNum(1)
+                                            .imageSpanCount(4)
+                                            .compress(true)
+                                            .loadImageEngine(GlideEngine.createGlideEngine())
+                                            .isCamera(false)
+                                            .selectionMode(PictureConfig.MULTIPLE)
+                                            .forResult(requestCode);
+                                }
+                            };
+                            permissionDialog.show();
+                        }
+
                         break;
                     case R.id.tv_camera:
                         //拍照

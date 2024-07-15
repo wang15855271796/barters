@@ -1,9 +1,12 @@
 package com.barter.hyl.app.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.Gravity;
@@ -18,6 +21,7 @@ import com.barter.hyl.app.adapter.HylGoodsCommentAdapter;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.dialog.PermissionDialog;
 import com.barter.hyl.app.model.HylEvalGoodsModel;
 import com.barter.hyl.app.model.HylLoginModel;
 import com.barter.hyl.app.model.HylSendImageModel;
@@ -174,16 +178,47 @@ private int selectPosition;
                 switch (view.getId()) {
                     case R.id.tv_album:
                         //相册
-                        PictureSelector.create(JudgeActivity.this)
-                                .openGallery(PictureMimeType.ofImage())
-                                .maxSelectNum(1)
-                                .loadImageEngine(GlideEngine.createGlideEngine())
-                                .minSelectNum(1)
-                                .imageSpanCount(4)
-                                .compress(true)
-                                .isCamera(false)
-                                .selectionMode(PictureConfig.MULTIPLE)
-                                .forResult(PictureConfig.CHOOSE_REQUEST);
+                        if(ContextCompat.checkSelfPermission(JudgeActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            PictureSelector.create(mActivity)
+                                    .openGallery(PictureMimeType.ofImage())
+                                    .maxSelectNum(1)
+                                    .minSelectNum(1)
+                                    .imageSpanCount(4)
+                                    .compress(true)
+                                    .loadImageEngine(GlideEngine.createGlideEngine())
+                                    .isCamera(false)
+                                    .selectionMode(PictureConfig.MULTIPLE)
+                                    .forResult(PictureConfig.CHOOSE_REQUEST);
+                        }else {
+                            PermissionDialog permissionDialog = new PermissionDialog(mContext) {
+                                @Override
+                                public void Confirm() {
+                                    dismiss();
+                                    PictureSelector.create(mActivity)
+                                            .openGallery(PictureMimeType.ofImage())
+                                            .maxSelectNum(1)
+                                            .minSelectNum(1)
+                                            .imageSpanCount(4)
+                                            .compress(true)
+                                            .loadImageEngine(GlideEngine.createGlideEngine())
+                                            .isCamera(false)
+                                            .selectionMode(PictureConfig.MULTIPLE)
+                                            .forResult(PictureConfig.CHOOSE_REQUEST);
+                                }
+                            };
+                            permissionDialog.show();
+                        }
+
+//                        PictureSelector.create(JudgeActivity.this)
+//                                .openGallery(PictureMimeType.ofImage())
+//                                .maxSelectNum(1)
+//                                .loadImageEngine(GlideEngine.createGlideEngine())
+//                                .minSelectNum(1)
+//                                .imageSpanCount(4)
+//                                .compress(true)
+//                                .isCamera(false)
+//                                .selectionMode(PictureConfig.MULTIPLE)
+//                                .forResult(PictureConfig.CHOOSE_REQUEST);
                         break;
                     case R.id.tv_camera:
                         //拍照

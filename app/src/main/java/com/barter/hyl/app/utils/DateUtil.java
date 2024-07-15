@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -84,17 +85,29 @@ public class DateUtil {
 	 * 判断 用户是否安装微信客户端
 	 */
 	public static boolean isWeixin(Context context) {
+
+//		final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+//		List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+//		if (pinfo != null) {
+//			for (int i = 0; i < pinfo.size(); i++) {
+//				String pn = pinfo.get(i).packageName;
+//				Log.d("dswdasdwsd......",pn+"--");
+//				if (pn.equals("com.tencent.mm")) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+
 		final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-		List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
-		if (pinfo != null) {
-			for (int i = 0; i < pinfo.size(); i++) {
-				String pn = pinfo.get(i).packageName;
-				if (pn.equals("com.tencent.mm")) {
-					return true;
-				}
-			}
+//		List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+		try {
+			PackageInfo packageInfo = packageManager.getPackageInfo("com.tencent.mm", PackageManager.GET_ACTIVITIES);
+			return true;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	/**

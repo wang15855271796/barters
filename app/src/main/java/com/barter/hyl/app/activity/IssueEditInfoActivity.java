@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -25,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +37,7 @@ import com.barter.hyl.app.api.InfoListAPI;
 import com.barter.hyl.app.api.OrderApi;
 import com.barter.hyl.app.base.BaseActivity;
 import com.barter.hyl.app.constant.AppHelper;
+import com.barter.hyl.app.dialog.PermissionDialog;
 import com.barter.hyl.app.dialog.ShopStyleDialog;
 import com.barter.hyl.app.event.DeletePicEvent;
 import com.barter.hyl.app.event.DeletePicsEvent;
@@ -377,18 +380,54 @@ public class IssueEditInfoActivity extends BaseActivity implements View.OnClickL
                 switch (view.getId()) {
                     case R.id.tv_album:
                         //相册
-                        PictureSelector.create(IssueEditInfoActivity.this)
-                                .openGallery(PictureMimeType.ofAll())
-                                .maxSelectNum(1)
-                                .maxVideoSelectNum(1)
-//                                .minSelectNum(1)
-                                .queryMaxFileSize(55)
-                                .imageSpanCount(4)
-                                .isCompress(true)
-                                .isCamera(false)
-                                .loadImageEngine(GlideEngine.createGlideEngine())
-                                .selectionMode(PictureConfig.MULTIPLE)
-                                .forResult(PictureConfig.CHOOSE_REQUEST);
+//                        PictureSelector.create(IssueEditInfoActivity.this)
+//                                .openGallery(PictureMimeType.ofAll())
+//                                .maxSelectNum(1)
+//                                .maxVideoSelectNum(1)
+////                                .minSelectNum(1)
+//                                .queryMaxFileSize(55)
+//                                .imageSpanCount(4)
+//                                .isCompress(true)
+//                                .isCamera(false)
+//                                .loadImageEngine(GlideEngine.createGlideEngine())
+//                                .selectionMode(PictureConfig.MULTIPLE)
+//                                .forResult(PictureConfig.CHOOSE_REQUEST);
+
+                        if(ContextCompat.checkSelfPermission(IssueEditInfoActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                            PictureSelector.create(mActivity)
+                                    .openGallery(PictureMimeType.ofAll())
+                                    .maxSelectNum(1)
+                                    .maxVideoSelectNum(1)
+//                                    .minSelectNum(1)
+                                    .queryMaxFileSize(55)
+                                    .imageSpanCount(4)
+                                    .isCompress(true)
+                                    .loadImageEngine(GlideEngine.createGlideEngine())
+                                    .isCamera(false)
+                                    .selectionMode(PictureConfig.MULTIPLE)
+                                    .forResult(PictureConfig.CHOOSE_REQUEST);
+                        }else {
+                            PermissionDialog permissionDialog = new PermissionDialog(mContext) {
+                                @Override
+                                public void Confirm() {
+                                    dismiss();
+                                    PictureSelector.create(mActivity)
+                                            .openGallery(PictureMimeType.ofImage())
+                                            .maxSelectNum(1)
+                                            .maxVideoSelectNum(1)
+//                                            .minSelectNum(1)
+                                            .queryMaxFileSize(55)
+                                            .imageSpanCount(4)
+                                            .isCompress(true)
+                                            .loadImageEngine(GlideEngine.createGlideEngine())
+                                            .isCamera(false)
+                                            .selectionMode(PictureConfig.MULTIPLE)
+                                            .forResult(PictureConfig.CHOOSE_REQUEST);
+                                }
+                            };
+                            permissionDialog.show();
+                        }
+
                         break;
                 }
 

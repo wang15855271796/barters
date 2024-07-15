@@ -1,4 +1,4 @@
-package com.barter.procure.app.dialog;
+package com.barter.hyl.app.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -7,7 +7,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.barter.procure.app.R;
+import com.barter.hyl.app.R;
+
 
 public abstract class PermissionDialog extends Dialog {
     Context mContext;
